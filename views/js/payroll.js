@@ -118,7 +118,7 @@ $("#salaryVoucherForm").on("click", "button.addDeductionListing", function () {
       </div>
       <div class="form-group col-md-5 col-sm-4 col-xs-12">
         <label for="appendDeductionAmount">Amount</label>
-        <input type="number" class="form-control totalDeductions" id="appendDeductionAmount" min="0.00" step="0.01" value="0.00" name="deductionAmount[]">
+        <input type="number" class="form-control totalDeductions" id="appendDeductionAmount" min="0.00" step="0.01" value="0.00" name="deductionAmount[]" oninput="validity.valid||(value='');">
       </div>
       <div class="form-group col-md-2 col-sm-4 col-xs-12" style="padding-top: 23px;">
         <button type="button" id="addDeductionListing" class="btn btn-block btn-danger removeDeductionListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
@@ -174,10 +174,11 @@ $("#salaryVoucherForm").on("click", "button.removeDeductionListing", function ()
 $("#salaryVoucherForm").on("click", "button.removeOthersListing", function () {
 
   $(this).parent().parent().remove();
+  recalculateTotalOthers();
 
 });
 
-//CHANGE SALARY LISTING AMOUNT$(document.getElementById("newIsSGPR")).iCheck('check')
+//CHANGE SALARY LISTING AMOUNT
 $("#salaryVoucherForm").on("change", "input.grossPay", function () {
   recalculateGrossPay();
   if (document.getElementById("newIsSGPR").checked) {
@@ -204,6 +205,11 @@ $("#salaryVoucherForm").on("change", "input.totalDeductions", function () {
   recalculateTotalDeductions();
 })
 
+//CHANGE OTHERS LISTING AMOUNT
+$("#salaryVoucherForm").on("change", "input.totalOthers", function () {
+  recalculateTotalOthers();
+})
+
 /* SELECT2 */
 $('.newSalesInformation').select2({
   placeholder: "Select or type a number",
@@ -214,15 +220,98 @@ $('#newMonthOfVoucher').select2({
   placeholder: "Select month"
 });
 
+$('.newSalesInformation').on('select2:select', function (e) {
+  recalculatePersonalSales();
+});
+
+//SWITCH TO TAB UPON UNFILLED REQUIRED
+$('.postButton').click(function () {
+  $(':required:invalid', '#salaryVoucherForm').each(function () {
+     var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
+
+     $('.nav a[href="#' + id + '"]').tab('show');
+  });
+});
+
+
+//FUNCTIONS
 function recalculateGrossPay() {
   var currentGrossPay = 0;
 
   $("#salaryVoucherForm").find('input.grossPay').each(function (index, element) {
-    var amount = parseFloat($(element).val());
+    if ($(element).val() == 0.00) {
+      var amount = 0.00;
+      $(element).val(0.00);
+    } else {
+      var amount = parseFloat($(element).val());
+    }
     currentGrossPay = currentGrossPay + amount;
   })
 
   $("#newGrossPay").val(Number(currentGrossPay).toFixed(2));
+  calculateFinalAmount();
+}
+
+
+function recalculateTotalDeductions() {
+  var currentTotalDeductions = 0;
+
+  $("#salaryVoucherForm").find('input.totalDeductions').each(function (index, element) {
+    if ($(element).val() == 0.00) {
+      var amount = 0.00;
+      $(element).val(0.00);
+    } else {
+      var amount = parseFloat($(element).val());
+    }
+    currentTotalDeductions = currentTotalDeductions + amount;
+  })
+
+  $("#newTotalDeductions").val(Number(currentTotalDeductions).toFixed(2));
+  calculateFinalAmount();
+}
+
+function recalculateTotalOthers() {
+  var currentTotalOthers = 0;
+
+  $("#salaryVoucherForm").find('input.totalOthers').each(function (index, element) {
+    if ($(element).val() == 0.00) {
+      var amount = 0.00;
+      $(element).val(0.00);
+    } else {
+      var amount = parseFloat($(element).val());
+    }
+    currentTotalOthers = currentTotalOthers + amount;
+  })
+
+  $("#newTotalOthers").val(Number(currentTotalOthers).toFixed(2));
+  calculateFinalAmount();
+}
+
+function recalculatePersonalSales() {
+  var currentPersonalSales = 0;
+
+  $("#salaryVoucherForm").find('.newSalesInformation').each(function (index, element) {
+
+    if (isNaN(parseFloat($(element).val()))) {
+      var amount = 0.00;
+    } else {
+      var amount = parseFloat($(element).val());
+    }
+    currentPersonalSales = currentPersonalSales + amount;
+  })
+
+  $("#newPersonalSales").val(Number(currentPersonalSales).toFixed(2));
+}
+
+function calculateFinalAmount() {
+  currentFinalAmount = 0;
+
+  currentGrossPay = parseFloat($("#newGrossPay").val());
+  currentTotalDeductions = parseFloat($("#newTotalDeductions").val());
+  currentTotalOthers = parseFloat($("#newTotalOthers").val());
+
+  currentFinalAmount = currentGrossPay - currentTotalDeductions + currentTotalOthers;
+  $("#newFinalAmount").val(Number(currentFinalAmount).toFixed(2));
 }
 
 function setCPF() {
@@ -231,15 +320,4 @@ function setCPF() {
   CPF_employer = currentGrossPay * 0.17;
   $("#newCPFEmployee").val(Number(CPF_employee).toFixed(2));
   $("#newCPFEmployer").val(Number(CPF_employer).toFixed(2));
-}
-
-function recalculateTotalDeductions() {
-  var currentTotalDeductions = 0;
-
-  $("#salaryVoucherForm").find('input.totalDeductions').each(function (index, element) {
-    var amount = parseFloat($(element).val());
-    currentTotalDeductions = currentTotalDeductions + amount;
-  })
-
-  $("#newTotalDeductions").val(Number(currentTotalDeductions).toFixed(2));
 }

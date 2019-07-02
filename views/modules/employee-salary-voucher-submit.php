@@ -275,12 +275,14 @@
                                         <input type="hidden" id="newDeductionCPF" value="CPF-EE"
                                             name="deductionTitle[0]">
                                         <label for="newCPFEmployee">CPF-EE</label>
-                                        <input readonly type="number" class="form-control totalDeductions" id="newCPFEmployee" min="0.00"
-                                            step="0.01" value="0.00" name="deductionAmount[0]">
+                                        <input readonly type="number" class="form-control totalDeductions"
+                                            id="newCPFEmployee" min="0.00" step="0.01" value="0.00"
+                                            name="deductionAmount[0]">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <label for="newCPFEmployer">CPF-ER</label>
-                                        <input readonly type="number" class="form-control" id="newCPFEmployer" min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
+                                        <input readonly type="number" class="form-control" id="newCPFEmployer"
+                                            min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
                                     </div>
                                 </div>
                             </div>
@@ -341,6 +343,18 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                        <label for="newPersonalSales">Personal Sales</label>
+                                        <strong>S$&nbsp;</strong>
+                                        <input readonly type="number" class="form-control"
+                                            id="newPersonalSales" min="0.00" step="0.01" value="0.00"
+                                            name="newPersonalSales">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-4 col-sm-12 col-xs-12">
                                 <table class="table display table-hover table-bordered table-striped dt-responsive">
                                     <thead>
@@ -356,7 +370,7 @@
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'</td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
-                                                    <select required id="newSalesInformation'.$i.'" class="form-control newSalesInformation" name="newSalesInformation['.$i.']" class="form-control select2" style="width: 85%;">
+                                                    <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
                                                         <option selected value="Sick Leave">Sick Leave</option>
@@ -390,7 +404,7 @@
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'</td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
-                                                    <select required id="newSalesInformation'.$i.'" class="form-control newSalesInformation" name="newSalesInformation['.$i.']" class="form-control select2" style="width: 85%;">
+                                                    <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
                                                         <option selected value="Sick Leave">Sick Leave</option>
@@ -424,7 +438,7 @@
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'</td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
-                                                    <select required id="newSalesInformation'.$i.'" class="form-control newSalesInformation" name="newSalesInformation['.$i.']" class="form-control select2" style="width: 85%">
+                                                    <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
                                                         <option selected value="Sick Leave">Sick Leave</option>
@@ -520,15 +534,15 @@
 
                 <div class="box-footer">
                     <div class="pull-right">
-                        <label for="newGrossPay">Gross Pay:</label>
+                        <label for="newGrossPay">Gross Pay (+):</label>
                         <input readonly type="number" id="newGrossPay" class="form-control" name="newGrossPay"
                             value="0.00">
                         <p></p>
-                        <label for="newTotalDeductions">Total - Deductions:</label>
+                        <label for="newTotalDeductions">Total Deductions (-):</label>
                         <input readonly type="number" id="newTotalDeductions" class="form-control"
                             name="newTotalDeductions" value="0.00">
                         <p></p>
-                        <label for="newTotalOthers">Total - Others:</label>
+                        <label for="newTotalOthers">Total Others (+ / -) :</label>
                         <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
                             value="0.00">
                         <p></p>
@@ -544,9 +558,9 @@
                     <div class="pull-right">
                         <div class="form-group">
                             <p></p>
-                            <button type="submit" id="addSalaryListing" class="btn btn-info" style="width: 120px;"><i
+                            <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton" style="width: 120px;"><i
                                     class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>
-                            <button type="submit" id="addSalaryListing" class="btn btn-success" style="width: 120px;"><i
+                            <button type="submit" id="submitVoucher" class="btn btn-success postButton" style="width: 120px;"><i
                                     class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
                         </div>
                     </div>
