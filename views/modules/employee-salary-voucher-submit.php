@@ -1,0 +1,567 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Submit Salary Voucher
+            <small>Payroll Management</small>
+        </h1>
+    </section>
+
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title"><strong>Drafts</strong></h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                        <i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                        title="Remove">
+                        <i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="overflow-y: auto; width: 100%;">
+                    <table
+                        class="table display table-hover table-bordered table-striped dt-responsive tableSalaryVoucherDrafts"
+                        width="100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">ID</th>
+                                <th>Month</th>
+                                <th>Year</th>
+                                <th>Created on</th>
+                                <th>Modified on</th>
+                                <th class="none">Pay To Name</th>
+                                <th class="none">Gross Pay</th>
+                                <th class="none">Total Deductions</th>
+                                <th class="none">Total Others</th>
+                                <th class="none">Employee CPF</th>
+                                <th class="none">Employer CPF</th>
+                                <th class="none">Boutique</th>
+                                <th class="none">Boutique Sales</th>
+                                <th class="none">Personal Sales</th>
+                                <th class="none">Amount Brought Forward</th>
+                                <th class="none">Zero Sales Days</th>
+                                <th class="none">Reports Submitted</th>
+                                <th style="width: 40px;">Load</th>
+                                <th class="none" style="width: 40px;">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title pull-right"><?php echo date("Y"); ?> (Full Time)</h3>
+            </div>
+            <form id="salaryVoucherForm" role="form" method="POST">
+
+                <ul class="nav nav-tabs" id="tabContent">
+                    <li class="active"><a href="#salaryTab" data-toggle="tab">Salary</a></li>
+                    <li><a href="#deductionsTab" data-toggle="tab">Deductions</a></li>
+                    <li><a href="#othersTab" data-toggle="tab">Others</a></li>
+                    <li><a href="#dailySalesFigureTab" data-toggle="tab">Daily Sales Figure</a></li>
+                    <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
+                </ul>
+
+
+                <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
+                <input type="hidden" id="newYearOfVoucher" name="newYearOfVoucher" value="<?php echo date('Y') ?>">
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="salaryTab">
+                        <div class="box-body">
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Information</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newMonthOfVoucher">Salary Voucher for the Month of</label>
+                                        <select required id="newMonthOfVoucher" name="newMonthOfVoucher"
+                                            class="form-control select2" style="width: 100%;">
+                                            <option></option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newPayToPersonName">Pay To (as in NRIC)</label>
+                                        <input type="text" class="form-control" id="newPayToPersonName"
+                                            value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newDesignation">Designation</label>
+                                        <input readonly type="text" class="form-control" id="newDesignation"
+                                            value="<?php echo $_SESSION['designation'];?>">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newNRIC">NRIC</label>
+                                        <input readonly type="text" class="form-control" id="newNRIC"
+                                            value="<?php echo $_SESSION['nric'];?>">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newBankName">Bank Name</label>
+                                        <input readonly type="text" class="form-control" id="newBankName"
+                                            value="<?php echo $_SESSION['bank_name'];?>">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newBankAccount">Bank Account</label>
+                                        <input readonly type="text" class="form-control" id="newBankAccount"
+                                            value="<?php echo $_SESSION['bank_acct'];?>">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newBoutique">Boutique</label>
+                                        <input type="text" class="form-control" id="newBoutique" value=""
+                                            placeholder="e.g. TE(Taka), TE(Tangs)">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newBoutiqueSales">Boutique Sales</label>
+                                        <input type="text" class="form-control" id="newBoutiqueSales" value=""
+                                            placeholder="e.g. TE(Taka) $100, TE(Tangs) $200">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Salary</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                        <label for="newSalaryBasicPayTitle">Basic Pay</label>
+                                        <input readonly type="text" class="form-control" id="newSalaryBasicPayTitle"
+                                            name="salaryTitle[0]" value="Basic Pay">
+                                    </div>
+                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
+                                        <label for="newSalaryBasicPayAmount">Amount</label>
+                                        <input type="number" class="form-control grossPay" id="newSalaryBasicPayAmount"
+                                            min="0.00" step="0.01" value="0.00" name="salaryAmount[0]">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newSalaryBasicPayRemarks">Remarks</label>
+                                        <input type="text" class="form-control" id="newSalaryBasicPayRemarks"
+                                            name="salaryRemarks[0]">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                        <label for="newSalaryAttendanceTitle">Attendance</label>
+                                        <input readonly type="text" class="form-control" id="newSalaryAttendanceTitle"
+                                            name="salaryTitle[1]" value="Attendance">
+                                    </div>
+                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
+                                        <label for="newSalaryAttendanceAmount">Amount</label>
+                                        <input type="number" class="form-control grossPay"
+                                            id="newSalaryAttendanceAmount" min="0.00" step="0.01" value="0.00"
+                                            name="salaryAmount[1]">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newSalaryAttendanceRemarks">Remarks</label>
+                                        <input type="text" class="form-control" id="newSalaryAttendanceRemarks"
+                                            name="salaryRemarks[1]">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                        <label for="newSalaryProductivityTitle">Productivity</label>
+                                        <input readonly type="text" class="form-control" id="newSalaryProductivityTitle"
+                                            name="salaryTitle[2]" value="Productivity">
+                                    </div>
+                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
+                                        <label for="newSalaryProductivityAmount">Amount</label>
+                                        <input type="number" class="form-control grossPay"
+                                            id="newSalaryProductivityAmount" min="0.00" step="0.01" value="0.00"
+                                            name="salaryAmount[2]">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newSalaryProductivityRemarks">Remarks</label>
+                                        <input type="text" class="form-control" id="newSalaryProductivityRemarks"
+                                            name="salaryRemarks[2]">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div id="appendSalaryListing">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <button type="button" id="addSalaryListing"
+                                            class="btn btn-primary addSalaryListing"><i
+                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add Salary Listing</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="deductionsTab">
+
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Deductions</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label for="newIsSGPR">Singaporean/PR</label>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <input type="hidden" name='newIsSGPR' value="0" />
+                                        <input type="checkbox" class="minimal" id="newIsSGPR" name="newIsSGPR"
+                                            value="1">&nbsp;&nbsp;Yes
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <input type="hidden" id="newDeductionCPF" value="CPF-EE"
+                                            name="deductionTitle[0]">
+                                        <label for="newCPFEmployee">CPF-EE</label>
+                                        <input readonly type="number" class="form-control totalDeductions" id="newCPFEmployee" min="0.00"
+                                            step="0.01" value="0.00" name="deductionAmount[0]">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <label for="newCPFEmployer">CPF-ER</label>
+                                        <input readonly type="number" class="form-control" id="newCPFEmployer" min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row col-md-12 col-sm-12 col-xs-12">
+                                <div id="appendDeductionListing">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <button type="button" id="addDeductionListing"
+                                            class="btn btn-primary addDeductionListing"><i
+                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add Deduction Listing</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="othersTab">
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Others</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row col-md-12 col-sm-12 col-xs-12">
+                                <div id="appendOthersListing">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <button type="button" id="addOthersListing"
+                                            class="btn btn-primary addOthersListing"><i
+                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add "Others" Listing</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="dailySalesFigureTab">
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Daily Sales Figure</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <table class="table display table-hover table-bordered table-striped dt-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Sales Figure</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+
+                                        for ($i = 1; $i <= 10; $i++) {
+                                            echo'<tr>
+                                                <td style="width: 20px;">'.$i.'</td>
+                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                    <select required id="newSalesInformation'.$i.'" class="form-control newSalesInformation" name="newSalesInformation['.$i.']" class="form-control select2" style="width: 85%;">
+                                                        <option></option>
+                                                        <option disabled>Select or type a number</option>
+                                                        <option selected value="Sick Leave">Sick Leave</option>
+                                                        <option value="Annual Leave">Annual Leave</option>
+                                                        <option value="Unpaid Leave">Unpaid Leave</option>
+                                                        <option value="OFF">OFF</option>
+                                                        <option value="PH/RO">PH/RO</option>
+                                                        <option value="N/A">N/A</option>
+                                                    </select>
+                                                </td>
+                                            </tr>';
+                                        }
+
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <table class="table display table-hover table-bordered table-striped dt-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Sales Figure</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+
+                                        for ($i = 11; $i <= 20; $i++) {
+                                            echo'<tr>
+                                                <td style="width: 20px;">'.$i.'</td>
+                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                    <select required id="newSalesInformation'.$i.'" class="form-control newSalesInformation" name="newSalesInformation['.$i.']" class="form-control select2" style="width: 85%;">
+                                                        <option></option>
+                                                        <option disabled>Select or type a number</option>
+                                                        <option selected value="Sick Leave">Sick Leave</option>
+                                                        <option value="Annual Leave">Annual Leave</option>
+                                                        <option value="Unpaid Leave">Unpaid Leave</option>
+                                                        <option value="OFF">OFF</option>
+                                                        <option value="PH/RO">PH/RO</option>
+                                                        <option value="N/A">N/A</option>
+                                                    </select>
+                                                </td>
+                                            </tr>';
+                                        }
+
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <table class="table display table-hover table-bordered table-striped dt-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Sales Figure</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+
+                                        for ($i = 21; $i <= 31; $i++) {
+                                            echo'<tr>
+                                                <td style="width: 20px;">'.$i.'</td>
+                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                    <select required id="newSalesInformation'.$i.'" class="form-control newSalesInformation" name="newSalesInformation['.$i.']" class="form-control select2" style="width: 85%">
+                                                        <option></option>
+                                                        <option disabled>Select or type a number</option>
+                                                        <option selected value="Sick Leave">Sick Leave</option>
+                                                        <option value="Annual Leave">Annual Leave</option>
+                                                        <option value="Unpaid Leave">Unpaid Leave</option>
+                                                        <option value="OFF">OFF</option>
+                                                        <option value="PH/RO">PH/RO</option>
+                                                        <option value="N/A">N/A</option>
+                                                    </select>
+                                                </td>
+                                            </tr>';
+                                        }
+
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="attendanceTab">
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Attendance</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newOffDays">Off Days</label>
+                                        <input type="text" class="form-control" id="newOffDays" value=""
+                                            placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newLateDays">Late Days</label>
+                                        <input type="text" class="form-control" id="newLateDays" value=""
+                                            placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newLeaveMCDays">Leave/MC Days</label>
+                                        <input type="text" class="form-control" id="newLeaveMCDays" value=""
+                                            placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newTotalWorkingDays">Total Working Days</label>
+                                        <input type="number" class="form-control" id="newTotalWorkingDays" min="0"
+                                            step="0" value="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Annual Leave</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newLeaveEntitled">Leave Entitled</label>
+                                        <input type="number" class="form-control" id="newLeaveEntitled" min="0" step="0"
+                                            value="0">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newLeaveTaken">Leave Taken</label>
+                                        <input type="number" class="form-control" id="newLeaveTaken" min="0" step="0"
+                                            value="0">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newLeaveRemaining">Leave Remaining</label>
+                                        <input type="text" class="form-control" id="newLeaveRemaining" min="0" step="0"
+                                            value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-footer">
+                    <div class="pull-right">
+                        <label for="newGrossPay">Gross Pay:</label>
+                        <input readonly type="number" id="newGrossPay" class="form-control" name="newGrossPay"
+                            value="0.00">
+                        <p></p>
+                        <label for="newTotalDeductions">Total - Deductions:</label>
+                        <input readonly type="number" id="newTotalDeductions" class="form-control"
+                            name="newTotalDeductions" value="0.00">
+                        <p></p>
+                        <label for="newTotalOthers">Total - Others:</label>
+                        <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
+                            value="0.00">
+                        <p></p>
+                        <label for="newFinalAmount">Final Amount (OCBC):</label>
+                        <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
+                            value="0.00">
+                    </div>
+
+
+                </div>
+
+                <div class="box-footer">
+                    <div class="pull-right">
+                        <div class="form-group">
+                            <p></p>
+                            <button type="submit" id="addSalaryListing" class="btn btn-info" style="width: 120px;"><i
+                                    class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>
+                            <button type="submit" id="addSalaryListing" class="btn btn-success" style="width: 120px;"><i
+                                    class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                    $createSalaryVoucher = new PayrollController();
+                    $createSalaryVoucher->ctrCreateNewSalaryVoucher();
+                ?>
+            </form>
+
+        </div>
+
+
+
+
+    </section>
+</div>
