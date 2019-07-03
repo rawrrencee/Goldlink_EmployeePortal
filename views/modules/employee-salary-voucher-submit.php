@@ -78,6 +78,11 @@
                     <li><a href="#othersTab" data-toggle="tab">Others</a></li>
                     <li><a href="#dailySalesFigureTab" data-toggle="tab">Daily Sales Figure</a></li>
                     <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
+
+                    <div class="btn-group pull-right" style="padding: 10px;">
+                        <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
+                        <a class="btn btn-default btnNext">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+                    </div>
                 </ul>
 
 
@@ -121,7 +126,8 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newPayToPersonName">Pay To (as in NRIC)</label>
-                                        <input type="text" class="form-control" id="newPayToPersonName" name="newPayToPersonName"
+                                        <input type="text" class="form-control" id="newPayToPersonName"
+                                            name="newPayToPersonName"
                                             value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
                                     </div>
                                 </div>
@@ -131,8 +137,8 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newDesignation">Designation</label>
-                                        <input readonly type="text" class="form-control" id="newDesignation" name="newDesignation"
-                                            value="<?php echo $_SESSION['designation'];?>">
+                                        <input readonly type="text" class="form-control" id="newDesignation"
+                                            name="newDesignation" value="<?php echo $_SESSION['designation'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newNRIC">NRIC</label>
@@ -151,8 +157,8 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newBankAccount">Bank Account</label>
-                                        <input type="text" class="form-control" id="newBankAccount" name="newBankAccount"
-                                            value="<?php echo $_SESSION['bank_acct'];?>">
+                                        <input type="text" class="form-control" id="newBankAccount"
+                                            name="newBankAccount" value="<?php echo $_SESSION['bank_acct'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -161,12 +167,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newBoutique">Boutique</label>
-                                        <input type="text" class="form-control" id="newBoutique" value=""
+                                        <input type="text" class="form-control" id="newBoutique" name="newBoutique" value=""
                                             placeholder="e.g. TE(Taka), TE(Tangs)">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newBoutiqueSales">Boutique Sales</label>
-                                        <input type="text" class="form-control" id="newBoutiqueSales" value=""
+                                        <input type="text" class="form-control" id="newBoutiqueSales" name="newBoutiqueSales" value=""
                                             placeholder="e.g. TE(Taka) $100, TE(Tangs) $200">
                                     </div>
                                 </div>
@@ -353,7 +359,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -398,7 +404,7 @@
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option selected value="Sick Leave">Sick Leave</option>
+                                                        <option value="Sick Leave">Sick Leave</option>
                                                         <option value="Annual Leave">Annual Leave</option>
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
@@ -432,7 +438,7 @@
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option selected value="Sick Leave">Sick Leave</option>
+                                                        <option value="Sick Leave">Sick Leave</option>
                                                         <option value="Annual Leave">Annual Leave</option>
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
@@ -466,7 +472,7 @@
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option selected value="Sick Leave">Sick Leave</option>
+                                                        <option value="Sick Leave">Sick Leave</option>
                                                         <option value="Annual Leave">Annual Leave</option>
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
@@ -497,13 +503,13 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newOffDays">Off Days</label>
-                                        <input type="text" class="form-control" id="newOffDays" value="" name="newOffDays"
-                                            placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
+                                        <input type="text" class="form-control" id="newOffDays" value=""
+                                            name="newOffDays" placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLateDays">Late Days</label>
-                                        <input type="text" class="form-control" id="newLateDays" value=""name="newLateDays"
-                                            placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
+                                        <input type="text" class="form-control" id="newLateDays" value=""
+                                            name="newLateDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
                                     </div>
                                 </div>
                             </div>
@@ -511,13 +517,13 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLeaveMCDays">Leave/MC Days</label>
-                                        <input type="text" class="form-control" id="newLeaveMCDays" value="" name="newLeaveMCDays"
-                                            placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
+                                        <input type="text" class="form-control" id="newLeaveMCDays" value=""
+                                            name="newLeaveMCDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newTotalWorkingDays">Total Working Days</label>
-                                        <input type="number" class="form-control" id="newTotalWorkingDays" min="0" name="newTotalWorkingDays"
-                                            step="0" value="0">
+                                        <input type="number" class="form-control" id="newTotalWorkingDays" min="0"
+                                            name="newTotalWorkingDays" step="0" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -534,13 +540,13 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLeaveEntitled">Leave Entitled</label>
-                                        <input type="number" class="form-control" id="newLeaveEntitled" min="0" step="0" name="newLeaveEntitled"
-                                            value="0">
+                                        <input type="number" class="form-control" id="newLeaveEntitled" min="0" step="0"
+                                            name="newLeaveEntitled" value="0">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLeaveTaken">Leave Taken</label>
-                                        <input type="number" class="form-control" id="newLeaveTaken" min="0" step="0" name="newLeaveTaken"
-                                            value="0">
+                                        <input type="number" class="form-control" id="newLeaveTaken" min="0" step="0"
+                                            name="newLeaveTaken" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -548,8 +554,8 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLeaveRemaining">Leave Remaining</label>
-                                        <input type="text" class="form-control" id="newLeaveRemaining" min="0" step="0" name="newLeaveRemaining"
-                                            value="0">
+                                        <input type="text" class="form-control" id="newLeaveRemaining" min="0" step="0"
+                                            name="newLeaveRemaining" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -582,11 +588,17 @@
                 <div class="box-footer">
                     <div class="pull-right">
                         <div class="form-group">
-                            <p></p>
-                            <button type="reset" id="resetVoucher" class="btn btn-warning resetButton" style="width: 120px;"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Reset</button>
-
-                            <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton" style="width: 120px;"><i class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>
-                            <button type="submit" id="submitVoucher" class="btn btn-success postButton" style="width: 120px;"><i class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
+                            <div class="form-group">
+                                <button type="reset" id="resetVoucher" class="btn btn-warning resetButton"
+                                    style="width: 120px; margin-bottom: 10px;"><i
+                                        class="fa fa-refresh"></i>&nbsp;&nbsp;Reset</button>&nbsp;&nbsp;
+                                <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton"
+                                    style="width: 120px; margin-bottom: 10px;"><i
+                                        class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>&nbsp;&nbsp;
+                                <button type="submit" id="submitVoucher" class="btn btn-success postButton"
+                                    style="width: 120px; margin-bottom: 10px;"><i
+                                        class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -594,6 +606,7 @@
                 <?php
                     $createSalaryVoucher = new PayrollController();
                     $createSalaryVoucher->ctrCreateNewSalaryVoucher();
+                    $createSalaryVoucher->ctrEditSalaryVoucher();
                 ?>
             </form>
 
@@ -604,3 +617,8 @@
 
     </section>
 </div>
+
+<?php
+    $createSalaryVoucher = new PayrollController();
+    $createSalaryVoucher->ctrDeleteSalaryVoucher();   
+?>

@@ -28,8 +28,8 @@
                                 <th>Modified on</th>
                                 <th class="never">Person ID</th>
                                 <th class="never">Is Draft</th>
-                                <th class="never">Approved</th>
-                                <th class="never">Approved By</th>
+                                <th>Status</th>
+                                <th>Approved By</th>
                                 <th class="none">Pay To Name</th>
                                 <th class="none">Designation</th>
                                 <th class="none">NRIC</th>

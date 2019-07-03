@@ -77,7 +77,7 @@ $sql_details = array(
 	'host' => $db_host
 );
 
-$extraWhere = "is_draft = 1 AND person_id = ".$person_id;
+$extraWhere = "is_draft = 0 AND person_id = ".$person_id;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -50,7 +50,7 @@ var salaryVoucherDraftsTable = $('.tableSalaryVoucherDrafts').DataTable({
     "targets": 27,
     "data": null,
     "render": function (data, type, row) {
-      return "<button id='btnDeleteSalaryVoucherDraft' voucherId=" + row[0] + " class='btn btn-danger btn-sm'><i class='fa fa-times'></i></button>";
+      return "<button id='btnDeleteSalaryVoucherDraft' voucherId=" + row[0] + " class='btn btn-danger btn-sm btnDeleteSalaryVoucherDraft'><i class='fa fa-times'></i></button>";
     },
     "orderable": false,
     "responsivePriority": 3
@@ -77,12 +77,32 @@ salaryVoucherDraftsTable.columns().every(function () {
   });
 });
 
+$(".tableSalaryVoucherDrafts tbody").on("click", "button.btnDeleteSalaryVoucherDraft", function(){
+
+	var voucher_id = $(this).attr("voucherId");
+	
+	swal({
+
+		title: 'Are you sure you want to delete the draft?',
+		type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Cancel',
+    confirmButtonText: 'Delete'
+    }).then(function(result){
+      if (result.value) {
+
+      	window.location = "index.php?route=employee-salary-voucher-submit&voucherId="+voucher_id;
+
+      }
+    })
+})
+
 //APPEND DRAFT TO SALARY VOUCHER FORM UPON LOAD
 $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDraft", function () {
   var voucher_id = $(this).attr("voucherId");
 
-  window.location.reload();
-  
   var getSalaryVoucherById = new FormData();
   getSalaryVoucherById.append('getSalaryVoucherById', voucher_id);
 
@@ -165,15 +185,15 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                 <div class="form-row">
                   <div class="form-group col-md-4 col-sm-12 col-xs-12">
                     <label for="updateSalaryTitle">Title</label>
-                    <input required type="text" class="form-control" id="updateSalaryTitle" name="updateSalaryTitle[]" value="` + answer[i]['title'] + `">
+                    <input required type="text" class="form-control" id="updateSalaryTitle" name="salaryTitle[]" value="` + answer[i]['title'] + `">
                   </div>
                   <div class="form-group col-md-4 col-sm-12 col-xs-12">
                     <label for="updateSalaryAmount">Amount</label>
-                    <input type="number" class="form-control grossPay" id="updateSalaryAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="updateSalaryAmount[]">
+                    <input type="number" class="form-control grossPay" id="updateSalaryAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="salaryAmount[]">
                   </div>
                   <div class="form-group col-md-4 col-sm-12 col-xs-12">
                     <label for="updateSalaryRemarks">Remarks</label>
-                    <input type="text" class="form-control" id="updateSalaryRemarks" name="updateSalaryRemarks[]" value="` + answer[i]['remarks'] + `">
+                    <input type="text" class="form-control" id="updateSalaryRemarks" name="salaryRemarks[]" value="` + answer[i]['remarks'] + `">
                   </div>
                 </div>
                 `)
@@ -201,11 +221,11 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                     <div class="form-row">
                       <div class="form-group col-md-6 col-sm-12 col-xs-12">
                         <label for="updateDeductionTitle">Title</label>
-                        <input required type="text" class="form-control" id="updateDeductionTitle" name="updateDeductionTitle[]" value="` + answer[i]['title'] + `">
+                        <input required type="text" class="form-control" id="updateDeductionTitle" name="deductionTitle[]" value="` + answer[i]['title'] + `">
                       </div>
                       <div class="form-group col-md-6 col-sm-12 col-xs-12">
                         <label for="updateDeductionAmount">Amount</label>
-                        <input type="number" class="form-control grossPay" id="updateDeductionAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="updateSalaryAmount[]">
+                        <input type="number" class="form-control grossPay" id="updateDeductionAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="deductionAmount[]">
                       </div>
                     </div>
                     `)
@@ -229,11 +249,11 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                         <div class="form-row">
                           <div class="form-group col-md-6 col-sm-12 col-xs-12">
                             <label for="updateOtherTitle">Title</label>
-                            <input required type="text" class="form-control" id="updateOtherTitle" name="updateOtherTitle[]" value="` + answer[i]['title'] + `">
+                            <input required type="text" class="form-control" id="updateOtherTitle" name="othersTitle[]" value="` + answer[i]['title'] + `">
                           </div>
                           <div class="form-group col-md-6 col-sm-12 col-xs-12">
                             <label for="updateOtherAmount">Amount</label>
-                            <input type="number" class="form-control grossPay" id="updateOtherAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="updateSalaryAmount[]">
+                            <input type="number" class="form-control grossPay" id="updateOtherAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="othersAmount[]">
                           </div>
                         </div>
                       `)
@@ -253,12 +273,17 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                       console.log(answer);
                       for (var i = 0; i < answer.length; i++) {
                         if (answer[i]['sales_information'] != "Sick Leave" && answer[i]['sales_information'] != "Annual Leave" && answer[i]['sales_information'] != "Unpaid Leave" && answer[i]['sales_information'] != "OFF" && answer[i]['sales_information'] != "PH/RO" && answer[i]['sales_information'] != "N/A") {
-                        $('#newSalesInformation'+ i).append(`<option value="` + answer[i]['sales_information'] +`">`+ answer[i]['sales_information'] + `</option>`);
+                        $('#newSalesInformation'+ (i+1)).append(`<option value="` + answer[i]['sales_information'] +`">`+ answer[i]['sales_information'] + `</option>`);
                         }
-                        $('#newSalesInformation'+ i).val(answer[i]['sales_information']);
-                        $('#newSalesInformation'+ i).select2().trigger('change');
-                      }
+                        $('#newSalesInformation'+ (i+1)).val(answer[i]['sales_information']);
+                        $('#newSalesInformation'+ (i+1)).select2().trigger('change');
 
+                      }
+                      
+                      $('.newSalesInformation').select2({
+                        placeholder: "Select or type a number",
+                        tags: true
+                      });
 
                       $.ajax({
                         url: "ajax/payroll.ajax.php",
@@ -400,7 +425,7 @@ var mySalaryVouchersTable = $('.tableMySalaryVouchers').DataTable({
     { "data": 25 }
   ],
   "columnDefs": [{
-    "targets": [0, 1],
+    "targets": [0, 1, 7],
     "responsivePriority": 1
   }, {
     "targets": 26,
@@ -508,6 +533,7 @@ $('.newSalesInformation').on('select2:select', function (e) {
 });
 
 //SWITCH TO TAB UPON UNFILLED REQUIRED
+//BUTTONS STUFF HERE
 $('.postButton').click(function () {
   $(':required:invalid', '#salaryVoucherForm').each(function () {
     var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
@@ -530,6 +556,7 @@ $('#resetVoucher').click(function (event) {
   $("#appendOthersListing").html("");
 });
 
+//ON SUBMIT CREATE SALARY VOUCHER ASK FOR CONFIRMATION
 $('#salaryVoucherForm').on('submit', function (e) {
   e.preventDefault();
 
@@ -551,6 +578,15 @@ $('#salaryVoucherForm').on('submit', function (e) {
     $('#salaryVoucherForm').off('submit').submit();
   }
 
+});
+
+//NEXT AND PREVIOUS BUTTONS FOR TABS
+$('.btnNext').click(function(){
+  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+});
+
+  $('.btnPrevious').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
 });
 
 //FUNCTIONS
