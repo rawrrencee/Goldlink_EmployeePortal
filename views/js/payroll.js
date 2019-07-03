@@ -42,7 +42,7 @@ var salaryVoucherDraftsTable = $('.tableSalaryVoucherDrafts').DataTable({
     "targets": 26,
     "data": null,
     "render": function (data, type, row) {
-      return "<button id='btnEditSalaryVoucherDraft' voucherId=" + row[0] + " class='btn btn-warning btn-sm'><i class='fa fa-download'></i></button>";
+      return "<button id='btnLoadSalaryVoucherDraft' voucherId=" + row[0] + " class='btn btn-warning btn-sm btnLoadSalaryVoucherDraft'><i class='fa fa-download'></i></button>";
     },
     "orderable": false,
     "responsivePriority": 2
@@ -75,6 +75,221 @@ salaryVoucherDraftsTable.columns().every(function () {
   $('input', this.header()).on('click', function (e) {
     e.stopPropagation();
   });
+});
+
+//APPEND DRAFT TO SALARY VOUCHER FORM UPON LOAD
+$(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDraft", function () {
+  var voucher_id = $(this).attr("voucherId");
+
+  window.location.reload();
+  
+  var getSalaryVoucherById = new FormData();
+  getSalaryVoucherById.append('getSalaryVoucherById', voucher_id);
+
+  var getSalaryRecordsByVoucherId = new FormData();
+  getSalaryRecordsByVoucherId.append('getSalaryRecordsByVoucherId', voucher_id);
+
+  var getDeductionRecordsByVoucherId = new FormData();
+  getDeductionRecordsByVoucherId.append('getDeductionRecordsByVoucherId', voucher_id);
+
+  var getOtherRecordsByVoucherId = new FormData();
+  getOtherRecordsByVoucherId.append('getOtherRecordsByVoucherId', voucher_id);
+
+  var getDailySalesFigureByVoucherId = new FormData();
+  getDailySalesFigureByVoucherId.append('getDailySalesFigureByVoucherId', voucher_id);
+
+  var getAttendanceRecordsByVoucherId = new FormData();
+  getAttendanceRecordsByVoucherId.append('getAttendanceRecordsByVoucherId', voucher_id);
+
+  $.ajax({
+    url: "ajax/payroll.ajax.php",
+    method: "POST",
+    data: getSalaryVoucherById,
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function (answer) {
+      $('#currentVoucherId').val(answer['voucher_id']);
+      $('#currentCreatedOn').val(answer['created_on']);
+      $('#newIsDraft').val(answer['is_draft']);
+      $('#newYearOfVoucher').val(answer['year_of_voucher']);
+      $('#newMonthOfVoucher').val(answer['month_of_voucher']);
+      $('#newMonthOfVoucher').select2().trigger('change');
+      $('#newPayToPersonName').val(answer['pay_to_name']);
+      $('#newDesignation').val(answer['designation']);
+      $('#newNRIC').val(answer['nric']);
+      $('#newBankName').val(answer['bank_name']);
+      $('#newBankAccount').val(answer['bank_acct']);
+      $('#newGrossPay').val(answer['gross_pay']);
+      $('#newTotalDeductions').val(answer['total_deductions']);
+      $('#newTotalOthers').val(answer['total_others']);
+      $('#newFinalAmount').val(answer['final_amount']);
+      if (answer['is_sg_pr'] == 1) {
+        $('#newIsSGPR').iCheck('check');
+      } else {
+        $('#newIsSGPR').iCheck('uncheck');
+      }
+      $('#newCPFEmployee').val(answer['cpf_employee']);
+      $('#newCPFEmployer').val(answer['cpf_employer']);
+      $('#newBoutique').val(answer['boutique']);
+      $('#newBoutiqueSales').val(answer['boutique_sales']);
+      $('#newPersonalSales').val(answer['personal_sales']);
+      $('#newNumDaysZeroSales').val(answer['num_days_zero_sales']);
+      $('#newNumReportsSubmitted').val(answer['num_reports_submitted']);
+
+      $.ajax({
+        url: "ajax/payroll.ajax.php",
+        method: "POST",
+        data: getSalaryRecordsByVoucherId,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (answer) {
+
+          console.log(answer);
+          for (var i = 0; i < answer.length; i++) {
+            if (answer[i]['title'] == "Basic Pay") {
+              $('#newSalaryBasicPayAmount').val(answer[i]['amount']);
+              $('#newSalaryBasicPayRemarks').val(answer[i]['remarks']);
+            } else if (answer[i]['title'] == "Attendance") {
+              $('#newSalaryAttendanceAmount').val(answer[i]['amount']);
+              $('#newSalaryAttendanceRemarks').val(answer[i]['remarks']);
+            } else if (answer[i]['title'] == "Productivity") {
+              $('#newSalaryProductivityAmount').val(answer[i]['amount']);
+              $('#newSalaryProductivityRemarks').val(answer[i]['remarks']);
+            } else {
+              $("#appendSalaryListing").append(
+                `
+                <div class="form-row">
+                  <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                    <label for="updateSalaryTitle">Title</label>
+                    <input required type="text" class="form-control" id="updateSalaryTitle" name="updateSalaryTitle[]" value="` + answer[i]['title'] + `">
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                    <label for="updateSalaryAmount">Amount</label>
+                    <input type="number" class="form-control grossPay" id="updateSalaryAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="updateSalaryAmount[]">
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                    <label for="updateSalaryRemarks">Remarks</label>
+                    <input type="text" class="form-control" id="updateSalaryRemarks" name="updateSalaryRemarks[]" value="` + answer[i]['remarks'] + `">
+                  </div>
+                </div>
+                `)
+            }
+          }
+
+
+          $.ajax({
+            url: "ajax/payroll.ajax.php",
+            method: "POST",
+            data: getDeductionRecordsByVoucherId,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (answer) {
+
+              console.log(answer);
+              for (var i = 0; i < answer.length; i++) {
+                if (answer[i]['title'] == "CPF-EE") {
+                  $('#newCPFEmployee').val(answer[i]['amount']);
+                } else {
+                  $("#appendDeductionListing").append(
+                    `
+                    <div class="form-row">
+                      <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                        <label for="updateDeductionTitle">Title</label>
+                        <input required type="text" class="form-control" id="updateDeductionTitle" name="updateDeductionTitle[]" value="` + answer[i]['title'] + `">
+                      </div>
+                      <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                        <label for="updateDeductionAmount">Amount</label>
+                        <input type="number" class="form-control grossPay" id="updateDeductionAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="updateSalaryAmount[]">
+                      </div>
+                    </div>
+                    `)
+                }
+              }
+
+              $.ajax({
+                url: "ajax/payroll.ajax.php",
+                method: "POST",
+                data: getOtherRecordsByVoucherId,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (answer) {
+
+                  console.log(answer);
+                  for (var i = 0; i < answer.length; i++) {
+                    $("#appendOthersListing").append(
+                      `
+                        <div class="form-row">
+                          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                            <label for="updateOtherTitle">Title</label>
+                            <input required type="text" class="form-control" id="updateOtherTitle" name="updateOtherTitle[]" value="` + answer[i]['title'] + `">
+                          </div>
+                          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                            <label for="updateOtherAmount">Amount</label>
+                            <input type="number" class="form-control grossPay" id="updateOtherAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="updateSalaryAmount[]">
+                          </div>
+                        </div>
+                      `)
+                  }
+
+
+                  $.ajax({
+                    url: "ajax/payroll.ajax.php",
+                    method: "POST",
+                    data: getDailySalesFigureByVoucherId,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (answer) {
+
+                      console.log(answer);
+                      for (var i = 0; i < answer.length; i++) {
+                        if (answer[i]['sales_information'] != "Sick Leave" && answer[i]['sales_information'] != "Annual Leave" && answer[i]['sales_information'] != "Unpaid Leave" && answer[i]['sales_information'] != "OFF" && answer[i]['sales_information'] != "PH/RO" && answer[i]['sales_information'] != "N/A") {
+                        $('#newSalesInformation'+ i).append(`<option value="` + answer[i]['sales_information'] +`">`+ answer[i]['sales_information'] + `</option>`);
+                        }
+                        $('#newSalesInformation'+ i).val(answer[i]['sales_information']);
+                        $('#newSalesInformation'+ i).select2().trigger('change');
+                      }
+
+
+                      $.ajax({
+                        url: "ajax/payroll.ajax.php",
+                        method: "POST",
+                        data: getAttendanceRecordsByVoucherId,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function (answer) {
+
+                          console.log(answer);
+                          $('#newOffDays').val(answer['off_days']);
+                          $('#newLateDays').val(answer['late_days']);
+                          $('#newLeaveMCDays').val(answer['leave_mc_days']);
+                          $('#newTotalWorkingDays').val(answer['total_working_days']);
+                          $('#newLeaveEntitled').val(answer['leave_entitled']);
+                          $('#newLeaveTaken').val(answer['leave_taken']);
+                          $('#newLeaveRemaining').val(answer['leave_remaining']);
+                        }
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
 });
 
 
@@ -295,9 +510,9 @@ $('.newSalesInformation').on('select2:select', function (e) {
 //SWITCH TO TAB UPON UNFILLED REQUIRED
 $('.postButton').click(function () {
   $(':required:invalid', '#salaryVoucherForm').each(function () {
-     var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
+    var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
 
-     $('.nav a[href="#' + id + '"]').tab('show');
+    $('.nav a[href="#' + id + '"]').tab('show');
   });
 });
 
@@ -305,8 +520,37 @@ $('#saveDraftVoucher').click(function () {
   $("#newIsDraft").val(1);
 });
 
-$('#submitVoucher').click(function () {
+$('#submitVoucher').click(function (event) {
   $("#newIsDraft").val(0);
+});
+
+$('#resetVoucher').click(function (event) {
+  $("#appendSalaryListing").html("");
+  $("#appendDeductionListing").html("");
+  $("#appendOthersListing").html("");
+});
+
+$('#salaryVoucherForm').on('submit', function (e) {
+  e.preventDefault();
+
+  if ($("#newIsDraft").val() == 0) {
+    swal({
+      type: "warning",
+      title: "Confirm submit? No changes can be made after submission.",
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: "Confirm"
+    }).then(function (result) {
+      if (result.value) {
+        $('#salaryVoucherForm').off('submit').submit();
+      }
+    });
+  } else {
+    $('#salaryVoucherForm').off('submit').submit();
+  }
+
 });
 
 //FUNCTIONS

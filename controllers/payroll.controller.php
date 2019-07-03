@@ -3,6 +3,55 @@
 class PayrollController
 {
 
+    public static function ctrViewSalaryVoucherById($value){
+
+        $response = PayrollModel::mdlViewSalaryVoucherById($value);
+
+        return $response;
+
+    }
+
+    public static function ctrViewSalaryRecordsByVoucherId($value){
+
+        $response = PayrollModel::mdlViewSalaryRecordsByVoucherId($value);
+
+        return $response;
+        
+    }
+
+    public static function ctrViewDeductionRecordsByVoucherId($value){
+
+        $response = PayrollModel::mdlViewDeductionRecordsByVoucherId($value);
+
+        return $response;
+        
+    }
+
+    public static function ctrViewOtherRecordsByVoucherId($value){
+
+        $response = PayrollModel::mdlViewOtherRecordsByVoucherId($value);
+
+        return $response;
+        
+    }
+
+    public static function ctrViewDailySalesFigureByVoucherId($value){
+
+        $response = PayrollModel::mdlViewDailySalesFigureByVoucherId($value);
+
+        return $response;
+        
+    }
+
+    public static function ctrViewAttendanceRecordsByVoucherId($value){
+
+        $response = PayrollModel::mdlViewAttendanceRecordsByVoucherId($value);
+
+        return $response;
+        
+    }
+
+
     public static function ctrCreateNewSalaryVoucher()
     {
         if (isset($_POST['newIsDraft'])) {
@@ -11,11 +60,11 @@ class PayrollController
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
             $submittedForm['person_id'] = $_SESSION['person_id'];
             if ($_POST['voucher_id'] != null) {
-                $submittedForm['voucher_id'] = (int)filter_var((int)$_POST['voucher_id'], FILTER_SANITIZE_NUMBER_INT);
+                $submittedForm['voucher_id'] = (int) filter_var((int) $_POST['voucher_id'], FILTER_SANITIZE_NUMBER_INT);
             }
-            $submittedForm['is_draft'] = (int)filter_var((int)$_POST['newIsDraft'], FILTER_SANITIZE_NUMBER_INT);
-            $submittedForm['year_of_voucher'] = (int)filter_var((int)($_POST['newYearOfVoucher']), FILTER_SANITIZE_NUMBER_INT);
-            $submittedForm['month_of_voucher'] = (int)filter_var((int)$_POST['newMonthOfVoucher'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['is_draft'] = (int) filter_var((int) $_POST['newIsDraft'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['year_of_voucher'] = (int) filter_var((int) ($_POST['newYearOfVoucher']), FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['month_of_voucher'] = (int) filter_var((int) $_POST['newMonthOfVoucher'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['pay_to_name'] = filter_var($_POST['newPayToPersonName'], FILTER_SANITIZE_STRING);
             $submittedForm['designation'] = filter_var($_POST['newDesignation'], FILTER_SANITIZE_STRING);
             $submittedForm['nric'] = filter_var($_POST['newNRIC'], FILTER_SANITIZE_STRING);
@@ -27,11 +76,11 @@ class PayrollController
             if ($_POST['newBoutiqueSales'] != null) {
                 $submittedForm['boutique_sales'] = filter_var($_POST['newBoutiqueSales'], FILTER_SANITIZE_STRING);
             }
-            $submittedForm['is_sg_pr'] = (int)filter_var((int)$_POST['newIsSGPR'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['is_sg_pr'] = (int) filter_var((int) $_POST['newIsSGPR'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['cpf_employee'] = number_format(floatval(filter_var($_POST['deductionAmount'][0], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['cpf_employer'] = number_format(floatval(filter_var($_POST['newCPFEmployer'], FILTER_SANITIZE_STRING)), 2, '.', '');
-            $submittedForm['num_days_zero_sales'] = (int)filter_var((int)$_POST['newNumDaysZeroSales'], FILTER_SANITIZE_NUMBER_INT);
-            $submittedForm['num_reports_submitted'] = (int)filter_var((int)$_POST['newNumReportsSubmitted'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['num_days_zero_sales'] = (int) filter_var((int) $_POST['newNumDaysZeroSales'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['num_reports_submitted'] = (int) filter_var((int) $_POST['newNumReportsSubmitted'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['personal_sales'] = number_format(floatval(filter_var($_POST['newPersonalSales'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['gross_pay'] = number_format(floatval(filter_var($_POST['newGrossPay'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['total_deductions'] = number_format(floatval(filter_var($_POST['newTotalDeductions'], FILTER_SANITIZE_STRING)), 2, '.', '');
@@ -41,10 +90,10 @@ class PayrollController
             $submittedForm['off_days'] = filter_var($_POST['newOffDays'], FILTER_SANITIZE_STRING);
             $submittedForm['late_days'] = filter_var($_POST['newLateDays'], FILTER_SANITIZE_STRING);
             $submittedForm['leave_mc_days'] = filter_var($_POST['newLeaveMCDays'], FILTER_SANITIZE_STRING);
-            $submittedForm['total_working_days'] = (int)filter_var((int)$_POST['newTotalWorkingDays'], FILTER_SANITIZE_NUMBER_INT);
-            $submittedForm['leave_entitled'] = (int)filter_var((int)$_POST['newLeaveEntitled'], FILTER_SANITIZE_NUMBER_INT);
-            $submittedForm['leave_taken'] = (int)filter_var((int)$_POST['newLeaveTaken'], FILTER_SANITIZE_NUMBER_INT);
-            $submittedForm['leave_remaining'] = (int)filter_var((int)$_POST['newLeaveRemaining'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['total_working_days'] = (int) filter_var((int) $_POST['newTotalWorkingDays'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['leave_entitled'] = (int) filter_var((int) $_POST['newLeaveEntitled'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['leave_taken'] = (int) filter_var((int) $_POST['newLeaveTaken'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['leave_remaining'] = (int) filter_var((int) $_POST['newLeaveRemaining'], FILTER_SANITIZE_NUMBER_INT);
 
             //PARSE & SANITIZE ARRAY BASED INPUTS
             foreach ($_POST['salaryTitle'] as $index => $salaryTitle) {
@@ -65,8 +114,8 @@ class PayrollController
                 }
             }
 
-            foreach($_POST['newSalesInformation'] as $index => $salesInformation) {
-                $submittedForm['newDayOfMonth'][$index] = (int)filter_var((int)$_POST['newDayOfMonth'][$index], FILTER_SANITIZE_NUMBER_INT);
+            foreach ($_POST['newSalesInformation'] as $index => $salesInformation) {
+                $submittedForm['newDayOfMonth'][$index] = (int) filter_var((int) $_POST['newDayOfMonth'][$index], FILTER_SANITIZE_NUMBER_INT);
                 $submittedForm['newSalesInformation'][$index] = filter_var($salesInformation, FILTER_SANITIZE_STRING);
             }
 
@@ -109,14 +158,69 @@ class PayrollController
                 'other_titles' => $submittedForm['othersTitle'],
                 'other_amounts' => $submittedForm['othersAmount'],
                 'days_of_month' => $submittedForm['newDayOfMonth'],
-                'sales_information' => $submittedForm['newSalesInformation']
+                'sales_information' => $submittedForm['newSalesInformation'],
             );
-
-            echo "<script type='text/javascript'> alert('" . json_encode($salaryVoucherData) . "') </script>";
 
             $response = PayrollModel::mdlCreateNewSalaryVoucher($salaryVoucherData);
 
-            echo "<script type='text/javascript'> alert('" . json_encode($response) . "') </script>";
+            if ($response) {
+                if ($submittedForm['is_draft'] == 1) {
+                    echo '<script>
+
+						swal({
+							type: "success",
+							title: "Draft saved succesfully.",
+							showConfirmButton: true,
+							confirmButtonText: "Close"
+
+						}).then(function(result){
+
+							if(result.value){
+
+								window.location = "employee-salary-voucher-submit";
+							}
+
+						});
+
+                        </script>';
+                } else {
+                    echo '<script>
+
+						swal({
+							type: "success",
+							title: "Salary information submitted succesfully.",
+							showConfirmButton: true,
+							confirmButtonText: "Close"
+
+						}).then(function(result){
+
+							if(result.value){
+
+								window.location = "employee-salary-voucher-submit";
+							}
+
+						});
+
+                        </script>';
+                }
+            } else {
+                echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "An error occurred. Your information was not saved.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-salary-voucher-submit";
+                            }
+                    });
+                </script>';
+            }
 
         }
     }

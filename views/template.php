@@ -77,7 +77,7 @@ session_start();
     <!-- SweetAlert2 -->
     <script src="views/plugins/sweetalert2/sweetalert2.all.js"></script>
     <!-- By default SweetAlert2 doesn't support IE. To enable IE 11 support, include Promise polyfill -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <script type="text/javascript" src="views/plugins/sweetalert2/core.js"></script>
     <!-- iCheck 1.0.1 -->
     <script src="views/plugins/iCheck/icheck.min.js"></script>
     <!-- date-range-picker -->

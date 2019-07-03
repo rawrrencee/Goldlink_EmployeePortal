@@ -82,6 +82,7 @@
 
 
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
+                <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
                 <input type="hidden" id="newYearOfVoucher" name="newYearOfVoucher" value="<?php echo date('Y') ?>">
 
@@ -582,10 +583,10 @@
                     <div class="pull-right">
                         <div class="form-group">
                             <p></p>
-                            <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton"
-                                style="width: 120px;"><i class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>
-                            <button type="submit" id="submitVoucher" class="btn btn-success postButton"
-                                style="width: 120px;"><i class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
+                            <button type="reset" id="resetVoucher" class="btn btn-warning resetButton" style="width: 120px;"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Reset</button>
+
+                            <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton" style="width: 120px;"><i class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>
+                            <button type="submit" id="submitVoucher" class="btn btn-success postButton" style="width: 120px;"><i class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
                         </div>
                     </div>
                 </div>

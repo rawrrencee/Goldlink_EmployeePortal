@@ -4,6 +4,60 @@ require_once "connection.php";
 
 class PayrollModel
 {
+    public static function mdlViewSalaryVoucherById($value) {
+        $table = 'salary_vouchers';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
+        $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewSalaryRecordsByVoucherId($value) {
+        $table = 'salary_records';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
+        $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewDeductionRecordsByVoucherId($value) {
+        $table = 'deduction_records';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
+        $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewOtherRecordsByVoucherId($value) {
+        $table = 'other_records';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
+        $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewDailySalesFigureByVoucherId($value) {
+        $table = 'daily_sales_figure';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
+        $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewAttendanceRecordsByVoucherId($value) {
+        $table = 'attendance_records';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
+        $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public static function mdlCreateNewSalaryVoucher($salaryVoucherData)
     {
         $table = 'salary_vouchers';
@@ -104,13 +158,13 @@ class PayrollModel
 
             $conn->commit();
 
-            return $results;
+            return true;
 
         } catch (PDOException $e) {
 
             $conn->rollBack();
-            $error = print_r($stmt->errorInfo(), true);
-            return error;
+            $error = print_r($e->getMessage(), true);
+            return $error;
 
         }
     }
