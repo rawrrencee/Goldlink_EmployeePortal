@@ -24,13 +24,22 @@ var salaryVoucherDraftsTable = $('.tableSalaryVoucherDrafts').DataTable({
     { "data": 13 },
     { "data": 14 },
     { "data": 15 },
-    { "data": 16 }
+    { "data": 16 },
+    { "data": 17 },
+    { "data": 18 },
+    { "data": 19 },
+    { "data": 20 },
+    { "data": 21 },
+    { "data": 22 },
+    { "data": 23 },
+    { "data": 24 },
+    { "data": 25 }
   ],
   "columnDefs": [{
-    "targets": 0,
+    "targets": [0, 1],
     "responsivePriority": 1
   }, {
-    "targets": 17,
+    "targets": 26,
     "data": null,
     "render": function (data, type, row) {
       return "<button id='btnEditSalaryVoucherDraft' voucherId=" + row[0] + " class='btn btn-warning btn-sm'><i class='fa fa-download'></i></button>";
@@ -38,7 +47,7 @@ var salaryVoucherDraftsTable = $('.tableSalaryVoucherDrafts').DataTable({
     "orderable": false,
     "responsivePriority": 2
   }, {
-    "targets": 18,
+    "targets": 27,
     "data": null,
     "render": function (data, type, row) {
       return "<button id='btnDeleteSalaryVoucherDraft' voucherId=" + row[0] + " class='btn btn-danger btn-sm'><i class='fa fa-times'></i></button>";
@@ -50,7 +59,7 @@ var salaryVoucherDraftsTable = $('.tableSalaryVoucherDrafts').DataTable({
 
 $('.tableSalaryVoucherDrafts thead th').each(function (index, element) {
   var title = $(this).text();
-  if (index != 0 && index != 17 && index != 18) {
+  if (index != 0 && index != 26 && index != 27) {
     $(this).append('<input type="text" class="col-search-input" style="width: 100%;" placeholder="Search ' + title + '" />');
   }
 });
@@ -67,17 +76,6 @@ salaryVoucherDraftsTable.columns().every(function () {
     e.stopPropagation();
   });
 });
-
-
-//$('div.dataTables_filter input').focus();
-$('div.dataTables_filter label input').attr('id', 'search');
-
-$('.datepicker').datepicker({
-  format: "dd/mm/yyyy",
-  autoclose: true,
-  disableTouchKeyboard: true,
-  Readonly: true
-}).attr("readonly", "readonly");
 
 
 //APPEND SALARY LISTING
@@ -112,15 +110,15 @@ $("#salaryVoucherForm").on("click", "button.addDeductionListing", function () {
   $("#appendDeductionListing").append(
     `
     <div class="form-row">
-      <div class="form-group col-md-5 col-sm-4 col-xs-12">
+      <div class="form-group col-md-5 col-sm-12 col-xs-12">
         <label for="appendDeductionTitle">Title</label>
         <input required type="text" class="form-control" id="appendDeductionTitle" name="deductionTitle[]">
       </div>
-      <div class="form-group col-md-5 col-sm-4 col-xs-12">
+      <div class="form-group col-md-5 col-sm-12 col-xs-12">
         <label for="appendDeductionAmount">Amount</label>
         <input type="number" class="form-control totalDeductions" id="appendDeductionAmount" min="0.00" step="0.01" value="0.00" name="deductionAmount[]" oninput="validity.valid||(value='');">
       </div>
-      <div class="form-group col-md-2 col-sm-4 col-xs-12" style="padding-top: 23px;">
+      <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
         <button type="button" id="addDeductionListing" class="btn btn-block btn-danger removeDeductionListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
       </div>
     </div>
@@ -134,20 +132,90 @@ $("#salaryVoucherForm").on("click", "button.addOthersListing", function () {
   $("#appendOthersListing").append(
     `
     <div class="form-row">
-      <div class="form-group col-md-5 col-sm-4 col-xs-12">
+      <div class="form-group col-md-5 col-sm-12 col-xs-12">
         <label for="appendOthersTitle">Title</label>
         <input required type="text" class="form-control" id="appendOthersTitle" name="othersTitle[]">
       </div>
-      <div class="form-group col-md-5 col-sm-4 col-xs-12">
+      <div class="form-group col-md-5 col-sm-12 col-xs-12">
         <label for="appendOthersAmount">Amount</label>
         <input type="number" class="form-control totalOthers" id="appendOthersAmount" step="0.01" value="0.00" name="othersAmount[]">
       </div>
-      <div class="form-group col-md-2 col-sm-4 col-xs-12" style="padding-top: 23px;">
+      <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
         <button type="button" id="addOthersListing" class="btn btn-block btn-danger removeOthersListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
       </div>
     </div>
     `)
 
+});
+
+//DATATABLES MY SALARY VOUCHERS
+/* DATATABLES CONFIGURATION */
+var mySalaryVouchersTable = $('.tableMySalaryVouchers').DataTable({
+  "ajax": "ajax/datatable-salary-voucher-my.ssp.php",
+  "serverSide": true,
+  "processing": true,
+  "autoWidth": false,
+  "order": [[3, 'desc']],
+  "columns": [
+    { "data": 0 },
+    { "data": 1 },
+    { "data": 2 },
+    { "data": 3 },
+    { "data": 4 },
+    { "data": 5 },
+    { "data": 6 },
+    { "data": 7 },
+    { "data": 8 },
+    { "data": 9 },
+    { "data": 10 },
+    { "data": 11 },
+    { "data": 12 },
+    { "data": 13 },
+    { "data": 14 },
+    { "data": 15 },
+    { "data": 16 },
+    { "data": 17 },
+    { "data": 18 },
+    { "data": 19 },
+    { "data": 20 },
+    { "data": 21 },
+    { "data": 22 },
+    { "data": 23 },
+    { "data": 24 },
+    { "data": 25 }
+  ],
+  "columnDefs": [{
+    "targets": [0, 1],
+    "responsivePriority": 1
+  }, {
+    "targets": 26,
+    "data": null,
+    "render": function (data, type, row) {
+      return "<button id='btnViewSalaryVoucher' voucherId=" + row[0] + " class='btn btn-warning btn-sm'><i class='fa fa-eye'></i></button>";
+    },
+    "orderable": false,
+    "responsivePriority": 2
+  }]
+});
+
+$('.tableMySalaryVouchers thead th').each(function (index, element) {
+  var title = $(this).text();
+  if (index != 0 && index != 26) {
+    $(this).append('<input type="text" class="col-search-input" style="width: 100%;" placeholder="Search ' + title + '" />');
+  }
+});
+
+mySalaryVouchersTable.columns().every(function () {
+  var mySalaryVouchersTable = this;
+  $('input', this.header()).on('keyup change', function () {
+    if (mySalaryVouchersTable.search() !== this.value) {
+      mySalaryVouchersTable.search(this.value).draw();
+    }
+  });
+
+  $('input', this.header()).on('click', function (e) {
+    e.stopPropagation();
+  });
 });
 
 
@@ -233,6 +301,13 @@ $('.postButton').click(function () {
   });
 });
 
+$('#saveDraftVoucher').click(function () {
+  $("#newIsDraft").val(1);
+});
+
+$('#submitVoucher').click(function () {
+  $("#newIsDraft").val(0);
+});
 
 //FUNCTIONS
 function recalculateGrossPay() {

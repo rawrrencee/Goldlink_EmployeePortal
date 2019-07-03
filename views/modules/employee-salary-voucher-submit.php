@@ -34,16 +34,25 @@
                                 <th>Year</th>
                                 <th>Created on</th>
                                 <th>Modified on</th>
+                                <th class="never">Person ID</th>
+                                <th class="never">Is Draft</th>
+                                <th class="never">Approved</th>
+                                <th class="never">Approved By</th>
                                 <th class="none">Pay To Name</th>
+                                <th class="none">Designation</th>
+                                <th class="none">NRIC</th>
+                                <th class="none">Bank Name</th>
+                                <th class="none">Bank Account</th>
                                 <th class="none">Gross Pay</th>
                                 <th class="none">Total Deductions</th>
                                 <th class="none">Total Others</th>
+                                <th class="none">Final Amount</th>
+                                <th class="never">Singaporean/PR</th>
                                 <th class="none">Employee CPF</th>
                                 <th class="none">Employer CPF</th>
                                 <th class="none">Boutique</th>
                                 <th class="none">Boutique Sales</th>
                                 <th class="none">Personal Sales</th>
-                                <th class="none">Amount Brought Forward</th>
                                 <th class="none">Zero Sales Days</th>
                                 <th class="none">Reports Submitted</th>
                                 <th style="width: 40px;">Load</th>
@@ -73,6 +82,7 @@
 
 
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
+                <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
                 <input type="hidden" id="newYearOfVoucher" name="newYearOfVoucher" value="<?php echo date('Y') ?>">
 
                 <div class="tab-content">
@@ -110,7 +120,7 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newPayToPersonName">Pay To (as in NRIC)</label>
-                                        <input type="text" class="form-control" id="newPayToPersonName"
+                                        <input type="text" class="form-control" id="newPayToPersonName" name="newPayToPersonName"
                                             value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
                                     </div>
                                 </div>
@@ -120,12 +130,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newDesignation">Designation</label>
-                                        <input readonly type="text" class="form-control" id="newDesignation"
+                                        <input readonly type="text" class="form-control" id="newDesignation" name="newDesignation"
                                             value="<?php echo $_SESSION['designation'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newNRIC">NRIC</label>
-                                        <input readonly type="text" class="form-control" id="newNRIC"
+                                        <input readonly type="text" class="form-control" id="newNRIC" name="newNRIC"
                                             value="<?php echo $_SESSION['nric'];?>">
                                     </div>
                                 </div>
@@ -135,12 +145,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newBankName">Bank Name</label>
-                                        <input readonly type="text" class="form-control" id="newBankName"
+                                        <input type="text" class="form-control" id="newBankName" name="newBankName"
                                             value="<?php echo $_SESSION['bank_name'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newBankAccount">Bank Account</label>
-                                        <input readonly type="text" class="form-control" id="newBankAccount"
+                                        <input type="text" class="form-control" id="newBankAccount" name="newBankAccount"
                                             value="<?php echo $_SESSION['bank_acct'];?>">
                                     </div>
                                 </div>
@@ -342,15 +352,29 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newNumDaysZeroSales">Number of days closing $0 sales</label>
+                                        <input type="number" class="form-control" id="newNumDaysZeroSales"
+                                            name="newNumDaysZeroSales" value="0" min="0" step="0">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newNumReportsSubmitted">Number of reports submitted</label>
+                                        <input type="number" class="form-control" id="newNumReportsSubmitted"
+                                            name="newNumReportsSubmitted" value="0" min="0" step="0">
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                         <label for="newPersonalSales">Personal Sales</label>
                                         <strong>S$&nbsp;</strong>
-                                        <input readonly type="number" class="form-control"
-                                            id="newPersonalSales" min="0.00" step="0.01" value="0.00"
-                                            name="newPersonalSales">
+                                        <input readonly type="number" class="form-control" id="newPersonalSales"
+                                            min="0.00" step="0.01" value="0.00" name="newPersonalSales">
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +392,7 @@
 
                                         for ($i = 1; $i <= 10; $i++) {
                                             echo'<tr>
-                                                <td style="width: 20px;">'.$i.'</td>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
@@ -402,7 +426,7 @@
 
                                         for ($i = 11; $i <= 20; $i++) {
                                             echo'<tr>
-                                                <td style="width: 20px;">'.$i.'</td>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
@@ -436,7 +460,7 @@
 
                                         for ($i = 21; $i <= 31; $i++) {
                                             echo'<tr>
-                                                <td style="width: 20px;">'.$i.'</td>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%">
                                                         <option></option>
@@ -472,12 +496,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newOffDays">Off Days</label>
-                                        <input type="text" class="form-control" id="newOffDays" value=""
+                                        <input type="text" class="form-control" id="newOffDays" value="" name="newOffDays"
                                             placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLateDays">Late Days</label>
-                                        <input type="text" class="form-control" id="newLateDays" value=""
+                                        <input type="text" class="form-control" id="newLateDays" value=""name="newLateDays"
                                             placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
                                     </div>
                                 </div>
@@ -486,12 +510,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLeaveMCDays">Leave/MC Days</label>
-                                        <input type="text" class="form-control" id="newLeaveMCDays" value=""
+                                        <input type="text" class="form-control" id="newLeaveMCDays" value="" name="newLeaveMCDays"
                                             placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newTotalWorkingDays">Total Working Days</label>
-                                        <input type="number" class="form-control" id="newTotalWorkingDays" min="0"
+                                        <input type="number" class="form-control" id="newTotalWorkingDays" min="0" name="newTotalWorkingDays"
                                             step="0" value="0">
                                     </div>
                                 </div>
@@ -509,12 +533,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLeaveEntitled">Leave Entitled</label>
-                                        <input type="number" class="form-control" id="newLeaveEntitled" min="0" step="0"
+                                        <input type="number" class="form-control" id="newLeaveEntitled" min="0" step="0" name="newLeaveEntitled"
                                             value="0">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLeaveTaken">Leave Taken</label>
-                                        <input type="number" class="form-control" id="newLeaveTaken" min="0" step="0"
+                                        <input type="number" class="form-control" id="newLeaveTaken" min="0" step="0" name="newLeaveTaken"
                                             value="0">
                                     </div>
                                 </div>
@@ -523,7 +547,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newLeaveRemaining">Leave Remaining</label>
-                                        <input type="text" class="form-control" id="newLeaveRemaining" min="0" step="0"
+                                        <input type="text" class="form-control" id="newLeaveRemaining" min="0" step="0" name="newLeaveRemaining"
                                             value="0">
                                     </div>
                                 </div>
@@ -558,10 +582,10 @@
                     <div class="pull-right">
                         <div class="form-group">
                             <p></p>
-                            <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton" style="width: 120px;"><i
-                                    class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>
-                            <button type="submit" id="submitVoucher" class="btn btn-success postButton" style="width: 120px;"><i
-                                    class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
+                            <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton"
+                                style="width: 120px;"><i class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>
+                            <button type="submit" id="submitVoucher" class="btn btn-success postButton"
+                                style="width: 120px;"><i class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
                         </div>
                     </div>
                 </div>
