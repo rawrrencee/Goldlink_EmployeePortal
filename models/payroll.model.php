@@ -251,7 +251,7 @@ class PayrollModel
         $conn = new Connection();
         $conn = $conn->connect();
 
-        $stmt = $conn->prepare(" UPDATE $table SET created_on = :created_on, modified_on = :modified_on, person_id = :person_id, month_of_voucher = :month_of_voucher, year_of_voucher = :year_of_voucher, is_draft = :is_draft, pay_to_name = :pay_to_name, designation = :designation, nric = :nric, bank_name = :bank_name, bank_acct = :bank_acct, gross_pay = :gross_pay, total_deductions = :total_deductions, total_others = :total_others, final_amount = :final_amount, is_sg_pr = :is_sg_pr, cpf_employee = :cpf_employee, cpf_employer = :cpf_employer, boutique = :boutique, boutique_sales = :boutique_sales, personal_sales = :personal_sales, num_days_zero_sales = :num_days_zero_sales, num_reports_submitted = :num_reports_submitted WHERE voucher_id = :voucher_id");
+        $stmt = $conn->prepare(" UPDATE $table SET created_on = :created_on, modified_on = :modified_on, person_id = :person_id, month_of_voucher = :month_of_voucher, year_of_voucher = :year_of_voucher, is_draft = :is_draft, pay_to_name = :pay_to_name, designation = :designation, nric = :nric, bank_name = :bank_name, bank_acct = :bank_acct, gross_pay = :gross_pay, total_deductions = :total_deductions, total_others = :total_others, final_amount = :final_amount, is_sg_pr = :is_sg_pr, cpf_employee = :cpf_employee, cpf_employer = :cpf_employer, boutique = :boutique, boutique_sales = :boutique_sales, personal_sales = :personal_sales, num_days_zero_sales = :num_days_zero_sales, num_reports_submitted = :num_reports_submitted, status = :status, updated_by = :updated_by WHERE voucher_id = :voucher_id");
 
         try {
 
@@ -281,6 +281,8 @@ class PayrollModel
             $stmt->bindParam(":personal_sales", $salaryVoucherData['personal_sales'], PDO::PARAM_STR);
             $stmt->bindParam(":num_days_zero_sales", $salaryVoucherData['num_days_zero_sales'], PDO::PARAM_INT);
             $stmt->bindParam(":num_reports_submitted", $salaryVoucherData['num_reports_submitted'], PDO::PARAM_INT);
+            $stmt->bindParam(":status", $salaryVoucherData['status'], PDO::PARAM_STR);
+            $stmt->bindParam(":updated_by", $salaryVoucherData['updated_by'], PDO::PARAM_STR);
 
             $stmt->execute();
 
@@ -363,6 +365,38 @@ class PayrollModel
 
         $stmt->execute();
 
+    }
+
+    public static function mdlUpdateSalaryVoucherStatus($salaryVoucherData)
+    {
+        $table = 'salary_vouchers';
+        $conn = new Connection();
+        $conn = $conn->connect();
+
+        $stmt = $conn->prepare(" UPDATE $table SET modified_on = :modified_on, updated_by = :updated_by, status = :status WHERE voucher_id = :voucher_id");
+
+        try {
+
+            $conn->beginTransaction();
+
+            $stmt->bindParam(":voucher_id", $salaryVoucherData['voucher_id'], PDO::PARAM_INT);
+            $stmt->bindParam(":modified_on", $salaryVoucherData['modified_on'], PDO::PARAM_STR);
+            $stmt->bindParam(":updated_by", $salaryVoucherData['updated_by'], PDO::PARAM_STR);
+            $stmt->bindParam(":status", $salaryVoucherData['status'], PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            $conn->commit();
+
+            return true;
+
+        } catch (PDOException $e) {
+
+            $conn->rollBack();
+            $error = print_r($e->getMessage(), true);
+            return $error;
+
+        }
     }
 
     public static function mdlUpdateAttendanceRecords($conn, $attendanceRecordData)

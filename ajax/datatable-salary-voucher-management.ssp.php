@@ -25,14 +25,16 @@ if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) die("Invalid Authen
 $table = <<<EOT
  (
 	SELECT 
-    employees.username, employees.deleted, people.first_name, people.last_name, people.duty_location, people.mobile_number, people.designation, people.email, people.date_of_birth, people.address_1, people.zip, people.gender, people.nationality, people.phone_number, people.bank_name, people.bank_acct, people.commencement, people.left_date, people.emergency_name, people.emergency_relation, people.emergency_address, people.emergency_contact, people.person_id 
-    FROM employees
-    JOIN people ON employees.person_id = people.person_id
+    salary_vouchers.*, people.first_name, people.last_name
+	FROM salary_vouchers
+	JOIN people
+	ON salary_vouchers.person_id = people.person_id
  ) temp
 EOT;
 
 // Table's primary key
-$primaryKey = 'person_id';
+$primaryKey = 'voucher_id';
+$person_id = $_SESSION['person_id'];
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
@@ -40,28 +42,34 @@ $primaryKey = 'person_id';
 // indexes
 
 $columns = array(
-	array( 'db' => 'first_name', 'dt' => 0 ),
-	array( 'db' => 'last_name', 'dt' => 1 ),
-	array( 'db' => 'duty_location', 'dt' => 2 ),
-	array( 'db' => 'mobile_number', 'dt' => 3 ),
-	array( 'db' => 'designation', 'dt' => 4 ),
-	array( 'db' => 'email', 'dt' => 5 ),
-	array( 'db' => 'date_of_birth', 'dt' => 6 ),
-	array( 'db' => 'address_1', 'dt' => 7 ),
-	array( 'db' => 'zip', 'dt' => 8 ),
-	array( 'db' => 'gender', 'dt' => 9 ),
-	array( 'db' => 'nationality', 'dt' => 10 ),
-    array( 'db' => 'phone_number', 'dt' => 11 ),
-	array( 'db' => 'bank_name', 'dt' => 12 ),
-	array( 'db' => 'bank_acct', 'dt' => 13 ),
-	array( 'db' => 'commencement', 'dt' => 14 ),
-	array( 'db' => 'left_date', 'dt' => 15 ),
-	array( 'db' => 'emergency_name', 'dt' => 16 ),
-	array( 'db' => 'emergency_relation', 'dt' => 17 ),
-	array( 'db' => 'emergency_address', 'dt' => 18 ),
-	array( 'db' => 'emergency_contact', 'dt' => 19 ),
-    array( 'db' => 'username', 'dt' => 20 ),
-	array( 'db' => 'person_id', 'dt' => 21 )
+	array( 'db' => 'voucher_id', 'dt' => 0 ),
+	array( 'db' => 'month_of_voucher', 'dt' => 1 ),
+	array( 'db' => 'year_of_voucher', 'dt' => 2 ),
+	array( 'db' => 'first_name', 'dt' => 3 ),
+	array( 'db' => 'last_name', 'dt' => 4 ),
+	array( 'db' => 'person_id', 'dt' => 5 ),
+	array( 'db' => 'is_draft', 'dt' => 6 ),
+	array( 'db' => 'status', 'dt' => 7 ),
+	array( 'db' => 'updated_by', 'dt' => 8 ),
+	array( 'db' => 'created_on', 'dt' => 9 ),
+	array( 'db' => 'modified_on', 'dt' => 10 ),
+	array( 'db' => 'pay_to_name', 'dt' => 11 ),
+	array( 'db' => 'designation', 'dt' => 12 ),
+	array( 'db' => 'nric', 'dt' => 13 ),
+	array( 'db' => 'bank_name', 'dt' => 14 ),
+	array( 'db' => 'bank_acct', 'dt' => 15 ),
+	array( 'db' => 'gross_pay', 'dt' => 16 ),
+	array( 'db' => 'total_deductions', 'dt' => 17 ),
+    array( 'db' => 'total_others', 'dt' => 18 ),
+	array( 'db' => 'final_amount', 'dt' => 19 ),
+	array( 'db' => 'is_sg_pr', 'dt' => 20 ),
+	array( 'db' => 'cpf_employee', 'dt' => 21 ),
+	array( 'db' => 'cpf_employer', 'dt' => 22 ),
+	array( 'db' => 'boutique', 'dt' => 23),
+	array( 'db' => 'boutique_sales', 'dt' => 24 ),
+	array( 'db' => 'personal_sales', 'dt' => 25 ),
+	array( 'db' => 'num_days_zero_sales', 'dt' => 26 ),
+	array( 'db' => 'num_reports_submitted', 'dt' => 27 )
 );
 
 // SQL server connection information
@@ -73,7 +81,7 @@ $sql_details = array(
 	'host' => $db_host
 );
 
-$extraWhere = "deleted = 0";
+$extraWhere = "is_draft = 0";
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

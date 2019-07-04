@@ -37,7 +37,7 @@
                                 <th class="never">Person ID</th>
                                 <th class="never">Is Draft</th>
                                 <th class="never">Approved</th>
-                                <th class="never">Approved By</th>
+                                <th class="never">Updated By</th>
                                 <th class="none">Pay To Name</th>
                                 <th class="none">Designation</th>
                                 <th class="none">NRIC</th>
@@ -89,6 +89,10 @@
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
+                
+                <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
+                    value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
+
                 <input type="hidden" id="newYearOfVoucher" name="newYearOfVoucher" value="<?php echo date('Y') ?>">
 
                 <div class="tab-content">
@@ -409,7 +413,7 @@
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
                                                         <option value="PH/RO">PH/RO</option>
-                                                        <option value="N/A">N/A</option>
+                                                        <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
                                             </tr>';
@@ -443,7 +447,7 @@
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
                                                         <option value="PH/RO">PH/RO</option>
-                                                        <option value="N/A">N/A</option>
+                                                        <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
                                             </tr>';
@@ -477,7 +481,7 @@
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
                                                         <option value="PH/RO">PH/RO</option>
-                                                        <option value="N/A">N/A</option>
+                                                        <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
                                             </tr>';

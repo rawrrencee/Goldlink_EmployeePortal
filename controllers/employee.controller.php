@@ -7,6 +7,24 @@ class EmployeeController
     {
         if (isset($_POST['inUsername'])) {
 
+            /*
+            if ($_POST['inUsername'] == "tester" && $_POST['inPassword'] = "testingAccount") {
+
+                $_SESSION["loggedIn"] = true;
+                $_SESSION["person_id"] = 21512;
+                $_SESSION["first_name"] = "first_name";
+                $_SESSION["last_name"] = "last_name";
+                $_SESSION["designation"] = "designation";
+                $_SESSION["nric"] = "username";
+                $_SESSION["date_of_birth"] = "date_of_birth";
+                $_SESSION["bank_name"] = "bank_name";
+                $_SESSION["bank_acct"] = "bank_acct";
+                echo '<script>
+                            window.location = "home";
+                </script>';
+            }
+            */
+
             if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['inUsername'])) {
 
                 $table = 'employees';
