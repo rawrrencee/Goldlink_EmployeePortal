@@ -10,7 +10,7 @@
             <li class="treeview menu-open">
                 <a href="#">
                     <i class="fa fa-address-book"></i>
-                    <span>Employees</span>
+                    <span>Payroll</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -25,7 +25,7 @@
                     <li>
                         <a href="employee-salary-voucher-my">
                             <i class="fa fa-circle-o"></i>
-                            <span>View My Salary</span>
+                            <span>View My Salary Vouchers</span>
                         </a>
                     </li>
                     <li>

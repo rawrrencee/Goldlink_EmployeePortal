@@ -395,6 +395,10 @@ $("#salaryVoucherForm").on("change", "input.totalOthers", function () {
 })
 
 /* SELECT2 */
+$('#newMethodOfPayment').select2({
+  placeholder: "Select method of payment"
+});
+
 $('.newSalesInformation').select2({
   placeholder: "Select or type a number",
   tags: true
@@ -420,7 +424,7 @@ $('.postButton').click(function () {
 
 $(".tableAllSalaryVouchers tbody").on("click", "button.btnGeneratePDF", function () {
   var voucher_id = $(this).attr("voucherId");
-  window.location.href = "views/plugins/fpdf/index.php?voucherId=" + voucher_id;
+  window.open("views/plugins/fpdf/index.php?voucherId=" + voucher_id);
 });
 
 $('#saveDraftVoucher').click(function () {
@@ -540,6 +544,7 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
       $('#newPayToPersonName').val(answer['pay_to_name']);
       $('#newDesignation').val(answer['designation']);
       $('#newNRIC').val(answer['nric']);
+      $('#newDateOfBirth').val(answer['date_of_birth']);
       $('#newBankName').val(answer['bank_name']);
       $('#newBankAccount').val(answer['bank_acct']);
       $('#newGrossPay').val(answer['gross_pay']);
@@ -558,6 +563,10 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
       $('#newPersonalSales').val(answer['personal_sales']);
       $('#newNumDaysZeroSales').val(answer['num_days_zero_sales']);
       $('#newNumReportsSubmitted').val(answer['num_reports_submitted']);
+
+      $("#appendSalaryListing").html("");
+      $("#appendDeductionListing").html("");
+      $("#appendOthersListing").html("");
 
       $.ajax({
         url: "ajax/payroll.ajax.php",
@@ -601,6 +610,7 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
             }
           }
 
+          recalculateGrossPay();
 
           $.ajax({
             url: "ajax/payroll.ajax.php",
@@ -633,6 +643,8 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                 }
               }
 
+              recalculateTotalDeductions();
+
               $.ajax({
                 url: "ajax/payroll.ajax.php",
                 method: "POST",
@@ -654,12 +666,13 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                           </div>
                           <div class="form-group col-md-6 col-sm-12 col-xs-12">
                             <label for="updateOtherAmount">Amount</label>
-                            <input type="number" class="form-control totalOthers" id="updateOtherAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="othersAmount[]">
+                            <input type="number" class="form-control totalOthers" id="updateOtherAmount" step="0.01" value="` + answer[i]['amount'] + `" name="othersAmount[]">
                           </div>
                         </div>
                       `)
                   }
 
+                  recalculateTotalOthers();
 
                   $.ajax({
                     url: "ajax/payroll.ajax.php",
@@ -706,6 +719,9 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                           $('#newLeaveRemaining').val(answer['leave_remaining']);
                         }
                       })
+
+                      recalculatePersonalSales();
+
                     }
                   })
                 }
@@ -714,6 +730,9 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
           })
         }
       })
+
+      recalculateTotalDeductions();
+
     }
   })
 });
@@ -751,31 +770,35 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
     success: function (answer) {
       $('#currentVoucherId').val(answer['voucher_id']);
       $('#currentCreatedOn').val(answer['created_on']);
-      $('#newIsDraft').val(answer['is_draft']);
-      $('#newYearOfVoucher').val(answer['year_of_voucher']);
-      $('#newMonthOfVoucher').val(answer['month_of_voucher']);
-      $('#newMonthOfVoucher').select2().trigger('change');
-      $('#newPayToPersonName').val(answer['pay_to_name']);
-      $('#newDesignation').val(answer['designation']);
-      $('#newNRIC').val(answer['nric']);
-      $('#newBankName').val(answer['bank_name']);
-      $('#newBankAccount').val(answer['bank_acct']);
-      $('#newGrossPay').val(answer['gross_pay']);
-      $('#newTotalDeductions').val(answer['total_deductions']);
-      $('#newTotalOthers').val(answer['total_others']);
-      $('#newFinalAmount').val(answer['final_amount']);
+      $('#viewIsDraft').val(answer['is_draft']);
+      $('#viewYearOfVoucher').val(answer['year_of_voucher']);
+      $('#viewMonthOfVoucher').val(answer['month_of_voucher']);
+      $('#viewMonthOfVoucher').select2().trigger('change');
+      $('#viewMethodOfPayment').val(answer['method_of_payment']);
+      $('#viewMethodOfPayment').select2().trigger('change');
+      $('#viewPayToPersonName').val(answer['pay_to_name']);
+      $('#viewDesignation').val(answer['designation']);
+      $('#viewNRIC').val(answer['nric']);
+      $('#viewDateOfBirth').val(answer['date_of_birth']);
+      $('#viewBankName').val(answer['bank_name']);
+      $('#viewBankAccount').val(answer['bank_acct']);
+      $('#viewGrossPay').val(answer['gross_pay']);
+      $('#viewTotalDeductions').val(answer['total_deductions']);
+      $('#viewLevyAmount').val(answer['levy_amount']);
+      $('#viewTotalOthers').val(answer['total_others']);
+      $('#viewFinalAmount').val(answer['final_amount']);
       if (answer['is_sg_pr'] == 1) {
-        $('#newIsSGPR').iCheck('check');
+        $('#viewIsSGPR').iCheck('check');
       } else {
-        $('#newIsSGPR').iCheck('uncheck');
+        $('#viewIsSGPR').iCheck('uncheck');
       }
-      $('#newCPFEmployee').val(answer['cpf_employee']);
-      $('#newCPFEmployer').val(answer['cpf_employer']);
-      $('#newBoutique').val(answer['boutique']);
-      $('#newBoutiqueSales').val(answer['boutique_sales']);
-      $('#newPersonalSales').val(answer['personal_sales']);
-      $('#newNumDaysZeroSales').val(answer['num_days_zero_sales']);
-      $('#newNumReportsSubmitted').val(answer['num_reports_submitted']);
+      $('#viewCPFEmployee').val(answer['cpf_employee']);
+      $('#viewCPFEmployer').val(answer['cpf_employer']);
+      $('#viewBoutique').val(answer['boutique']);
+      $('#viewBoutiqueSales').val(answer['boutique_sales']);
+      $('#viewPersonalSales').val(answer['personal_sales']);
+      $('#viewNumDaysZeroSales').val(answer['num_days_zero_sales']);
+      $('#viewNumReportsSubmitted').val(answer['num_reports_submitted']);
       $('#status').val(answer['status']);
       $('#updatedBy').val(answer['updated_by']);
 
@@ -792,14 +815,14 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
           console.log(answer);
           for (var i = 0; i < answer.length; i++) {
             if (answer[i]['title'] == "Basic Pay") {
-              $('#newSalaryBasicPayAmount').val(answer[i]['amount']);
-              $('#newSalaryBasicPayRemarks').val(answer[i]['remarks']);
+              $('#viewSalaryBasicPayAmount').val(answer[i]['amount']);
+              $('#viewSalaryBasicPayRemarks').val(answer[i]['remarks']);
             } else if (answer[i]['title'] == "Attendance") {
-              $('#newSalaryAttendanceAmount').val(answer[i]['amount']);
-              $('#newSalaryAttendanceRemarks').val(answer[i]['remarks']);
+              $('#viewSalaryAttendanceAmount').val(answer[i]['amount']);
+              $('#viewSalaryAttendanceRemarks').val(answer[i]['remarks']);
             } else if (answer[i]['title'] == "Productivity") {
-              $('#newSalaryProductivityAmount').val(answer[i]['amount']);
-              $('#newSalaryProductivityRemarks').val(answer[i]['remarks']);
+              $('#viewSalaryProductivityAmount').val(answer[i]['amount']);
+              $('#viewSalaryProductivityRemarks').val(answer[i]['remarks']);
             } else {
               $("#appendSalaryListing").append(
                 `
@@ -821,7 +844,6 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
             }
           }
 
-
           $.ajax({
             url: "ajax/payroll.ajax.php",
             method: "POST",
@@ -835,7 +857,7 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
               console.log(answer);
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
-                  $('#newCPFEmployee').val(answer[i]['amount']);
+                  $('#viewCPFEmployee').val(answer[i]['amount']);
                 } else {
                   $("#appendDeductionListing").append(
                     `
@@ -874,12 +896,11 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
                           </div>
                           <div class="form-group col-md-6 col-sm-12 col-xs-12">
                             <label for="updateOtherAmount">Amount</label>
-                            <input readonly type="number" class="form-control grossPay" id="updateOtherAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="othersAmount[]">
+                            <input readonly type="number" class="form-control grossPay" id="updateOtherAmount" step="0.01" value="` + answer[i]['amount'] + `" name="othersAmount[]">
                           </div>
                         </div>
                       `)
                   }
-
 
                   $.ajax({
                     url: "ajax/payroll.ajax.php",
@@ -894,14 +915,14 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
                       console.log(answer);
                       for (var i = 0; i < answer.length; i++) {
                         if (answer[i]['sales_information'] != "Sick Leave" && answer[i]['sales_information'] != "Annual Leave" && answer[i]['sales_information'] != "Unpaid Leave" && answer[i]['sales_information'] != "OFF" && answer[i]['sales_information'] != "PH/RO" && answer[i]['sales_information'] != "N/A") {
-                          $('#newSalesInformation' + (i + 1)).append(`<option value="` + answer[i]['sales_information'] + `">` + answer[i]['sales_information'] + `</option>`);
+                          $('#viewSalesInformation' + (i + 1)).append(`<option value="` + answer[i]['sales_information'] + `">` + answer[i]['sales_information'] + `</option>`);
                         }
-                        $('#newSalesInformation' + (i + 1)).val(answer[i]['sales_information']);
-                        $('#newSalesInformation' + (i + 1)).select2().trigger('change');
+                        $('#viewSalesInformation' + (i + 1)).val(answer[i]['sales_information']);
+                        $('#viewSalesInformation' + (i + 1)).select2().trigger('change');
 
                       }
 
-                      $('.newSalesInformation').select2({
+                      $('.viewSalesInformation').select2({
                         placeholder: "Select or type a number",
                         tags: true
                       });
@@ -917,13 +938,13 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
                         success: function (answer) {
 
                           console.log(answer);
-                          $('#newOffDays').val(answer['off_days']);
-                          $('#newLateDays').val(answer['late_days']);
-                          $('#newLeaveMCDays').val(answer['leave_mc_days']);
-                          $('#newTotalWorkingDays').val(answer['total_working_days']);
-                          $('#newLeaveEntitled').val(answer['leave_entitled']);
-                          $('#newLeaveTaken').val(answer['leave_taken']);
-                          $('#newLeaveRemaining').val(answer['leave_remaining']);
+                          $('#viewOffDays').val(answer['off_days']);
+                          $('#viewLateDays').val(answer['late_days']);
+                          $('#viewLeaveMCDays').val(answer['leave_mc_days']);
+                          $('#viewTotalWorkingDays').val(answer['total_working_days']);
+                          $('#viewLeaveEntitled').val(answer['leave_entitled']);
+                          $('#viewLeaveTaken').val(answer['leave_taken']);
+                          $('#viewLeaveRemaining').val(answer['leave_remaining']);
                         }
                       })
                     }
@@ -980,13 +1001,17 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
       $('#newYearOfVoucher').val(answer['year_of_voucher']);
       $('#newMonthOfVoucher').val(answer['month_of_voucher']);
       $('#newMonthOfVoucher').select2().trigger('change');
+      $('#newMethodOfPayment').val(answer['method_of_payment']);
+      $('#newMethodOfPayment').select2().trigger('change');
       $('#newPayToPersonName').val(answer['pay_to_name']);
       $('#newDesignation').val(answer['designation']);
       $('#newNRIC').val(answer['nric']);
+      $('#newDateOfBirth').val(answer['date_of_birth']);
       $('#newBankName').val(answer['bank_name']);
       $('#newBankAccount').val(answer['bank_acct']);
       $('#newGrossPay').val(answer['gross_pay']);
       $('#newTotalDeductions').val(answer['total_deductions']);
+      $('#newLevyAmount').val(answer['levy_amount']);
       $('#newTotalOthers').val(answer['total_others']);
       $('#newFinalAmount').val(answer['final_amount']);
       if (answer['is_sg_pr'] == 1) {
@@ -1044,6 +1069,7 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
             }
           }
 
+          recalculateGrossPay();
 
           $.ajax({
             url: "ajax/payroll.ajax.php",
@@ -1076,6 +1102,8 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
                 }
               }
 
+              recalculateTotalDeductions();
+
               $.ajax({
                 url: "ajax/payroll.ajax.php",
                 method: "POST",
@@ -1097,12 +1125,13 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
                           </div>
                           <div class="form-group col-md-6 col-sm-12 col-xs-12">
                             <label for="updateOtherAmount">Amount</label>
-                            <input type="number" class="form-control totalOthers" id="updateOtherAmount" min="0.00" step="0.01" value="` + answer[i]['amount'] + `" name="othersAmount[]">
+                            <input type="number" class="form-control totalOthers" id="updateOtherAmount" step="0.01" value="` + answer[i]['amount'] + `" name="othersAmount[]">
                           </div>
                         </div>
                       `)
                   }
 
+                  recalculateTotalOthers();
 
                   $.ajax({
                     url: "ajax/payroll.ajax.php",
@@ -1149,6 +1178,8 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
                           $('#newLeaveRemaining').val(answer['leave_remaining']);
                         }
                       })
+
+                      recalculatePersonalSales();
                     }
                   })
                 }
@@ -1173,6 +1204,11 @@ $('#modalEditSalaryVoucher').on('hidden.bs.modal', function () {
   $("#appendSalaryListing").html("");
   $("#appendDeductionListing").html("");
   $("#appendOthersListing").html("");
+})
+
+//SET FOCUS TO ANY ELEMENT TO FIX THE CLOSING MODAL ESC KEYUP ISSUE
+$('#modalEditSalaryVoucher').on('shown.bs.modal', function () {
+  $('#newMonthOfVoucher').focus();
 })
 
 //FUNCTIONS

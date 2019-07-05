@@ -89,8 +89,8 @@
 
             <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
             <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
-            <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
-            <input type="hidden" id="newYearOfVoucher" name="newYearOfVoucher" value="<?php echo date('Y') ?>">
+            <input type="hidden" id="viewIsDraft" name="viewIsDraft" value="">
+            <input type="hidden" id="viewYearOfVoucher" name="viewYearOfVoucher" value="<?php echo date('Y') ?>">
 
             <div class="tab-content">
                 <div class="tab-pane active" id="salaryTab">
@@ -107,8 +107,8 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newMonthOfVoucher">Salary Voucher for the Month of</label>
-                                    <select disabled id="newMonthOfVoucher" name="newMonthOfVoucher"
+                                    <label for="viewMonthOfVoucher">Salary Voucher for the Month of</label>
+                                    <select disabled id="viewMonthOfVoucher" name="viewMonthOfVoucher"
                                         class="form-control select2" style="width: 100%;">
                                         <option></option>
                                         <option value="1">January</option>
@@ -125,26 +125,22 @@
                                         <option value="12">December</option>
                                     </select>
                                 </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newPayToPersonName">Pay To (as in NRIC)</label>
-                                    <input readonly type="text" class="form-control" id="newPayToPersonName"
-                                        name="newPayToPersonName"
+                                    <label for="viewPayToPersonName">Pay To (as in NRIC)</label>
+                                    <input readonly type="text" class="form-control" id="viewPayToPersonName"
+                                        name="viewPayToPersonName"
                                         value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newDesignation">Designation</label>
-                                    <input readonly type="text" class="form-control" id="newDesignation"
-                                        name="newDesignation" value="<?php echo $_SESSION['designation'];?>">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newNRIC">NRIC</label>
-                                    <input readonly type="text" class="form-control" id="newNRIC" name="newNRIC"
-                                        value="<?php echo $_SESSION['nric'];?>">
+                                    <label for="viewDesignation">Designation</label>
+                                    <input readonly type="text" class="form-control" id="viewDesignation"
+                                        name="viewDesignation" value="<?php echo $_SESSION['designation'];?>">
                                 </div>
                             </div>
                         </div>
@@ -152,14 +148,29 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newBankName">Bank Name</label>
-                                    <input readonly type="text" class="form-control" id="newBankName" name="newBankName"
+                                    <label for="viewNRIC">NRIC</label>
+                                    <input readonly type="text" class="form-control" id="viewNRIC" name="viewNRIC"
+                                        value="">
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="viewDateOfBirth">Date Of Birth</label>
+                                    <input readonly type="text" class="form-control" id="viewDateOfBirth" name="viewDateOfBirth"
+                                        value="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="viewBankName">Bank Name</label>
+                                    <input readonly type="text" class="form-control" id="viewBankName" name="viewBankName"
                                         value="<?php echo $_SESSION['bank_name'];?>">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newBankAccount">Bank Account</label>
-                                    <input readonly type="text" class="form-control" id="newBankAccount"
-                                        name="newBankAccount" value="<?php echo $_SESSION['bank_acct'];?>">
+                                    <label for="viewBankAccount">Bank Account</label>
+                                    <input readonly type="text" class="form-control" id="viewBankAccount"
+                                        name="viewBankAccount" value="<?php echo $_SESSION['bank_acct'];?>">
                                 </div>
                             </div>
                         </div>
@@ -167,14 +178,14 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newBoutique">Boutique</label>
-                                    <input readonly type="text" class="form-control" id="newBoutique" name="newBoutique"
+                                    <label for="viewBoutique">Boutique</label>
+                                    <input readonly type="text" class="form-control" id="viewBoutique" name="viewBoutique"
                                         value="" placeholder="e.g. TE(Taka), TE(Tangs)">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newBoutiqueSales">Boutique Sales</label>
-                                    <input readonly type="text" class="form-control" id="newBoutiqueSales"
-                                        name="newBoutiqueSales" value=""
+                                    <label for="viewBoutiqueSales">Boutique Sales</label>
+                                    <input readonly type="text" class="form-control" id="viewBoutiqueSales"
+                                        name="viewBoutiqueSales" value=""
                                         placeholder="e.g. TE(Taka) $100, TE(Tangs) $200">
                                 </div>
                             </div>
@@ -191,19 +202,19 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-4 col-sm-3 col-xs-6">
-                                    <label for="newSalaryBasicPayTitle">Basic Pay</label>
-                                    <input readonly type="text" class="form-control" id="newSalaryBasicPayTitle"
+                                    <label for="viewSalaryBasicPayTitle">Basic Pay</label>
+                                    <input readonly type="text" class="form-control" id="viewSalaryBasicPayTitle"
                                         name="salaryTitle[0]" value="Basic Pay">
                                 </div>
                                 <div class="form-group col-md-2 col-sm-3 col-xs-6">
-                                    <label for="newSalaryBasicPayAmount">Amount</label>
+                                    <label for="viewSalaryBasicPayAmount">Amount</label>
                                     <input readonly type="number" class="form-control grossPay"
-                                        id="newSalaryBasicPayAmount" min="0.00" step="0.01" value="0.00"
+                                        id="viewSalaryBasicPayAmount" min="0.00" step="0.01" value="0.00"
                                         name="salaryAmount[0]">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newSalaryBasicPayRemarks">Remarks</label>
-                                    <input readonly type="text" class="form-control" id="newSalaryBasicPayRemarks"
+                                    <label for="viewSalaryBasicPayRemarks">Remarks</label>
+                                    <input readonly type="text" class="form-control" id="viewSalaryBasicPayRemarks"
                                         name="salaryRemarks[0]">
                                 </div>
                             </div>
@@ -212,19 +223,19 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-4 col-sm-3 col-xs-6">
-                                    <label for="newSalaryAttendanceTitle">Attendance</label>
-                                    <input readonly type="text" class="form-control" id="newSalaryAttendanceTitle"
+                                    <label for="viewSalaryAttendanceTitle">Attendance</label>
+                                    <input readonly type="text" class="form-control" id="viewSalaryAttendanceTitle"
                                         name="salaryTitle[1]" value="Attendance">
                                 </div>
                                 <div class="form-group col-md-2 col-sm-3 col-xs-6">
-                                    <label for="newSalaryAttendanceAmount">Amount</label>
+                                    <label for="viewSalaryAttendanceAmount">Amount</label>
                                     <input readonly type="number" class="form-control grossPay"
-                                        id="newSalaryAttendanceAmount" min="0.00" step="0.01" value="0.00"
+                                        id="viewSalaryAttendanceAmount" min="0.00" step="0.01" value="0.00"
                                         name="salaryAmount[1]">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newSalaryAttendanceRemarks">Remarks</label>
-                                    <input readonly type="text" class="form-control" id="newSalaryAttendanceRemarks"
+                                    <label for="viewSalaryAttendanceRemarks">Remarks</label>
+                                    <input readonly type="text" class="form-control" id="viewSalaryAttendanceRemarks"
                                         name="salaryRemarks[1]">
                                 </div>
                             </div>
@@ -233,19 +244,19 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-4 col-sm-3 col-xs-6">
-                                    <label for="newSalaryProductivityTitle">Productivity</label>
-                                    <input readonly type="text" class="form-control" id="newSalaryProductivityTitle"
+                                    <label for="viewSalaryProductivityTitle">Productivity</label>
+                                    <input readonly type="text" class="form-control" id="viewSalaryProductivityTitle"
                                         name="salaryTitle[2]" value="Productivity">
                                 </div>
                                 <div class="form-group col-md-2 col-sm-3 col-xs-6">
-                                    <label for="newSalaryProductivityAmount">Amount</label>
+                                    <label for="viewSalaryProductivityAmount">Amount</label>
                                     <input readonly type="number" class="form-control grossPay"
-                                        id="newSalaryProductivityAmount" min="0.00" step="0.01" value="0.00"
+                                        id="viewSalaryProductivityAmount" min="0.00" step="0.01" value="0.00"
                                         name="salaryAmount[2]">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newSalaryProductivityRemarks">Remarks</label>
-                                    <input readonly type="text" class="form-control" id="newSalaryProductivityRemarks"
+                                    <label for="viewSalaryProductivityRemarks">Remarks</label>
+                                    <input readonly type="text" class="form-control" id="viewSalaryProductivityRemarks"
                                         name="salaryRemarks[2]">
                                 </div>
                             </div>
@@ -274,24 +285,30 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label for="newIsSGPR">Singaporean/PR</label>
+                                    <label for="viewIsSGPR">Singaporean/PR</label>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <input type="hidden" name='newIsSGPR' value="0" />
-                                    <input disabled type="checkbox" class="minimal" id="newIsSGPR" name="newIsSGPR"
+                                    <input type="hidden" name='viewIsSGPR' value="0" />
+                                    <input disabled type="checkbox" class="minimal" id="viewIsSGPR" name="viewIsSGPR"
                                         value="1">&nbsp;&nbsp;Yes
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                    <input type="hidden" id="newDeductionCPF" value="CPF-EE" name="deductionTitle[0]">
-                                    <label for="newCPFEmployee">CPF-EE</label>
+                                    <input type="hidden" id="viewDeductionCPF" value="CPF-EE" name="deductionTitle[0]">
+                                    <label for="viewCPFEmployee">CPF-EE</label>
                                     <input readonly type="number" class="form-control totalDeductions"
-                                        id="newCPFEmployee" min="0.00" step="0.01" value="0.00"
+                                        id="viewCPFEmployee" min="0.00" step="0.01" value="0.00"
                                         name="deductionAmount[0]">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                    <label for="newCPFEmployer">CPF-ER</label>
-                                    <input readonly type="number" class="form-control" id="newCPFEmployer" min="0.00"
-                                        step="0.01" value="0.00" name="newCPFEmployer">
+                                    <label for="viewCPFEmployer">CPF-ER</label>
+                                    <input readonly type="number" class="form-control" id="viewCPFEmployer" min="0.00"
+                                        step="0.01" value="0.00" name="viewCPFEmployer">
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                    <label for="viewLevyAmount">Levy</label>
+                                    <input readonly type="number" class="form-control"
+                                        id="viewLevyAmount" min="0.00" step="0.01" value="0.00"
+                                        name="viewLevyAmount">
                                 </div>
                             </div>
                         </div>
@@ -335,14 +352,14 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newNumDaysZeroSales">Number of days closing $0 sales</label>
-                                    <input readonly type="number" class="form-control" id="newNumDaysZeroSales"
-                                        name="newNumDaysZeroSales" value="0" min="0" step="0">
+                                    <label for="viewNumDaysZeroSales">Number of days closing $0 sales</label>
+                                    <input readonly type="number" class="form-control" id="viewNumDaysZeroSales"
+                                        name="viewNumDaysZeroSales" value="0" min="0" step="0">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newNumReportsSubmitted">Number of reports submitted</label>
-                                    <input readonly type="number" class="form-control" id="newNumReportsSubmitted"
-                                        name="newNumReportsSubmitted" value="0" min="0" step="0">
+                                    <label for="viewNumReportsSubmitted">Number of reports submitted</label>
+                                    <input readonly type="number" class="form-control" id="viewNumReportsSubmitted"
+                                        name="viewNumReportsSubmitted" value="0" min="0" step="0">
                                 </div>
                             </div>
                         </div>
@@ -350,10 +367,10 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
-                                    <label for="newPersonalSales">Personal Sales</label>
+                                    <label for="viewPersonalSales">Personal Sales</label>
                                     <strong>S$&nbsp;</strong>
-                                    <input readonly type="number" class="form-control" id="newPersonalSales" min="0.00"
-                                        step="0.01" value="0.00" name="newPersonalSales">
+                                    <input readonly type="number" class="form-control" id="viewPersonalSales" min="0.00"
+                                        step="0.01" value="0.00" name="viewPersonalSales">
                                 </div>
                             </div>
                         </div>
@@ -371,9 +388,9 @@
 
                                         for ($i = 1; $i <= 10; $i++) {
                                             echo'<tr>
-                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="viewDayOfMonth" name="viewDayOfMonth['.$i.']" value="'.$i.'"></td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
-                                                    <select disabled id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
+                                                    <select disabled id="viewSalesInformation'.$i.'" class="form-control select2 viewSalesInformation" name="viewSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
                                                         <option value="Sick Leave">Sick Leave</option>
@@ -405,9 +422,9 @@
 
                                         for ($i = 11; $i <= 20; $i++) {
                                             echo'<tr>
-                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="viewDayOfMonth" name="viewDayOfMonth['.$i.']" value="'.$i.'"></td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
-                                                    <select disabled id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
+                                                    <select disabled id="viewSalesInformation'.$i.'" class="form-control select2 viewSalesInformation" name="viewSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
                                                         <option value="Sick Leave">Sick Leave</option>
@@ -439,9 +456,9 @@
 
                                         for ($i = 21; $i <= 31; $i++) {
                                             echo'<tr>
-                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="viewDayOfMonth" name="viewDayOfMonth['.$i.']" value="'.$i.'"></td>
                                                 <td style="width: 100%;"><strong>S$&nbsp;</strong>
-                                                    <select disabled id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%">
+                                                    <select disabled id="viewSalesInformation'.$i.'" class="form-control select2 viewSalesInformation" name="viewSalesInformation['.$i.']" style="width: 85%">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
                                                         <option value="Sick Leave">Sick Leave</option>
@@ -474,28 +491,28 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newOffDays">Off Days</label>
-                                    <input readonly type="text" class="form-control" id="newOffDays" value=""
-                                        name="newOffDays" placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
+                                    <label for="viewOffDays">Off Days</label>
+                                    <input readonly type="text" class="form-control" id="viewOffDays" value=""
+                                        name="viewOffDays" placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newLateDays">Late Days</label>
-                                    <input readonly type="text" class="form-control" id="newLateDays" value=""
-                                        name="newLateDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
+                                    <label for="viewLateDays">Late Days</label>
+                                    <input readonly type="text" class="form-control" id="viewLateDays" value=""
+                                        name="viewLateDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newLeaveMCDays">Leave/MC Days</label>
-                                    <input readonly type="text" class="form-control" id="newLeaveMCDays" value=""
-                                        name="newLeaveMCDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
+                                    <label for="viewLeaveMCDays">Leave/MC Days</label>
+                                    <input readonly type="text" class="form-control" id="viewLeaveMCDays" value=""
+                                        name="viewLeaveMCDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newTotalWorkingDays">Total Working Days</label>
-                                    <input readonly type="number" class="form-control" id="newTotalWorkingDays" min="0"
-                                        name="newTotalWorkingDays" step="0" value="0">
+                                    <label for="viewTotalWorkingDays">Total Working Days</label>
+                                    <input readonly type="number" class="form-control" id="viewTotalWorkingDays" min="0"
+                                        name="viewTotalWorkingDays" step="0" value="0">
                                 </div>
                             </div>
                         </div>
@@ -511,23 +528,23 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newLeaveEntitled">Leave Entitled</label>
-                                    <input readonly type="number" class="form-control" id="newLeaveEntitled" min="0"
-                                        step="0" name="newLeaveEntitled" value="0">
+                                    <label for="viewLeaveEntitled">Leave Entitled</label>
+                                    <input readonly type="number" class="form-control" id="viewLeaveEntitled" min="0"
+                                        step="0" name="viewLeaveEntitled" value="0">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newLeaveTaken">Leave Taken</label>
-                                    <input readonly type="number" class="form-control" id="newLeaveTaken" min="0"
-                                        step="0" name="newLeaveTaken" value="0">
+                                    <label for="viewLeaveTaken">Leave Taken</label>
+                                    <input readonly type="number" class="form-control" id="viewLeaveTaken" min="0"
+                                        step="0" name="viewLeaveTaken" value="0">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="newLeaveRemaining">Leave Remaining</label>
-                                    <input readonly type="text" class="form-control" id="newLeaveRemaining" min="0"
-                                        step="0" name="newLeaveRemaining" value="0">
+                                    <label for="viewLeaveRemaining">Leave Remaining</label>
+                                    <input readonly type="text" class="form-control" id="viewLeaveRemaining" min="0"
+                                        step="0" name="viewLeaveRemaining" value="0">
                                 </div>
                             </div>
                         </div>
@@ -537,19 +554,19 @@
 
             <div class="box-footer">
                 <div class="pull-right">
-                    <label for="newGrossPay">Gross Pay (+):</label>
-                    <input readonly type="number" id="newGrossPay" class="form-control" name="newGrossPay" value="0.00">
+                    <label for="viewGrossPay">Gross Pay (+):</label>
+                    <input readonly type="number" id="viewGrossPay" class="form-control" name="viewGrossPay" value="0.00">
                     <p></p>
-                    <label for="newTotalDeductions">Total Deductions (-):</label>
-                    <input readonly type="number" id="newTotalDeductions" class="form-control" name="newTotalDeductions"
+                    <label for="viewTotalDeductions">Total Deductions (-):</label>
+                    <input readonly type="number" id="viewTotalDeductions" class="form-control" name="viewTotalDeductions"
                         value="0.00">
                     <p></p>
-                    <label for="newTotalOthers">Total Others (+ / -) :</label>
-                    <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
+                    <label for="viewTotalOthers">Total Others (+ / -) :</label>
+                    <input readonly type="number" id="viewTotalOthers" class="form-control" name="viewTotalOthers"
                         value="0.00">
                     <p></p>
-                    <label for="newFinalAmount">Final Amount (OCBC):</label>
-                    <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
+                    <label for="viewFinalAmount">Nett Payment:</label>
+                    <input readonly type="number" id="viewFinalAmount" class="form-control" name="viewFinalAmount"
                         value="0.00">
                     <p></p>
                     <label for="status">Status:</label>

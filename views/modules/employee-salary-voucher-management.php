@@ -116,7 +116,7 @@ session_start();
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentPersonId" name="currentPersonId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
-                
+
                 <input type="hidden" id="updateVoucherStatus" name="updateVoucherStatus" value="">
                 <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
@@ -158,10 +158,15 @@ session_start();
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newPayToPersonName">Pay To (as in NRIC)</label>
-                                        <input type="text" class="form-control" id="newPayToPersonName"
-                                            name="newPayToPersonName"
-                                            value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
+                                        <label for="newMethodOfPayment">Method of Payment</label>
+                                        <select required id="newMethodOfPayment" name="newMethodOfPayment"
+                                            class="form-control select2" placeholder="Select Method of Payment"
+                                            style="width: 100%;">
+                                            <option></option>
+                                            <option value="Cheque">Cheque</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Bank Transfer">Bank Transfer</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -169,14 +174,31 @@ session_start();
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newDesignation">Designation</label>
-                                        <input readonly type="text" class="form-control" id="newDesignation"
-                                            name="newDesignation" value="<?php echo $_SESSION['designation'];?>">
+                                        <label for="newPayToPersonName">Pay To (as in NRIC)</label>
+                                        <input type="text" class="form-control" id="newPayToPersonName"
+                                            name="newPayToPersonName"
+                                            value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newDesignation">Designation</label>
+                                        <input type="text" class="form-control" id="newDesignation"
+                                            name="newDesignation" value="<?php echo $_SESSION['designation'];?>">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newNRIC">NRIC</label>
-                                        <input readonly type="text" class="form-control" id="newNRIC" name="newNRIC"
+                                        <input type="text" class="form-control" id="newNRIC" name="newNRIC"
                                             value="<?php echo $_SESSION['nric'];?>">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newDateOfBirth">Date Of Birth</label>
+                                        <input type="text" class="form-control" id="newDateOfBirth"
+                                            name="newDateOfBirth" value="<?php echo $_SESSION['date_of_birth'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -334,6 +356,11 @@ session_start();
                                         <label for="newCPFEmployer">CPF-ER</label>
                                         <input readonly type="number" class="form-control" id="newCPFEmployer"
                                             min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <label for="newLevyAmount">Levy (if applicable)</label>
+                                        <input type="number" class="form-control" id="newLevyAmount" min="0.00"
+                                            step="0.01" value="0.00" name="newLevyAmount">
                                     </div>
                                 </div>
                             </div>
@@ -612,7 +639,7 @@ session_start();
                         <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
                             value="0.00">
                         <p></p>
-                        <label for="newFinalAmount">Final Amount (OCBC):</label>
+                        <label for="newFinalAmount">Nett Payment:</label>
                         <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
                             value="0.00">
                         <p></p>
@@ -631,13 +658,14 @@ session_start();
                         <div class="form-group">
                             <div class="form-group">
                                 <strong>Set Voucher Status:&nbsp;&nbsp;</strong>
-                                <button type="submit" id="submitPendingVoucher" class="btn btn-warning submitPendingVoucher"
-                                    style="margin-bottom: 10px;"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Pending</button>&nbsp;&nbsp;
+                                <button type="submit" id="submitPendingVoucher"
+                                    class="btn btn-warning postButton submitPendingVoucher" style="margin-bottom: 10px;"><i
+                                        class="fa fa-pencil"></i>&nbsp;&nbsp;Pending</button>&nbsp;&nbsp;
                                 <button type='submit' style='margin-bottom: 10px;' id='submitApprovedVoucher'
-                                    title='Approve' class='btn btn-success submitApprovedVoucher'><i
+                                    title='Approve' class='btn btn-success postButton submitApprovedVoucher'><i
                                         class='fa fa-check'></i>&nbsp;&nbsp;Approve</button>&nbsp;&nbsp;
                                 <button type='submit' style='margin-bottom: 10px;' id='submitRejectedVoucher'
-                                    title='Reject' class='btn btn-danger submitRejectedVoucher'><i
+                                    title='Reject' class='btn btn-danger postButton submitRejectedVoucher'><i
                                         class='fa fa-times'></i>&nbsp;&nbsp;Reject</button>
 
                             </div>

@@ -136,7 +136,7 @@ if (isset($_GET['voucherId'])) {
         case "12":
             $month = "December";
             break;
-    }   
+    }
 
     $pdf = new FPDF();
     $pdf->AddPage('P', 'A4');
@@ -145,22 +145,26 @@ if (isset($_GET['voucherId'])) {
     $pdf->SetTopMargin(10);
     $pdf->SetLeftMargin(10);
     $pdf->SetRightMargin(10);
-    
+
     /* --- Image --- */
     $pdf->Image('logo.png', 10, 10, 20, 20);
     /* --- Cell --- */
     $pdf->SetXY(10, 33);
     $pdf->SetFont('', 'B', 14);
-    $pdf->Cell(0, 5, 'Goldlink - '.date(Y).' (Full Time)', 0, 1, 'L', false);
+    $pdf->Cell(0, 5, 'Goldlink - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
 
     /* --- Cell --- */
-    $pdf->SetXY(152, 10);
+    $pdf->SetXY(151, 15);
     $pdf->SetFont('', 'B', 14);
-    $pdf->Cell(49, 6, 'SALARY VOUCHER', 0, 1, 'L', false);
+    $pdf->Cell(49, 3, 'SALARY VOUCHER', 0, 1, 'L', false);
     /* --- Cell --- */
-    $pdf->SetXY(152, 17);
+    $pdf->SetXY(151, 21);
     $pdf->SetFontSize(10);
-    $pdf->Cell(48, 3, $month, 0, 1, 'L', false);
+    $pdf->Cell(49, 3, $month, 0, 1, 'L', false);
+    /* --- Cell --- */
+    $pdf->SetXY(151, 27);
+    $pdf->SetFont('', '', 10);
+    $pdf->Cell(49, 3, '#' . $salaryVoucherData['voucher_id'], 0, 1, 'L', false);
 
     /* --- Cell --- */
     $pdf->SetXY(10, 44);
@@ -187,7 +191,7 @@ if (isset($_GET['voucherId'])) {
     /* --- Cell --- */
     $pdf->SetXY(52, 50);
     $pdf->SetFont('', '', 10);
-    $pdf->Cell(73, 3, $salaryVoucherData['designation'], 0, 1, 'L', false);
+    $pdf->Cell(73, 4, $salaryVoucherData['designation'], 0, 1, 'L', false);
 
     /* --- Cell --- */
     $pdf->SetXY(135, 50);
@@ -196,7 +200,7 @@ if (isset($_GET['voucherId'])) {
     /* --- Cell --- */
     $pdf->SetXY(165, 50);
     $pdf->SetFont('', '', 10);
-    $pdf->Cell(0, 4, $_SESSION['date_of_birth'], 0, 1, 'R', false);
+    $pdf->Cell(0, 4, $salaryVoucherData['date_of_birth'], 0, 1, 'R', false);
 
     /* --- Cell --- */
     $pdf->SetXY(165, 56);
@@ -214,11 +218,20 @@ if (isset($_GET['voucherId'])) {
     /* --- Cell --- */
     $pdf->SetXY(52, 56);
     $pdf->SetFont('', '', 10);
-    $pdf->Cell(69, 3, $salaryVoucherData['bank_name'], 0, 1, 'L', false);
-    
+    $pdf->Cell(69, 4, $salaryVoucherData['bank_name'], 0, 1, 'L', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(10, 62);
+    $pdf->SetFont('', 'B', 10);
+    $pdf->Cell(43, 4, 'Method of Payment:', 0, 1, 'L', false);
+    /* --- Cell --- */
+    $pdf->SetXY(52, 62);
+    $pdf->SetFont('', '', 10);
+    $pdf->Cell(69, 4, $salaryVoucherData['method_of_payment'], 0, 1, 'L', false);
+
     /* --- Line --- */
     $pdf->Line(10, 68, 200, 68);
-    
+
     /* --- Cell --- */
     $pdf->SetXY(10, 72);
     $pdf->SetFont('', 'B', 12);
@@ -229,7 +242,7 @@ if (isset($_GET['voucherId'])) {
     foreach ($salaryRecordData as $index => $record) {
         /* --- Cell --- */
         $pdf->SetXY(10, 82 + 6 * $index);
-        $pdf->SetFontSize(10);
+        $pdf->SetFont('', '', 10);
         $pdf->Cell(19, 3, $record['title'], 0, 1, 'L', false);
         /* --- Cell --- */
         $pdf->SetXY(160, 82 + 6 * $index);
@@ -241,10 +254,10 @@ if (isset($_GET['voucherId'])) {
         $pdf->Cell(19, 3, $salaryRecordData[$index]['amount'], 0, 1, 'R', false);
         /* --- Cell --- */
         $pdf->SetXY(94, 82 + 6 * $index);
-        $pdf->SetFontSize(7);
-        $pdf->Cell(19, 3, $salaryRecordData[$index]['remarks'], 0, 1, 'R', false);
+        $pdf->SetFont('', 'I', 7);
+        $pdf->Cell(19, 3, $salaryRecordData[$index]['remarks'], 0, 1, 'L', false);
 
-        $finalHeight = 82 + 6* $index;
+        $finalHeight = 82 + 6 * $index;
     }
 
     /* --- Line --- */
@@ -252,9 +265,9 @@ if (isset($_GET['voucherId'])) {
 
     /* --- Cell --- */
     $pdf->SetXY(130, $finalHeight + 12);
-    $pdf->SetFont('', 'B', 10);
+    $pdf->SetFont('', '', 10);
     $pdf->Cell(0, 4, 'Gross Pay:', 0, 1, 'L', false);
-    
+
     /* --- Cell --- */
     $pdf->SetXY(160, $finalHeight + 12);
     $pdf->SetFontSize(10);
@@ -288,7 +301,7 @@ if (isset($_GET['voucherId'])) {
         /* --- Cell --- */
         $pdf->SetXY(180, $finalHeight + 6 * $index);
         $pdf->SetFontSize(10);
-        $pdf->Cell(19, 3, $salaryRecordData[$index]['amount'], 0, 1, 'R', false);
+        $pdf->Cell(19, 3, $deductionRecordData[$index]['amount'], 0, 1, 'R', false);
     }
 
     $finalHeight = $finalHeight + (count($deductionRecordData) - 1) * 6;
@@ -298,24 +311,189 @@ if (isset($_GET['voucherId'])) {
 
     /* --- Cell --- */
     $pdf->SetXY(130, $finalHeight + 12);
-    $pdf->SetFont('', 'B', 10);
+    $pdf->SetFont('', '', 10);
     $pdf->Cell(0, 4, 'Total Deductions:', 0, 1, 'L', false);
-     
+
     /* --- Cell --- */
     $pdf->SetXY(160, $finalHeight + 12);
     $pdf->SetFontSize(10);
     $pdf->Cell(19, 4, 'S$', 0, 1, 'R', false);
-    
+
     /* --- Cell --- */
     $pdf->SetXY(180, $finalHeight + 12);
     $pdf->SetFont('', 'B', 10);
-    $pdf->Cell(0, 4, $salaryVoucherData['total_deductions'], 0, 1, 'R', false);
-    
+    $pdf->Cell(0, 4, '-' . $salaryVoucherData['total_deductions'], 0, 1, 'R', false);
+
     $finalHeight = $finalHeight + 12;
-    
 
+    /* --- Cell --- */
+    $pdf->SetXY(10, $finalHeight + 10);
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Cell(0, 4, 'Others', 0, 1, 'L', false);
 
-    $pdf->Output('Salary_Voucher_'.date(Y_M).'_'.$salaryVoucherData['pay_to_name'].'.pdf','I');
+    $finalHeight = $finalHeight + 20;
+
+    $pdf->SetFont('', '', 12);
+
+    foreach ($otherRecordData as $index => $record) {
+        /* --- Cell --- */
+        $pdf->SetXY(10, $finalHeight + 6 * $index);
+        $pdf->SetFontSize(10);
+        $pdf->Cell(19, 3, $record['title'], 0, 1, 'L', false);
+        /* --- Cell --- */
+        $pdf->SetXY(160, $finalHeight + 6 * $index);
+        $pdf->SetFontSize(10);
+        $pdf->Cell(19, 3, 'S$', 0, 1, 'R', false);
+        /* --- Cell --- */
+        $pdf->SetXY(180, $finalHeight + 6 * $index);
+        $pdf->SetFontSize(10);
+        $pdf->Cell(19, 3, $otherRecordData[$index]['amount'], 0, 1, 'R', false);
+    }
+
+    $finalHeight = $finalHeight + (count($otherRecordData) - 1) * 6;
+
+    /* --- Line --- */
+    $pdf->Line(130, $finalHeight + 10, 199, $finalHeight + 10);
+
+    /* --- Cell --- */
+    $pdf->SetXY(130, $finalHeight + 12);
+    $pdf->SetFont('', '', 10);
+    $pdf->Cell(0, 4, 'Total Others:', 0, 1, 'L', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(160, $finalHeight + 12);
+    $pdf->SetFontSize(10);
+    $pdf->Cell(19, 4, 'S$', 0, 1, 'R', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(180, $finalHeight + 12);
+    $pdf->SetFont('', 'B', 10);
+    $pdf->Cell(0, 4, $salaryVoucherData['total_others'], 0, 1, 'R', false);
+
+    $finalHeight = $finalHeight + 12;
+
+    /* --- Line --- */
+    $pdf->Line(130, $finalHeight + 10, 199, $finalHeight + 10);
+
+    /* --- Cell --- */
+    $pdf->SetXY(130, $finalHeight + 12);
+    $pdf->SetFont('', 'B', 10);
+    $pdf->Cell(0, 4, 'Nett Payment:', 0, 1, 'L', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(160, $finalHeight + 12);
+    $pdf->SetFontSize(10);
+    $pdf->Cell(19, 4, 'S$', 0, 1, 'R', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(180, $finalHeight + 12);
+    $pdf->SetFont('', 'B', 10);
+    $pdf->Cell(0, 4, $salaryVoucherData['final_amount'], 0, 1, 'R', false);
+
+    /* --- Line --- */
+    $pdf->Line(10, $finalHeight + 22, 200, $finalHeight + 22);
+
+    $finalHeight = $finalHeight + 22;
+
+    /* --- Cell --- */
+    $pdf->SetXY(10, $finalHeight + 4);
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Cell(0, 4, 'Company Payout', 0, 1, 'L', false);
+
+    $finalHeight += 4;
+
+    if ($salaryVoucherData['is_sg_pr'] == 1) {
+        /* --- Cell --- */
+        $pdf->SetXY(10, $finalHeight + 12);
+        $pdf->SetFont('', '', 10);
+        $pdf->Cell(0, 4, 'CPF-ER', 0, 1, 'L', false);
+        /* --- Cell --- */
+        $pdf->SetXY(160, $finalHeight + 12);
+        $pdf->SetFontSize(10);
+        $pdf->Cell(19, 3, 'S$', 0, 1, 'R', false);
+        /* --- Cell --- */
+        $pdf->SetXY(180, $finalHeight + 12);
+        $pdf->SetFontSize(10);
+        $pdf->Cell(19, 3, $salaryVoucherData['cpf_employer'], 0, 1, 'R', false);
+    } else {
+        /* --- Cell --- */
+        $pdf->SetXY(10, $finalHeight + 12);
+        $pdf->SetFont('', '', 10);
+        $pdf->Cell(0, 4, 'Levy', 0, 1, 'L', false);
+        /* --- Cell --- */
+        $pdf->SetXY(160, $finalHeight + 12);
+        $pdf->SetFontSize(10);
+        $pdf->Cell(19, 3, 'S$', 0, 1, 'R', false);
+        /* --- Cell --- */
+        $pdf->SetXY(180, $finalHeight + 12);
+        $pdf->SetFontSize(10);
+        $pdf->Cell(19, 3, $salaryVoucherData['levy_amount'], 0, 1, 'R', false);
+    }
+
+    $finalHeight = $finalHeight + 12;
+
+    /* --- Line --- */
+    $pdf->Line(130, $finalHeight + 10, 199, $finalHeight + 10);
+
+    /* --- Cell --- */
+    $pdf->SetXY(130, $finalHeight + 12);
+    $pdf->SetFont('', 'B', 10);
+    $pdf->Cell(0, 4, 'Total Payout:', 0, 1, 'L', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(160, $finalHeight + 12);
+    $pdf->SetFontSize(10);
+    $pdf->Cell(19, 4, 'S$', 0, 1, 'R', false);
+
+    $totalPayout = 0.00;
+
+    if ($salaryVoucherData['is_sg_pr'] == 1) {
+        $totalPayout = $salaryVoucherData['gross_pay'] + $salaryVoucherData['cpf_employer'];
+    } else {
+        $totalPayout = $salaryVoucherData['gross_pay'] + $salaryVoucherData['levy_amount'];
+    }
+
+    /* --- Cell --- */
+    $pdf->SetXY(180, $finalHeight + 12);
+    $pdf->SetFont('', '', 10);
+    $pdf->Cell(0, 4, $totalPayout, 0, 1, 'R', false);
+
+    /* --- Line --- */
+    $pdf->Line(10, $finalHeight + 22, 200, $finalHeight + 22);
+
+    $finalHeight += 22;
+
+    /* --- Cell --- */
+    $pdf->SetXY(10, $finalHeight + 4);
+    $pdf->SetFont('', '', 10);
+    $pdf->Cell(0, 4, 'Personal Sales: S$' . $salaryVoucherData['personal_sales'], 0, 1, 'L', false);
+
+    if (is_infinite($totalPayout / $salaryVoucherData['personal_sales'])) {
+        $percentage = "N/A";
+    } else {
+        $percentage = round(($totalPayout / $salaryVoucherData['personal_sales']) * 100, 2);
+    }
+
+    /* --- Cell --- */
+    $pdf->SetXY(10, $finalHeight + 10);
+    $pdf->SetFont('', '', 10);
+    $pdf->Cell(0, 4, 'Percentage of Sales/Salary: ' . $percentage . '%', 0, 1, 'L', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(10, $finalHeight + 16);
+    $pdf->SetFont('', '', 10);
+    $pdf->Cell(0, 4, 'Number of days closing $0 sales: ' . $salaryVoucherData['num_days_zero_sales'] . ' days', 0, 1, 'L', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(10, $finalHeight + 22);
+    $pdf->SetFont('', '', 10);
+    $pdf->Cell(0, 4, 'Number of reports handed up: ' . $salaryVoucherData['num_reports_submitted'], 0, 1, 'L', false);
+
+    /* --- Cell --- */
+    $pdf->SetXY(91, $finalHeight + 16);
+    $pdf->Cell(0, 10, 'Supervisor Sign & Date', 1, 1, 'L', false);
+
+    $pdf->Output('Salary_Voucher_' . date(Y_M) . '_' . $salaryVoucherData['pay_to_name'] . '.pdf', 'I');
 
     $pdf->Output();
 

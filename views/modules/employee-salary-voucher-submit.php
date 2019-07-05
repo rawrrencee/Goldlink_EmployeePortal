@@ -89,7 +89,7 @@
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
-                
+
                 <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
 
@@ -128,11 +128,21 @@
                                             <option value="12">December</option>
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newPayToPersonName">Pay To (as in NRIC)</label>
                                         <input type="text" class="form-control" id="newPayToPersonName"
                                             name="newPayToPersonName"
                                             value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newDesignation">Designation</label>
+                                        <input readonly type="text" class="form-control" id="newDesignation"
+                                            name="newDesignation" value="<?php echo $_SESSION['designation'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -140,14 +150,14 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newDesignation">Designation</label>
-                                        <input readonly type="text" class="form-control" id="newDesignation"
-                                            name="newDesignation" value="<?php echo $_SESSION['designation'];?>">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newNRIC">NRIC</label>
                                         <input readonly type="text" class="form-control" id="newNRIC" name="newNRIC"
                                             value="<?php echo $_SESSION['nric'];?>">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newDateOfBirth">Date Of Birth</label>
+                                        <input type="text" class="form-control" id="newDateOfBirth"
+                                            name="newDateOfBirth" value="<?php echo $_SESSION['date_of_birth'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -171,12 +181,13 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newBoutique">Boutique</label>
-                                        <input type="text" class="form-control" id="newBoutique" name="newBoutique" value=""
-                                            placeholder="e.g. TE(Taka), TE(Tangs)">
+                                        <input type="text" class="form-control" id="newBoutique" name="newBoutique"
+                                            value="" placeholder="e.g. TE(Taka), TE(Tangs)">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newBoutiqueSales">Boutique Sales</label>
-                                        <input type="text" class="form-control" id="newBoutiqueSales" name="newBoutiqueSales" value=""
+                                        <input type="text" class="form-control" id="newBoutiqueSales"
+                                            name="newBoutiqueSales" value=""
                                             placeholder="e.g. TE(Taka) $100, TE(Tangs) $200">
                                     </div>
                                 </div>
@@ -581,7 +592,7 @@
                         <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
                             value="0.00">
                         <p></p>
-                        <label for="newFinalAmount">Final Amount (OCBC):</label>
+                        <label for="newFinalAmount">Nett Payment:</label>
                         <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
                             value="0.00">
                     </div>

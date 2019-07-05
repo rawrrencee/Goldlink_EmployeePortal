@@ -60,7 +60,7 @@ class PayrollController
     public static function ctrCreateNewSalaryVoucher()
     {
         if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] == null) {
-            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
             $submittedForm['person_id'] = $_SESSION['person_id'];
@@ -73,6 +73,7 @@ class PayrollController
             $submittedForm['pay_to_name'] = filter_var($_POST['newPayToPersonName'], FILTER_SANITIZE_STRING);
             $submittedForm['designation'] = filter_var($_POST['newDesignation'], FILTER_SANITIZE_STRING);
             $submittedForm['nric'] = filter_var($_POST['newNRIC'], FILTER_SANITIZE_STRING);
+            $submittedForm['date_of_birth'] = filter_var($_POST['newDateOfBirth'], FILTER_SANITIZE_STRING);
             $submittedForm['bank_name'] = filter_var($_POST['newBankName'], FILTER_SANITIZE_STRING);
             $submittedForm['bank_acct'] = filter_var($_POST['newBankAccount'], FILTER_SANITIZE_STRING);
             if ($_POST['newBoutique'] != null) {
@@ -134,6 +135,7 @@ class PayrollController
                 'pay_to_name' => $submittedForm['pay_to_name'],
                 'designation' => $submittedForm['designation'],
                 'nric' => $submittedForm['nric'],
+                'date_of_birth' => $submittedForm['date_of_birth'],
                 'bank_name' => $submittedForm['bank_name'],
                 'bank_acct' => $submittedForm['bank_acct'],
                 'gross_pay' => $submittedForm['gross_pay'],
@@ -165,6 +167,8 @@ class PayrollController
                 'days_of_month' => $submittedForm['newDayOfMonth'],
                 'sales_information' => $submittedForm['newSalesInformation'],
             );
+
+            echo "<script type='text/javascript'> alert('hello, salaryvoucher:" . json_encode($salaryVoucherData) . "') </script>";
 
             $response = PayrollModel::mdlCreateNewSalaryVoucher($salaryVoucherData);
 
@@ -247,9 +251,11 @@ class PayrollController
             $submittedForm['is_draft'] = (int) filter_var((int) $_POST['newIsDraft'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['year_of_voucher'] = (int) filter_var((int) ($_POST['newYearOfVoucher']), FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['month_of_voucher'] = (int) filter_var((int) $_POST['newMonthOfVoucher'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['method_of_payment'] = filter_var($_POST['newMethodOfPayment'], FILTER_SANITIZE_STRING);
             $submittedForm['pay_to_name'] = filter_var($_POST['newPayToPersonName'], FILTER_SANITIZE_STRING);
             $submittedForm['designation'] = filter_var($_POST['newDesignation'], FILTER_SANITIZE_STRING);
             $submittedForm['nric'] = filter_var($_POST['newNRIC'], FILTER_SANITIZE_STRING);
+            $submittedForm['date_of_birth'] = filter_var($_POST['newDateOfBirth'], FILTER_SANITIZE_STRING);
             $submittedForm['bank_name'] = filter_var($_POST['newBankName'], FILTER_SANITIZE_STRING);
             $submittedForm['bank_acct'] = filter_var($_POST['newBankAccount'], FILTER_SANITIZE_STRING);
             if ($_POST['newBoutique'] != null) {
@@ -313,8 +319,10 @@ class PayrollController
                 'year_of_voucher' => $submittedForm['year_of_voucher'],
                 'is_draft' => $submittedForm['is_draft'],
                 'pay_to_name' => $submittedForm['pay_to_name'],
+                'method_of_payment' => $submittedForm['method_of_payment'],
                 'designation' => $submittedForm['designation'],
                 'nric' => $submittedForm['nric'],
+                'date_of_birth' => $submittedForm['date_of_birth'],
                 'bank_name' => $submittedForm['bank_name'],
                 'bank_acct' => $submittedForm['bank_acct'],
                 'gross_pay' => $submittedForm['gross_pay'],
@@ -433,9 +441,11 @@ class PayrollController
             $submittedForm['is_draft'] = (int) filter_var((int) $_POST['newIsDraft'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['year_of_voucher'] = (int) filter_var((int) ($_POST['newYearOfVoucher']), FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['month_of_voucher'] = (int) filter_var((int) $_POST['newMonthOfVoucher'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['method_of_payment'] = filter_var($_POST['newMethodOfPayment'], FILTER_SANITIZE_STRING);
             $submittedForm['pay_to_name'] = filter_var($_POST['newPayToPersonName'], FILTER_SANITIZE_STRING);
             $submittedForm['designation'] = filter_var($_POST['newDesignation'], FILTER_SANITIZE_STRING);
             $submittedForm['nric'] = filter_var($_POST['newNRIC'], FILTER_SANITIZE_STRING);
+            $submittedForm['date_of_birth'] = filter_var($_POST['newDateOfBirth'], FILTER_SANITIZE_STRING);
             $submittedForm['bank_name'] = filter_var($_POST['newBankName'], FILTER_SANITIZE_STRING);
             $submittedForm['bank_acct'] = filter_var($_POST['newBankAccount'], FILTER_SANITIZE_STRING);
             if ($_POST['newBoutique'] != null) {
@@ -452,6 +462,7 @@ class PayrollController
             $submittedForm['personal_sales'] = number_format(floatval(filter_var($_POST['newPersonalSales'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['gross_pay'] = number_format(floatval(filter_var($_POST['newGrossPay'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['total_deductions'] = number_format(floatval(filter_var($_POST['newTotalDeductions'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['total_others'] = number_format(floatval(filter_var($_POST['newTotalOthers'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['final_amount'] = number_format(floatval(filter_var($_POST['newFinalAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
 
@@ -498,13 +509,16 @@ class PayrollController
                 'month_of_voucher' => $submittedForm['month_of_voucher'],
                 'year_of_voucher' => $submittedForm['year_of_voucher'],
                 'is_draft' => $submittedForm['is_draft'],
+                'method_of_payment' => $submittedForm['method_of_payment'],
                 'pay_to_name' => $submittedForm['pay_to_name'],
                 'designation' => $submittedForm['designation'],
                 'nric' => $submittedForm['nric'],
+                'date_of_birth' => $submittedForm['date_of_birth'],
                 'bank_name' => $submittedForm['bank_name'],
                 'bank_acct' => $submittedForm['bank_acct'],
                 'gross_pay' => $submittedForm['gross_pay'],
                 'total_deductions' => $submittedForm['total_deductions'],
+                'levy_amount' => $submittedForm['levy_amount'],
                 'total_others' => $submittedForm['total_others'],
                 'final_amount' => $submittedForm['final_amount'],
                 'is_sg_pr' => $submittedForm['is_sg_pr'],
