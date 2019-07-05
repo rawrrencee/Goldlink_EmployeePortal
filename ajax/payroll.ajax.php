@@ -74,7 +74,8 @@ class AjaxPayroll
 if (isset($_POST['getSalaryVoucherById'])) {
 
     $getSalaryVoucherById = new AjaxPayroll();
-    $getSalaryVoucherById -> salaryVoucherId = $_POST['getSalaryVoucherById'];
+    $voucher_id = (int) filter_var((int) $_POST['getSalaryVoucherById'], FILTER_SANITIZE_NUMBER_INT);
+    $getSalaryVoucherById -> salaryVoucherId = $voucher_id;
     $getSalaryVoucherById -> getSalaryVoucherById();
 
 }
@@ -82,7 +83,9 @@ if (isset($_POST['getSalaryVoucherById'])) {
 if (isset($_POST['getSalaryRecordsByVoucherId'])) {
 
     $getSalaryRecordsByVoucherId = new AjaxPayroll();
-    $getSalaryRecordsByVoucherId -> salaryVoucherId = $_POST['getSalaryRecordsByVoucherId'];
+    $voucher_id = (int) filter_var((int) $_POST['getSalaryRecordsByVoucherId'], FILTER_SANITIZE_NUMBER_INT);
+
+    $getSalaryRecordsByVoucherId -> salaryVoucherId = $voucher_id;
     $getSalaryRecordsByVoucherId -> getSalaryRecordsByVoucherId();
 
 }
@@ -90,7 +93,9 @@ if (isset($_POST['getSalaryRecordsByVoucherId'])) {
 if (isset($_POST['getDeductionRecordsByVoucherId'])) {
 
     $getDeductionRecordsByVoucherId = new AjaxPayroll();
-    $getDeductionRecordsByVoucherId -> salaryVoucherId = $_POST['getDeductionRecordsByVoucherId'];
+    $voucher_id = (int) filter_var((int) $_POST['getDeductionRecordsByVoucherId'], FILTER_SANITIZE_NUMBER_INT);
+
+    $getDeductionRecordsByVoucherId -> salaryVoucherId = $voucher_id;
     $getDeductionRecordsByVoucherId -> getDeductionRecordsByVoucherId();
 
 }
@@ -98,7 +103,9 @@ if (isset($_POST['getDeductionRecordsByVoucherId'])) {
 if (isset($_POST['getOtherRecordsByVoucherId'])) {
 
     $getOtherRecordsByVoucherId = new AjaxPayroll();
-    $getOtherRecordsByVoucherId -> salaryVoucherId = $_POST['getOtherRecordsByVoucherId'];
+    $voucher_id = (int) filter_var((int) $_POST['getOtherRecordsByVoucherId'], FILTER_SANITIZE_NUMBER_INT);
+
+    $getOtherRecordsByVoucherId -> salaryVoucherId = $voucher_id;
     $getOtherRecordsByVoucherId -> getOtherRecordsByVoucherId();
 
 }
@@ -106,7 +113,9 @@ if (isset($_POST['getOtherRecordsByVoucherId'])) {
 if (isset($_POST['getDailySalesFigureByVoucherId'])) {
 
     $getDailySalesFigureByVoucherId = new AjaxPayroll();
-    $getDailySalesFigureByVoucherId -> salaryVoucherId = $_POST['getDailySalesFigureByVoucherId'];
+    $voucher_id = (int) filter_var((int) $_POST['getDailySalesFigureByVoucherId'], FILTER_SANITIZE_NUMBER_INT);
+
+    $getDailySalesFigureByVoucherId -> salaryVoucherId = $voucher_id;
     $getDailySalesFigureByVoucherId -> getDailySalesFigureByVoucherId();
 
 }
@@ -114,7 +123,9 @@ if (isset($_POST['getDailySalesFigureByVoucherId'])) {
 if (isset($_POST['getAttendanceRecordsByVoucherId'])) {
 
     $getAttendanceRecordsByVoucherId = new AjaxPayroll();
-    $getAttendanceRecordsByVoucherId -> salaryVoucherId = $_POST['getAttendanceRecordsByVoucherId'];
+    $voucher_id = (int) filter_var((int) $_POST['getAttendanceRecordsByVoucherId'], FILTER_SANITIZE_NUMBER_INT);
+
+    $getAttendanceRecordsByVoucherId -> salaryVoucherId = $voucher_id;
     $getAttendanceRecordsByVoucherId -> getAttendanceRecordsByVoucherId();
 
 }

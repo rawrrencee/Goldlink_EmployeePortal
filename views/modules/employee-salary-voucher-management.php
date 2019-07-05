@@ -67,7 +67,7 @@ session_start();
                                     <th class="none">Personal Sales</th>
                                     <th class="none">Zero Sales Days</th>
                                     <th class="none">Reports Submitted</th>
-                                    <th style="width: 140px;">Action</th>
+                                    <th style="width: 160px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

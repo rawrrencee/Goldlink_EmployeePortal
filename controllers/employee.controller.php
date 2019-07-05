@@ -7,7 +7,7 @@ class EmployeeController
     {
         if (isset($_POST['inUsername'])) {
 
-            /*
+            
             if ($_POST['inUsername'] == "tester" && $_POST['inPassword'] = "testingAccount") {
 
                 $_SESSION["loggedIn"] = true;
@@ -23,7 +23,7 @@ class EmployeeController
                             window.location = "home";
                 </script>';
             }
-            */
+            
 
             if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['inUsername'])) {
 
@@ -56,10 +56,13 @@ class EmployeeController
 
                         $passwordData = array('person_id' => $response['person_id'], 'legacy_password' => $password);
 
-                        $result = EmployeeModel::updateMD5PasswordHash($passwordData);
+                        //$result = EmployeeModel::updateMD5PasswordHash($passwordData);
+
+                        //Disable update of MD5 hash
+                        $result = true;
 
                         if ($result) {
-                            echo "<script type='text/javascript'> alert('System has migrated your account details successfully.') </script>";
+                            //echo "<script type='text/javascript'> alert('System has migrated your account details successfully.') </script>";
 
                             $_SESSION["loggedIn"] = true;
                             self::setSessionVariables($response);

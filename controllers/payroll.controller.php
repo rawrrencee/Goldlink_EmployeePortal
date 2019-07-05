@@ -419,7 +419,7 @@ class PayrollController
     {
         if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null && $_POST['currentPersonId'] != null) {
             echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
-            
+
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
 
             $submittedForm['person_id'] = (int) filter_var((int) $_POST['currentPersonId'], FILTER_SANITIZE_NUMBER_INT);
@@ -465,7 +465,7 @@ class PayrollController
 
             $submittedForm['status'] = filter_var($_POST['updateVoucherStatus'], FILTER_SANITIZE_STRING);
             $submittedForm['updated_by'] = filter_var($_POST['voucherUpdatedBy'], FILTER_SANITIZE_STRING);
-            
+
             //PARSE & SANITIZE ARRAY BASED INPUTS
             foreach ($_POST['salaryTitle'] as $index => $salaryTitle) {
                 $submittedForm['salaryTitle'][$index] = filter_var($salaryTitle, FILTER_SANITIZE_STRING);
@@ -599,6 +599,8 @@ class PayrollController
             }
 
         }
+
+        return;
     }
 
     public static function ctrDeleteSalaryVoucher()
@@ -652,11 +654,12 @@ class PayrollController
 
     public static function ctrUpdateSalaryVoucherStatus()
     {
+
         if ($_POST['voucherIdToUpdate'] != null && ($_POST['voucherStatusToUpdate'] == "Approved" || $_POST['voucherStatusToUpdate'] == "Rejected" || $_POST['voucherStatusToUpdate'] == "Pending")) {
 
             echo "<script type='text/javascript'> alert('UPDATE: " . json_encode($_POST) . "') </script>";
 
-            $submittedForm['updated_by'] = $_SESSION['first_name'].' '.$_SESSION['last_name'];
+            $submittedForm['updated_by'] = $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
             $submittedForm['voucher_id'] = (int) filter_var((int) $_POST['voucherIdToUpdate'], FILTER_SANITIZE_NUMBER_INT);
 
             $salaryVoucherData = array(

@@ -221,19 +221,22 @@ var allSalaryVouchersTable = $('.tableAllSalaryVouchers').DataTable({
         return `
       <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
       <button type='submit' style='margin-bottom: 10px;' id='btnApproveSalaryVoucher' title='Approve' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-success btn-sm btnApproveSalaryVoucher'><i class='fa fa-check'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnRejectSalaryVoucher' title='Reject' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-danger btn-sm btnRejectSalaryVoucher'><i class='fa fa-times'></i></button>
+      <button type='submit' style='margin-bottom: 10px;' id='btnRejectSalaryVoucher' title='Reject' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-danger btn-sm btnRejectSalaryVoucher'><i class='fa fa-times'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
       `;
       } else if (row[7] == "Approved") {
         return `
       <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
       <button type='submit' style='margin-bottom: 10px;' id='btnPendingSalaryVoucher' title='Pending' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-info btn-sm btnPendingSalaryVoucher'><i class='fa fa-hourglass'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnRejectSalaryVoucher' title='Reject' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-danger btn-sm btnRejectSalaryVoucher'><i class='fa fa-times'></i></button>
+      <button type='submit' style='margin-bottom: 10px;' id='btnRejectSalaryVoucher' title='Reject' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-danger btn-sm btnRejectSalaryVoucher'><i class='fa fa-times'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
       `;
       } else {
         return `
       <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
       <button type='submit' style='margin-bottom: 10px;' id='btnPendingSalaryVoucher' title='Pending' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-info btn-sm btnPendingSalaryVoucher'><i class='fa fa-hourglass'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnApproveSalaryVoucher' title='Approve' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-success btn-sm btnApproveSalaryVoucher'><i class='fa fa-check'></i></button>
+      <button type='submit' style='margin-bottom: 10px;' id='btnApproveSalaryVoucher' title='Approve' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-success btn-sm btnApproveSalaryVoucher'><i class='fa fa-check'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
       `;
       }
     },
@@ -413,6 +416,11 @@ $('.postButton').click(function () {
 
     $('.nav a[href="#' + id + '"]').tab('show');
   });
+});
+
+$(".tableAllSalaryVouchers tbody").on("click", "button.btnGeneratePDF", function () {
+  var voucher_id = $(this).attr("voucherId");
+  window.location.href = "views/plugins/fpdf/index.php?voucherId=" + voucher_id;
 });
 
 $('#saveDraftVoucher').click(function () {

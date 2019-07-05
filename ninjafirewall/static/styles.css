@@ -1,0 +1,169 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+a {
+	text-decoration: none !important;
+}
+.ntn-section {
+	padding: 50px 0;
+	background-color: #F8F8F8;
+	display: table;
+	width: 100%;
+}
+
+.table > tbody > tr > td {
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+
+.brand-logo {
+	float: left;
+	margin-left: 8px;
+	margin-top: 3px;
+}
+label {
+	font-weight: normal;
+}
+.glyphicon {
+	font-size: 23px;
+}
+.cgreen {
+	color: #398439;
+}
+.cblue {
+	color: #269abc;
+}
+.corange {
+	color: #ec971f;
+}
+.cred {
+	color: #c9302c;
+}
+.table-borderless > tbody > tr > td {
+	border: none;
+}
+
+.table-nf {
+	border: 1px #ddd solid;
+}
+.table-nf > tbody > tr > td {
+	border-top:none !important;
+}
+
+.popover {
+	max-width: 500px;
+}
+.popover-content {
+	color: #333;
+	font-size: 14px;
+}
+/* make button 'responsive' */
+table .btn {
+	white-space: normal;
+}
+
+.btn-100 {
+	width:100%;
+}
+.btn-50 {
+	width:50%;
+}
+.btn-35 {
+	width:35%;
+}
+.btn-30 {
+	width:30%;
+}
+
+.footer-font {
+	font-size: 12px;
+}
+
+/* Change the active menu color and highlight */
+.navbar-default .navbar-nav > .active > a {
+	-webkit-box-shadow:inset 0 -3px 0 0 #fcdc25;
+	-moz-box-shadow:inset  0 -3px 0 0 #fcdc25;
+	box-shadow:inset  0 -3px 0 0 #fcdc25;
+	color: #333;
+	background-color: #f8f8f8;
+}
+/* Remove the dark grey color when hover/focus */
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+	color:#333;
+	background-color:#f8f8f8;
+}
+
+/* Add shadow below the navbar */
+.navbar-default{
+	-moz-box-shadow:0px 2px 2px #999;
+	-webkit-box-shadow:0px 2px 2px #999;
+	box-shadow:0px 2px 2px #999;
+}
+code {
+	font-size: 14px;
+	background-color: #ececec;
+	color: #333;
+	padding: 1px 3px;
+	font-family: Inconsolata, monospace, sans-serif;
+	white-space: pre-wrap;
+	border: #ddd 1px solid;
+	border-radius: 2px;
+	-webkit-font-feature-settings: "liga" 0;
+	-moz-font-feature-settings: "liga" 0;
+	font-feature-settings: "liga" 0;
+}
+pre {
+	font-size: 80%;
+	white-space: pre-wrap;
+}
+
+#main_nr {
+	background-color: #f8f8f8;
+	color: #333;
+	height: 100%;
+}
+#main_nr li span {
+	color: #fcdc25;
+}
+
+.wp {
+	color: #21759b;
+}
+.pro {
+	color: #FF0000;
+}
+
+#main_nr a:not(.btn), #main_services a:not(.btn){
+	text-decoration:underline;
+	color: #777;
+}
+#main_nr a:hover:not(.btn), #main_services a:hover:not(.btn){
+	color: #333;
+}
+.close {
+	text-decoration:none !important;
+}
+
+blockquote{
+	border-left: 5px solid #fcdc25;
+}
+
+/* Footer */
+#footer a:hover {
+	color: #ddd;
+}
+#footer a {
+	color: #999;
+}
+#footer {
+	background-color: #222;
+	color: #f7f7f7;
+	font-size:12px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/* EOF */
