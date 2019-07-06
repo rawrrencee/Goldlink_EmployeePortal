@@ -290,6 +290,9 @@ if (isset($_GET['voucherId'])) {
     $pdf->SetFont('', '', 12);
 
     foreach ($deductionRecordData as $index => $record) {
+        if ($salaryVoucherData['is_sg_pr'] == 0 && $record['title'] == "CPF-EE") {
+            continue;
+        }
         /* --- Cell --- */
         $pdf->SetXY(10, $finalHeight + 6 * $index);
         $pdf->SetFontSize(10);
@@ -468,7 +471,7 @@ if (isset($_GET['voucherId'])) {
     $pdf->SetFont('', '', 10);
     $pdf->Cell(0, 4, 'Personal Sales: S$' . $salaryVoucherData['personal_sales'], 0, 1, 'L', false);
 
-    if (is_infinite($totalPayout / $salaryVoucherData['personal_sales'])) {
+    if (is_infinite($totalPayout / $salaryVoucherData['personal_sales']) || is_nan($totalPayout / $salaryVoucherData['personal_sales'])) {
         $percentage = "N/A";
     } else {
         $percentage = round(($totalPayout / $salaryVoucherData['personal_sales']) * 100, 2);
@@ -491,8 +494,14 @@ if (isset($_GET['voucherId'])) {
 
     /* --- Cell --- */
     $pdf->SetXY(91, $finalHeight + 16);
-    $pdf->Cell(0, 10, 'Supervisor Sign & Date', 1, 1, 'L', false);
-
+    if ($salaryVoucherData['status'] == 'Approved') {
+        $date = date_create($salaryVoucherData['modified_on']);
+        $pdf->Cell(0, 10, 'Supervisor Sign & Date: ', 1, 1, 'L', false);
+        $pdf->SetFont('Courier', '', 9);
+        $pdf->Text(132, $finalHeight + 22, $salaryVoucherData['updated_by'] . ' - ' .date_format($date, 'd M Y'));
+    } else {
+        $pdf->Cell(0, 10, 'Supervisor Sign & Date: ', 1, 1, 'L', false);
+    }
     $pdf->Output('Salary_Voucher_' . date(Y_M) . '_' . $salaryVoucherData['pay_to_name'] . '.pdf', 'I');
 
     $pdf->Output();
