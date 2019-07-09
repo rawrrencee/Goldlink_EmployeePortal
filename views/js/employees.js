@@ -1,18 +1,3 @@
-/* DATATABLES NON SERVER-SIDE PROCESSING
-$('.tableEmployees').DataTable({
-  "ajax": "ajax/datatable-employees.ajax.php",
-  "deferRender": true,
-  "retrieve": true,
-  "processing": true,
-  "autoWidth": false,
-  "order": [[2, 'asc']],
-  "columnDefs": [
-    { "responsivePriority": 1, "targets": 22},
-    { "orderable": false, "targets": [0, 22, 23] }
-  ]
-});
-*/
-
 /* DATATABLES CONFIGURATION */
 var employeesTable = $('.tableEmployees').DataTable({
   "ajax": "ajax/datatable-employees.ssp.php",
@@ -59,6 +44,14 @@ var employeesTable = $('.tableEmployees').DataTable({
     "targets": 23,
     "data": null,
     "render": function (data, type, row) {
+      return "<button id='btnUploadEmployeeDocuments' employeeId=" + row[21] + " class='btn btn-primary btn-sm'><i class='fa fa-upload'></i></button>";
+    },
+    "orderable": false,
+    "responsivePriority": 3
+  },{
+    "targets": 24,
+    "data": null,
+    "render": function (data, type, row) {
       return "<button id='btnDeleteEmployee' employeeId=" + row[21] + " class='btn btn-danger btn-sm' data-toggle='modal' data-target='#modalDeleteEmployee'><i class='fa fa-times'></i></button>";
     },
     "orderable": false,
@@ -66,9 +59,13 @@ var employeesTable = $('.tableEmployees').DataTable({
   }]
 });
 
+$('.tableEmployees tbody').on('click', '#btnUploadEmployeeDocuments', function () {
+  window.open("index.php?route=employee-upload-files&employeeId=" + parseInt($(this).attr('employeeId')));
+});
+
 $('.tableEmployees thead th').each(function (index, element) {
   var title = $(this).text();
-  if (index != 22 && index != 23) {
+  if (index != 22 && index != 23 && index != 24) {
     $(this).append('<input type="text" class="col-search-input" style="width: 100%;" placeholder="Search ' + title + '" />');
   }
 });
@@ -91,6 +88,7 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
 
       console.log(answer);
       $('#editEmployeeId').val(answer['person_id']);
+      $('#personIdToUpload').val(answer['person_id']);
       $('#editFirstName').val(answer['first_name']);
       $('#editLastName').val(answer['last_name']);
       $('#editChineseName').val(answer['chinese_name']);
@@ -131,6 +129,15 @@ employeesTable.columns().every(function () {
   });
 });
 
+$('#modalAddEmployee').on('hidden.bs.modal', function () {
+  $(".preview").attr("src", "views/img/users/default/anonymous.png");
+  $(".newProfilePhoto").val("");
+})
+
+$('#modalEditEmployee').on('hidden.bs.modal', function () {
+  $(".preview").attr("src", "views/img/users/default/anonymous.png");
+  $(".editProfilePhoto").val("");
+})
 
 $('div.dataTables_filter input').focus();
 $('div.dataTables_filter label input').attr('id', 'search');
@@ -142,6 +149,7 @@ $('#editPasswordSelection').on('ifUnchecked', function(event){
 
 $('#editPasswordSelection').on('ifChecked', function(event){
   $("#editPassword").prop("readonly",false);
+  $('.editPasswordSelection').val("1");
 });
 
 $('.datepicker').datepicker({

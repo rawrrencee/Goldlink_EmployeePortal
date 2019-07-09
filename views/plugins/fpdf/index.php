@@ -451,9 +451,9 @@ if (isset($_GET['voucherId'])) {
     $totalPayout = 0.00;
 
     if ($salaryVoucherData['is_sg_pr'] == 1) {
-        $totalPayout = $salaryVoucherData['gross_pay'] + $salaryVoucherData['cpf_employer'];
+        $totalPayout = number_format((float)($salaryVoucherData['gross_pay'] + $salaryVoucherData['cpf_employer']), 2, '.', '');
     } else {
-        $totalPayout = $salaryVoucherData['gross_pay'] + $salaryVoucherData['levy_amount'];
+        $totalPayout = number_format((float)($salaryVoucherData['gross_pay'] + $salaryVoucherData['levy_amount']), 2, '.', '');
     }
 
     /* --- Cell --- */
@@ -480,7 +480,7 @@ if (isset($_GET['voucherId'])) {
     /* --- Cell --- */
     $pdf->SetXY(10, $finalHeight + 10);
     $pdf->SetFont('', '', 10);
-    $pdf->Cell(0, 4, 'Percentage of Sales/Salary: ' . $percentage . '%', 0, 1, 'L', false);
+    $pdf->Cell(0, 4, 'Percentage of Salary/Sales: ' . $percentage . '%', 0, 1, 'L', false);
 
     /* --- Cell --- */
     $pdf->SetXY(10, $finalHeight + 16);

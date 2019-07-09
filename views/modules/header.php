@@ -25,22 +25,50 @@ NAVBAR
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="views/img/users/default/anonymous.png" class="user-image">
-                        <span>&nbsp;&nbsp;<?php echo $_SESSION["first_name"]?></span>
+
+                        <?php
+
+                            $filename = "profile_picture";
+                            $profile_photo_path_jpg = "uploads/".$_SESSION["person_id"]."/".$filename.".jpg";
+                            $profile_photo_path_png = "uploads/".$_SESSION["person_id"]."/".$filename.".png";
+
+                            if (file_exists($profile_photo_path_jpg)) {
+                                echo '<img src="'.$profile_photo_path_jpg.'" class="user-image">';
+                            } else if (file_exists($profile_photo_path_png)) {
+                                echo '<img src="'.$profile_photo_path_png.'" class="user-image">';
+                            } else {
+                                echo '<img src="views/img/users/default/anonymous.png" class="user-image">'; 
+                            }
+
+                            ?>
+
+                        <span><?php echo '&nbsp;&nbsp;'.$_SESSION["first_name"]?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
-                            <img src="views/img/users/default/anonymous.png" class="img-circle">
+                            <?php
 
+                                $filename = "profile_picture";
+                                $profile_photo_path_jpg = "uploads/".$_SESSION["person_id"]."/".$filename.".jpg";
+                                $profile_photo_path_png = "uploads/".$_SESSION["person_id"]."/".$filename.".png";
+                        
+                                if (file_exists($profile_photo_path_jpg)) {
+                                    echo '<img src="'.$profile_photo_path_jpg.'" class="img-circle">';
+                                } else if (file_exists($profile_photo_path_png)) {
+                                    echo '<img src="'.$profile_photo_path_png.'" class="img-circle">';
+                                } else {
+                                    echo '<img src="views/img/users/default/anonymous.png" class="img-circle">'; 
+                                }
+                            
+                            ?>
                             <?php
                                 echo '<p>
-                                    '.$_SESSION['first_name'].'
-                                    <small>'.$_SESSION['designation'].'</small>
-                                    </p>'
-                            ?>
+                                '.$_SESSION['first_name'].'
+                                <small>'.$_SESSION['designation'].'</small>
+                                </p>'
+                        ?>
                         </li>
                         <li class="user-body">
                             <div class="pull-right">

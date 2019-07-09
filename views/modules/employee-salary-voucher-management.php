@@ -1,14 +1,9 @@
 <?php
 
 session_start();
-/*if ($_SESSION['first_name'] != "Lawrence") {
-
-    echo '<script>
-            window.location = "404";
-          </script>';
+if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules'])) {
+    //die('Invalid Authentication');
 }
-*/
-;
 
 ?>
 <div class="content-wrapper">
@@ -348,13 +343,13 @@ session_start();
                                         <input type="hidden" id="newDeductionCPF" value="CPF-EE"
                                             name="deductionTitle[0]">
                                         <label for="newCPFEmployee">CPF-EE</label>
-                                        <input readonly type="number" class="form-control totalDeductions"
+                                        <input type="number" class="form-control totalDeductions"
                                             id="newCPFEmployee" min="0.00" step="0.01" value="0.00"
                                             name="deductionAmount[0]">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <label for="newCPFEmployer">CPF-ER</label>
-                                        <input readonly type="number" class="form-control" id="newCPFEmployer"
+                                        <input type="number" class="form-control" id="newCPFEmployer"
                                             min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">

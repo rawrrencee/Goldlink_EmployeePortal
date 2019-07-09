@@ -7,11 +7,10 @@ class EmployeeController
     {
         if (isset($_POST['inUsername'])) {
 
-            
             if ($_POST['inUsername'] == "tester" && $_POST['inPassword'] = "testingAccount") {
 
                 $_SESSION["loggedIn"] = true;
-                $_SESSION["person_id"] = 21512;
+                $_SESSION["person_id"] = 25908;
                 $_SESSION["first_name"] = "first_name";
                 $_SESSION["last_name"] = "last_name";
                 $_SESSION["designation"] = "designation";
@@ -19,25 +18,25 @@ class EmployeeController
                 $_SESSION["date_of_birth"] = "date_of_birth";
                 $_SESSION["bank_name"] = "bank_name";
                 $_SESSION["bank_acct"] = "bank_acct";
+                $_SESSION["allowed_modules"] = array('home', 'logout', 'employee-management', 'employee-salary-voucher-my', 'employee-salary-voucher-submit', 'employee-salary-voucher-management');
                 echo '<script>
                             window.location = "home";
                 </script>';
             }
-            
 
             if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['inUsername'])) {
 
                 $table = 'employees';
                 $item = 'username';
-                $value = $_POST['inUsername'];
+                $username = filter_var($_POST['inUsername'], FILTER_SANITIZE_STRING);
 
-                $response = EmployeeModel::mdlViewAllEmployees($table, $item, $value);
+                $response = EmployeeModel::mdlViewAllEmployees($table, $item, $username);
 
                 $password = $_POST['inPassword'];
 
                 if (substr($response['password'], 0, 1) == "$") {
 
-                    if (strtolower($response['username']) == strtolower($_POST["inUsername"]) && password_verify($password, $response['password'])) {
+                    if (strtolower($response['username']) == strtolower($username) && password_verify($password, $response['password'])) {
 
                         $_SESSION["loggedIn"] = true;
                         self::setSessionVariables($response);
@@ -104,6 +103,7 @@ class EmployeeController
         $_SESSION["date_of_birth"] = $response["date_of_birth"];
         $_SESSION["bank_name"] = $response["bank_name"];
         $_SESSION["bank_acct"] = $response["bank_acct"];
+        $_SESSION["allowed_modules"] = array('home', 'logout', 'employee-management', 'employee-upload-files', 'employee-salary-voucher-my', 'employee-salary-voucher-submit', 'employee-salary-voucher-management');
     }
 
     public static function ctrViewAllEmployees($item, $value)
@@ -120,5 +120,390 @@ class EmployeeController
         $response = EmployeeModel::mdlViewEmployeeByPersonId($personId);
 
         return $response;
+    }
+
+    public static function ctrCreateEmployee()
+    {
+        if (isset($_POST["newFirstName"])) {
+
+            //Debug with JS Alert
+            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+
+            if (preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newFirstName"]) &&
+                preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newLastName"]) &&
+                preg_match('/^[a-zA-Z0-9]+$/', $_POST["newUsername"])) {
+
+                $table = 'employees';
+                $item = 'username';
+                $newUsername = filter_var($_POST['newUsername'], FILTER_SANITIZE_STRING);
+                $usernameExists = EmployeeModel::mdlCheckUsernameExists($table, $item, $newUsername);
+
+                if ($usernameExists) {
+
+                    echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "Username already exists. Please use another username.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+                    });
+                    </script>';
+
+                    return;
+                }
+
+                $submittedForm['first_name'] = filter_var($_POST['newFirstName'], FILTER_SANITIZE_STRING);
+                $submittedForm['last_name'] = filter_var($_POST['newLastName'], FILTER_SANITIZE_STRING);
+                $submittedForm['date_of_birth'] = filter_var($_POST['newDateOfBirth'], FILTER_SANITIZE_STRING);
+                $submittedForm['gender'] = filter_var($_POST['newGender'], FILTER_SANITIZE_STRING);
+                $submittedForm['nationality'] = filter_var($_POST['newNationality'], FILTER_SANITIZE_STRING);
+                $submittedForm['designation'] = filter_var($_POST['newDesignation'], FILTER_SANITIZE_STRING);
+                $submittedForm['email'] = filter_var($_POST['newEmail'], FILTER_SANITIZE_EMAIL);
+                $submittedForm['mobile_number'] = filter_var($_POST['newMobileNumber'], FILTER_SANITIZE_STRING);
+                $submittedForm['phone_number'] = filter_var($_POST['newPhoneNumber'], FILTER_SANITIZE_STRING);
+                $submittedForm['address_1'] = filter_var($_POST['newAddress'], FILTER_SANITIZE_STRING);
+                $submittedForm['zip'] = filter_var($_POST['newPostalCode'], FILTER_SANITIZE_STRING);
+                $submittedForm['duty_location'] = filter_var($_POST['newDutyLocation'], FILTER_SANITIZE_STRING);
+                $submittedForm['bank_name'] = filter_var($_POST['newBankName'], FILTER_SANITIZE_STRING);
+                $submittedForm['bank_acct'] = filter_var($_POST['newBankAccNum'], FILTER_SANITIZE_STRING);
+                $submittedForm['commencement'] = filter_var($_POST['newCommencementDate'], FILTER_SANITIZE_STRING);
+                $submittedForm['left_date'] = filter_var($_POST['newLeftDate'], FILTER_SANITIZE_STRING);
+                $submittedForm['comments'] = filter_var($_POST['newComments'], FILTER_SANITIZE_STRING);
+                $submittedForm['emergency_name'] = filter_var($_POST['newEmergencyName'], FILTER_SANITIZE_STRING);
+                $submittedForm['emergency_relation'] = filter_var($_POST['newEmergencyRelationship'], FILTER_SANITIZE_STRING);
+                $submittedForm['emergency_address'] = filter_var($_POST['newEmergencyAddress'], FILTER_SANITIZE_STRING);
+                $submittedForm['emergency_contact'] = filter_var($_POST['newEmergencyContact'], FILTER_SANITIZE_STRING);
+
+                $personData = array('first_name' => $submittedForm['first_name'],
+                    'last_name' => $submittedForm['last_name'],
+                    'chinese_name' => $_POST["newChineseName"],
+                    'date_of_birth' => $submittedForm['date_of_birth'],
+                    'gender' => $submittedForm['gender'],
+                    'nationality' => $submittedForm['nationality'],
+                    'designation' => $submittedForm['designation'],
+                    'email' => $submittedForm['email'],
+                    'mobile_number' => $submittedForm['mobile_number'],
+                    'phone_number' => $submittedForm['phone_number'],
+                    'address_1' => $submittedForm['address_1'],
+                    'zip' => $submittedForm['zip'],
+                    'duty_location' => $submittedForm['duty_location'],
+                    'bank_name' => $submittedForm['bank_name'],
+                    'bank_acct' => $submittedForm['bank_acct'],
+                    'commencement' => $submittedForm['commencement'],
+                    'left_date' => $submittedForm['left_date'],
+                    'comments' => $submittedForm['comments'],
+                    'emergency_name' => $submittedForm['emergency_name'],
+                    'emergency_relation' => $submittedForm['emergency_relation'],
+                    'emergency_address' => $submittedForm['emergency_address'],
+                    'emergency_contact' => $submittedForm['emergency_contact'],
+                    'username' => $newUsername,
+                    'password' => $_POST["newPassword"]);
+
+                $response = EmployeeModel::mdlCreateNewEmployee($personData, $_POST['allowedModules']);
+
+                if (!$response) {
+                    echo '<script>
+                    swal({
+                        type: "error",
+                        title: "' . $response . ' An error occurred adding the employee\'s information to the database. No records were created.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-management";
+                            }
+                    });
+                    </script>';
+
+                    return;
+                }
+
+                if ($response) {
+
+                    //Create Folder Directory
+                    $folder = "uploads/" . $new_person_id;
+
+                    if (!file_exists($folder)) {
+                        mkdir($folder, 0755);
+                    }
+
+                    //Attach Profile Photo
+                    if (isset($_FILES["newProfilePhoto"]["tmp_name"])) {
+
+                        list($width, $height) = getimagesize($_FILES["newProfilePhoto"]["tmp_name"]);
+
+                        $newWidth = 500;
+                        $newHeight = 500;
+
+                        if ($_FILES["newProfilePhoto"]["type"] == "image/jpeg" || $_FILES["newProfilePhoto"]["type"] == "image/jpg") {
+
+                            $filename = "profile_picture";
+
+                            $photo = $folder . "/" . $filename . ".jpg";
+
+                            $srcImage = imagecreatefromjpeg($_FILES["newProfilePhoto"]["tmp_name"]);
+
+                            $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                            imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                            imagejpeg($destination, $photo);
+
+                        }
+
+                        if ($_FILES["newProfilePhoto"]["type"] == "image/png") {
+
+                            $filename = "profile_picture";
+
+                            $photo = $folder . "/" . $filename . ".png";
+
+                            $srcImage = imagecreatefrompng($_FILES["newProfilePhoto"]["tmp_name"]);
+
+                            $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                            imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                            imagepng($destination, $photo);
+                        }
+                    }
+
+                    echo '<script>
+
+						swal({
+							type: "success",
+							title: "Employee added succesfully!",
+							showConfirmButton: true,
+							confirmButtonText: "Close"
+
+						}).then(function(result){
+
+							if(result.value){
+
+								window.location = "employee-management";
+							}
+
+						});
+
+                        </script>';
+
+                    return;
+                    
+                } else {
+                    echo "<script type='text/javascript'> alert('" . $response . "') </script>";
+                }
+
+            } else {
+
+                if (!preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newFirstName"]) ||
+                    !preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newLastName"])) {
+
+                    echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "Please ensure that there are no special characters in your First/Last Name.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-management";
+                            }
+                    });
+                </script>';
+                }
+
+                if (!preg_match('/^[a-zA-Z0-9]+$/', $_POST['newUsername'])) {
+
+                    echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "Username should only contain letters/numbers.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-management";
+                            }
+                    });
+                    </script>';
+                }
+            }
+        }
+    }
+
+    public static function ctrEditEmployee()
+    {
+        if (isset($_POST['editEmployeeId'])) {
+            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+
+            $employeeId = (int) filter_var((int) $_POST['editEmployeeId'], FILTER_SANITIZE_NUMBER_INT);
+
+            $submittedForm['first_name'] = filter_var($_POST['editFirstName'], FILTER_SANITIZE_STRING);
+            $submittedForm['last_name'] = filter_var($_POST['editLastName'], FILTER_SANITIZE_STRING);
+            $submittedForm['date_of_birth'] = filter_var($_POST['editDateOfBirth'], FILTER_SANITIZE_STRING);
+            $submittedForm['gender'] = filter_var($_POST['editGender'], FILTER_SANITIZE_STRING);
+            $submittedForm['nationality'] = filter_var($_POST['editNationality'], FILTER_SANITIZE_STRING);
+            $submittedForm['designation'] = filter_var($_POST['editDesignation'], FILTER_SANITIZE_STRING);
+            $submittedForm['email'] = filter_var($_POST['editEmail'], FILTER_SANITIZE_EMAIL);
+            $submittedForm['mobile_number'] = filter_var($_POST['editMobileNumber'], FILTER_SANITIZE_STRING);
+            $submittedForm['phone_number'] = filter_var($_POST['editPhoneNumber'], FILTER_SANITIZE_STRING);
+            $submittedForm['address_1'] = filter_var($_POST['editAddress'], FILTER_SANITIZE_STRING);
+            $submittedForm['zip'] = filter_var($_POST['editPostalCode'], FILTER_SANITIZE_STRING);
+            $submittedForm['duty_location'] = filter_var($_POST['editDutyLocation'], FILTER_SANITIZE_STRING);
+            $submittedForm['bank_name'] = filter_var($_POST['editBankName'], FILTER_SANITIZE_STRING);
+            $submittedForm['bank_acct'] = filter_var($_POST['editBankAccNum'], FILTER_SANITIZE_STRING);
+            $submittedForm['commencement'] = filter_var($_POST['editCommencementDate'], FILTER_SANITIZE_STRING);
+            $submittedForm['left_date'] = filter_var($_POST['editLeftDate'], FILTER_SANITIZE_STRING);
+            $submittedForm['comments'] = filter_var($_POST['editComments'], FILTER_SANITIZE_STRING);
+            $submittedForm['emergency_name'] = filter_var($_POST['editEmergencyName'], FILTER_SANITIZE_STRING);
+            $submittedForm['emergency_relation'] = filter_var($_POST['editEmergencyRelationship'], FILTER_SANITIZE_STRING);
+            $submittedForm['emergency_address'] = filter_var($_POST['editEmergencyAddress'], FILTER_SANITIZE_STRING);
+            $submittedForm['emergency_contact'] = filter_var($_POST['editEmergencyContact'], FILTER_SANITIZE_STRING);
+
+            $personData = array(
+                'person_id' => $employeeId,
+                'first_name' => $submittedForm["first_name"],
+                'last_name' => $submittedForm["last_name"],
+                'chinese_name' => $_POST["editChineseName"],
+                'date_of_birth' => $submittedForm["date_of_birth"],
+                'gender' => $submittedForm["gender"],
+                'nationality' => $submittedForm["nationality"],
+                'designation' => $submittedForm["designation"],
+                'email' => $submittedForm["email"],
+                'mobile_number' => $submittedForm["mobile_number"],
+                'phone_number' => $submittedForm["phone_number"],
+                'address_1' => $submittedForm["address_1"],
+                'zip' => $submittedForm["zip"],
+                'duty_location' => $submittedForm["duty_location"],
+                'bank_name' => $submittedForm["bank_name"],
+                'bank_acct' => $submittedForm["bank_acct"],
+                'commencement' => $submittedForm["commencement"],
+                'left_date' => $submittedForm["left_date"],
+                'comments' => $submittedForm["comments"],
+                'emergency_name' => $submittedForm["emergency_name"],
+                'emergency_relation' => $submittedForm["emergency_relation"],
+                'emergency_address' => $submittedForm["emergency_address"],
+                'emergency_contact' => $submittedForm["emergency_contact"]);
+
+            $table = 'people';
+            $response = PeopleModel::mdlEditPerson($table, $personData);
+
+            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+
+            $editUsername = filter_var($_POST['editUsername'], FILTER_SANITIZE_STRING);
+
+            if ($_POST['editPasswordSelection'] == "0") {
+                //echo "<script type='text/javascript'> alert('password empty: " . json_encode($_POST) . "') </script>";
+                $emptyString = "";
+                $employeeData = array('username' => $editUsername, 'edit_password' => 0, 'password' => $emptyString, 'person_id' => $employeeId);
+            } else {
+                //echo "<script type='text/javascript'> alert('password filled: " . json_encode($_POST) . "') </script>";
+                $employeeData = array('username' => $editUsername, 'edit_password' => 1, 'password' => $_POST["editPassword"], 'person_id' => $employeeId);
+            }
+
+            $table = 'employees';
+            $response = EmployeeModel::mdlEditEmployee($table, $employeeData);
+
+            //Create Folder Directory
+            $folder = "uploads/" . $employeeId;
+
+            if (!file_exists($folder)) {
+                mkdir($folder, 0755);
+            }
+
+            //Attach Profile Photo
+            if (isset($_FILES["editProfilePhoto"]["tmp_name"])) {
+
+                list($width, $height) = getimagesize($_FILES["editProfilePhoto"]["tmp_name"]);
+
+                $newWidth = 500;
+                $newHeight = 500;
+
+                if ($_FILES["editProfilePhoto"]["type"] == "image/jpeg" || $_FILES["editProfilePhoto"]["type"] == "image/jpg") {
+
+                    $filename = "profile_picture";
+
+                    $photo = $folder . "/" . $filename . ".jpg";
+
+                    $srcImage = imagecreatefromjpeg($_FILES["editProfilePhoto"]["tmp_name"]);
+
+                    $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                    imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                    imagejpeg($destination, $photo);
+
+                }
+
+                if ($_FILES["editProfilePhoto"]["type"] == "image/png") {
+
+                    $filename = "profile_picture";
+
+                    $photo = $folder . "/" . $filename . ".png";
+
+                    $srcImage = imagecreatefrompng($_FILES["editProfilePhoto"]["tmp_name"]);
+
+                    $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                    imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                    imagepng($destination, $photo);
+                }
+            }
+
+            if (!$response) {
+                echo '<script>
+                swal({
+
+                    type: "error",
+                    title: "An error has occurred. Please contact your system administrator.",
+                    showConfirmButton: true,
+                    confirmButtonText: "Close"
+
+                    }).then(function(result){
+
+                        if(result.value){
+
+                            window.location = "employee-management";
+                        }
+                });
+                </script>';
+                return;
+            } else {
+                echo '<script>
+
+						swal({
+							type: "success",
+							title: "Employee updated succesfully!",
+							showConfirmButton: true,
+							confirmButtonText: "Close"
+
+						}).then(function(result){
+
+							if(result.value){
+
+								window.location = "employee-management";
+							}
+
+						});
+
+                        </script>';
+
+                return;
+            }
+        }
     }
 }

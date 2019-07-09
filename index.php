@@ -6,6 +6,7 @@ require_once "controllers/store.controller.php";
 require_once "controllers/payroll.controller.php";
 
 require_once "models/employee.model.php";
+require_once "models/people.model.php";
 require_once "models/store.model.php";
 require_once "models/payroll.model.php";
 

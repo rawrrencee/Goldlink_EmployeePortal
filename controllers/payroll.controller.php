@@ -619,9 +619,9 @@ class PayrollController
 
     public static function ctrDeleteSalaryVoucher()
     {
-        if (isset($_GET["voucherId"])) {
+        if (isset($_GET["voucherIdToDelete"])) {
             $salaryVoucherData = array(
-                'voucher_id' => $_GET['voucherId'],
+                'voucher_id' => $_GET['voucherIdToDelete'],
             );
 
             $response = PayrollModel::mdlDeleteSalaryVoucher($salaryVoucherData);

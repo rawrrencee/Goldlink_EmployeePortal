@@ -94,7 +94,7 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnDeleteSalaryVoucherD
   }).then(function (result) {
     if (result.value) {
 
-      window.location = "index.php?route=employee-salary-voucher-submit&voucherId=" + voucher_id;
+      window.location = "index.php?route=employee-salary-voucher-submit&voucherIdToDelete=" + voucher_id;
 
     }
   })
@@ -497,10 +497,29 @@ $('#salaryVoucherForm').on('submit', function (e) {
 //NEXT AND PREVIOUS BUTTONS FOR TABS
 $('.btnNext').click(function () {
   $('.nav-tabs > .active').next('li').find('a').trigger('click');
+  if ($('.nav-tabs > .active').next('li').find('a').length == 0) {
+    $('.btnNext').hide();
+  }
+  if ($('.nav-tabs > .active').prev('li').find('a').length == 1) {
+    $('.btnPrevious').show();
+  }
 });
 
 $('.btnPrevious').click(function () {
   $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+  if ($('.nav-tabs > .active').next('li').find('a').length == 1) {
+    $('.btnNext').show();
+  }
+  if ($('.nav-tabs > .active').prev('li').find('a').length == 0) {
+    $('.btnPrevious').hide();
+  }
+});
+
+//HIDE PREVIOUS TAB BUTTON ON DOCUMENT LOAD
+$(document).ready(function () {
+  if ($('.nav-tabs > .active').prev('li').find('a').length == 0) {
+    $('.btnPrevious').hide();
+  }
 });
 
 
@@ -1293,8 +1312,38 @@ function calculateFinalAmount() {
 
 function setCPF() {
   currentGrossPay = parseFloat(document.getElementById("newGrossPay").value);
-  CPF_employee = currentGrossPay * 0.2;
-  CPF_employer = currentGrossPay * 0.17;
+  CPF_employee = 0.00;
+  CPF_employer = 0.00;
+  amount = 0.00;
+
+  if (currentGrossPay >= 750) {
+    $("#salaryVoucherForm").find('input.grossPay').each(function (index, element) {
+      if (index == 0) {
+        if ($(element).val() >= 6000) {
+          CPF_employee = 1200.00;
+          CPF_employer = 2220.00;
+        } else {
+          CPF_employee = parseFloat($(element).val()) * 0.20;
+          CPF_employer = parseFloat($(element).val()) * 0.37;
+        }
+      } else {
+        amount = amount + parseFloat($(element).val());
+      }
+    })
+    CPF_employee = Math.floor(CPF_employee + amount * 0.20);
+    CPF_employer = Math.round(CPF_employer + amount * 0.37) - CPF_employee;
+  } else if (currentGrossPay > 500 && currentGrossPay < 750) {
+    CPF_employee = Math.floor(0.6 * (currentGrossPay - 500.00));
+    CPF_employer = Math.round(0.17 * currentGrossPay + 0.6 * (currentGrossPay - 500.00)) - CPF_employee;
+  } else if (currentGrossPay > 50 && currentGrossPay <= 500) {
+    CPF_employee = 0.00;    
+    CPF_employer = Math.round(0.17 * currentGrossPay);
+  } else if (currentGrossPay <= 50) {
+    CPF_employee = 0.00;
+    CPF_employer = 0.00;
+  }
+
+
   $("#newCPFEmployee").val(Number(CPF_employee).toFixed(2));
   $("#newCPFEmployer").val(Number(CPF_employer).toFixed(2));
 }

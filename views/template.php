@@ -67,6 +67,16 @@ session_start();
     <script src="views/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="views/dist/js/demo.js"></script>
+    <!-- jQuery File Upload -->
+    <script src="views/bower_components/jquery-file-upload/js/tmpl.min.js"></script>
+    <script src="views/bower_components/jquery-load-image/js/load-image.all.min.js"></script>
+    <script src="views/bower_components/jquery-canvas-to-blob/js/canvas-to-blob.min.js"></script>
+    <script src="views/bower_components/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+    <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload.js"></script>
+    <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload-process.js"></script>
+    <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload-image.js"></script>
+    <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
+    <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
     <!-- Select2 -->
     <script src="views/bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- DataTables -->
@@ -107,11 +117,15 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
     include "modules/sidebar.php";
 
     if (isset($_GET["route"])) {
-        if ($_GET["route"] == "home" ||
+        if (
+            ($_GET["route"] == "home" ||
+            $_GET["route"] == "employee-management" ||
+            $_GET["route"] == "employee-upload-files" ||
             $_GET["route"] == "employee-salary-voucher-management" ||
             $_GET["route"] == "employee-salary-voucher-my" ||
             $_GET["route"] == "employee-salary-voucher-submit" ||
-            $_GET["route"] == "logout") {
+            $_GET["route"] == "logout")
+            && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
             include "modules/" . $_GET["route"] . ".php";
         } else {
             include "modules/404.php";
@@ -135,7 +149,9 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
     </div>
     <script src="views/js/template.js"></script>
     <script src="views/js/header.js"></script>
+    <script src="views/js/employees.js"></script>
     <script src="views/js/payroll.js"></script>
+    <script src="views/js/people.js"></script>
 
 </body>
 
