@@ -48,6 +48,7 @@
                                 <th class="none">Zero Sales Days</th>
                                 <th class="none">Reports Submitted</th>
                                 <th style="width: 40px;">View</th>
+                                <th style="width: 40px;">Download</th>
                             </tr>
                         </thead>
                         <tbody>

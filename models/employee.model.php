@@ -52,7 +52,7 @@ class EmployeeModel
         $stmt = $conn->prepare("SELECT * FROM employees_modules WHERE person_id = :person_id AND module_title = :module_title");
 
         $stmt->bindParam(":person_id", $employeeData["person_id"], PDO::PARAM_INT);
-        $stmt->bindParam(":module_title", $employeeData["module_title"], PDO::PARAM_INT);
+        $stmt->bindParam(":module_title", $employeeData["module_title"], PDO::PARAM_STR);
 
         $stmt->execute();
 
@@ -78,6 +78,19 @@ class EmployeeModel
         $stmt = null;
     }
 
+    public static function mdlViewEmployeePermissions($personId)
+    {
+        $stmt = Connection::connect()->prepare("SELECT * FROM employees_modules WHERE person_id = :person_id AND active = :active");
+
+        $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+        $active = 1;
+        $stmt->bindParam(":active", $active, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function updateMD5PasswordHash($passwordData)
     {
 
@@ -94,7 +107,7 @@ class EmployeeModel
         }
     }
 
-    public static function mdlCreateNewEmployee($personData, $allowedModules)
+    public static function mdlCreateNewEmployee($personData, $permissionsData)
     {
 
         $conn = new Connection();
@@ -120,17 +133,18 @@ class EmployeeModel
 
             $stmt->execute();
 
-            foreach ($allowedModules as $index => $module) {
+            foreach ($permissionsData as $module => $active) {
                 $allowedModuleData = array(
                     'person_id' => $new_person_id,
-                    'module_title' => $module);
+                    'module_title' => $module,
+                    'active' => $active);
 
                 self::mdlCreateEmployeePermissions($conn, $allowedModuleData);
             }
 
             $conn->commit();
 
-            return true;
+            return $new_person_id;
 
         } catch (Exception $e) {
 
@@ -146,8 +160,7 @@ class EmployeeModel
 
         $stmt->bindParam(":person_id", $allowedModuleData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":module_title", $allowedModuleData["module_title"], PDO::PARAM_STR);
-        $active = 1;
-        $stmt->bindParam(":active", $active, PDO::PARAM_INT);
+        $stmt->bindParam(":active", $allowedModuleData["active"], PDO::PARAM_INT);
 
         $stmt->execute();
     }
@@ -162,56 +175,106 @@ class EmployeeModel
         $deleteStmt->execute();
     }
 
-    public static function mdlEditEmployee($table, $employeeData)
+    public static function mdlEditEmployee($personData, $employeeData, $permissionsData)
     {
+
         $conn = new Connection();
         $conn = $conn->connect();
 
-        if ($employeeData["edit_password"] == 1) {
+        try {
+            $conn->beginTransaction();
+            $response = PeopleModel::mdlEditPerson($conn, $personData);
 
-            //Password Hashing
-            $dirtyPassword = $employeeData["password"];
-            $cleanPassword = password_hash($dirtyPassword, PASSWORD_BCRYPT);
+            if ($employeeData["edit_password"] == 1) {
 
-            $stmt = $conn->prepare("UPDATE $table SET username = :username, `password` = :cleanPassword WHERE person_id = :person_id");
+                //Password Hashing
+                $dirtyPassword = $employeeData["password"];
+                $cleanPassword = password_hash($dirtyPassword, PASSWORD_BCRYPT);
 
-            try {
-                $conn->beginTransaction();
+                $stmt = $conn->prepare("UPDATE employees SET username = :username, `password` = :cleanPassword WHERE person_id = :person_id");
 
                 $stmt->bindParam(":username", $employeeData["username"], PDO::PARAM_STR);
                 $stmt->bindParam(":cleanPassword", $cleanPassword, PDO::PARAM_STR);
                 $stmt->bindParam(":person_id", $employeeData["person_id"], PDO::PARAM_INT);
 
                 $stmt->execute();
-                $conn->commit();
 
-                return true;
+            } else {
 
-            } catch (PDOException $e) {
-                $conn->rollBack();
-                return false;
-            }
-
-        } else {
-
-            $stmt = $conn->prepare("UPDATE $table SET username = :username WHERE person_id = :person_id");
-
-            try {
-                $conn->beginTransaction();
+                $stmt = $conn->prepare("UPDATE employees SET username = :username WHERE person_id = :person_id");
 
                 $stmt->bindParam(":username", $employeeData["username"], PDO::PARAM_STR);
                 $stmt->bindParam(":person_id", $employeeData["person_id"], PDO::PARAM_INT);
 
                 $stmt->execute();
-                $conn->commit();
 
-                return true;
-
-            } catch (PDOException $e) {
-                $conn->rollBack();
-                return false;
             }
 
+            foreach ($permissionsData as $module => $active) {
+                $allowedModuleData = array(
+                    'person_id' => $employeeData["person_id"],
+                    'module_title' => $module,
+                    'active' => $active);
+
+                self::mdlUpdateEmployeePermissions($conn, $allowedModuleData);
+            }
+
+            $conn->commit();
+
+            return true;
+
+        } catch (PDOException $e) {
+            $conn->rollBack();
+            return false;
+        }
+
+        return false;
+    }
+
+    public static function mdlUpdateEmployeePermissions($conn, $allowedModuleData)
+    {
+        $response = self::mdlCheckEmployeePermissionExists($allowedModuleData);
+        
+        if ($response) {
+            $stmt = $conn->prepare("UPDATE employees_modules SET active = :active WHERE person_id = :person_id AND module_title = :module_title");
+
+            $stmt->bindParam(":active", $allowedModuleData["active"], PDO::PARAM_INT);
+            $stmt->bindParam(":person_id", $allowedModuleData["person_id"], PDO::PARAM_INT);
+            $stmt->bindParam(":module_title", $allowedModuleData["module_title"], PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return true;
+        } else {
+            self::mdlCreateEmployeePermissions($conn, $allowedModuleData);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function mdlDeleteEmployee($personData) {
+        $conn = new Connection();
+        $conn = $conn->connect();
+
+        try {
+            $conn->beginTransaction();
+
+            $stmt = $conn->prepare("UPDATE employees SET deleted = :deleted WHERE person_id = :person_id");
+            $deleted = 1;
+            $stmt->bindParam(":deleted", $deleted, PDO::PARAM_INT);
+            $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            $conn->commit();
+
+            return true;
+
+        } catch (PDOException $e) {
+            $conn->rollBack();
+            return false;
         }
 
         return false;

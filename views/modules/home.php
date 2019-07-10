@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -30,7 +34,7 @@
                 </div>
             </div>
             <div class="box-body">
-                Start creating your amazing application!
+            Content here.
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

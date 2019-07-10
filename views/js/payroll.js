@@ -148,12 +148,21 @@ var mySalaryVouchersTable = $('.tableMySalaryVouchers').DataTable({
     },
     "orderable": false,
     "responsivePriority": 2
+  }, {
+    "targets": 27,
+    "data": null,
+    "render": function (data, type, row) {
+      return `<button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>`;
+    },
+    "orderable": false,
+    "responsivePriority": 2
   }]
 });
 
+
 $('.tableMySalaryVouchers thead th').each(function (index, element) {
   var title = $(this).text();
-  if (index != 0 && index != 26) {
+  if (index != 0 && index != 26 && index != 27) {
     $(this).append('<input type="text" class="col-search-input" style="width: 100%;" placeholder="Search ' + title + '" />');
   }
 });
@@ -219,24 +228,24 @@ var allSalaryVouchersTable = $('.tableAllSalaryVouchers').DataTable({
     "render": function (data, type, row) {
       if (row[7] == "Pending") {
         return `
-      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnApproveSalaryVoucher' title='Approve' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-success btn-sm btnApproveSalaryVoucher'><i class='fa fa-check'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnRejectSalaryVoucher' title='Reject' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-danger btn-sm btnRejectSalaryVoucher'><i class='fa fa-times'></i></button>&nbsp;&nbsp;
-      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
+      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
+      <button type='submit' style='margin-bottom: 10px;' id='btnApproveSalaryVoucher' title='Approve' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-success btn-sm btnApproveSalaryVoucher'><i class='fa fa-check'></i></button>&nbsp;&nbsp;
+      <button type='submit' style='margin-bottom: 10px;' id='btnRejectSalaryVoucher' title='Reject' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-danger btn-sm btnRejectSalaryVoucher'><i class='fa fa-times'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
       `;
       } else if (row[7] == "Approved") {
         return `
-      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnPendingSalaryVoucher' title='Pending' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-info btn-sm btnPendingSalaryVoucher'><i class='fa fa-hourglass'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnRejectSalaryVoucher' title='Reject' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-danger btn-sm btnRejectSalaryVoucher'><i class='fa fa-times'></i></button>&nbsp;&nbsp;
-      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
+      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
+      <button type='submit' style='margin-bottom: 10px;' id='btnPendingSalaryVoucher' title='Pending' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-info btn-sm btnPendingSalaryVoucher'><i class='fa fa-hourglass'></i></button>&nbsp;&nbsp;
+      <button type='submit' style='margin-bottom: 10px;' id='btnRejectSalaryVoucher' title='Reject' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-danger btn-sm btnRejectSalaryVoucher'><i class='fa fa-times'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
       `;
       } else {
         return `
-      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnPendingSalaryVoucher' title='Pending' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-info btn-sm btnPendingSalaryVoucher'><i class='fa fa-hourglass'></i></button>&nbsp;&nbsp;
-      <button type='submit' style='margin-bottom: 10px;' id='btnApproveSalaryVoucher' title='Approve' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-success btn-sm btnApproveSalaryVoucher'><i class='fa fa-check'></i></button>&nbsp;&nbsp;
-      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[7] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
+      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
+      <button type='submit' style='margin-bottom: 10px;' id='btnPendingSalaryVoucher' title='Pending' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-info btn-sm btnPendingSalaryVoucher'><i class='fa fa-hourglass'></i></button>&nbsp;&nbsp;
+      <button type='submit' style='margin-bottom: 10px;' id='btnApproveSalaryVoucher' title='Approve' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-success btn-sm btnApproveSalaryVoucher'><i class='fa fa-check'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
       `;
       }
     },
@@ -427,6 +436,11 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnGeneratePDF", function
   window.open("views/plugins/fpdf/index.php?voucherId=" + voucher_id);
 });
 
+$(".tableMySalaryVouchers tbody").on("click", "button.btnGeneratePDF", function () {
+  var voucher_id = $(this).attr("voucherId");
+  window.open("views/plugins/fpdf/index.php?voucherId=" + voucher_id);
+});
+
 $('#saveDraftVoucher').click(function () {
   $("#newIsDraft").val(1);
 });
@@ -596,8 +610,6 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
         processData: false,
         dataType: "json",
         success: function (answer) {
-
-          console.log(answer);
           for (var i = 0; i < answer.length; i++) {
             if (answer[i]['title'] == "Basic Pay") {
               $('#newSalaryBasicPayAmount').val(answer[i]['amount']);
@@ -640,8 +652,6 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
             processData: false,
             dataType: "json",
             success: function (answer) {
-
-              console.log(answer);
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#newCPFEmployee').val(answer[i]['amount']);
@@ -673,8 +683,6 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                 processData: false,
                 dataType: "json",
                 success: function (answer) {
-
-                  console.log(answer);
                   for (var i = 0; i < answer.length; i++) {
                     $("#appendOthersListing").append(
                       `
@@ -702,8 +710,6 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                     processData: false,
                     dataType: "json",
                     success: function (answer) {
-
-                      console.log(answer);
                       for (var i = 0; i < answer.length; i++) {
                         if (answer[i]['sales_information'] != "Sick Leave" && answer[i]['sales_information'] != "Annual Leave" && answer[i]['sales_information'] != "Unpaid Leave" && answer[i]['sales_information'] != "OFF" && answer[i]['sales_information'] != "PH/RO" && answer[i]['sales_information'] != "N/A") {
                           $('#newSalesInformation' + (i + 1)).append(`<option value="` + answer[i]['sales_information'] + `">` + answer[i]['sales_information'] + `</option>`);
@@ -727,8 +733,6 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
                         processData: false,
                         dataType: "json",
                         success: function (answer) {
-
-                          console.log(answer);
                           $('#newOffDays').val(answer['off_days']);
                           $('#newLateDays').val(answer['late_days']);
                           $('#newLeaveMCDays').val(answer['leave_mc_days']);
@@ -830,8 +834,6 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
         processData: false,
         dataType: "json",
         success: function (answer) {
-
-          console.log(answer);
           for (var i = 0; i < answer.length; i++) {
             if (answer[i]['title'] == "Basic Pay") {
               $('#viewSalaryBasicPayAmount').val(answer[i]['amount']);
@@ -872,8 +874,6 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
             processData: false,
             dataType: "json",
             success: function (answer) {
-
-              console.log(answer);
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#viewCPFEmployee').val(answer[i]['amount']);
@@ -903,8 +903,6 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
                 processData: false,
                 dataType: "json",
                 success: function (answer) {
-
-                  console.log(answer);
                   for (var i = 0; i < answer.length; i++) {
                     $("#appendOthersListing").append(
                       `
@@ -930,8 +928,6 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
                     processData: false,
                     dataType: "json",
                     success: function (answer) {
-
-                      console.log(answer);
                       for (var i = 0; i < answer.length; i++) {
                         if (answer[i]['sales_information'] != "Sick Leave" && answer[i]['sales_information'] != "Annual Leave" && answer[i]['sales_information'] != "Unpaid Leave" && answer[i]['sales_information'] != "OFF" && answer[i]['sales_information'] != "PH/RO" && answer[i]['sales_information'] != "N/A") {
                           $('#viewSalesInformation' + (i + 1)).append(`<option value="` + answer[i]['sales_information'] + `">` + answer[i]['sales_information'] + `</option>`);
@@ -955,8 +951,6 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
                         processData: false,
                         dataType: "json",
                         success: function (answer) {
-
-                          console.log(answer);
                           $('#viewOffDays').val(answer['off_days']);
                           $('#viewLateDays').val(answer['late_days']);
                           $('#viewLeaveMCDays').val(answer['leave_mc_days']);
@@ -1055,8 +1049,6 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
         processData: false,
         dataType: "json",
         success: function (answer) {
-
-          console.log(answer);
           for (var i = 0; i < answer.length; i++) {
             if (answer[i]['title'] == "Basic Pay") {
               $('#newSalaryBasicPayAmount').val(answer[i]['amount']);
@@ -1099,8 +1091,6 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
             processData: false,
             dataType: "json",
             success: function (answer) {
-
-              console.log(answer);
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#newCPFEmployee').val(answer[i]['amount']);
@@ -1132,8 +1122,6 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
                 processData: false,
                 dataType: "json",
                 success: function (answer) {
-
-                  console.log(answer);
                   for (var i = 0; i < answer.length; i++) {
                     $("#appendOthersListing").append(
                       `
@@ -1161,8 +1149,6 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
                     processData: false,
                     dataType: "json",
                     success: function (answer) {
-
-                      console.log(answer);
                       for (var i = 0; i < answer.length; i++) {
                         if (answer[i]['sales_information'] != "Sick Leave" && answer[i]['sales_information'] != "Annual Leave" && answer[i]['sales_information'] != "Unpaid Leave" && answer[i]['sales_information'] != "OFF" && answer[i]['sales_information'] != "PH/RO" && answer[i]['sales_information'] != "N/A") {
                           $('#newSalesInformation' + (i + 1)).append(`<option value="` + answer[i]['sales_information'] + `">` + answer[i]['sales_information'] + `</option>`);
@@ -1186,8 +1172,6 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
                         processData: false,
                         dataType: "json",
                         success: function (answer) {
-
-                          console.log(answer);
                           $('#newOffDays').val(answer['off_days']);
                           $('#newLateDays').val(answer['late_days']);
                           $('#newLeaveMCDays').val(answer['leave_mc_days']);

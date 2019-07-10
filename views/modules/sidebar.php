@@ -8,6 +8,9 @@
                 </a>
             </li>
 
+            <?php 
+            if (in_array('employee-management', $_SESSION['allowed_modules'])) {
+                echo'
             <li class="treeview menu-open">
                 <a href="#">
                     <i class="fa fa-address-book"></i>
@@ -16,6 +19,7 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
+                
                 <ul class="treeview-menu menu-open treeview-menu-visible">
                     <li>
                         <a href="employee-management">
@@ -25,6 +29,9 @@
                     </li>
                 </ul>
             </li>
+            ';
+            }
+            ?>
 
             
             <li class="treeview menu-open">

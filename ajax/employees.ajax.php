@@ -21,6 +21,17 @@ class AjaxEmployees
 
     }
 
+    public function getAllowedModules()
+    {
+
+        $value = $this->employeeId;
+
+        $answer = EmployeeController::ctrViewEmployeePermissions($value);
+
+        echo json_encode($answer);
+
+    }
+
 }
 
 if (isset($_POST['person_id'])) {
@@ -28,4 +39,11 @@ if (isset($_POST['person_id'])) {
     $getEmployeeDetails = new AjaxEmployees();
     $getEmployeeDetails -> employeeId = $_POST['person_id'];
     $getEmployeeDetails -> getEmployeeDetails();
+}
+
+if (isset($_POST['get_allowed_modules'])) {
+
+    $getEmployeeDetails = new AjaxEmployees();
+    $getEmployeeDetails -> employeeId = $_POST['get_allowed_modules'];
+    $getEmployeeDetails -> getAllowedModules();
 }

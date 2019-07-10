@@ -1,7 +1,17 @@
 <?php
 require 'fpdf.php';
 session_start();
-if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"] || !isset($_GET['voucherId'])) {
+if (!isset($_SESSION["loggedIn"]) || !isset($_GET['voucherId'])) {
+    if (!isset($_SESSION["loggedIn"])) {
+        echo '<script>
+        window.location = "https://emp.goldlink.com.sg/login";
+        </script>';
+    } else {
+        die("Invalid Authentication");
+    }
+}
+
+if (!in_array('employee-salary-voucher-download', $_SESSION['allowed_modules'])) {
     die("Invalid Authentication");
 }
 
@@ -18,6 +28,12 @@ class GenerateVoucherPDF
         $value = $this->salaryVoucherId;
 
         $answer = PayrollController::ctrViewSalaryVoucherById($value);
+
+        if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules'])) {
+            if ($answer['person_id'] != $_SESSION['person_id']) {
+                die("Invalid Authentication");
+            }
+        }
 
         return $answer;
 
@@ -451,9 +467,9 @@ if (isset($_GET['voucherId'])) {
     $totalPayout = 0.00;
 
     if ($salaryVoucherData['is_sg_pr'] == 1) {
-        $totalPayout = number_format((float)($salaryVoucherData['gross_pay'] + $salaryVoucherData['cpf_employer']), 2, '.', '');
+        $totalPayout = number_format((float) ($salaryVoucherData['gross_pay'] + $salaryVoucherData['cpf_employer']), 2, '.', '');
     } else {
-        $totalPayout = number_format((float)($salaryVoucherData['gross_pay'] + $salaryVoucherData['levy_amount']), 2, '.', '');
+        $totalPayout = number_format((float) ($salaryVoucherData['gross_pay'] + $salaryVoucherData['levy_amount']), 2, '.', '');
     }
 
     /* --- Cell --- */
@@ -498,7 +514,7 @@ if (isset($_GET['voucherId'])) {
         $date = date_create($salaryVoucherData['modified_on']);
         $pdf->Cell(0, 10, 'Supervisor Sign & Date: ', 1, 1, 'L', false);
         $pdf->SetFont('Courier', '', 9);
-        $pdf->Text(132, $finalHeight + 22, $salaryVoucherData['updated_by'] . ' - ' .date_format($date, 'd M Y'));
+        $pdf->Text(132, $finalHeight + 22, $salaryVoucherData['updated_by'] . ' - ' . date_format($date, 'd M Y'));
     } else {
         $pdf->Cell(0, 10, 'Supervisor Sign & Date: ', 1, 1, 'L', false);
     }

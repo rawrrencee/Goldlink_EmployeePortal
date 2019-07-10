@@ -165,13 +165,13 @@ class PayrollModel
 
             $conn->commit();
 
-            return true;
+            return $results['voucher_id'];
 
         } catch (PDOException $e) {
 
             $conn->rollBack();
             $error = print_r($e->getMessage(), true);
-            return $error;
+            return false;
 
         }
     }

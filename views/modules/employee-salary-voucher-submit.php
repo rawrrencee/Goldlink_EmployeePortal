@@ -605,13 +605,13 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <button type="reset" id="resetVoucher" class="btn btn-warning resetButton"
-                                    style="width: 120px; margin-bottom: 10px;"><i
+                                    style="width: 130px; margin-bottom: 10px;"><i
                                         class="fa fa-refresh"></i>&nbsp;&nbsp;Reset</button>&nbsp;&nbsp;
                                 <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton"
-                                    style="width: 120px; margin-bottom: 10px;"><i
+                                    style="width: 130px; margin-bottom: 10px;"><i
                                         class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>&nbsp;&nbsp;
                                 <button type="submit" id="submitVoucher" class="btn btn-success postButton"
-                                    style="width: 120px; margin-bottom: 10px;"><i
+                                    style="width: 130px; margin-bottom: 10px;"><i
                                         class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
                             </div>
                         </div>

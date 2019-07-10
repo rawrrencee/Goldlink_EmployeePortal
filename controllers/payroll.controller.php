@@ -60,7 +60,7 @@ class PayrollController
     public static function ctrCreateNewSalaryVoucher()
     {
         if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] == null) {
-            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
             $submittedForm['person_id'] = $_SESSION['person_id'];
@@ -168,7 +168,7 @@ class PayrollController
                 'sales_information' => $submittedForm['newSalesInformation'],
             );
 
-            echo "<script type='text/javascript'> alert('hello, salaryvoucher:" . json_encode($salaryVoucherData) . "') </script>";
+            //echo "<script type='text/javascript'> alert('hello, salaryvoucher:" . json_encode($salaryVoucherData) . "') </script>";
 
             $response = PayrollModel::mdlCreateNewSalaryVoucher($salaryVoucherData);
 
@@ -193,23 +193,20 @@ class PayrollController
 
                         </script>';
                 } else {
-                    echo '<script>
 
-						swal({
-							type: "success",
-							title: "Salary information submitted succesfully.",
-							showConfirmButton: true,
-							confirmButtonText: "Close"
-
-						}).then(function(result){
-
-							if(result.value){
-
-								window.location = "employee-salary-voucher-submit";
-							}
-
-						});
-
+                        $response = self::notifySalarySubmissionViaEmail($response, $submittedForm);
+                        
+                        echo '<script>
+                        swal({
+                            type: "success",
+                            title: "Salary information submitted succesfully.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Close"
+                        }).then(function(result){
+                            if(result.value){
+                                window.location = "employee-salary-voucher-submit";
+                            }
+                        });
                         </script>';
                 }
             } else {
@@ -237,7 +234,7 @@ class PayrollController
     public static function ctrEditSalaryVoucher()
     {
         if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null) {
-            echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
+            //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
 
@@ -357,7 +354,7 @@ class PayrollController
                 'sales_information' => $submittedForm['newSalesInformation'],
             );
 
-            echo "<script type='text/javascript'> alert('EDITING: " . json_encode($salaryVoucherData) . "') </script>";
+            //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($salaryVoucherData) . "') </script>";
 
             $response = PayrollModel::mdlUpdateSalaryVoucher($salaryVoucherData);
 
@@ -382,6 +379,8 @@ class PayrollController
 
                         </script>';
                 } else {
+                    $response = self::notifySalarySubmissionViaEmail($response, $submittedForm);
+
                     echo '<script>
 
 						swal({
@@ -426,7 +425,7 @@ class PayrollController
     public static function ctrOverwriteSalaryVoucher()
     {
         if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null && $_POST['currentPersonId'] != null) {
-            echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
+            //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
 
@@ -549,7 +548,7 @@ class PayrollController
                 'sales_information' => $submittedForm['newSalesInformation'],
             );
 
-            echo "<script type='text/javascript'> alert('EDITING: " . json_encode($salaryVoucherData) . "') </script>";
+            //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($salaryVoucherData) . "') </script>";
 
             $response = PayrollModel::mdlUpdateSalaryVoucher($salaryVoucherData);
 
@@ -671,7 +670,7 @@ class PayrollController
 
         if ($_POST['voucherIdToUpdate'] != null && ($_POST['voucherStatusToUpdate'] == "Approved" || $_POST['voucherStatusToUpdate'] == "Rejected" || $_POST['voucherStatusToUpdate'] == "Pending")) {
 
-            echo "<script type='text/javascript'> alert('UPDATE: " . json_encode($_POST) . "') </script>";
+            //echo "<script type='text/javascript'> alert('UPDATE: " . json_encode($_POST) . "') </script>";
 
             $submittedForm['updated_by'] = $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
             $submittedForm['voucher_id'] = (int) filter_var((int) $_POST['voucherIdToUpdate'], FILTER_SANITIZE_NUMBER_INT);
@@ -725,5 +724,92 @@ class PayrollController
                         </script>';
             }
         }
+    }
+
+    public function notifySalarySubmissionViaEmail($voucher_id, $submittedForm)
+    {
+        switch ($submittedForm['month_of_voucher']) {
+            case "1":
+                $month = "January";
+                break;
+            case "2":
+                $month = "February";
+                break;
+            case "3":
+                $month = "March";
+                break;
+            case "4":
+                $month = "April";
+                break;
+            case "5":
+                $month = "May";
+                break;
+            case "6":
+                $month = "June";
+                break;
+            case "7":
+                $month = "July";
+                break;
+            case "8":
+                $month = "August";
+                break;
+            case "9":
+                $month = "September";
+                break;
+            case "10":
+                $month = "October";
+                break;
+            case "11":
+                $month = "November";
+                break;
+            case "12":
+                $month = "December";
+                break;
+        }
+
+        $to = "lawrencelim1996@gmail.com";
+        $subject = "Salary Voucher submitted by ".$_SESSION['first_name']." for ".$month." ".$submittedForm['year_of_voucher'];
+
+        $message = "
+            <html>
+            <head>
+            <title>Salary Voucher Submitted</title>
+            </head>
+            <body>
+            <p>Dear Management,</p>
+            <p>A salary voucher has been submitted on <strong>".date('d M Y H:i:s')."</strong></p>
+            <p></p>
+            <p>
+            <strong>Submitted by: </strong>".$_SESSION['first_name']." ".$_SESSION['last_name']."
+            </p>
+            <p>
+            <strong>Salary Voucher for: </strong>".$month." ".$submittedForm['year_of_voucher']."
+            </p>
+            <p>
+            <a href='https://emp.goldlink.com.sg/views/plugins/fpdf/index.php?voucherId=".$voucher_id."'><button>View PDF</button></a>
+            <small>*Requires you to be logged in. If you are not, please click this button again after doing so.</small>
+            </p>
+            <p></p>
+            <p>
+            Best Regards,
+            </p>
+            <span>
+            Goldlink Employee Portal
+            </span>
+            <p>
+            <small>This is a computer-generated email. No reply will be received/responded to.</small>
+            </p>
+            </body>
+            </html>
+            ";
+
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <noreply@goldlink.com.sg>' . "\r\n";
+
+        return mail($to, $subject, $message, $headers);
     }
 }

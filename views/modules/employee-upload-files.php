@@ -60,7 +60,7 @@
                                 <span>Delete</span>
                             </button>
                             <p></p>
-                            <input type="checkbox" class="toggle minimal">&nbsp;&nbsp;Select All
+                            <input type="checkbox" class="toggle">&nbsp;&nbsp;Select All
                             <p></p>
                             <!-- The global file processing state -->
                             <span class="fileupload-process"></span>

@@ -103,7 +103,14 @@ class EmployeeController
         $_SESSION["date_of_birth"] = $response["date_of_birth"];
         $_SESSION["bank_name"] = $response["bank_name"];
         $_SESSION["bank_acct"] = $response["bank_acct"];
-        $_SESSION["allowed_modules"] = array('home', 'logout', 'employee-management', 'employee-upload-files', 'employee-salary-voucher-my', 'employee-salary-voucher-submit', 'employee-salary-voucher-management');
+
+        $response = EmployeeModel::mdlViewEmployeePermissions($response['person_id']);
+        $_SESSION["allowed_modules"] = array();
+        foreach ($response as $i => $array) {
+            foreach ($array as $j => $module) {
+                array_push($_SESSION["allowed_modules"], $module);
+            }
+        }
     }
 
     public static function ctrViewAllEmployees($item, $value)
@@ -118,6 +125,14 @@ class EmployeeController
     {
 
         $response = EmployeeModel::mdlViewEmployeeByPersonId($personId);
+
+        return $response;
+    }
+
+    public static function ctrViewEmployeePermissions($personId)
+    {
+
+        $response = EmployeeModel::mdlViewEmployeePermissions($personId);
 
         return $response;
     }
@@ -202,7 +217,13 @@ class EmployeeController
                     'username' => $newUsername,
                     'password' => $_POST["newPassword"]);
 
-                $response = EmployeeModel::mdlCreateNewEmployee($personData, $_POST['allowedModules']);
+                $permissionsData = array();
+
+                foreach ($_POST['allowedModulesSelection'] as $index => $active) {
+                    $permissionsData[$_POST['allowedModules'][$index]] = (int) $active;
+                }
+
+                $response = EmployeeModel::mdlCreateNewEmployee($personData, $permissionsData);
 
                 if (!$response) {
                     echo '<script>
@@ -227,7 +248,7 @@ class EmployeeController
                 if ($response) {
 
                     //Create Folder Directory
-                    $folder = "uploads/" . $new_person_id;
+                    $folder = "uploads/" . $response;
 
                     if (!file_exists($folder)) {
                         mkdir($folder, 0755);
@@ -293,7 +314,7 @@ class EmployeeController
                         </script>';
 
                     return;
-                    
+
                 } else {
                     echo "<script type='text/javascript'> alert('" . $response . "') </script>";
                 }
@@ -398,24 +419,44 @@ class EmployeeController
                 'emergency_address' => $submittedForm["emergency_address"],
                 'emergency_contact' => $submittedForm["emergency_contact"]);
 
-            $table = 'people';
-            $response = PeopleModel::mdlEditPerson($table, $personData);
-
-            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
-
             $editUsername = filter_var($_POST['editUsername'], FILTER_SANITIZE_STRING);
 
             if ($_POST['editPasswordSelection'] == "0") {
-                //echo "<script type='text/javascript'> alert('password empty: " . json_encode($_POST) . "') </script>";
                 $emptyString = "";
                 $employeeData = array('username' => $editUsername, 'edit_password' => 0, 'password' => $emptyString, 'person_id' => $employeeId);
             } else {
-                //echo "<script type='text/javascript'> alert('password filled: " . json_encode($_POST) . "') </script>";
                 $employeeData = array('username' => $editUsername, 'edit_password' => 1, 'password' => $_POST["editPassword"], 'person_id' => $employeeId);
             }
 
-            $table = 'employees';
-            $response = EmployeeModel::mdlEditEmployee($table, $employeeData);
+            $permissionsData = array();
+
+            foreach ($_POST['editAllowedModulesSelection'] as $index => $active) {
+                $permissionsData[$_POST['allowedModules'][$index]] = (int) $active;
+            }
+
+            $response = EmployeeModel::mdlEditEmployee($personData, $employeeData, $permissionsData);
+
+            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+
+            if (!response) {
+                echo '<script>
+                swal({
+
+                    type: "error",
+                    title: "An error has occurred. Please contact your system administrator.",
+                    showConfirmButton: true,
+                    confirmButtonText: "Close"
+
+                    }).then(function(result){
+
+                        if(result.value){
+
+                            window.location = "employee-management";
+                        }
+                });
+                </script>';
+                return;
+            }
 
             //Create Folder Directory
             $folder = "uploads/" . $employeeId;
@@ -503,6 +544,55 @@ class EmployeeController
                         </script>';
 
                 return;
+            }
+        }
+    }
+
+    public static function ctrDeleteEmployee()
+    {
+        if (isset($_GET["personIdToDelete"])) {
+            $personData = array(
+                'person_id' => $_GET['personIdToDelete'],
+            );
+
+            $response = EmployeeModel::mdlDeleteEmployee($personData);
+
+            if ($response) {
+                echo '<script>
+
+						swal({
+							type: "success",
+							title: "Employee deleted succesfully.",
+							showConfirmButton: true,
+							confirmButtonText: "Close"
+
+						}).then(function(result){
+
+							if(result.value){
+
+								window.location = "employee-management";
+							}
+
+						});
+
+                        </script>';
+            } else {
+                echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "An error occurred. The employee was not deleted.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-management";
+                            }
+                    });
+                </script>';
             }
         }
     }

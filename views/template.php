@@ -38,9 +38,9 @@ session_start();
     <!-- DataTables -->
     <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
-    <!-- Google Font -->
+    <!-- Google Font
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="views/plugins/iCheck/all.css">
     <!-- daterange picker -->
@@ -118,15 +118,22 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
 
     if (isset($_GET["route"])) {
         if (
-            ($_GET["route"] == "home" ||
-            $_GET["route"] == "employee-management" ||
-            $_GET["route"] == "employee-upload-files" ||
-            $_GET["route"] == "employee-salary-voucher-management" ||
-            $_GET["route"] == "employee-salary-voucher-my" ||
-            $_GET["route"] == "employee-salary-voucher-submit" ||
-            $_GET["route"] == "logout")
-            && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
+
+            $_GET["route"] == "home" ||
+            $_GET["route"] == "logout") {
             include "modules/" . $_GET["route"] . ".php";
+            
+        } else if (
+
+            ($_GET["route"] == "employee-management" ||
+                $_GET["route"] == "employee-upload-files" ||
+                $_GET["route"] == "employee-salary-voucher-management" ||
+                $_GET["route"] == "employee-salary-voucher-my" ||
+                $_GET["route"] == "employee-salary-voucher-submit")
+            && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
+
+            include "modules/" . $_GET["route"] . ".php";
+            
         } else {
             include "modules/404.php";
         }
