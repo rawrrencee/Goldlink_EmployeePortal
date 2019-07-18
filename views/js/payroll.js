@@ -756,6 +756,13 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
 
       recalculateTotalDeductions();
 
+      swal({
+        type: "success",
+        title: "Draft loaded succesfully.",
+        showConfirmButton: true,
+        confirmButtonText: "Close"
+      })
+
     }
   })
 });

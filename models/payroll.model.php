@@ -352,8 +352,8 @@ class PayrollModel
         } catch (PDOException $e) {
 
             $conn->rollBack();
-            $error = print_r($e->getMessage(), true);
-            return $error;
+            //$error = print_r($e->getMessage(), true);
+            return false;
 
         }
     }

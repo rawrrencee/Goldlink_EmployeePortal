@@ -234,7 +234,7 @@ class PayrollController
     public static function ctrEditSalaryVoucher()
     {
         if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null) {
-            //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
+            //echo "<script type='text/javascript'> alert('EDITING DRAFT: " . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
 
@@ -280,6 +280,7 @@ class PayrollController
             $submittedForm['leave_taken'] = (int) filter_var((int) $_POST['newLeaveTaken'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['leave_remaining'] = (int) filter_var((int) $_POST['newLeaveRemaining'], FILTER_SANITIZE_NUMBER_INT);
 
+            $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['status'] = "Pending";
             $submittedForm['updated_by'] = filter_var($_POST['voucherUpdatedBy'], FILTER_SANITIZE_STRING);
 
@@ -324,6 +325,7 @@ class PayrollController
                 'bank_acct' => $submittedForm['bank_acct'],
                 'gross_pay' => $submittedForm['gross_pay'],
                 'total_deductions' => $submittedForm['total_deductions'],
+                'levy_amount' => $submittedForm['levy_amount'],
                 'total_others' => $submittedForm['total_others'],
                 'final_amount' => $submittedForm['final_amount'],
                 'is_sg_pr' => $submittedForm['is_sg_pr'],
