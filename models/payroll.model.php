@@ -347,7 +347,7 @@ class PayrollModel
 
             $conn->commit();
 
-            return true;
+            return $salaryVoucherData['voucher_id'];
 
         } catch (PDOException $e) {
 
