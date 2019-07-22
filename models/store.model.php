@@ -24,6 +24,32 @@ class StoreModel
         $stmt = null;
     }
 
+    //USED FOR CUSTOMER ARCHIVES
+    //RETRIEVES STORES NO LONGER USED
+    public static function mdlViewAllStoreCodes(){
+        $stmt = Connection::connect()->prepare("SELECT DISTINCT store FROM customers JOIN stores ON customers.store NOT IN (SELECT store_code FROM stores) AND deleted = :deleted");
+
+        $deleted = 0;
+        $stmt->bindParam(":deleted", $deleted, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt->close();
+        $stmt = null;
+    }
+
+    public static function mdlViewAllowedStores($table, $value) {
+        $stmt = Connection::connect()->prepare("SELECT stores.store_id, stores.store_name FROM $table JOIN stores ON $table.store_id = stores.store_id WHERE stores_employees.person_id = :person_id ORDER BY stores.store_name ASC");
+        $stmt->bindParam(":person_id", $value, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+        $stmt = null;
+    }
+
     public static function mdlViewStoreByStoreId($table, $value) {
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE store_id = :store_id");
         $stmt->bindParam(":store_id", $value, PDO::PARAM_INT);

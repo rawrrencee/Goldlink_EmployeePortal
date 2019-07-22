@@ -120,7 +120,10 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         if (
 
             $_GET["route"] == "home" ||
-            $_GET["route"] == "logout") {
+            $_GET["route"] == "logout" ||
+            $_GET["route"] == "customer-archives" ||
+            $_GET["route"] == "customer-management"
+            ) {
             include "modules/" . $_GET["route"] . ".php";
             
         } else if (
@@ -157,6 +160,8 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
     <script src="views/js/template.js"></script>
     <script src="views/js/header.js"></script>
     <script src="views/js/employees.js"></script>
+    <script src="views/js/customers.js"></script>
+    <script src="views/js/customer-archives.js"></script>
     <script src="views/js/payroll.js"></script>
     <script src="views/js/people.js"></script>
 

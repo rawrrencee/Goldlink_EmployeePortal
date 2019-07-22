@@ -97,7 +97,8 @@
                                     placeholder="Given Name" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="newLastName">Last Name&nbsp;&nbsp;<small style="color:red;">*Required</small></label>
+                                <label for="newLastName">Last Name&nbsp;&nbsp;<small
+                                        style="color:red;">*Required</small></label>
                                 <input type="text" class="form-control" id="newLastName" name="newLastName"
                                     placeholder="Surname" required>
                             </div>
@@ -311,6 +312,36 @@
                                 <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers</p>
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <h4><strong>Customer Management</strong></h4>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="newAllowedModulesSelection[6]" value="0">
+                                <input type="checkbox" class="minimal" id="newCustomerManagement"
+                                    name="newAllowedModulesSelection[6]" value="1">
+                                <input type="hidden" name="allowedModules[6]" value="customer-management">
+
+                                <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="newAllowedModulesSelection[7]" value="0">
+                                <input type="checkbox" class="minimal" id="newViewCustomerArchives"
+                                    name="newAllowedModulesSelection[7]" value="1">
+                                <input type="hidden" name="allowedModules[7]" value="customer-archives">
+
+                                <p style="margin-top: 5px;">View/Update Customer Archives</p>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="newAllowedModulesSelection[8]" value="0">
+                                <input type="checkbox" class="minimal" id="newCustomerAnalytics"
+                                    name="newAllowedModulesSelection[8]" value="1">
+                                <input type="hidden" name="allowedModules[8]" value="customer-analytics">
+
+                                <p style="margin-top: 5px;">View Customer Analytics</p>
+                            </div>
+                        </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -380,12 +411,14 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="editFirstName">First Name<small style="color:red;">*Required</small></label>
+                                        <label for="editFirstName">First Name<small
+                                                style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editFirstName" name="editFirstName"
                                             required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="editLastName">Last Name<small style="color:red;">*Required</small></label>
+                                        <label for="editLastName">Last Name<small
+                                                style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editLastName" name="editLastName"
                                             required>
                                     </div>
@@ -430,7 +463,8 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="editMobileNumber">Mobile Number<small style="color:red;">*Required</small></label>
+                                        <label for="editMobileNumber">Mobile Number<small
+                                                style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editMobileNumber"
                                             name="editMobileNumber" required>
                                     </div>
@@ -619,6 +653,36 @@
                                             value="employee-salary-voucher-submit">
 
                                         <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Customer Management</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[6]" value="0">
+                                        <input type="checkbox" class="minimal" id="editCustomerManagement"
+                                            name="editAllowedModulesSelection[6]" value="1">
+                                        <input type="hidden" name="allowedModules[6]" value="customer-management">
+
+                                        <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[7]" value="0">
+                                        <input type="checkbox" class="minimal" id="editCustomerArchives"
+                                            name="editAllowedModulesSelection[7]" value="1">
+                                        <input type="hidden" name="allowedModules[7]" value="customer-archives">
+
+                                        <p style="margin-top: 5px;">View/Update Customer Archives</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[8]" value="0">
+                                        <input type="checkbox" class="minimal" id="editCustomerAnalytics"
+                                            name="editAllowedModulesSelection[8]" value="1">
+                                        <input type="hidden" name="allowedModules[8]" value="customer-analytics">
+
+                                        <p style="margin-top: 5px;">View Customer Analytics</p>
                                     </div>
                                 </div>
                             </div>

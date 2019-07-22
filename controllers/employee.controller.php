@@ -552,7 +552,7 @@ class EmployeeController
     {
         if (isset($_GET["personIdToDelete"])) {
             $personData = array(
-                'person_id' => $_GET['personIdToDelete'],
+                'person_id' => filter_var($_GET['personIdToDelete'], FILTER_SANITIZE_NUMBER_INT),
             );
 
             $response = EmployeeModel::mdlDeleteEmployee($personData);

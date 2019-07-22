@@ -151,25 +151,37 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
           $('#editViewOwnSalaryVoucher').iCheck('uncheck');
           $('#editDownloadOwnSalaryVoucher').iCheck('uncheck');
           $('#editSubmitOwnSalaryVoucher').iCheck('uncheck');
+          $('#editCustomerManagement').iCheck('uncheck');
+          $('#editCustomerArchives').iCheck('uncheck');
+          $('#editCustomerAnalytics').iCheck('uncheck');
 
           for (var i = 0; i < answer.length; i++) {
             if (answer[i]['module_title'] == "employee-management" && answer[i]['active'] == 1) {
               $('#editEmployeeManagement').iCheck('check');
             } else if (answer[i]['module_title'] == "employee-upload-files" && answer[i]['active'] == 1) {
-                $('#editEmployeeUploadFiles').iCheck('check');
-              }
-              else if (answer[i]['module_title'] == "employee-salary-voucher-management" && answer[i]['active'] == 1) {
-                $('#editSalaryVoucherMgt').iCheck('check');
-              }
-              else if (answer[i]['module_title'] == "employee-salary-voucher-my" && answer[i]['active'] == 1) {
-                $('#editViewOwnSalaryVoucher').iCheck('check');
-              }
-              else if (answer[i]['module_title'] == "employee-salary-voucher-download" && answer[i]['active'] == 1) {
-                $('#editDownloadOwnSalaryVoucher').iCheck('check');
-              }
-              else if (answer[i]['module_title'] == "employee-salary-voucher-submit" && answer[i]['active'] == 1) {
-                $('#editSubmitOwnSalaryVoucher').iCheck('check');
-              }
+              $('#editEmployeeUploadFiles').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-management" && answer[i]['active'] == 1) {
+              $('#editSalaryVoucherMgt').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-my" && answer[i]['active'] == 1) {
+              $('#editViewOwnSalaryVoucher').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-download" && answer[i]['active'] == 1) {
+              $('#editDownloadOwnSalaryVoucher').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-submit" && answer[i]['active'] == 1) {
+              $('#editSubmitOwnSalaryVoucher').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "customer-management" && answer[i]['active'] == 1) {
+              $('#editCustomerManagement').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "customer-archives" && answer[i]['active'] == 1) {
+              $('#editCustomerArchives').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "customer-analytics" && answer[i]['active'] == 1) {
+              $('#editCustomerAnalytics').iCheck('check');
+            }
           }
         }
       })
