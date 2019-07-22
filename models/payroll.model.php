@@ -64,6 +64,17 @@ class PayrollModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function mdlRetrieveIndivSalaryVoucherByStatus($data) {
+
+        $table = 'salary_vouchers';
+        $stmt = Connection::connect()->prepare("SELECT COUNT(*) FROM $table WHERE person_id = :person_id AND status = :status");
+        $stmt->bindParam(":person_id", $data['person_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":status", $data['status'], PDO::PARAM_STR);
+
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public static function mdlCreateNewSalaryVoucher($salaryVoucherData)
     {
         $table = 'salary_vouchers';

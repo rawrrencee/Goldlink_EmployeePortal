@@ -62,7 +62,7 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                     <th class="none">Personal Sales</th>
                                     <th class="none">Zero Sales Days</th>
                                     <th class="none">Reports Submitted</th>
-                                    <th style="width: 180px;">Action</th>
+                                    <th style="width: 40px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,7 +117,6 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
 
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="3">
-                <input type="hidden" id="newYearOfVoucher" name="newYearOfVoucher" value="<?php echo date('Y') ?>">
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="salaryTab">
@@ -133,8 +132,8 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newMonthOfVoucher">Salary Voucher for the Month of</label>
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                                        <label for="newMonthOfVoucher">Month <small style="color:red;">*Required</small></label>
                                         <select required id="newMonthOfVoucher" name="newMonthOfVoucher"
                                             class="form-control select2" style="width: 100%;">
                                             <option></option>
@@ -152,8 +151,30 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                             <option value="12">December</option>
                                         </select>
                                     </div>
+                                    
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                                        <label for="newYearOfVoucher">
+                                            Year <small style="color:red;">*Required</small></label>
+                                        <select required id="newYearOfVoucher" name="newYearOfVoucher"
+                                            class="form-control select2" style="width: 100%;">
+                                            <option></option>
+                                            <option value="2019">2019</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2028">2028</option>
+                                            <option value="2029">2029</option>
+                                            <option value="2030">2030</option>
+                                            <option value="2031">2031</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newMethodOfPayment">Method of Payment</label>
+                                        <label for="newMethodOfPayment">Method of Payment <small style="color:red;">*Required</small></label>
                                         <select required id="newMethodOfPayment" name="newMethodOfPayment"
                                             class="form-control select2" placeholder="Select Method of Payment"
                                             style="width: 100%;">

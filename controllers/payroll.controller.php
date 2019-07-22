@@ -56,6 +56,13 @@ class PayrollController
         return $response;
 
     }
+    
+    public static function ctrRetrieveIndivSalaryVoucherByStatus($data){
+
+        $response = PayrollModel::mdlRetrieveIndivSalaryVoucherByStatus($data);
+
+        return $response;
+    }
 
     public static function ctrCreateNewSalaryVoucher()
     {

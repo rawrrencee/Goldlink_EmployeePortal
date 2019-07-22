@@ -97,8 +97,7 @@
                                     placeholder="Given Name" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="newLastName">Last Name&nbsp;&nbsp;<small
-                                        style="color:red;">*Required</small></label>
+                                <label for="newLastName">Last Name&nbsp;&nbsp;<small style="color:red;">*Required</small></label>
                                 <input type="text" class="form-control" id="newLastName" name="newLastName"
                                     placeholder="Surname" required>
                             </div>
@@ -381,12 +380,12 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="editFirstName">First Name</label>
+                                        <label for="editFirstName">First Name<small style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editFirstName" name="editFirstName"
                                             required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="editLastName">Last Name</label>
+                                        <label for="editLastName">Last Name<small style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editLastName" name="editLastName"
                                             required>
                                     </div>
@@ -424,14 +423,14 @@
                                             name="editDesignation">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="editEmail">Email</label>
+                                        <label for="editEmail">Email<small style="color:red;">*Required</small></label>
                                         <input type="email" class="form-control" id="editEmail" name="editEmail"
                                             required>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="editMobileNumber">Mobile Number</label>
+                                        <label for="editMobileNumber">Mobile Number<small style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editMobileNumber"
                                             name="editMobileNumber" required>
                                     </div>

@@ -22,23 +22,44 @@ session_start();
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Title</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                        <i class="fa fa-times"></i></button>
-                </div>
+                <h3 class="box-title">Welcome</h3>
             </div>
             <div class="box-body">
-            Content here.
+            You are logged in as 
+            <strong>
+            <?php 
+                echo $_SESSION['first_name'].' '.$_SESSION['last_name'].'.';
+            ?>
+            </strong>
+            <?php
+                $data = array(
+                    'person_id' => $_SESSION['person_id'],
+                    'status' => "Pending"
+                );
+                $response = PayrollController::ctrRetrieveIndivSalaryVoucherByStatus($data);
+                echo '<p></p><p>You have <strong>'.$response['COUNT(*)'].'</strong> pending salary vouchers for approval.</p>';
+                
+                $data = array(
+                    'person_id' => $_SESSION['person_id'],
+                    'status' => "Approved"
+                );
+                $response = PayrollController::ctrRetrieveIndivSalaryVoucherByStatus($data);
+                echo '<p></p><p>You have <strong>'.$response['COUNT(*)'].'</strong> approved salary vouchers.</p>';
+                
+                $data = array(
+                    'person_id' => $_SESSION['person_id'],
+                    'status' => "Rejected"
+                );
+                $response = PayrollController::ctrRetrieveIndivSalaryVoucherByStatus($data);
+                echo '<p></p><p>You have <strong>'.$response['COUNT(*)'].'</strong> rejected salary vouchers.</p>';
+            ?>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                Footer
+            <?php 
+            $date = date('h:i a', time());
+            echo 'Time now is <strong>'.$date.'</strong>'; 
+            ?>
             </div>
             <!-- /.box-footer-->
         </div>

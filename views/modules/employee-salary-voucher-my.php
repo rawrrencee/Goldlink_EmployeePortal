@@ -48,7 +48,6 @@
                                 <th class="none">Zero Sales Days</th>
                                 <th class="none">Reports Submitted</th>
                                 <th style="width: 40px;">View</th>
-                                <th style="width: 40px;">Download</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,7 +90,6 @@
             <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
             <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
             <input type="hidden" id="viewIsDraft" name="viewIsDraft" value="">
-            <input type="hidden" id="viewYearOfVoucher" name="viewYearOfVoucher" value="<?php echo date('Y') ?>">
 
             <div class="tab-content">
                 <div class="tab-pane active" id="salaryTab">
@@ -107,8 +105,9 @@
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="viewMonthOfVoucher">Salary Voucher for the Month of</label>
+                                <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                                    <label for="viewMonthOfVoucher">Month <small
+                                            style="color:red;">*Required</small></label>
                                     <select disabled id="viewMonthOfVoucher" name="viewMonthOfVoucher"
                                         class="form-control select2" style="width: 100%;">
                                         <option></option>
@@ -126,7 +125,39 @@
                                         <option value="12">December</option>
                                     </select>
                                 </div>
-
+                                <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                                    <label for="viewYearOfVoucher">
+                                        Year <small style="color:red;">*Required</small></label>
+                                    <select disabled id="viewYearOfVoucher" name="viewYearOfVoucher"
+                                        class="form-control select2" style="width: 100%;">
+                                        <option></option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                        <option value="2029">2029</option>
+                                        <option value="2030">2030</option>
+                                        <option value="2031">2031</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="viewMethodOfPayment">Method of Payment <small
+                                            style="color:red;">*Required</small></label>
+                                    <select disabled id="viewMethodOfPayment" name="viewMethodOfPayment"
+                                        class="form-control select2" placeholder="Select Method of Payment"
+                                        style="width: 100%;">
+                                        <option></option>
+                                        <option value="Cheque">Cheque</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Bank Transfer">Bank Transfer</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -155,8 +186,8 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <label for="viewDateOfBirth">Date Of Birth</label>
-                                    <input readonly type="text" class="form-control" id="viewDateOfBirth" name="viewDateOfBirth"
-                                        value="">
+                                    <input readonly type="text" class="form-control" id="viewDateOfBirth"
+                                        name="viewDateOfBirth" value="">
                                 </div>
                             </div>
                         </div>
@@ -165,8 +196,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <label for="viewBankName">Bank Name</label>
-                                    <input readonly type="text" class="form-control" id="viewBankName" name="viewBankName"
-                                        value="<?php echo $_SESSION['bank_name'];?>">
+                                    <input readonly type="text" class="form-control" id="viewBankName"
+                                        name="viewBankName" value="<?php echo $_SESSION['bank_name'];?>">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <label for="viewBankAccount">Bank Account</label>
@@ -180,8 +211,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <label for="viewBoutique">Boutique</label>
-                                    <input readonly type="text" class="form-control" id="viewBoutique" name="viewBoutique"
-                                        value="" placeholder="e.g. TE(Taka), TE(Tangs)">
+                                    <input readonly type="text" class="form-control" id="viewBoutique"
+                                        name="viewBoutique" value="" placeholder="e.g. TE(Taka), TE(Tangs)">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <label for="viewBoutiqueSales">Boutique Sales</label>
@@ -307,9 +338,8 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                     <label for="viewLevyAmount">Levy</label>
-                                    <input readonly type="number" class="form-control"
-                                        id="viewLevyAmount" min="0.00" step="0.01" value="0.00"
-                                        name="viewLevyAmount">
+                                    <input readonly type="number" class="form-control" id="viewLevyAmount" min="0.00"
+                                        step="0.01" value="0.00" name="viewLevyAmount">
                                 </div>
                             </div>
                         </div>
@@ -556,11 +586,12 @@
             <div class="box-footer">
                 <div class="pull-right">
                     <label for="viewGrossPay">Gross Pay (+):</label>
-                    <input readonly type="number" id="viewGrossPay" class="form-control" name="viewGrossPay" value="0.00">
+                    <input readonly type="number" id="viewGrossPay" class="form-control" name="viewGrossPay"
+                        value="0.00">
                     <p></p>
                     <label for="viewTotalDeductions">Total Deductions (-):</label>
-                    <input readonly type="number" id="viewTotalDeductions" class="form-control" name="viewTotalDeductions"
-                        value="0.00">
+                    <input readonly type="number" id="viewTotalDeductions" class="form-control"
+                        name="viewTotalDeductions" value="0.00">
                     <p></p>
                     <label for="viewTotalOthers">Total Others (+ / -) :</label>
                     <input readonly type="number" id="viewTotalOthers" class="form-control" name="viewTotalOthers"

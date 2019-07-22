@@ -144,15 +144,8 @@ var mySalaryVouchersTable = $('.tableMySalaryVouchers').DataTable({
     "targets": 26,
     "data": null,
     "render": function (data, type, row) {
-      return "<button id='btnViewSalaryVoucher' voucherId=" + row[0] + " class='btn btn-warning btn-sm btnViewSalaryVoucher' data-toggle='modal' data-target='#modalViewMySalaryVoucher'><i class='fa fa-eye'></i></button>";
-    },
-    "orderable": false,
-    "responsivePriority": 2
-  }, {
-    "targets": 27,
-    "data": null,
-    "render": function (data, type, row) {
-      return `<button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>`;
+      return `<button id='btnViewSalaryVoucher' style='margin-bottom: 10px;' voucherId=` + row[0] + ` class='btn btn-warning btn-sm btnViewSalaryVoucher' data-toggle='modal' data-target='#modalViewMySalaryVoucher'><i class='fa fa-eye'></i></button>
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>`;
     },
     "orderable": false,
     "responsivePriority": 2
@@ -226,6 +219,7 @@ var allSalaryVouchersTable = $('.tableAllSalaryVouchers').DataTable({
     "targets": 28,
     "data": null,
     "render": function (data, type, row) {
+      /*
       if (row[7] == "Pending") {
         return `
       <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-warning btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
@@ -248,6 +242,11 @@ var allSalaryVouchersTable = $('.tableAllSalaryVouchers').DataTable({
       <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
       `;
       }
+      */
+     return `
+      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-info btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
+      `;
     },
     "orderable": false,
     "responsivePriority": 1
@@ -417,6 +416,10 @@ $('#newMonthOfVoucher').select2({
   placeholder: "Select month"
 });
 
+$('#newYearOfVoucher').select2({
+  placeholder: "Select year"
+});
+
 $('.newSalesInformation').on('select2:select', function (e) {
   recalculatePersonalSales();
 });
@@ -572,6 +575,7 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
       $('#currentCreatedOn').val(answer['created_on']);
       $('#newIsDraft').val(answer['is_draft']);
       $('#newYearOfVoucher').val(answer['year_of_voucher']);
+      $('#newYearOfVoucher').select2().trigger('change');
       $('#newMonthOfVoucher').val(answer['month_of_voucher']);
       $('#newMonthOfVoucher').select2().trigger('change');
       $('#newPayToPersonName').val(answer['pay_to_name']);
@@ -802,6 +806,7 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
       $('#currentCreatedOn').val(answer['created_on']);
       $('#viewIsDraft').val(answer['is_draft']);
       $('#viewYearOfVoucher').val(answer['year_of_voucher']);
+      $('#viewYearOfVoucher').select2().trigger('change');
       $('#viewMonthOfVoucher').val(answer['month_of_voucher']);
       $('#viewMonthOfVoucher').select2().trigger('change');
       $('#viewMethodOfPayment').val(answer['method_of_payment']);
@@ -1019,6 +1024,7 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
       $('#currentCreatedOn').val(answer['created_on']);
       $('#newIsDraft').val(answer['is_draft']);
       $('#newYearOfVoucher').val(answer['year_of_voucher']);
+      $('#newYearOfVoucher').select2().trigger('change');
       $('#newMonthOfVoucher').val(answer['month_of_voucher']);
       $('#newMonthOfVoucher').select2().trigger('change');
       $('#newMethodOfPayment').val(answer['method_of_payment']);

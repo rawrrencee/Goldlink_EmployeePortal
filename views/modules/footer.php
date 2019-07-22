@@ -4,5 +4,4 @@
     Goldlink Asia Distribution Pte Ltd</a>
     </strong>
     All rights reserved.
-    <?php echo date("H:m").date_default_timezone_get(); ?>
 </footer>
