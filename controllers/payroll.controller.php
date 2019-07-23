@@ -67,7 +67,7 @@ class PayrollController
     public static function ctrCreateNewSalaryVoucher()
     {
         if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] == null) {
-            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
             $submittedForm['person_id'] = $_SESSION['person_id'];
@@ -107,6 +107,10 @@ class PayrollController
             $submittedForm['leave_entitled'] = (int) filter_var((int) $_POST['newLeaveEntitled'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['leave_taken'] = (int) filter_var((int) $_POST['newLeaveTaken'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['leave_remaining'] = (int) filter_var((int) $_POST['newLeaveRemaining'], FILTER_SANITIZE_NUMBER_INT);
+
+            $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['company_name'] = filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING);
+
 
             //PARSE & SANITIZE ARRAY BASED INPUTS
             foreach ($_POST['salaryTitle'] as $index => $salaryTitle) {
@@ -173,6 +177,8 @@ class PayrollController
                 'other_amounts' => $submittedForm['othersAmount'],
                 'days_of_month' => $submittedForm['newDayOfMonth'],
                 'sales_information' => $submittedForm['newSalesInformation'],
+                'levy_amount' => $submittedForm['levy_amount'],
+                'company_name' => $submittedForm['company_name']
             );
 
             //echo "<script type='text/javascript'> alert('hello, salaryvoucher:" . json_encode($salaryVoucherData) . "') </script>";
@@ -288,6 +294,7 @@ class PayrollController
             $submittedForm['leave_remaining'] = (int) filter_var((int) $_POST['newLeaveRemaining'], FILTER_SANITIZE_NUMBER_INT);
 
             $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['company_name'] = filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING);
             $submittedForm['status'] = "Pending";
             $submittedForm['updated_by'] = filter_var($_POST['voucherUpdatedBy'], FILTER_SANITIZE_STRING);
 
@@ -361,6 +368,7 @@ class PayrollController
                 'other_amounts' => $submittedForm['othersAmount'],
                 'days_of_month' => $submittedForm['newDayOfMonth'],
                 'sales_information' => $submittedForm['newSalesInformation'],
+                'company_name' => $submittedForm['newCompanyName']
             );
 
             //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($salaryVoucherData) . "') </script>";

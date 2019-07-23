@@ -62,8 +62,35 @@ class EmployeeModel
         } else {
             return false;
         }
+    }
 
-        return true;
+    public static function mdlCheckEmployeeStoreExists($conn, $employeesStoresData) {
+        $stmt = $conn->prepare("SELECT * FROM employees_stores WHERE person_id = :person_id AND store_id = :store_id");
+        
+        $stmt->bindParam(":person_id", $employeesStoresData["person_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":store_id", $employeesStoresData["store_id"], PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        if (count($stmt->fetchAll(PDO::FETCH_ASSOC)) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function mdlCheckEmployeePayrollExists($conn, $person_id) {
+        $stmt = $conn->prepare("SELECT * FROM employees_payroll WHERE person_id = :person_id");
+        
+        $stmt->bindParam(":person_id", $person_id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if (count($stmt->fetchAll(PDO::FETCH_ASSOC)) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static function mdlViewEmployeeByPersonId($personId)
@@ -107,6 +134,36 @@ class EmployeeModel
         }
     }
 
+    public static function mdlViewEmployeesPayroll($personId)
+    {
+        $conn = new Connection();
+        $conn = $conn->connect();
+
+        $stmt = $conn->prepare("SELECT * FROM employees_payroll WHERE person_id = :person_id");
+
+        $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewEmployeesStores($personId)
+    {
+        $conn = new Connection();
+        $conn = $conn->connect();
+
+        $stmt = $conn->prepare("SELECT * FROM employees_stores JOIN stores ON employees_stores.store_id = stores.store_id WHERE employees_stores.person_id = :person_id AND employees_stores.active = :active");
+
+        $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+        $active = 1;
+        $stmt->bindParam(":active", $active, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function mdlCreateNewEmployee($personData, $permissionsData)
     {
 
@@ -118,6 +175,7 @@ class EmployeeModel
 
             $response = PeopleModel::mdlCreateNewPerson($conn, $personData);
             $new_person_id = (int) $response['person_id'];
+            $personData['person_id'] = $new_person_id;
 
             //Password Hashing
             $dirtyPassword = $personData["password"];
@@ -132,6 +190,17 @@ class EmployeeModel
             $stmt->bindParam(":deleted", $deleted, PDO::PARAM_INT);
 
             $stmt->execute();
+
+            self::mdlCreateEmployeePayroll($conn, $personData);
+
+            foreach ($personData['employees_stores'] as $index => $storeId) {
+                $employeesStoresData = array(
+                    'person_id' => $new_person_id,
+                    'store_id' => $storeId,
+                    'active' => 1,
+                );
+                self::mdlCreateEmployeesStores($conn, $employeesStoresData);
+            }
 
             foreach ($permissionsData as $module => $active) {
                 $allowedModuleData = array(
@@ -152,6 +221,29 @@ class EmployeeModel
             return "Exception: " . $e->getMessage();
         }
         return false;
+    }
+
+    public static function mdlCreateEmployeePayroll($conn, $personData)
+    {
+        $stmt = $conn->prepare("INSERT INTO employees_payroll(person_id, company_name, levy_amount) VALUES (:person_id, :company_name, :levy_amount)");
+
+        $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":company_name", $personData["company_name"], PDO::PARAM_STR);
+        $stmt->bindParam(":levy_amount", $personData["levy_amount"], PDO::PARAM_STR);
+
+        $stmt->execute();
+    }
+
+    public static function mdlCreateEmployeesStores($conn, $employeesStoresData)
+    {
+        $stmt = $conn->prepare("INSERT INTO employees_stores(person_id, store_id, active) VALUES (:person_id, :store_id, :active)");
+
+        $stmt->bindParam(":person_id", $employeesStoresData["person_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":store_id", $employeesStoresData["store_id"], PDO::PARAM_STR);
+        $active = 1;
+        $stmt->bindParam(":active", $employeesStoresData["active"], PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
     public static function mdlCreateEmployeePermissions($conn, $allowedModuleData)
@@ -210,6 +302,40 @@ class EmployeeModel
 
             }
 
+            $response = self::mdlCheckEmployeePayrollExists($conn, $personData['person_id']);
+
+            if (!$response) {
+                self::mdlCreateEmployeePayroll($conn, $personData);
+            } else {
+                self::mdlUpdateEmployeesPayroll($conn, $personData);
+            }
+
+            foreach ($personData['updateStoreActive'] as $index => $active) {
+                $employeesStoresData = array(
+                    'active' => $active,
+                    'person_id' => $personData['person_id'],
+                    'store_id' => $personData['updateStoreSelection'][$index],
+                );
+
+                self::mdlUpdateEmployeesStores($conn, $employeesStoresData);
+            }
+
+            foreach ($personData['employees_stores'] as $index => $storeId) {
+                
+                $employeesStoresData = array(
+                    'person_id' => $personData['person_id'],
+                    'store_id' => $storeId,
+                    'active' => 1
+                );
+                $response = self::mdlCheckEmployeeStoreExists($conn, $employeesStoresData);
+
+                if (!$response) {
+                    self::mdlCreateEmployeesStores($conn, $employeesStoresData);
+                } else {
+                    self::mdlUpdateEmployeesStores($conn, $employeesStoresData);
+                }
+            }
+
             foreach ($permissionsData as $module => $active) {
                 $allowedModuleData = array(
                     'person_id' => $employeeData["person_id"],
@@ -225,7 +351,7 @@ class EmployeeModel
 
         } catch (PDOException $e) {
             $conn->rollBack();
-            return false;
+            return "Exception: " . $e->getMessage();
         }
 
         return false;
@@ -234,7 +360,7 @@ class EmployeeModel
     public static function mdlUpdateEmployeePermissions($conn, $allowedModuleData)
     {
         $response = self::mdlCheckEmployeePermissionExists($allowedModuleData);
-        
+
         if ($response) {
             $stmt = $conn->prepare("UPDATE employees_modules SET active = :active WHERE person_id = :person_id AND module_title = :module_title");
 
@@ -254,7 +380,30 @@ class EmployeeModel
         return false;
     }
 
-    public static function mdlDeleteEmployee($personData) {
+    public static function mdlUpdateEmployeesStores($conn, $employeesStoresData)
+    {
+        $stmt = $conn->prepare("UPDATE employees_stores SET active = :active WHERE person_id = :person_id AND store_id = :store_id");
+
+        $stmt->bindParam(":active", $employeesStoresData["active"], PDO::PARAM_INT);
+        $stmt->bindParam(":person_id", $employeesStoresData["person_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":store_id", $employeesStoresData["store_id"], PDO::PARAM_INT);
+
+        $stmt->execute();
+    }
+
+    public static function mdlUpdateEmployeesPayroll($conn, $personData)
+    {
+        $stmt = $conn->prepare("UPDATE employees_payroll SET company_name = :company_name, levy_amount = :levy_amount WHERE person_id = :person_id");
+
+        $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":company_name", $personData["company_name"], PDO::PARAM_STR);
+        $stmt->bindParam(":levy_amount", $personData["levy_amount"], PDO::PARAM_STR);
+
+        $stmt->execute();
+    }
+
+    public static function mdlDeleteEmployee($personData)
+    {
         $conn = new Connection();
         $conn = $conn->connect();
 

@@ -585,6 +585,7 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
       $('#newBankName').val(answer['bank_name']);
       $('#newBankAccount').val(answer['bank_acct']);
       $('#newGrossPay').val(answer['gross_pay']);
+      $('#newLevyAmount').val(answer['levy_amount']);
       $('#newTotalDeductions').val(answer['total_deductions']);
       $('#newTotalOthers').val(answer['total_others']);
       $('#newFinalAmount').val(answer['final_amount']);
@@ -600,6 +601,7 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
       $('#newPersonalSales').val(answer['personal_sales']);
       $('#newNumDaysZeroSales').val(answer['num_days_zero_sales']);
       $('#newNumReportsSubmitted').val(answer['num_reports_submitted']);
+      $('#newCompanyName').val(answer['company_name']);
 
       $("#appendSalaryListing").html("");
       $("#appendDeductionListing").html("");
@@ -1052,6 +1054,7 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
       $('#newPersonalSales').val(answer['personal_sales']);
       $('#newNumDaysZeroSales').val(answer['num_days_zero_sales']);
       $('#newNumReportsSubmitted').val(answer['num_reports_submitted']);
+      $('#newCompanyName').val(answer['company_name']);
 
       $.ajax({
         url: "ajax/payroll.ajax.php",

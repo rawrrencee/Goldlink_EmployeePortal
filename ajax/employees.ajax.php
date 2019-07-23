@@ -32,6 +32,22 @@ class AjaxEmployees
 
     }
 
+    public function getEmployeesPayroll() {
+        $value = $this->employeeId;
+
+        $answer = EmployeeController::ctrViewEmployeesPayroll($value);
+
+        echo json_encode($answer);
+    }
+
+    public function getEmployeesStores() {
+        $value = $this->employeeId;
+
+        $answer = EmployeeController::ctrViewEmployeesStores($value);
+
+        echo json_encode($answer);
+    }
+
 }
 
 if (isset($_POST['person_id'])) {
@@ -46,4 +62,18 @@ if (isset($_POST['get_allowed_modules'])) {
     $getEmployeeDetails = new AjaxEmployees();
     $getEmployeeDetails -> employeeId = $_POST['get_allowed_modules'];
     $getEmployeeDetails -> getAllowedModules();
+}
+
+if (isset($_POST['get_employees_payroll'])) {
+
+    $getEmployeesPayroll = new AjaxEmployees();
+    $getEmployeesPayroll -> employeeId = $_POST['get_employees_payroll'];
+    $getEmployeesPayroll -> getEmployeesPayroll();
+}
+
+if (isset($_POST['get_employees_stores'])) {
+
+    $getEmployeesStores = new AjaxEmployees();
+    $getEmployeesStores -> employeeId = $_POST['get_employees_stores'];
+    $getEmployeesStores -> getEmployeesStores();
 }

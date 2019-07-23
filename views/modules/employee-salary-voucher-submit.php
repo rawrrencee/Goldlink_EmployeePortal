@@ -89,6 +89,7 @@
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
+                <input type="hidden" id="newCompanyName" name="newCompanyName" value="<?php echo $_SESSION['company_name'] ?>">
 
                 <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
@@ -334,6 +335,11 @@
                                         <label for="newCPFEmployer">CPF-ER</label>
                                         <input readonly type="number" class="form-control" id="newCPFEmployer"
                                             min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <label for="newLevyAmount">Levy (if applicable)</label>
+                                        <input type="number" class="form-control" id="newLevyAmount" min="0.00"
+                                            step="0.01" value="<?php echo $_SESSION['levy_amount'] ?>" name="newLevyAmount">
                                     </div>
                                 </div>
                             </div>

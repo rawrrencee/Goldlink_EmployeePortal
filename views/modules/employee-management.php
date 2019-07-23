@@ -250,8 +250,78 @@
                                     placeholder="Password">
                             </div>
                         </div>
+
                         <div class="col-md-12">
-                            <p style="font-size: 2em;">Staff Permissions</p>
+                            <p style="font-size: 2em;">Company Information</p>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="newCompanySelection">Company Selection</label>
+                                <select class="form-control select2" id="newCompanySelection" name="newCompanySelection"
+                                    style="width: 100%;">
+                                    <option></option>
+                                    <option>Goldlink</option>
+                                    <option>Doro</option>
+                                    <option>Goldtech</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="newLevyAmount">Levy (if applicable)</label>
+                                <input type="number" class="form-control" id="newLevyAmount" min="0.00" step="0.01"
+                                    value="0.00" name="newLevyAmount">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <h4><strong>Store Selection</strong></h4>
+                            </div>
+                            <div id="newStoreEmployeeRepeater">
+                                <div class="clearfix"></div>
+                                <div class="items" data-group="stores_items">
+                                    <div class="item-content">
+                                        <div class="form-group">
+                                            <div class="col-md-10 col-xs-9">
+                                                <label for="newStoreSelections">Store&nbsp;&nbsp;<small
+                                                        style="color:red;">*Required</small></label>
+                                                <select class="form-control storeSelect2" style="width: 100%;"
+                                                    data-skip-name="true" data-name="newStoreSelections[]" required>
+                                                    <?php
+                                                        $item = null;
+                                                        $value = null;
+
+                                                        $stores = StoreController::ctrViewAllStores($item, $value);
+
+                                                        foreach ($stores as $key => $value) {
+                                                            echo '<option value ="' . $value["store_id"] . '">' . $value["store_name"] . '</option>';
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2 col-xs-3" align="right" style="margin-top: 24px;">
+                                                <button id="remove-btn" class="btn btn-block btn-danger"
+                                                    onclick="$(this).parents('.items').remove()"><i
+                                                        class="fa fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <div class="repeater-heading col-xs-12" align="center">
+                                        <button type="button" style="margin-top: 24px;"
+                                            class="btn btn-success repeater-add-btn"><i
+                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add
+                                            Store</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <p style="font-size: 2em; margin-top: 24px;">Staff Permissions</p>
                         </div>
                         <div class="form-row">
                             <div class="col-md-12">
@@ -374,6 +444,7 @@
             <ul class="nav nav-tabs" id="tabContent">
                 <li class="active"><a href="#editProfilePictureTab" data-toggle="tab">Profile Picture</a></li>
                 <li><a href="#editInformationTab" data-toggle="tab">Information</a></li>
+                <li><a href="#editCompanyTab" data-toggle="tab">Company</a></li>
                 <li><a href="#editAccountTab" data-toggle="tab">Account</a></li>
                 <li><a href="#editPermissionsTab" data-toggle="tab">Permissions</a></li>
             </ul>
@@ -547,6 +618,96 @@
                                         <label for="editEmergencyContact">Contact Number</label>
                                         <input type="text" class="form-control" id="editEmergencyContact"
                                             name="editEmergencyContact">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="editCompanyTab">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em;">Company Information</p>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="editCompanySelection">Company Selection</label>
+                                        <select class="form-control select2" id="editCompanySelection"
+                                            name="editCompanySelection" style="width: 100%;">
+                                            <option></option>
+                                            <option>Goldlink</option>
+                                            <option>Doro</option>
+                                            <option>Goldtech</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="editLevyAmount">Levy (if applicable)</label>
+                                        <input type="number" class="form-control" id="editLevyAmount" min="0.00"
+                                            step="0.01" value="0.00" name="editLevyAmount">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <h4><strong>Store Selection</strong></h4>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <div id="appendDynamicStoreData">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="editStoreEmployeeRepeater">
+                                            <div class="clearfix"></div>
+                                            <div class="items" data-group="stores_items">
+                                                <div class="item-content">
+                                                    <div class="form-group">
+                                                        <div class="col-md-10 col-xs-9">
+                                                            <label for="editStoreSelections">Store&nbsp;&nbsp;<small
+                                                                    style="color:red;">*Required</small></label>
+                                                            <select class="form-control storeSelect2"
+                                                                style="width: 100%;" data-skip-name="true"
+                                                                data-name="editStoreSelections[]" required>
+                                                                <?php
+                                                                    $item = null;
+                                                                    $value = null;
+
+                                                                    $stores = StoreController::ctrViewAllStores($item, $value);
+
+                                                                    foreach ($stores as $key => $value) {
+                                                                        echo '<option value ="' . $value["store_id"] . '">' . $value["store_name"] . '</option>';
+                                                                    }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2 col-xs-3" align="right"
+                                                            style="margin-top: 24px;">
+                                                            <button id="remove-btn" class="btn btn-block btn-danger"
+                                                                onclick="$(this).parents('.items').remove()"><i
+                                                                    class="fa fa-minus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <div class="repeater-heading col-xs-12" align="center">
+                                                    <button type="button" style="margin-top: 24px;"
+                                                        class="btn btn-success repeater-add-btn"><i
+                                                            class="fa fa-plus"></i>&nbsp;&nbsp;Add
+                                                        Store</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -39,7 +39,9 @@ class EmployeeController
                     if (strtolower($response['username']) == strtolower($username) && password_verify($password, $response['password'])) {
 
                         $_SESSION["loggedIn"] = true;
-                        self::setSessionVariables($response);
+                        $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
+                        $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);
+                        self::setSessionVariables($response, $payrollData, $allowedStoresData);
 
                         echo '<script>
                             window.location = "home";
@@ -93,7 +95,7 @@ class EmployeeController
         }
     }
 
-    public static function setSessionVariables($response)
+    public static function setSessionVariables($response, $payrollData, $allowedStoresData)
     {
         $_SESSION["person_id"] = $response["person_id"];
         $_SESSION["first_name"] = $response["first_name"];
@@ -103,6 +105,9 @@ class EmployeeController
         $_SESSION["date_of_birth"] = $response["date_of_birth"];
         $_SESSION["bank_name"] = $response["bank_name"];
         $_SESSION["bank_acct"] = $response["bank_acct"];
+        $_SESSION["company_name"] = $payrollData[0]["company_name"];
+        $_SESSION["levy_amount"] = $payrollData[0]["levy_amount"];
+        $_SESSION["allowedStoresData"] = $allowedStoresData;
 
         $response = EmployeeModel::mdlViewEmployeePermissions($response['person_id']);
         $_SESSION["allowed_modules"] = array();
@@ -133,6 +138,20 @@ class EmployeeController
     {
 
         $response = EmployeeModel::mdlViewEmployeePermissions($personId);
+
+        return $response;
+    }
+
+    public static function ctrViewEmployeesPayroll($personId)
+    {
+        $response = EmployeeModel::mdlViewEmployeesPayroll($personId);
+
+        return $response;
+    }
+
+    public static function ctrViewEmployeesStores($personId)
+    {
+        $response = EmployeeModel::mdlViewEmployeesStores($personId);
 
         return $response;
     }
@@ -192,6 +211,12 @@ class EmployeeController
                 $submittedForm['emergency_address'] = filter_var($_POST['newEmergencyAddress'], FILTER_SANITIZE_STRING);
                 $submittedForm['emergency_contact'] = filter_var($_POST['newEmergencyContact'], FILTER_SANITIZE_STRING);
 
+                $submittedForm['company_name'] = filter_var($_POST['newCompanySelection'], FILTER_SANITIZE_STRING);
+                $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+                foreach ($_POST['newStoreSelections'] as $index => $storeId) {
+                    $submittedForm['employees_stores'][$index] = filter_var($storeId, FILTER_SANITIZE_NUMBER_INT);
+                }
+
                 $personData = array('first_name' => $submittedForm['first_name'],
                     'last_name' => $submittedForm['last_name'],
                     'chinese_name' => $_POST["newChineseName"],
@@ -214,6 +239,9 @@ class EmployeeController
                     'emergency_relation' => $submittedForm['emergency_relation'],
                     'emergency_address' => $submittedForm['emergency_address'],
                     'emergency_contact' => $submittedForm['emergency_contact'],
+                    'company_name' => $submittedForm['company_name'],
+                    'levy_amount' => $submittedForm['levy_amount'],
+                    'employees_stores' => $submittedForm['employees_stores'],
                     'username' => $newUsername,
                     'password' => $_POST["newPassword"]);
 
@@ -368,7 +396,7 @@ class EmployeeController
     public static function ctrEditEmployee()
     {
         if (isset($_POST['editEmployeeId'])) {
-            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             $employeeId = (int) filter_var((int) $_POST['editEmployeeId'], FILTER_SANITIZE_NUMBER_INT);
 
@@ -394,6 +422,18 @@ class EmployeeController
             $submittedForm['emergency_address'] = filter_var($_POST['editEmergencyAddress'], FILTER_SANITIZE_STRING);
             $submittedForm['emergency_contact'] = filter_var($_POST['editEmergencyContact'], FILTER_SANITIZE_STRING);
 
+            $submittedForm['company_name'] = filter_var($_POST['editCompanySelection'], FILTER_SANITIZE_STRING);
+            $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['editLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            foreach ($_POST['updateStoreActive'] as $index => $active) {
+                $submittedForm['updateStoreActive'][$index] = filter_var($active, FILTER_SANITIZE_NUMBER_INT);
+            }
+            foreach ($_POST['updateStoreSelection'] as $index => $storeId) {
+                $submittedForm['updateStoreSelection'][$index] = filter_var($storeId, FILTER_SANITIZE_NUMBER_INT);
+            }
+            foreach ($_POST['editStoreSelections'] as $index => $storeId) {
+                $submittedForm['employees_stores'][$index] = filter_var($storeId, FILTER_SANITIZE_NUMBER_INT);
+            }
+
             $personData = array(
                 'person_id' => $employeeId,
                 'first_name' => $submittedForm["first_name"],
@@ -417,7 +457,13 @@ class EmployeeController
                 'emergency_name' => $submittedForm["emergency_name"],
                 'emergency_relation' => $submittedForm["emergency_relation"],
                 'emergency_address' => $submittedForm["emergency_address"],
-                'emergency_contact' => $submittedForm["emergency_contact"]);
+                'emergency_contact' => $submittedForm["emergency_contact"],
+                'company_name' => $submittedForm['company_name'],
+                'levy_amount' => $submittedForm['levy_amount'],
+                'employees_stores' => $submittedForm['employees_stores'],
+                'updateStoreActive' => $submittedForm['updateStoreActive'],
+                'updateStoreSelection' => $submittedForm['updateStoreSelection']
+            );
 
             $editUsername = filter_var($_POST['editUsername'], FILTER_SANITIZE_STRING);
 

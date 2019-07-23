@@ -92,6 +92,11 @@ $('.tableEmployees thead th').each(function (index, element) {
   }
 });
 
+/* RESET APPENDED ELEMENTS ON HIDE EDIT ITEM MODAL */
+$('#modalEditEmployee').on('hidden.bs.modal', function () {
+  $("#appendDynamicStoreData").html("");
+})
+
 $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
   var employeeId = parseInt($(this).attr('employeeId'));
 
@@ -183,6 +188,70 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
               $('#editCustomerAnalytics').iCheck('check');
             }
           }
+
+          var formData = new FormData();
+          formData.append("get_employees_payroll", employeeId);
+
+          $.ajax({
+            url: "ajax/employees.ajax.php",
+            method: "POST",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (answer) {
+              //console.log(answer);
+              $('#editCompanySelection').val(answer[0]['company_name']);
+              $('#editCompanySelection').select2().trigger('change');
+              $('#editLevyAmount').val(answer[0]['levy_amount']);
+
+              var formData = new FormData();
+              formData.append("get_employees_stores", employeeId);
+
+              $.ajax({
+                url: "ajax/employees.ajax.php",
+                method: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (answer) {
+                  console.log(answer);
+                  for (var i = 0; i < answer.length; i++) {
+                    //console.log(answer[i].store_name);
+                    //console.log(answer[i].quantity);
+                    $("#appendDynamicStoreData").append(`
+                        <div class='form-row col-xs-12'>
+                        <div class='col-md-1 col-xs-2'>
+                            <input type='hidden' name='updateStoreActive[` + i + `]' value='0' />
+                            <input type='checkbox' class='minimal' name='updateStoreActive[`+ i + `]' value='1' checked/>
+                        </div>
+                        <div class='col-md-7 col-xs-10'>
+                            <select disabled name='updateStoreId[`+ i + `]' class='form-control'>
+                                <option selected value='` + answer[i].store_id + `'>` + answer[i].store_name.replace(/\'/g, '&apos;') + `</option>
+                            </select>
+                            <input type='hidden' name='updateStoreSelection[` + i + `]' value='` + answer[i].store_id + `' />
+                        </div>
+                        <div class='visible-xs-block visible-sm-inline-block col-sm-12 col-xs-12'>
+                        <p></p>
+                        </div>
+                        <div class='col-md-12 col-xs-12'>
+                        <p></p>
+                        </div>
+                        </div>`);
+                  }
+
+                  $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                  })
+
+                }
+              })
+            }
+          })
         }
       })
     }
@@ -215,6 +284,13 @@ $('#modalEditEmployee').on('hidden.bs.modal', function () {
 $('div.dataTables_filter input').focus();
 $('div.dataTables_filter label input').attr('id', 'search');
 
+$('#newCompanySelection').select2({
+  placeholder: "Select a Company"
+});
+
+$('#editCompanySelection').select2({
+  placeholder: "Select a Company"
+});
 
 $('#editPasswordSelection').on('ifUnchecked', function (event) {
   $("#editPassword").prop("readonly", true);
@@ -226,6 +302,8 @@ $('#editPasswordSelection').on('ifChecked', function (event) {
 });
 
 
+$("#newStoreEmployeeRepeater").createRepeater();
+$("#editStoreEmployeeRepeater").createRepeater();
 
 $('.datepicker').datepicker({
   format: "dd/mm/yyyy",
