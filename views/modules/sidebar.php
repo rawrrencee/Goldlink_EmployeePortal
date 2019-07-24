@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu" data-api="tree" data-accordion=0>
@@ -130,17 +134,27 @@
 
                     <?php
                     if (in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules'])) {
-                    echo '
-                    <li>
-                        <a href="employee-salary-voucher-submit">
-                            <i class="fa fa-circle-o"></i>
-                            <span>Submit Salary</span>
-                        </a>
-                    </li>
-                    ';
+                        if (strpos($_SESSION['designation'], '(FT)')) {
+                            echo '
+                            <li>
+                                <a href="employee-salary-voucher-submit">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>Submit Salary</span>
+                                </a>
+                            </li>
+                            ';
+                        } else {
+                            echo '
+                            <li>
+                                <a href="employee-salary-voucher-submit-pt">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>Submit Salary (PT)</span>
+                                </a>
+                            </li>
+                            ';
+                        }
                     }
-                ?>
-
+                    ?>
                 </ul>
             </li>
         </ul>

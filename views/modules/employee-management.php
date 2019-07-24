@@ -260,9 +260,9 @@
                                 <select class="form-control select2" id="newCompanySelection" name="newCompanySelection"
                                     style="width: 100%;">
                                     <option></option>
-                                    <option>Goldlink</option>
-                                    <option>Doro</option>
-                                    <option>Goldtech</option>
+                                    <option>Goldlink Asia</option>
+                                    <option>Goldlink Technologies</option>
+                                    <option>Doro International</option>
                                 </select>
                             </div>
                         </div>
@@ -640,9 +640,9 @@
                                         <select class="form-control select2" id="editCompanySelection"
                                             name="editCompanySelection" style="width: 100%;">
                                             <option></option>
-                                            <option>Goldlink</option>
-                                            <option>Doro</option>
-                                            <option>Goldtech</option>
+                                            <option>Goldlink Asia</option>
+                                            <option>Goldlink Technologies</option>
+                                            <option>Doro International</option>
                                         </select>
                                     </div>
                                 </div>
@@ -813,7 +813,16 @@
                                         <input type="hidden" name="allowedModules[5]"
                                             value="employee-salary-voucher-submit">
 
-                                        <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers</p>
+                                        <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (FT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[6]" value="0">
+                                        <input type="checkbox" class="minimal" id="editSubmitOwnSalaryVoucherPT"
+                                            name="editAllowedModulesSelection[6]" value="1">
+                                        <input type="hidden" name="allowedModules[6]"
+                                            value="employee-salary-voucher-submit-pt">
+
+                                        <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (PT)</p>
                                     </div>
                                 </div>
 
@@ -822,26 +831,26 @@
                                         <h4><strong>Customer Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[6]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[7]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerManagement"
-                                            name="editAllowedModulesSelection[6]" value="1">
-                                        <input type="hidden" name="allowedModules[6]" value="customer-management">
+                                            name="editAllowedModulesSelection[7]" value="1">
+                                        <input type="hidden" name="allowedModules[7]" value="customer-management">
 
                                         <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[7]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[8]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerArchives"
-                                            name="editAllowedModulesSelection[7]" value="1">
-                                        <input type="hidden" name="allowedModules[7]" value="customer-archives">
+                                            name="editAllowedModulesSelection[8]" value="1">
+                                        <input type="hidden" name="allowedModules[8]" value="customer-archives">
 
                                         <p style="margin-top: 5px;">View/Update Customer Archives</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[8]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[9]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerAnalytics"
-                                            name="editAllowedModulesSelection[8]" value="1">
-                                        <input type="hidden" name="allowedModules[8]" value="customer-analytics">
+                                            name="editAllowedModulesSelection[9]" value="1">
+                                        <input type="hidden" name="allowedModules[9]" value="customer-analytics">
 
                                         <p style="margin-top: 5px;">View Customer Analytics</p>
                                     </div>

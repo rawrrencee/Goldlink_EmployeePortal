@@ -1,7 +1,7 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            Submit Salary Voucher
+            Submit Salary Voucher (PT)
             <small>Payroll Management</small>
         </h1>
     </section>
@@ -25,7 +25,7 @@
             <div class="box-body">
                 <div class="col-md-12 col-sm-12 col-xs-12" style="overflow-y: auto; width: 100%;">
                     <table
-                        class="table display table-hover table-bordered table-striped dt-responsive tableSalaryVoucherDrafts"
+                        class="table display table-hover table-bordered table-striped dt-responsive tableSalaryVoucherDraftsPT"
                         width="100%">
                         <thead>
                             <tr>
@@ -55,7 +55,7 @@
                                 <th class="none">Personal Sales</th>
                                 <th class="none">Zero Sales Days</th>
                                 <th class="none">Reports Submitted</th>
-                                <th class="none">Part Time</th>
+                                <th class="never">Part Time</th>
                                 <th style="width: 40px;">Load</th>
                                 <th class="none" style="width: 40px;">Delete</th>
                             </tr>
@@ -69,16 +69,16 @@
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title pull-right"><?php echo date("Y"); ?> (Full Time)</h3>
+                <h3 class="box-title pull-right"><?php echo date("Y"); ?> (Part Time)</h3>
             </div>
             <form id="salaryVoucherForm" role="form" method="POST">
 
                 <ul class="nav nav-tabs" id="tabContent">
                     <li class="active"><a href="#salaryTab" data-toggle="tab">Salary</a></li>
+                    <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
                     <li><a href="#deductionsTab" data-toggle="tab">Deductions</a></li>
                     <li><a href="#othersTab" data-toggle="tab">Others</a></li>
                     <li><a href="#dailySalesFigureTab" data-toggle="tab">Daily Sales Figure</a></li>
-                    <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
 
                     <div class="btn-group pull-right" style="padding: 10px;">
                         <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
@@ -90,7 +90,9 @@
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
-                <input type="hidden" id="newCompanyName" name="newCompanyName" value="<?php echo $_SESSION['company_name'] ?>">
+                <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="1">
+                <input type="hidden" id="newCompanyName" name="newCompanyName"
+                    value="<?php echo $_SESSION['company_name'] ?>">
 
                 <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
@@ -110,7 +112,8 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newMonthOfVoucher">Month <small style="color:red;">*Required</small></label>
+                                        <label for="newMonthOfVoucher">Month <small
+                                                style="color:red;">*Required</small></label>
                                         <select required id="newMonthOfVoucher" name="newMonthOfVoucher"
                                             class="form-control select2" style="width: 100%;">
                                             <option></option>
@@ -129,7 +132,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newYearOfVoucher">Year <small style="color:red;">*Required</small></label>
+                                        <label for="newYearOfVoucher">Year <small
+                                                style="color:red;">*Required</small></label>
                                         <select required id="newYearOfVoucher" name="newYearOfVoucher"
                                             class="form-control select2" style="width: 100%;">
                                             <option></option>
@@ -223,77 +227,45 @@
                             </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4 col-sm-3 col-xs-6">
-                                        <label for="newSalaryBasicPayTitle">Basic Pay</label>
-                                        <input readonly type="text" class="form-control" id="newSalaryBasicPayTitle"
-                                            name="salaryTitle[0]" value="Basic Pay">
+                                <div id="appendSalaryListingPT_first" class="form-row">
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                                        <label for="newSalaryTitle">Title</label>
+                                        <input type="text" class="form-control" id="newSalaryTitle"
+                                            name="salaryTitle[0]" value="">
                                     </div>
                                     <div class="form-group col-md-2 col-sm-3 col-xs-6">
-                                        <label for="newSalaryBasicPayAmount">Amount</label>
-                                        <input type="number" class="form-control grossPay" id="newSalaryBasicPayAmount"
-                                            min="0.00" step="0.01" value="0.00" name="salaryAmount[0]">
+                                        <label for="newSalaryRate">Rate</label>
+                                        <input type="number" class="form-control ratePT" id="newSalaryRate" min="0.00"
+                                            step="0.01" value="0.00" name="salaryRate[0]">
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newSalaryBasicPayRemarks">Remarks</label>
-                                        <input type="text" class="form-control" id="newSalaryBasicPayRemarks"
+                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
+                                        <label for="newSalaryUnit">Unit</label>
+                                        <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0" step="0"
+                                            value="0" name="salaryUnit[0]">
+                                    </div>
+                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
+                                        <label for="newSalarySubtotal">Subtotal</label>
+                                        <input readonly type="number" class="form-control subTotalPT grossPay" id="newSalarySubtotal"
+                                            min="0" step="0" value="0" name="salarySubtotal[0]">
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                                        <label for="newSalaryRemarks">Remarks</label>
+                                        <input type="text" class="form-control" id="newSalaryRemarks"
                                             name="salaryRemarks[0]">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4 col-sm-3 col-xs-6">
-                                        <label for="newSalaryAttendanceTitle">Attendance</label>
-                                        <input readonly type="text" class="form-control" id="newSalaryAttendanceTitle"
-                                            name="salaryTitle[1]" value="Attendance">
-                                    </div>
-                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
-                                        <label for="newSalaryAttendanceAmount">Amount</label>
-                                        <input type="number" class="form-control grossPay"
-                                            id="newSalaryAttendanceAmount" min="0.00" step="0.01" value="0.00"
-                                            name="salaryAmount[1]">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newSalaryAttendanceRemarks">Remarks</label>
-                                        <input type="text" class="form-control" id="newSalaryAttendanceRemarks"
-                                            name="salaryRemarks[1]">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4 col-sm-3 col-xs-6">
-                                        <label for="newSalaryProductivityTitle">Productivity</label>
-                                        <input readonly type="text" class="form-control" id="newSalaryProductivityTitle"
-                                            name="salaryTitle[2]" value="Productivity">
-                                    </div>
-                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
-                                        <label for="newSalaryProductivityAmount">Amount</label>
-                                        <input type="number" class="form-control grossPay"
-                                            id="newSalaryProductivityAmount" min="0.00" step="0.01" value="0.00"
-                                            name="salaryAmount[2]">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newSalaryProductivityRemarks">Remarks</label>
-                                        <input type="text" class="form-control" id="newSalaryProductivityRemarks"
-                                            name="salaryRemarks[2]">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div id="appendSalaryListing">
+                                <div id="appendSalaryListingPT">
                                 </div>
                             </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <button type="button" id="addSalaryListing"
-                                            class="btn btn-primary addSalaryListing"><i
+                                        <button type="button" id="addSalaryListingPT"
+                                            class="btn btn-primary addSalaryListingPT"><i
                                                 class="fa fa-plus"></i>&nbsp;&nbsp;Add Salary Listing</button>
                                     </div>
                                 </div>
@@ -340,7 +312,8 @@
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <label for="newLevyAmount">Levy (if applicable)</label>
                                         <input readonly type="number" class="form-control" id="newLevyAmount" min="0.00"
-                                            step="0.01" value="<?php echo $_SESSION['levy_amount'] ?>" name="newLevyAmount">
+                                            step="0.01" value="<?php echo $_SESSION['levy_amount'] ?>"
+                                            name="newLevyAmount">
                                     </div>
                                 </div>
                             </div>
@@ -540,128 +513,180 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newOffDays">Off Days</label>
-                                        <input type="text" class="form-control" id="newOffDays" value=""
-                                            name="newOffDays" placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newLateDays">Late Days</label>
-                                        <input type="text" class="form-control" id="newLateDays" value=""
-                                            name="newLateDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newLeaveMCDays">Leave/MC Days</label>
-                                        <input type="text" class="form-control" id="newLeaveMCDays" value=""
-                                            name="newLeaveMCDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newTotalWorkingDays">Total Working Days</label>
-                                        <input type="number" class="form-control" id="newTotalWorkingDays" min="0"
-                                            name="newTotalWorkingDays" step="0" value="0">
+                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                        <label for="newTotalHoursWorked">Total Hours Worked</label>
+                                        <input readonly type="number" class="form-control" id="newTotalHoursWorked"
+                                            min="0.00" step="0.01" value="0.00" name="newTotalHoursWorked">
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <p style="font-size: 20px;">Annual Leave</p>
-                                    </div>
-                                </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <table class="table display table-hover table-bordered table-striped dt-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Hours Worked</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+
+                                        for ($i = 1; $i <= 10; $i++) {
+                                            echo'<tr>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
+                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                    <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%;">
+                                                        <option></option>
+                                                        <option disabled>Select or type a number</option>
+                                                        <option value="Sick Leave">Sick Leave</option>
+                                                        <option value="Annual Leave">Annual Leave</option>
+                                                        <option value="Unpaid Leave">Unpaid Leave</option>
+                                                        <option value="OFF">OFF</option>
+                                                        <option value="PH/RO">PH/RO</option>
+                                                        <option selected value="N/A">N/A</option>
+                                                    </select>
+                                                </td>
+                                            </tr>';
+                                        }
+
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newLeaveEntitled">Leave Entitled</label>
-                                        <input type="number" class="form-control" id="newLeaveEntitled" min="0" step="0"
-                                            name="newLeaveEntitled" value="0">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newLeaveTaken">Leave Taken</label>
-                                        <input type="number" class="form-control" id="newLeaveTaken" min="0" step="0"
-                                            name="newLeaveTaken" value="0">
-                                    </div>
-                                </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <table class="table display table-hover table-bordered table-striped dt-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Hours Worked</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+
+                                        for ($i = 11; $i <= 20; $i++) {
+                                            echo'<tr>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
+                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                    <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%;">
+                                                        <option></option>
+                                                        <option disabled>Select or type a number</option>
+                                                        <option value="Sick Leave">Sick Leave</option>
+                                                        <option value="Annual Leave">Annual Leave</option>
+                                                        <option value="Unpaid Leave">Unpaid Leave</option>
+                                                        <option value="OFF">OFF</option>
+                                                        <option value="PH/RO">PH/RO</option>
+                                                        <option selected value="N/A">N/A</option>
+                                                    </select>
+                                                </td>
+                                            </tr>';
+                                        }
+
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newLeaveRemaining">Leave Remaining</label>
-                                        <input type="text" class="form-control" id="newLeaveRemaining" min="0" step="0"
-                                            name="newLeaveRemaining" value="0">
-                                    </div>
-                                </div>
+
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <table class="table display table-hover table-bordered table-striped dt-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Hours Worked</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+
+                                        for ($i = 21; $i <= 31; $i++) {
+                                            echo'<tr>
+                                                <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
+                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                    <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%">
+                                                        <option></option>
+                                                        <option disabled>Select or type a number</option>
+                                                        <option value="Sick Leave">Sick Leave</option>
+                                                        <option value="Annual Leave">Annual Leave</option>
+                                                        <option value="Unpaid Leave">Unpaid Leave</option>
+                                                        <option value="OFF">OFF</option>
+                                                        <option value="PH/RO">PH/RO</option>
+                                                        <option selected value="N/A">N/A</option>
+                                                    </select>
+                                                </td>
+                                            </tr>';
+                                        }
+
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+        </div>
 
-                <div class="box-footer">
-                    <div class="pull-right">
-                        <label for="newGrossPay">Gross Pay (+):</label>
-                        <input readonly type="number" id="newGrossPay" class="form-control" name="newGrossPay"
-                            value="0.00">
-                        <p></p>
-                        <label for="newTotalDeductions">Total Deductions (-):</label>
-                        <input readonly type="number" id="newTotalDeductions" class="form-control"
-                            name="newTotalDeductions" value="0.00">
-                        <p></p>
-                        <label for="newTotalOthers">Total Others (+ / -) :</label>
-                        <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
-                            value="0.00">
-                        <p></p>
-                        <label for="newFinalAmount">Nett Payment:</label>
-                        <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
-                            value="0.00">
-                    </div>
+        <div class="box-footer">
+            <div class="pull-right">
+                <label for="newGrossPay">Gross Pay (+):</label>
+                <input readonly type="number" id="newGrossPay" class="form-control" name="newGrossPay" value="0.00">
+                <p></p>
+                <label for="newTotalDeductions">Total Deductions (-):</label>
+                <input readonly type="number" id="newTotalDeductions" class="form-control" name="newTotalDeductions"
+                    value="0.00">
+                <p></p>
+                <label for="newTotalOthers">Total Others (+ / -) :</label>
+                <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
+                    value="0.00">
+                <p></p>
+                <label for="newFinalAmount">Nett Payment:</label>
+                <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
+                    value="0.00">
+            </div>
 
 
-                </div>
+        </div>
 
-                <div class="box-footer">
-                    <div class="pull-right">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <button type="reset" id="resetVoucher" class="btn btn-warning resetButton"
-                                    style="width: 130px; margin-bottom: 10px;"><i
-                                        class="fa fa-refresh"></i>&nbsp;&nbsp;Reset</button>&nbsp;&nbsp;
-                                <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton"
-                                    style="width: 130px; margin-bottom: 10px;"><i
-                                        class="fa fa-save"></i>&nbsp;&nbsp;Save as Draft</button>&nbsp;&nbsp;
-                                <button type="submit" id="submitVoucher" class="btn btn-success postButton"
-                                    style="width: 130px; margin-bottom: 10px;"><i
-                                        class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="btn-group" style="padding: 10px;">
-                        <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
-                        <a class="btn btn-default btnNext">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+        <div class="box-footer">
+            <div class="pull-right">
+                <div class="form-group">
+                    <div class="form-group">
+                        <button type="reset" id="resetVoucher" class="btn btn-warning resetButton"
+                            style="width: 130px; margin-bottom: 10px;"><i
+                                class="fa fa-refresh"></i>&nbsp;&nbsp;Reset</button>&nbsp;&nbsp;
+                        <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton"
+                            style="width: 130px; margin-bottom: 10px;"><i class="fa fa-save"></i>&nbsp;&nbsp;Save as
+                            Draft</button>&nbsp;&nbsp;
+                        <button type="submit" id="submitVoucher" class="btn btn-success postButton"
+                            style="width: 130px; margin-bottom: 10px;"><i
+                                class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
                     </div>
                 </div>
+            </div>
 
-                <?php
+            <div class="btn-group" style="padding: 10px;">
+                <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
+                <a class="btn btn-default btnNext">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <?php
                     $createSalaryVoucher = new PayrollController();
                     $createSalaryVoucher->ctrCreateNewSalaryVoucher();
                     $createSalaryVoucher->ctrEditSalaryVoucher();
                 ?>
-            </form>
+        </form>
 
-        </div>
-
-
+</div>
 
 
-    </section>
+
+
+</section>
 </div>
 
 <?php

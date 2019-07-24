@@ -156,6 +156,7 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
           $('#editViewOwnSalaryVoucher').iCheck('uncheck');
           $('#editDownloadOwnSalaryVoucher').iCheck('uncheck');
           $('#editSubmitOwnSalaryVoucher').iCheck('uncheck');
+          $('#editSubmitOwnSalaryVoucherPT').iCheck('uncheck');
           $('#editCustomerManagement').iCheck('uncheck');
           $('#editCustomerArchives').iCheck('uncheck');
           $('#editCustomerAnalytics').iCheck('uncheck');
@@ -177,6 +178,9 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             }
             else if (answer[i]['module_title'] == "employee-salary-voucher-submit" && answer[i]['active'] == 1) {
               $('#editSubmitOwnSalaryVoucher').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-submit-pt" && answer[i]['active'] == 1) {
+              $('#editSubmitOwnSalaryVoucherPT').iCheck('check');
             }
             else if (answer[i]['module_title'] == "customer-management" && answer[i]['active'] == 1) {
               $('#editCustomerManagement').iCheck('check');
@@ -247,6 +251,12 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
                     checkboxClass: 'icheckbox_minimal-blue',
                     radioClass: 'iradio_minimal-blue'
                   })
+
+
+                  $('#editCompanySelection').select2({
+                    placeholder: "Select a Company"
+                  });
+
 
                 }
               })

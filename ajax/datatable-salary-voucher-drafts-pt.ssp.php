@@ -25,10 +25,8 @@ if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) die("Invalid Authen
 $table = <<<EOT
  (
 	SELECT 
-    salary_vouchers.*, people.first_name, people.last_name
-	FROM salary_vouchers
-	JOIN people
-	ON salary_vouchers.person_id = people.person_id
+    *
+    FROM salary_vouchers
  ) temp
 EOT;
 
@@ -45,32 +43,30 @@ $columns = array(
 	array( 'db' => 'voucher_id', 'dt' => 0 ),
 	array( 'db' => 'month_of_voucher', 'dt' => 1 ),
 	array( 'db' => 'year_of_voucher', 'dt' => 2 ),
-	array( 'db' => 'first_name', 'dt' => 3 ),
-	array( 'db' => 'last_name', 'dt' => 4 ),
+	array( 'db' => 'created_on', 'dt' => 3 ),
+	array( 'db' => 'modified_on', 'dt' => 4 ),
 	array( 'db' => 'person_id', 'dt' => 5 ),
 	array( 'db' => 'is_draft', 'dt' => 6 ),
 	array( 'db' => 'status', 'dt' => 7 ),
 	array( 'db' => 'updated_by', 'dt' => 8 ),
-	array( 'db' => 'created_on', 'dt' => 9 ),
-	array( 'db' => 'modified_on', 'dt' => 10 ),
-	array( 'db' => 'pay_to_name', 'dt' => 11 ),
-	array( 'db' => 'designation', 'dt' => 12 ),
-	array( 'db' => 'nric', 'dt' => 13 ),
-	array( 'db' => 'bank_name', 'dt' => 14 ),
-	array( 'db' => 'bank_acct', 'dt' => 15 ),
-	array( 'db' => 'gross_pay', 'dt' => 16 ),
-	array( 'db' => 'total_deductions', 'dt' => 17 ),
-    array( 'db' => 'total_others', 'dt' => 18 ),
-	array( 'db' => 'final_amount', 'dt' => 19 ),
-	array( 'db' => 'is_sg_pr', 'dt' => 20 ),
-	array( 'db' => 'cpf_employee', 'dt' => 21 ),
-	array( 'db' => 'cpf_employer', 'dt' => 22 ),
-	array( 'db' => 'boutique', 'dt' => 23),
-	array( 'db' => 'boutique_sales', 'dt' => 24 ),
-	array( 'db' => 'personal_sales', 'dt' => 25 ),
-	array( 'db' => 'num_days_zero_sales', 'dt' => 26 ),
-	array( 'db' => 'num_reports_submitted', 'dt' => 27 ),
-	array( 'db' => 'is_part_time', 'dt' => 28 )
+	array( 'db' => 'pay_to_name', 'dt' => 9 ),
+	array( 'db' => 'designation', 'dt' => 10 ),
+	array( 'db' => 'nric', 'dt' => 11 ),
+	array( 'db' => 'bank_name', 'dt' => 12 ),
+	array( 'db' => 'bank_acct', 'dt' => 13 ),
+	array( 'db' => 'gross_pay', 'dt' => 14 ),
+	array( 'db' => 'total_deductions', 'dt' => 15 ),
+    array( 'db' => 'total_others', 'dt' => 16 ),
+	array( 'db' => 'final_amount', 'dt' => 17 ),
+	array( 'db' => 'is_sg_pr', 'dt' => 18 ),
+	array( 'db' => 'cpf_employee', 'dt' => 19 ),
+	array( 'db' => 'cpf_employer', 'dt' => 20 ),
+	array( 'db' => 'boutique', 'dt' => 21),
+	array( 'db' => 'boutique_sales', 'dt' => 22 ),
+	array( 'db' => 'personal_sales', 'dt' => 23 ),
+	array( 'db' => 'num_days_zero_sales', 'dt' => 24 ),
+	array( 'db' => 'num_reports_submitted', 'dt' => 25 ),
+	array( 'db' => 'is_part_time', 'dt' => 26 )
 );
 
 // SQL server connection information
@@ -82,7 +78,7 @@ $sql_details = array(
 	'host' => $db_host
 );
 
-$extraWhere = "is_draft = 0";
+$extraWhere = "is_draft = 1 AND is_part_time = 1 AND person_id = ".$person_id;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

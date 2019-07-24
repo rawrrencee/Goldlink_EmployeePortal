@@ -30,6 +30,16 @@ class AjaxPayroll
 
     }
 
+    public function getSalaryRecordsPTByVoucherId() {
+
+        $value = $this->salaryVoucherId;
+
+        $answer = PayrollController::ctrViewSalaryRecordsPTByVoucherId($value);
+
+        echo json_encode($answer);
+
+    }
+
     public function getDeductionRecordsByVoucherId() {
 
         $value = $this->salaryVoucherId;
@@ -69,6 +79,16 @@ class AjaxPayroll
         echo json_encode($answer);
 
     }
+
+    public function getDailyWorkingHoursByVoucherId() {
+
+        $value = $this->salaryVoucherId;
+
+        $answer = PayrollController::ctrViewDailyWorkingHoursByVoucherId($value);
+
+        echo json_encode($answer);
+
+    }
 }
 
 if (isset($_POST['getSalaryVoucherById'])) {
@@ -87,6 +107,16 @@ if (isset($_POST['getSalaryRecordsByVoucherId'])) {
 
     $getSalaryRecordsByVoucherId -> salaryVoucherId = $voucher_id;
     $getSalaryRecordsByVoucherId -> getSalaryRecordsByVoucherId();
+
+}
+
+if (isset($_POST['getSalaryRecordsPTByVoucherId'])) {
+
+    $getSalaryRecordsPTByVoucherId = new AjaxPayroll();
+    $voucher_id = (int) filter_var((int) $_POST['getSalaryRecordsPTByVoucherId'], FILTER_SANITIZE_NUMBER_INT);
+
+    $getSalaryRecordsPTByVoucherId -> salaryVoucherId = $voucher_id;
+    $getSalaryRecordsPTByVoucherId -> getSalaryRecordsPTByVoucherId();
 
 }
 
@@ -127,5 +157,15 @@ if (isset($_POST['getAttendanceRecordsByVoucherId'])) {
 
     $getAttendanceRecordsByVoucherId -> salaryVoucherId = $voucher_id;
     $getAttendanceRecordsByVoucherId -> getAttendanceRecordsByVoucherId();
+
+}
+
+if (isset($_POST['getDailyWorkingHoursByVoucherId'])) {
+
+    $getDailyWorkingHoursByVoucherId = new AjaxPayroll();
+    $voucher_id = (int) filter_var((int) $_POST['getDailyWorkingHoursByVoucherId'], FILTER_SANITIZE_NUMBER_INT);
+
+    $getDailyWorkingHoursByVoucherId -> salaryVoucherId = $voucher_id;
+    $getDailyWorkingHoursByVoucherId -> getDailyWorkingHoursByVoucherId();
 
 }

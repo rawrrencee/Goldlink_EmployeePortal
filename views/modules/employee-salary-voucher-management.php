@@ -62,6 +62,7 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                     <th class="none">Personal Sales</th>
                                     <th class="none">Zero Sales Days</th>
                                     <th class="none">Reports Submitted</th>
+                                    <th class="never">Part Time</th>
                                     <th style="width: 40px;">Action</th>
                                 </tr>
                             </thead>

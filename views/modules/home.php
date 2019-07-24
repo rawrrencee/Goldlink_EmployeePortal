@@ -52,6 +52,8 @@ session_start();
                 );
                 $response = PayrollController::ctrRetrieveIndivSalaryVoucherByStatus($data);
                 echo '<p></p><p>You have <strong>'.$response['COUNT(*)'].'</strong> rejected salary vouchers.</p>';
+
+                var_dump($_SESSION['allowedStoresData']);
             ?>
             </div>
             <!-- /.box-body -->

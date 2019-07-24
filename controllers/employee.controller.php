@@ -18,7 +18,7 @@ class EmployeeController
                 $_SESSION["date_of_birth"] = "date_of_birth";
                 $_SESSION["bank_name"] = "bank_name";
                 $_SESSION["bank_acct"] = "bank_acct";
-                $_SESSION["allowed_modules"] = array('home', 'logout', 'employee-management', 'employee-salary-voucher-my', 'employee-salary-voucher-submit', 'employee-salary-voucher-management');
+                $_SESSION["allowed_modules"] = array('home', 'logout', 'employee-management', 'employee-salary-voucher-my', 'employee-salary-voucher-submit', 'employee-salary-voucher-submit-pt', 'employee-salary-voucher-management');
                 echo '<script>
                             window.location = "home";
                 </script>';
@@ -211,7 +211,7 @@ class EmployeeController
                 $submittedForm['emergency_address'] = filter_var($_POST['newEmergencyAddress'], FILTER_SANITIZE_STRING);
                 $submittedForm['emergency_contact'] = filter_var($_POST['newEmergencyContact'], FILTER_SANITIZE_STRING);
 
-                $submittedForm['company_name'] = filter_var($_POST['newCompanySelection'], FILTER_SANITIZE_STRING);
+                $submittedForm['company_name'] = filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING);
                 $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
                 foreach ($_POST['newStoreSelections'] as $index => $storeId) {
                     $submittedForm['employees_stores'][$index] = filter_var($storeId, FILTER_SANITIZE_NUMBER_INT);

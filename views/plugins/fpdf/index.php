@@ -50,6 +50,17 @@ class GenerateVoucherPDF
 
     }
 
+    public function getSalaryRecordsPTByVoucherId()
+    {
+
+        $value = $this->salaryVoucherId;
+
+        $answer = PayrollController::ctrViewSalaryRecordsPTByVoucherId($value);
+
+        return $answer;
+
+    }
+
     public function getDeductionRecordsByVoucherId()
     {
 
@@ -105,7 +116,11 @@ if (isset($_GET['voucherId'])) {
 
     $salaryVoucherData = $getSalaryVoucherById->getSalaryVoucherById();
 
-    $salaryRecordData = $getSalaryVoucherById->getSalaryRecordsByVoucherId();
+    if ($salaryVoucherData['is_part_time'] == 0) {
+        $salaryRecordData = $getSalaryVoucherById->getSalaryRecordsByVoucherId();
+    } else {
+        $salaryRecordData = $getSalaryVoucherById->getSalaryRecordsPTByVoucherId();
+    }
 
     $deductionRecordData = $getSalaryVoucherById->getDeductionRecordsByVoucherId();
 
@@ -162,12 +177,41 @@ if (isset($_GET['voucherId'])) {
     $pdf->SetLeftMargin(10);
     $pdf->SetRightMargin(10);
 
-    /* --- Image --- */
-    $pdf->Image('logo.png', 10, 10, 20, 20);
-    /* --- Cell --- */
-    $pdf->SetXY(10, 33);
-    $pdf->SetFont('', 'B', 14);
-    $pdf->Cell(0, 5, 'Goldlink - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+    if ($salaryVoucherData['is_part_time'] == 1) {
+        if ($salaryVoucherData['company_name'] == 'Goldlink Asia') {
+            /* --- Image --- */
+            $pdf->Image('logo.png', 10, 10, 20, 20);
+            /* --- Cell --- */
+            $pdf->SetXY(10, 33);
+            $pdf->SetFont('', 'B', 14);
+            $pdf->Cell(0, 5, 'Goldlink Asia - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+        } else if ($salaryVoucherData['company_name'] == 'Goldlink Technologies') {
+            $pdf->SetXY(10, 15);
+            $pdf->SetFont('', 'B', 14);
+            $pdf->Cell(0, 5, 'Goldlink Technologies - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+        } else {
+            $pdf->SetXY(10, 15);
+            $pdf->SetFont('', 'B', 14);
+            $pdf->Cell(0, 5, 'Doro  International - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+        }
+    } else {
+        if ($salaryVoucherData['company_name'] == 'Goldlink Asia') {
+            /* --- Image --- */
+            $pdf->Image('logo.png', 10, 10, 20, 20);
+            /* --- Cell --- */
+            $pdf->SetXY(10, 33);
+            $pdf->SetFont('', 'B', 14);
+            $pdf->Cell(0, 5, 'Goldlink Asia - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+        } else if ($salaryVoucherData['company_name'] == 'Goldlink Technologies') {
+            $pdf->SetXY(10, 15);
+            $pdf->SetFont('', 'B', 14);
+            $pdf->Cell(0, 5, 'Goldlink Technologies - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+        } else {
+            $pdf->SetXY(10, 15);
+            $pdf->SetFont('', 'B', 14);
+            $pdf->Cell(0, 5, 'Doro  International - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+        }
+    }
 
     /* --- Cell --- */
     $pdf->SetXY(151, 15);
@@ -255,25 +299,60 @@ if (isset($_GET['voucherId'])) {
 
     $pdf->SetFont('', '', 12);
 
-    foreach ($salaryRecordData as $index => $record) {
-        /* --- Cell --- */
-        $pdf->SetXY(10, 82 + 6 * $index);
-        $pdf->SetFont('', '', 10);
-        $pdf->Cell(19, 3, $record['title'], 0, 1, 'L', false);
-        /* --- Cell --- */
-        $pdf->SetXY(160, 82 + 6 * $index);
-        $pdf->SetFontSize(10);
-        $pdf->Cell(19, 3, 'S$', 0, 1, 'R', false);
-        /* --- Cell --- */
-        $pdf->SetXY(180, 82 + 6 * $index);
-        $pdf->SetFontSize(10);
-        $pdf->Cell(19, 3, $salaryRecordData[$index]['amount'], 0, 1, 'R', false);
-        /* --- Cell --- */
-        $pdf->SetXY(94, 82 + 6 * $index);
-        $pdf->SetFont('', 'I', 7);
-        $pdf->Cell(19, 3, $salaryRecordData[$index]['remarks'], 0, 1, 'L', false);
+    if ($salaryVoucherData['is_part_time'] == 0) {
+        foreach ($salaryRecordData as $index => $record) {
+            /* --- Cell --- */
+            $pdf->SetXY(10, 82 + 6 * $index);
+            $pdf->SetFont('', '', 10);
+            $pdf->Cell(19, 3, $record['title'], 0, 1, 'L', false);
+            /* --- Cell --- */
+            $pdf->SetXY(160, 82 + 6 * $index);
+            $pdf->SetFontSize(10);
+            $pdf->Cell(19, 3, 'S$', 0, 1, 'R', false);
+            /* --- Cell --- */
+            $pdf->SetXY(180, 82 + 6 * $index);
+            $pdf->SetFontSize(10);
+            $pdf->Cell(19, 3, $salaryRecordData[$index]['amount'], 0, 1, 'R', false);
+            /* --- Cell --- */
+            $pdf->SetXY(94, 82 + 6 * $index);
+            $pdf->SetFont('', 'I', 7);
+            $pdf->Cell(19, 3, $salaryRecordData[$index]['remarks'], 0, 1, 'L', false);
 
-        $finalHeight = 82 + 6 * $index;
+            $finalHeight = 82 + 6 * $index;
+        }
+    } else {
+        foreach ($salaryRecordData as $index => $record) {
+            /* --- Cell --- */
+            $pdf->SetXY(10, 82 + 6 * $index);
+            $pdf->SetFont('', '', 10);
+            $pdf->Cell(19, 3, $record['title'], 0, 1, 'L', false);
+            /* --- Cell --- */
+            $pdf->SetXY(160, 82 + 6 * $index);
+            $pdf->SetFontSize(10);
+            $pdf->Cell(19, 3, 'S$', 0, 1, 'R', false);
+            /* --- Cell --- */
+            $pdf->SetXY(180, 82 + 6 * $index);
+            $pdf->SetFontSize(10);
+            $pdf->Cell(19, 3, $salaryRecordData[$index]['subtotal'], 0, 1, 'R', false);
+            /* --- Cell --- */
+            $pdf->SetXY(65, 82 + 6 * $index);
+            $pdf->SetFont('', 'I', 7);
+            $pdf->Cell(4, 3, 'Rate: ', 0, 1, 'L', false);
+            /* --- Cell --- */
+            $pdf->SetXY(95, 82 + 6 * $index);
+            $pdf->SetFont('', 'I', 7);
+            $pdf->Cell(5, 3, $salaryRecordData[$index]['rate'] . ' / unit', 0, 1, 'R', false);
+            /* --- Cell --- */
+            $pdf->SetXY(115, 82 + 6 * $index);
+            $pdf->SetFont('', 'I', 7);
+            $pdf->Cell(1, 3, ' x ', 0, 1, 'R', false);
+            /* --- Cell --- */
+            $pdf->SetXY(120, 82 + 6 * $index);
+            $pdf->SetFont('', 'I', 7);
+            $pdf->Cell(19, 3, $salaryRecordData[$index]['unit'] . ' units', 0, 1, 'R', false);
+
+            $finalHeight = 82 + 6 * $index;
+        }
     }
 
     /* --- Line --- */

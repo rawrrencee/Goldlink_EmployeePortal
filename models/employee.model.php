@@ -153,7 +153,7 @@ class EmployeeModel
         $conn = new Connection();
         $conn = $conn->connect();
 
-        $stmt = $conn->prepare("SELECT * FROM employees_stores JOIN stores ON employees_stores.store_id = stores.store_id WHERE employees_stores.person_id = :person_id AND employees_stores.active = :active");
+        $stmt = $conn->prepare("SELECT stores.store_id, stores.store_name, stores.store_code FROM employees_stores JOIN stores ON employees_stores.store_id = stores.store_id WHERE employees_stores.person_id = :person_id AND employees_stores.active = :active");
 
         $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
         $active = 1;

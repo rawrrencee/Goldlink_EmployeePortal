@@ -65,7 +65,8 @@ $columns = array(
 	array( 'db' => 'boutique_sales', 'dt' => 22 ),
 	array( 'db' => 'personal_sales', 'dt' => 23 ),
 	array( 'db' => 'num_days_zero_sales', 'dt' => 24 ),
-	array( 'db' => 'num_reports_submitted', 'dt' => 25 )
+	array( 'db' => 'num_reports_submitted', 'dt' => 25 ),
+	array( 'db' => 'is_part_time', 'dt' => 26 )
 );
 
 // SQL server connection information
@@ -77,7 +78,7 @@ $sql_details = array(
 	'host' => $db_host
 );
 
-$extraWhere = "is_draft = 1 AND person_id = ".$person_id;
+$extraWhere = "is_draft = 1 AND is_part_time = 0 AND person_id = ".$person_id;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
