@@ -764,10 +764,12 @@ class PayrollModel
 
             $conn->beginTransaction();
             self::mdlDeleteSalaryRecords($conn, $salaryRecordData);
+            self::mdlDeleteSalaryRecordsPT($conn, $salaryRecordData);
             self::mdlDeleteDeductionRecords($conn, $salaryRecordData);
             self::mdlDeleteOtherRecords($conn, $salaryRecordData);
             self::mdlDeleteAttendanceRecords($conn, $salaryRecordData);
             self::mdlDeleteDailySalesFigures($conn, $salaryRecordData);
+            self::mdlDeleteDailyWorkingHours($conn, $salaryRecordData);
 
             if (count(self::mdlViewSalaryVoucherById($voucher_id)) != 0) {
                 $deleteStmt = $conn->prepare("DELETE FROM $table WHERE voucher_id = :voucher_id");
@@ -862,6 +864,20 @@ class PayrollModel
         $voucher_id = $dailySalesFigureData['voucher_id'];
 
         if (count(self::mdlViewDailySalesFigureByVoucherId($voucher_id)) != 0) {
+            $deleteStmt = $conn->prepare("DELETE FROM $table WHERE voucher_id = :voucher_id");
+            $deleteStmt->bindParam(":voucher_id", $voucher_id, PDO::PARAM_INT);
+            $deleteStmt->execute();
+        }
+
+    }
+
+    public static function mdlDeleteDailyWorkingHours($conn, $dailyWorkingHoursData)
+    {
+
+        $table = 'daily_working_hours';
+        $voucher_id = $dailyWorkingHoursData['voucher_id'];
+
+        if (count(self::mdlViewDailyWorkingHoursByVoucherId($voucher_id)) != 0) {
             $deleteStmt = $conn->prepare("DELETE FROM $table WHERE voucher_id = :voucher_id");
             $deleteStmt->bindParam(":voucher_id", $voucher_id, PDO::PARAM_INT);
             $deleteStmt->execute();

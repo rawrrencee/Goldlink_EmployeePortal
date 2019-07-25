@@ -119,6 +119,7 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
 
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="3">
                 <input type="hidden" id="newCompanyName" name="newCompanyName" value="">
+                <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="">
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="salaryTab">
@@ -135,7 +136,8 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                        <label for="newMonthOfVoucher">Month <small style="color:red;">*Required</small></label>
+                                        <label for="newMonthOfVoucher">Month <small
+                                                style="color:red;">*Required</small></label>
                                         <select required id="newMonthOfVoucher" name="newMonthOfVoucher"
                                             class="form-control select2" style="width: 100%;">
                                             <option></option>
@@ -153,7 +155,7 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                             <option value="12">December</option>
                                         </select>
                                     </div>
-                                    
+
                                     <div class="form-group col-md-3 col-sm-3 col-xs-12">
                                         <label for="newYearOfVoucher">
                                             Year <small style="color:red;">*Required</small></label>
@@ -176,7 +178,8 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newMethodOfPayment">Method of Payment <small style="color:red;">*Required</small></label>
+                                        <label for="newMethodOfPayment">Method of Payment <small
+                                                style="color:red;">*Required</small></label>
                                         <select required id="newMethodOfPayment" name="newMethodOfPayment"
                                             class="form-control select2" placeholder="Select Method of Payment"
                                             style="width: 100%;">
@@ -366,14 +369,13 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                         <input type="hidden" id="newDeductionCPF" value="CPF-EE"
                                             name="deductionTitle[0]">
                                         <label for="newCPFEmployee">CPF-EE</label>
-                                        <input type="number" class="form-control totalDeductions"
-                                            id="newCPFEmployee" min="0.00" step="0.01" value="0.00"
-                                            name="deductionAmount[0]">
+                                        <input type="number" class="form-control totalDeductions" id="newCPFEmployee"
+                                            min="0.00" step="0.01" value="0.00" name="deductionAmount[0]">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <label for="newCPFEmployer">CPF-ER</label>
-                                        <input type="number" class="form-control" id="newCPFEmployer"
-                                            min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
+                                        <input type="number" class="form-control" id="newCPFEmployer" min="0.00"
+                                            step="0.01" value="0.00" name="newCPFEmployer">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <label for="newLevyAmount">Levy (if applicable)</label>
@@ -677,7 +679,8 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                             <div class="form-group">
                                 <strong>Set Voucher Status:&nbsp;&nbsp;</strong>
                                 <button type="submit" id="submitPendingVoucher"
-                                    class="btn btn-warning postButton submitPendingVoucher" style="margin-bottom: 10px;"><i
+                                    class="btn btn-warning postButton submitPendingVoucher"
+                                    style="margin-bottom: 10px;"><i
                                         class="fa fa-pencil"></i>&nbsp;&nbsp;Pending</button>&nbsp;&nbsp;
                                 <button type='submit' style='margin-bottom: 10px;' id='submitApprovedVoucher'
                                     title='Approve' class='btn btn-success postButton submitApprovedVoucher'><i

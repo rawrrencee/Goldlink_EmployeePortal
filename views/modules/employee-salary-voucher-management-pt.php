@@ -1,7 +1,15 @@
+<?php
+
+session_start();
+if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_modules'])) {
+    //die('Invalid Authentication');
+}
+
+?>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            Submit Salary Voucher (PT)
+            All Salary Vouchers (PT)
             <small>Payroll Management</small>
         </h1>
     </section>
@@ -10,75 +18,89 @@
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"><strong>Drafts</strong></h3>
+                <h3 class="box-title"><strong>All Submitted Vouchers</strong></h3>
 
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                        <i class="fa fa-times"></i></button>
-                </div>
             </div>
 
             <div class="box-body">
-                <div class="col-md-12 col-sm-12 col-xs-12" style="overflow-y: auto; width: 100%;">
-                    <table
-                        class="table display table-hover table-bordered table-striped dt-responsive tableSalaryVoucherDraftsPT"
-                        width="100%">
-                        <thead>
-                            <tr>
-                                <th style="width: 40px;">ID</th>
-                                <th>Month</th>
-                                <th>Year</th>
-                                <th>Created on</th>
-                                <th>Modified on</th>
-                                <th class="never">Person ID</th>
-                                <th class="never">Is Draft</th>
-                                <th class="never">Approved</th>
-                                <th class="never">Updated By</th>
-                                <th class="none">Pay To Name</th>
-                                <th class="none">Designation</th>
-                                <th class="none">NRIC</th>
-                                <th class="none">Bank Name</th>
-                                <th class="none">Bank Account</th>
-                                <th class="none">Gross Pay</th>
-                                <th class="none">Total Deductions</th>
-                                <th class="none">Total Others</th>
-                                <th class="none">Final Amount</th>
-                                <th class="never">Singaporean/PR</th>
-                                <th class="none">Employee CPF</th>
-                                <th class="none">Employer CPF</th>
-                                <th class="none">Boutique</th>
-                                <th class="none">Boutique Sales</th>
-                                <th class="none">Personal Sales</th>
-                                <th class="none">Zero Sales Days</th>
-                                <th class="none">Reports Submitted</th>
-                                <th class="never">Part Time</th>
-                                <th style="width: 40px;">Load</th>
-                                <th class="none" style="width: 40px;">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="overflow-y: auto; overflow-x: auto; width: 100%;">
+                    <form id="updateVoucherStatusForm" role="form" method="POST">
+                        <input type="hidden" id="voucherIdToUpdate" name="voucherIdToUpdate" value="">
+                        <input type="hidden" id="voucherStatusToUpdate" name="voucherStatusToUpdate" value="">
+                        <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
+                            value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
+                        <table
+                            class="table table-hover table-bordered table-striped dt-responsive tableAllSalaryVouchersPT"
+                            width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;">ID</th>
+                                    <th>Month</th>
+                                    <th>Year</th>
+                                    <th>First Name</th>
+                                    <th class="desktop">Last Name</th>
+                                    <th class="never">Person ID</th>
+                                    <th class="never">Is Draft</th>
+                                    <th>Status</th>
+                                    <th class="desktop">Updated By</th>
+                                    <th class="desktop">Created on</th>
+                                    <th class="desktop">Modified on</th>
+                                    <th class="none">Pay To Name</th>
+                                    <th class="none">Designation</th>
+                                    <th class="none">NRIC</th>
+                                    <th class="none">Bank Name</th>
+                                    <th class="none">Bank Account</th>
+                                    <th class="none">Gross Pay</th>
+                                    <th class="none">Total Deductions</th>
+                                    <th class="none">Total Others</th>
+                                    <th class="none">Final Amount</th>
+                                    <th class="never">Singaporean/PR</th>
+                                    <th class="none">Employee CPF</th>
+                                    <th class="none">Employer CPF</th>
+                                    <th class="none">Boutique</th>
+                                    <th class="none">Boutique Sales</th>
+                                    <th class="none">Personal Sales</th>
+                                    <th class="none">Zero Sales Days</th>
+                                    <th class="none">Reports Submitted</th>
+                                    <th class="never">Part Time</th>
+                                    <th style="width: 40px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <?php
+                            $createSalaryVoucher = new PayrollController();
+                            $createSalaryVoucher->ctrUpdateSalaryVoucherStatus();
+                        ?>
+                    </form>
+                </div>
+
+                <div class="box-footer">
+                    Footer
                 </div>
             </div>
-        </div>
 
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title pull-right"><?php echo date("Y"); ?> (Part Time)</h3>
-            </div>
+    </section>
+</div>
+
+<div id="modalEditSalaryVoucher" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
             <form id="salaryVoucherForm" role="form" method="POST">
+                <div class="modal-header" style="background: #3c8dbc; color: #fff">
+                    <button type="button" class="close" data-dismiss="modal"
+                        style="color: #ffffff; opacity: 1;">&times;</button>
+                    <h4 class="modal-title">Edit Salary Voucher (PT)</h4>
+                </div>
 
                 <ul class="nav nav-tabs" id="tabContent">
                     <li class="active"><a href="#salaryTab" data-toggle="tab">Salary</a></li>
-                    <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
                     <li><a href="#deductionsTab" data-toggle="tab">Deductions</a></li>
                     <li><a href="#othersTab" data-toggle="tab">Others</a></li>
                     <li><a href="#dailySalesFigureTab" data-toggle="tab">Daily Sales Figure</a></li>
+                    <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
 
                     <div class="btn-group pull-right" style="padding: 10px;">
                         <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
@@ -86,16 +108,17 @@
                     </div>
                 </ul>
 
-
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
+                <input type="hidden" id="currentPersonId" name="currentPersonId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
-                <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
-                <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="1">
-                <input type="hidden" id="newCompanyName" name="newCompanyName"
-                    value="<?php echo $_SESSION['company_name'] ?>">
 
+                <input type="hidden" id="updateVoucherStatus" name="updateVoucherStatus" value="">
                 <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
+
+                <input type="hidden" id="newIsDraft" name="newIsDraft" value="3">
+                <input type="hidden" id="newCompanyName" name="newCompanyName" value="">
+                <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="">
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="salaryTab">
@@ -111,7 +134,7 @@
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
                                         <label for="newMonthOfVoucher">Month <small
                                                 style="color:red;">*Required</small></label>
                                         <select required id="newMonthOfVoucher" name="newMonthOfVoucher"
@@ -131,9 +154,10 @@
                                             <option value="12">December</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newYearOfVoucher">Year <small
-                                                style="color:red;">*Required</small></label>
+
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                                        <label for="newYearOfVoucher">
+                                            Year <small style="color:red;">*Required</small></label>
                                         <select required id="newYearOfVoucher" name="newYearOfVoucher"
                                             class="form-control select2" style="width: 100%;">
                                             <option></option>
@@ -152,32 +176,44 @@
                                             <option value="2031">2031</option>
                                         </select>
                                     </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label for="newMethodOfPayment">Method of Payment <small
+                                                style="color:red;">*Required</small></label>
+                                        <select required id="newMethodOfPayment" name="newMethodOfPayment"
+                                            class="form-control select2" placeholder="Select Method of Payment"
+                                            style="width: 100%;">
+                                            <option></option>
+                                            <option value="Cheque">Cheque</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Bank Transfer">Bank Transfer</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newPayToPersonName">Pay To (as in NRIC) <small
-                                                style="color:red;">*Required</small></label>
-                                        <input required type="text" class="form-control" id="newPayToPersonName"
+                                        <label for="newPayToPersonName">Pay To (as in NRIC)</label>
+                                        <input type="text" class="form-control" id="newPayToPersonName"
                                             name="newPayToPersonName"
                                             value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newDesignation">Designation</label>
-                                        <input readonly type="text" class="form-control" id="newDesignation"
+                                        <input type="text" class="form-control" id="newDesignation"
                                             name="newDesignation" value="<?php echo $_SESSION['designation'];?>">
                                     </div>
                                 </div>
                             </div>
 
+
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newNRIC">NRIC <small style="color:red;">*Required</small></label>
-                                        <input required readonly type="text" class="form-control" id="newNRIC"
-                                            name="newNRIC" value="<?php echo $_SESSION['nric'];?>">
+                                        <label for="newNRIC">NRIC</label>
+                                        <input type="text" class="form-control" id="newNRIC" name="newNRIC"
+                                            value="<?php echo $_SESSION['nric'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newDateOfBirth">Date Of Birth</label>
@@ -240,13 +276,13 @@
                                     </div>
                                     <div class="form-group col-md-2 col-sm-3 col-xs-6">
                                         <label for="newSalaryUnit">Unit</label>
-                                        <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0" step="0"
-                                            value="0" name="salaryUnit[0]">
+                                        <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0"
+                                            step="0" value="0" name="salaryUnit[0]">
                                     </div>
                                     <div class="form-group col-md-2 col-sm-3 col-xs-6">
                                         <label for="newSalarySubtotal">Subtotal</label>
-                                        <input readonly type="number" class="form-control subTotalPT grossPay" id="newSalarySubtotal"
-                                            min="0" step="0" value="0" name="salarySubtotal[0]">
+                                        <input readonly type="number" class="form-control subTotalPT grossPay"
+                                            id="newSalarySubtotal" min="0" step="0" value="0" name="salarySubtotal[0]">
                                     </div>
                                     <div class="form-group col-md-3 col-sm-3 col-xs-6">
                                         <label for="newSalaryRemarks">Remarks</label>
@@ -264,8 +300,8 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <button type="button" id="addSalaryListingPT"
-                                            class="btn btn-primary addSalaryListingPT"><i
+                                        <button type="button" id="addSalaryListing"
+                                            class="btn btn-primary addSalaryListing"><i
                                                 class="fa fa-plus"></i>&nbsp;&nbsp;Add Salary Listing</button>
                                     </div>
                                 </div>
@@ -300,20 +336,18 @@
                                         <input type="hidden" id="newDeductionCPF" value="CPF-EE"
                                             name="deductionTitle[0]">
                                         <label for="newCPFEmployee">CPF-EE</label>
-                                        <input readonly type="number" class="form-control totalDeductions"
-                                            id="newCPFEmployee" min="0.00" step="0.01" value="0.00"
-                                            name="deductionAmount[0]">
+                                        <input type="number" class="form-control totalDeductions" id="newCPFEmployee"
+                                            min="0.00" step="0.01" value="0.00" name="deductionAmount[0]">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <label for="newCPFEmployer">CPF-ER</label>
-                                        <input readonly type="number" class="form-control" id="newCPFEmployer"
-                                            min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
+                                        <input type="number" class="form-control" id="newCPFEmployer" min="0.00"
+                                            step="0.01" value="0.00" name="newCPFEmployer">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <label for="newLevyAmount">Levy (if applicable)</label>
-                                        <input readonly type="number" class="form-control" id="newLevyAmount" min="0.00"
-                                            step="0.01" value="<?php echo $_SESSION['levy_amount'] ?>"
-                                            name="newLevyAmount">
+                                        <input type="number" class="form-control" id="newLevyAmount" min="0.00"
+                                            step="0.01" value="0.00" name="newLevyAmount">
                                     </div>
                                 </div>
                             </div>
@@ -423,7 +457,7 @@
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
                                                         <option value="PH/RO">PH/RO</option>
-                                                        <option selected value="N/A">N/A</option>
+                                                        <option value="N/A">N/A</option>
                                                     </select>
                                                 </td>
                                             </tr>';
@@ -457,7 +491,7 @@
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
                                                         <option value="PH/RO">PH/RO</option>
-                                                        <option selected value="N/A">N/A</option>
+                                                        <option value="N/A">N/A</option>
                                                     </select>
                                                 </td>
                                             </tr>';
@@ -491,7 +525,7 @@
                                                         <option value="Unpaid Leave">Unpaid Leave</option>
                                                         <option value="OFF">OFF</option>
                                                         <option value="PH/RO">PH/RO</option>
-                                                        <option selected value="N/A">N/A</option>
+                                                        <option value="N/A">N/A</option>
                                                     </select>
                                                 </td>
                                             </tr>';
@@ -628,68 +662,62 @@
                         </div>
                     </div>
                 </div>
-        </div>
-
-        <div class="box-footer">
-            <div class="pull-right">
-                <label for="newGrossPay">Gross Pay (+):</label>
-                <input readonly type="number" id="newGrossPay" class="form-control" name="newGrossPay" value="0.00">
-                <p></p>
-                <label for="newTotalDeductions">Total Deductions (-):</label>
-                <input readonly type="number" id="newTotalDeductions" class="form-control" name="newTotalDeductions"
-                    value="0.00">
-                <p></p>
-                <label for="newTotalOthers">Total Others (+ / -) :</label>
-                <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
-                    value="0.00">
-                <p></p>
-                <label for="newFinalAmount">Nett Payment:</label>
-                <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
-                    value="0.00">
-            </div>
 
 
-        </div>
+                <div class="box-footer">
+                    <div class="pull-right">
+                        <label for="newGrossPay">Gross Pay (+):</label>
+                        <input readonly type="number" id="newGrossPay" class="form-control" name="newGrossPay"
+                            value="0.00">
+                        <p></p>
+                        <label for="newTotalDeductions">Total Deductions (-):</label>
+                        <input readonly type="number" id="newTotalDeductions" class="form-control"
+                            name="newTotalDeductions" value="0.00">
+                        <p></p>
+                        <label for="newTotalOthers">Total Others (+ / -) :</label>
+                        <input readonly type="number" id="newTotalOthers" class="form-control" name="newTotalOthers"
+                            value="0.00">
+                        <p></p>
+                        <label for="newFinalAmount">Nett Payment:</label>
+                        <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
+                            value="0.00">
+                        <p></p>
+                        <label for="status">Status:</label>
+                        <input readonly type="text" id="status" class="form-control" name="status">
+                        <p></p>
+                        <label for="updatedBy">Updated By:</label>
+                        <input readonly type="text" id="updatedBy" class="form-control" name="updatedBy">
+                    </div>
 
-        <div class="box-footer">
-            <div class="pull-right">
-                <div class="form-group">
-                    <div class="form-group">
-                        <button type="reset" id="resetVoucher" class="btn btn-warning resetButton"
-                            style="width: 130px; margin-bottom: 10px;"><i
-                                class="fa fa-refresh"></i>&nbsp;&nbsp;Reset</button>&nbsp;&nbsp;
-                        <button type="submit" id="saveDraftVoucher" class="btn btn-info postButton"
-                            style="width: 130px; margin-bottom: 10px;"><i class="fa fa-save"></i>&nbsp;&nbsp;Save as
-                            Draft</button>&nbsp;&nbsp;
-                        <button type="submit" id="submitVoucher" class="btn btn-success postButton"
-                            style="width: 130px; margin-bottom: 10px;"><i
-                                class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
+
+                </div>
+
+                <div class="box-footer">
+                    <div class="pull-right">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <strong>Set Voucher Status:&nbsp;&nbsp;</strong>
+                                <button type="submit" id="submitPendingVoucher"
+                                    class="btn btn-warning postButton submitPendingVoucher"
+                                    style="margin-bottom: 10px;"><i
+                                        class="fa fa-pencil"></i>&nbsp;&nbsp;Pending</button>&nbsp;&nbsp;
+                                <button type='submit' style='margin-bottom: 10px;' id='submitApprovedVoucher'
+                                    title='Approve' class='btn btn-success postButton submitApprovedVoucher'><i
+                                        class='fa fa-check'></i>&nbsp;&nbsp;Approve</button>&nbsp;&nbsp;
+                                <button type='submit' style='margin-bottom: 10px;' id='submitRejectedVoucher'
+                                    title='Reject' class='btn btn-danger postButton submitRejectedVoucher'><i
+                                        class='fa fa-times'></i>&nbsp;&nbsp;Reject</button>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="btn-group" style="padding: 10px;">
-                <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
-                <a class="btn btn-default btnNext">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
-            </div>
+                <?php
+                        $createSalaryVoucher = new PayrollController();
+                        $createSalaryVoucher->ctrOverwriteSalaryVoucher();
+                    ?>
+            </form>
         </div>
-
-        <?php
-                    $createSalaryVoucher = new PayrollController();
-                    $createSalaryVoucher->ctrCreateNewSalaryVoucher();
-                    $createSalaryVoucher->ctrEditSalaryVoucher();
-                ?>
-        </form>
-
+    </div>
 </div>
-
-
-
-
-</section>
-</div>
-
-<?php
-    $createSalaryVoucher = new PayrollController();
-    $createSalaryVoucher->ctrDeleteSalaryVoucher();
-?>

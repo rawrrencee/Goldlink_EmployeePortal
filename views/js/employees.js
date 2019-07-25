@@ -153,7 +153,9 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
           $('#editEmployeeManagement').iCheck('uncheck');
           $('#editEmployeeUploadFiles').iCheck('uncheck');
           $('#editSalaryVoucherMgt').iCheck('uncheck');
+          $('#editSalaryVoucherMgtPT').iCheck('uncheck');
           $('#editViewOwnSalaryVoucher').iCheck('uncheck');
+          $('#editViewOwnSalaryVoucherPT').iCheck('uncheck');
           $('#editDownloadOwnSalaryVoucher').iCheck('uncheck');
           $('#editSubmitOwnSalaryVoucher').iCheck('uncheck');
           $('#editSubmitOwnSalaryVoucherPT').iCheck('uncheck');
@@ -170,8 +172,14 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             else if (answer[i]['module_title'] == "employee-salary-voucher-management" && answer[i]['active'] == 1) {
               $('#editSalaryVoucherMgt').iCheck('check');
             }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-management-pt" && answer[i]['active'] == 1) {
+              $('#editSalaryVoucherMgtPT').iCheck('check');
+            }
             else if (answer[i]['module_title'] == "employee-salary-voucher-my" && answer[i]['active'] == 1) {
               $('#editViewOwnSalaryVoucher').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-my" && answer[i]['active'] == 1) {
+              $('#editViewOwnSalaryVoucherPT').iCheck('check');
             }
             else if (answer[i]['module_title'] == "employee-salary-voucher-download" && answer[i]['active'] == 1) {
               $('#editDownloadOwnSalaryVoucher').iCheck('check');
@@ -206,9 +214,11 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             dataType: "json",
             success: function (answer) {
               //console.log(answer);
-              $('#editCompanySelection').val(answer[0]['company_name']);
-              $('#editCompanySelection').select2().trigger('change');
-              $('#editLevyAmount').val(answer[0]['levy_amount']);
+              if (answer.length != 0) {
+                $('#editCompanySelection').val(answer[0]['company_name']);
+                $('#editCompanySelection').select2().trigger('change');
+                $('#editLevyAmount').val(answer[0]['levy_amount']);
+              }
 
               var formData = new FormData();
               formData.append("get_employees_stores", employeeId);
@@ -222,7 +232,7 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
                 processData: false,
                 dataType: "json",
                 success: function (answer) {
-                  console.log(answer);
+                  //console.log(answer);
                   for (var i = 0; i < answer.length; i++) {
                     //console.log(answer[i].store_name);
                     //console.log(answer[i].quantity);

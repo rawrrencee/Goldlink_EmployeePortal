@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 class PayrollController
 {
@@ -272,7 +273,7 @@ class PayrollController
                 );
             }
 
-            echo "<script type='text/javascript'> alert('hello, salaryvoucher:" . json_encode($salaryVoucherData) . "') </script>";
+            //echo "<script type='text/javascript'> alert('hello, salaryvoucher:" . json_encode($salaryVoucherData) . "') </script>";
 
             if ($_POST['newIsPartTime'] == 1) {
                 $response = PayrollModel::mdlCreateNewSalaryVoucherPT($salaryVoucherData);
@@ -545,7 +546,7 @@ class PayrollController
                     'hours' => $submittedForm['newDailyHoursWorked'],
                     'levy_amount' => $submittedForm['levy_amount'],
                     'company_name' => $submittedForm['company_name'],
-                    'total_hours_worked' => $submittedForm['total_hours_worked']
+                    'total_hours_worked' => $submittedForm['total_hours_worked'],
                 );
             } else {
                 $salaryVoucherData = array(
@@ -591,7 +592,7 @@ class PayrollController
                     'days_of_month' => $submittedForm['newDayOfMonth'],
                     'sales_information' => $submittedForm['newSalesInformation'],
                     'levy_amount' => $submittedForm['levy_amount'],
-                    'company_name' => $submittedForm['company_name']
+                    'company_name' => $submittedForm['company_name'],
                 );
             }
 
@@ -736,6 +737,7 @@ class PayrollController
                 $submittedForm['created_on'] = filter_var($_POST['currentCreatedOn'], FILTER_SANITIZE_STRING);
             }
             $submittedForm['is_draft'] = (int) filter_var((int) $_POST['newIsDraft'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['is_part_time'] = (int) filter_var((int) $_POST['newIsPartTime'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['year_of_voucher'] = (int) filter_var((int) ($_POST['newYearOfVoucher']), FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['month_of_voucher'] = (int) filter_var((int) $_POST['newMonthOfVoucher'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['method_of_payment'] = filter_var($_POST['newMethodOfPayment'], FILTER_SANITIZE_STRING);
@@ -774,11 +776,25 @@ class PayrollController
             $submittedForm['status'] = filter_var($_POST['updateVoucherStatus'], FILTER_SANITIZE_STRING);
             $submittedForm['updated_by'] = filter_var($_POST['voucherUpdatedBy'], FILTER_SANITIZE_STRING);
 
+            if ($_POST['newIsPartTime'] == 1) {
+                $submittedForm['total_hours_worked'] = filter_var($_POST['newTotalHoursWorked'], FILTER_SANITIZE_STRING);
+            }
+
             //PARSE & SANITIZE ARRAY BASED INPUTS
-            foreach ($_POST['salaryTitle'] as $index => $salaryTitle) {
-                $submittedForm['salaryTitle'][$index] = filter_var($salaryTitle, FILTER_SANITIZE_STRING);
-                $submittedForm['salaryAmount'][$index] = number_format(floatval(filter_var($_POST['salaryAmount'][$index], FILTER_SANITIZE_STRING)), 2, '.', '');
-                $submittedForm['salaryRemarks'][$index] = filter_var($_POST['salaryRemarks'][$index], FILTER_SANITIZE_STRING);
+            if ($_POST['newIsPartTime'] == 0) {
+                foreach ($_POST['salaryTitle'] as $index => $salaryTitle) {
+                    $submittedForm['salaryTitle'][$index] = filter_var($salaryTitle, FILTER_SANITIZE_STRING);
+                    $submittedForm['salaryAmount'][$index] = number_format(floatval(filter_var($_POST['salaryAmount'][$index], FILTER_SANITIZE_STRING)), 2, '.', '');
+                    $submittedForm['salaryRemarks'][$index] = filter_var($_POST['salaryRemarks'][$index], FILTER_SANITIZE_STRING);
+                }
+            } else {
+                foreach ($_POST['salaryTitle'] as $index => $salaryTitle) {
+                    $submittedForm['salaryTitle'][$index] = filter_var($salaryTitle, FILTER_SANITIZE_STRING);
+                    $submittedForm['salaryRate'][$index] = number_format(floatval(filter_var($_POST['salaryRate'][$index], FILTER_SANITIZE_STRING)), 2, '.', '');
+                    $submittedForm['salaryUnit'][$index] = number_format(floatval(filter_var($_POST['salaryUnit'][$index], FILTER_SANITIZE_STRING)), 2, '.', '');
+                    $submittedForm['salarySubtotal'][$index] = number_format(floatval(filter_var($_POST['salarySubtotal'][$index], FILTER_SANITIZE_STRING)), 2, '.', '');
+                    $submittedForm['salaryRemarks'][$index] = filter_var($_POST['salaryRemarks'][$index], FILTER_SANITIZE_STRING);
+                }
             }
 
             foreach ($_POST['deductionTitle'] as $index => $deductionTitle) {
@@ -798,57 +814,128 @@ class PayrollController
                 $submittedForm['newSalesInformation'][$index] = filter_var($salesInformation, FILTER_SANITIZE_STRING);
             }
 
-            $salaryVoucherData = array(
-                'voucher_id' => $submittedForm['voucher_id'],
-                'created_on' => $submittedForm['created_on'],
-                'modified_on' => date('Y-m-d H:i:s'),
-                'person_id' => $submittedForm['person_id'],
-                'month_of_voucher' => $submittedForm['month_of_voucher'],
-                'year_of_voucher' => $submittedForm['year_of_voucher'],
-                'is_draft' => $submittedForm['is_draft'],
-                'method_of_payment' => $submittedForm['method_of_payment'],
-                'pay_to_name' => $submittedForm['pay_to_name'],
-                'designation' => $submittedForm['designation'],
-                'nric' => $submittedForm['nric'],
-                'date_of_birth' => $submittedForm['date_of_birth'],
-                'bank_name' => $submittedForm['bank_name'],
-                'bank_acct' => $submittedForm['bank_acct'],
-                'gross_pay' => $submittedForm['gross_pay'],
-                'total_deductions' => $submittedForm['total_deductions'],
-                'levy_amount' => $submittedForm['levy_amount'],
-                'total_others' => $submittedForm['total_others'],
-                'final_amount' => $submittedForm['final_amount'],
-                'is_sg_pr' => $submittedForm['is_sg_pr'],
-                'cpf_employee' => $submittedForm['cpf_employee'],
-                'cpf_employer' => $submittedForm['cpf_employer'],
-                'boutique' => $submittedForm['boutique'],
-                'boutique_sales' => $submittedForm['boutique_sales'],
-                'personal_sales' => $submittedForm['personal_sales'],
-                'num_days_zero_sales' => $submittedForm['num_days_zero_sales'],
-                'num_reports_submitted' => $submittedForm['num_reports_submitted'],
-                'off_days' => $submittedForm['off_days'],
-                'late_days' => $submittedForm['late_days'],
-                'leave_mc_days' => $submittedForm['leave_mc_days'],
-                'total_working_days' => $submittedForm['total_working_days'],
-                'leave_entitled' => $submittedForm['leave_entitled'],
-                'leave_taken' => $submittedForm['leave_taken'],
-                'leave_remaining' => $submittedForm['leave_remaining'],
-                'status' => $submittedForm['status'],
-                'updated_by' => $submittedForm['updated_by'],
-                'salary_titles' => $submittedForm['salaryTitle'],
-                'salary_amounts' => $submittedForm['salaryAmount'],
-                'salary_remarks' => $submittedForm['salaryRemarks'],
-                'deduction_titles' => $submittedForm['deductionTitle'],
-                'deduction_amounts' => $submittedForm['deductionAmount'],
-                'other_titles' => $submittedForm['othersTitle'],
-                'other_amounts' => $submittedForm['othersAmount'],
-                'days_of_month' => $submittedForm['newDayOfMonth'],
-                'sales_information' => $submittedForm['newSalesInformation'],
-            );
+            if ($_POST['newIsPartTime'] == 1) {
+                foreach ($_POST['newDailyHoursWorked'] as $index => $hoursWorked) {
+                    $submittedForm['newDailyHoursWorked'][$index] = filter_var($hoursWorked, FILTER_SANITIZE_STRING);
+                }
+            }
+            if ($_POST['newIsPartTime'] == 1) {
+                $salaryVoucherData = array(
+                    'voucher_id' => $submittedForm['voucher_id'],
+                    'created_on' => $submittedForm['created_on'],
+                    'modified_on' => date('Y-m-d H:i:s'),
+                    'person_id' => $submittedForm['person_id'],
+                    'month_of_voucher' => $submittedForm['month_of_voucher'],
+                    'year_of_voucher' => $submittedForm['year_of_voucher'],
+                    'is_draft' => $submittedForm['is_draft'],
+                    'is_part_time' => $submittedForm['is_part_time'],
+                    'method_of_payment' => $submittedForm['method_of_payment'],
+                    'pay_to_name' => $submittedForm['pay_to_name'],
+                    'designation' => $submittedForm['designation'],
+                    'nric' => $submittedForm['nric'],
+                    'date_of_birth' => $submittedForm['date_of_birth'],
+                    'bank_name' => $submittedForm['bank_name'],
+                    'bank_acct' => $submittedForm['bank_acct'],
+                    'gross_pay' => $submittedForm['gross_pay'],
+                    'total_deductions' => $submittedForm['total_deductions'],
+                    'levy_amount' => $submittedForm['levy_amount'],
+                    'total_others' => $submittedForm['total_others'],
+                    'final_amount' => $submittedForm['final_amount'],
+                    'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'cpf_employee' => $submittedForm['cpf_employee'],
+                    'cpf_employer' => $submittedForm['cpf_employer'],
+                    'boutique' => $submittedForm['boutique'],
+                    'boutique_sales' => $submittedForm['boutique_sales'],
+                    'personal_sales' => $submittedForm['personal_sales'],
+                    'num_days_zero_sales' => $submittedForm['num_days_zero_sales'],
+                    'num_reports_submitted' => $submittedForm['num_reports_submitted'],
+                    'off_days' => $submittedForm['off_days'],
+                    'late_days' => $submittedForm['late_days'],
+                    'leave_mc_days' => $submittedForm['leave_mc_days'],
+                    'total_working_days' => $submittedForm['total_working_days'],
+                    'leave_entitled' => $submittedForm['leave_entitled'],
+                    'leave_taken' => $submittedForm['leave_taken'],
+                    'leave_remaining' => $submittedForm['leave_remaining'],
+                    'status' => $submittedForm['status'],
+                    'updated_by' => $submittedForm['updated_by'],
+                    'salary_titles' => $submittedForm['salaryTitle'],
+                    'salary_rates' => $submittedForm['salaryRate'],
+                    'salary_units' => $submittedForm['salaryUnit'],
+                    'salary_subtotals' => $submittedForm['salarySubtotal'],
+                    'salary_remarks' => $submittedForm['salaryRemarks'],
+                    'deduction_titles' => $submittedForm['deductionTitle'],
+                    'deduction_amounts' => $submittedForm['deductionAmount'],
+                    'other_titles' => $submittedForm['othersTitle'],
+                    'other_amounts' => $submittedForm['othersAmount'],
+                    'days_of_month' => $submittedForm['newDayOfMonth'],
+                    'sales_information' => $submittedForm['newSalesInformation'],
+                    'hours' => $submittedForm['newDailyHoursWorked'],
+                    'levy_amount' => $submittedForm['levy_amount'],
+                    'company_name' => $submittedForm['company_name'],
+                    'total_hours_worked' => $submittedForm['total_hours_worked'],
+                );
+            } else {
+                $salaryVoucherData = array(
+                    'voucher_id' => $submittedForm['voucher_id'],
+                    'created_on' => $submittedForm['created_on'],
+                    'modified_on' => date('Y-m-d H:i:s'),
+                    'person_id' => $submittedForm['person_id'],
+                    'month_of_voucher' => $submittedForm['month_of_voucher'],
+                    'year_of_voucher' => $submittedForm['year_of_voucher'],
+                    'is_draft' => $submittedForm['is_draft'],
+                    'is_part_time' => $submittedForm['is_part_time'],
+                    'method_of_payment' => $submittedForm['method_of_payment'],
+                    'pay_to_name' => $submittedForm['pay_to_name'],
+                    'designation' => $submittedForm['designation'],
+                    'nric' => $submittedForm['nric'],
+                    'date_of_birth' => $submittedForm['date_of_birth'],
+                    'bank_name' => $submittedForm['bank_name'],
+                    'bank_acct' => $submittedForm['bank_acct'],
+                    'gross_pay' => $submittedForm['gross_pay'],
+                    'total_deductions' => $submittedForm['total_deductions'],
+                    'levy_amount' => $submittedForm['levy_amount'],
+                    'total_others' => $submittedForm['total_others'],
+                    'final_amount' => $submittedForm['final_amount'],
+                    'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'cpf_employee' => $submittedForm['cpf_employee'],
+                    'cpf_employer' => $submittedForm['cpf_employer'],
+                    'boutique' => $submittedForm['boutique'],
+                    'boutique_sales' => $submittedForm['boutique_sales'],
+                    'personal_sales' => $submittedForm['personal_sales'],
+                    'num_days_zero_sales' => $submittedForm['num_days_zero_sales'],
+                    'num_reports_submitted' => $submittedForm['num_reports_submitted'],
+                    'off_days' => $submittedForm['off_days'],
+                    'late_days' => $submittedForm['late_days'],
+                    'leave_mc_days' => $submittedForm['leave_mc_days'],
+                    'total_working_days' => $submittedForm['total_working_days'],
+                    'leave_entitled' => $submittedForm['leave_entitled'],
+                    'leave_taken' => $submittedForm['leave_taken'],
+                    'leave_remaining' => $submittedForm['leave_remaining'],
+                    'status' => $submittedForm['status'],
+                    'updated_by' => $submittedForm['updated_by'],
+                    'salary_titles' => $submittedForm['salaryTitle'],
+                    'salary_amounts' => $submittedForm['salaryAmount'],
+                    'salary_remarks' => $submittedForm['salaryRemarks'],
+                    'deduction_titles' => $submittedForm['deductionTitle'],
+                    'deduction_amounts' => $submittedForm['deductionAmount'],
+                    'other_titles' => $submittedForm['othersTitle'],
+                    'other_amounts' => $submittedForm['othersAmount'],
+                    'days_of_month' => $submittedForm['newDayOfMonth'],
+                    'sales_information' => $submittedForm['newSalesInformation'],
+                    'hours' => $submittedForm['newDailyHoursWorked'],
+                    'levy_amount' => $submittedForm['levy_amount'],
+                    'company_name' => $submittedForm['company_name'],
+                    'total_hours_worked' => $submittedForm['total_hours_worked'],
+                );
+            }
 
             //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($salaryVoucherData) . "') </script>";
 
-            $response = PayrollModel::mdlUpdateSalaryVoucher($salaryVoucherData);
+            if ($_POST['newIsPartTime'] == 1) {
+                $response = PayrollModel::mdlUpdateSalaryVoucherPT($salaryVoucherData);
+            } else {
+                $response = PayrollModel::mdlUpdateSalaryVoucher($salaryVoucherData);
+            }
 
             if ($response) {
                 if ($submittedForm['is_draft'] == 1) {
@@ -921,10 +1008,90 @@ class PayrollController
                 'voucher_id' => $_GET['voucherIdToDelete'],
             );
 
+            $answer = self::ctrViewSalaryVoucherById($salaryVoucherData['voucher_id']);
+
+            if ($answer['person_id'] != $_SESSION['person_id']) {
+                if ($answer['is_part_time'] == 1) {
+                    echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "You cannot delete this voucher.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-salary-voucher-submit-pt";
+                            }
+                        });
+                    </script>';
+                } else {
+                    echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "You cannot delete this voucher.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-salary-voucher-submit";
+                            }
+                        });
+                    </script>';
+                }
+                die('Invalid Authentication');
+            }
+
             $response = PayrollModel::mdlDeleteSalaryVoucher($salaryVoucherData);
 
-            if ($response) {
-                echo '<script>
+            if ($answer['is_part_time'] == 1) {
+                if ($response) {
+                    echo '<script>
+
+						swal({
+							type: "success",
+							title: "Draft deleted succesfully.",
+							showConfirmButton: true,
+							confirmButtonText: "Close"
+
+						}).then(function(result){
+
+							if(result.value){
+
+								window.location = "employee-salary-voucher-submit-pt";
+							}
+
+						});
+
+                        </script>';
+                } else {
+                    echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "An error occurred. Your draft was not deleted.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-salary-voucher-submit-pt";
+                            }
+                    });
+                </script>';
+                }
+            } else {
+                if ($response) {
+                    echo '<script>
 
 						swal({
 							type: "success",
@@ -942,8 +1109,8 @@ class PayrollController
 						});
 
                         </script>';
-            } else {
-                echo '<script>
+                } else {
+                    echo '<script>
                     swal({
 
                         type: "error",
@@ -959,6 +1126,7 @@ class PayrollController
                             }
                     });
                 </script>';
+                }
             }
         }
     }

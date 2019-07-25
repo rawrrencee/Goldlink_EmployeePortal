@@ -790,36 +790,56 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="hidden" name="editAllowedModulesSelection[3]" value="0">
-                                        <input type="checkbox" class="minimal" id="editViewOwnSalaryVoucher"
+                                        <input type="checkbox" class="minimal" id="editSalaryVoucherMgtPT"
                                             name="editAllowedModulesSelection[3]" value="1">
                                         <input type="hidden" name="allowedModules[3]"
+                                            value="employee-salary-voucher-management-pt">
+
+                                        <p style="margin-top: 5px;">View/Update/Approve/Reject/Download
+                                            <strong>ALL</strong>
+                                            Salary Vouchers (PT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[4]" value="0">
+                                        <input type="checkbox" class="minimal" id="editViewOwnSalaryVoucher"
+                                            name="editAllowedModulesSelection[4]" value="1">
+                                        <input type="hidden" name="allowedModules[4]"
                                             value="employee-salary-voucher-my">
 
                                         <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[4]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[5]" value="0">
+                                        <input type="checkbox" class="minimal" id="editViewOwnSalaryVoucherPT"
+                                            name="editAllowedModulesSelection[5]" value="1">
+                                        <input type="hidden" name="allowedModules[5]"
+                                            value="employee-salary-voucher-my-pt">
+
+                                        <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers (PT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[6]" value="0">
                                         <input type="checkbox" class="minimal" id="editDownloadOwnSalaryVoucher"
-                                            name="editAllowedModulesSelection[4]" value="1">
-                                        <input type="hidden" name="allowedModules[4]"
+                                            name="editAllowedModulesSelection[6]" value="1">
+                                        <input type="hidden" name="allowedModules[6]"
                                             value="employee-salary-voucher-download">
 
                                         <p style="margin-top: 5px;">Download <strong>OWN</strong> Salary Vouchers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[5]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[7]" value="0">
                                         <input type="checkbox" class="minimal" id="editSubmitOwnSalaryVoucher"
-                                            name="editAllowedModulesSelection[5]" value="1">
-                                        <input type="hidden" name="allowedModules[5]"
+                                            name="editAllowedModulesSelection[7]" value="1">
+                                        <input type="hidden" name="allowedModules[7]"
                                             value="employee-salary-voucher-submit">
 
                                         <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (FT)</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[6]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[8]" value="0">
                                         <input type="checkbox" class="minimal" id="editSubmitOwnSalaryVoucherPT"
-                                            name="editAllowedModulesSelection[6]" value="1">
-                                        <input type="hidden" name="allowedModules[6]"
+                                            name="editAllowedModulesSelection[8]" value="1">
+                                        <input type="hidden" name="allowedModules[8]"
                                             value="employee-salary-voucher-submit-pt">
 
                                         <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (PT)</p>
@@ -831,26 +851,26 @@
                                         <h4><strong>Customer Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[7]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[9]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerManagement"
-                                            name="editAllowedModulesSelection[7]" value="1">
-                                        <input type="hidden" name="allowedModules[7]" value="customer-management">
+                                            name="editAllowedModulesSelection[9]" value="1">
+                                        <input type="hidden" name="allowedModules[9]" value="customer-management">
 
                                         <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[8]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[10]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerArchives"
-                                            name="editAllowedModulesSelection[8]" value="1">
-                                        <input type="hidden" name="allowedModules[8]" value="customer-archives">
+                                            name="editAllowedModulesSelection[10]" value="1">
+                                        <input type="hidden" name="allowedModules[10]" value="customer-archives">
 
                                         <p style="margin-top: 5px;">View/Update Customer Archives</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[9]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[11]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerAnalytics"
-                                            name="editAllowedModulesSelection[9]" value="1">
-                                        <input type="hidden" name="allowedModules[9]" value="customer-analytics">
+                                            name="editAllowedModulesSelection[11]" value="1">
+                                        <input type="hidden" name="allowedModules[11]" value="customer-analytics">
 
                                         <p style="margin-top: 5px;">View Customer Analytics</p>
                                     </div>

@@ -28,7 +28,7 @@ session_start();
                     <li>
                         <a href="employee-management">
                             <i class="fa fa-circle-o"></i>
-                            <span>View All Employees</span>
+                            <span>All Employees</span>
                         </a>
                     </li>
                 </ul>
@@ -58,7 +58,7 @@ session_start();
                         <li>
                             <a href="customer-management">
                                 <i class="fa fa-circle-o"></i>
-                                <span>View All Customers</span>
+                                <span>All Customers</span>
                             </a>
                         </li>
                         ';
@@ -93,7 +93,7 @@ session_start();
 
             <li class="treeview menu-open">
                 <?php
-                    if (in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-my', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules'])) {
+                    if (in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-my', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules'])) {
                         echo '
                         <a href="#">
                         <i class="fa fa-address-book"></i>
@@ -112,12 +112,25 @@ session_start();
                         <li>
                             <a href="employee-salary-voucher-management">
                                 <i class="fa fa-circle-o"></i>
-                                <span>View All Salary Vouchers</span>
+                                <span>All Salary Vouchers</span>
                             </a>
                         </li>
                         ';
                     }
-                ?>
+                    ?>
+
+                    <?php
+                    if (in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_modules'])) {
+                    echo '
+                        <li>
+                            <a href="employee-salary-voucher-management-pt">
+                                <i class="fa fa-circle-o"></i>
+                                <span>All Salary Vouchers (PT)</span>
+                            </a>
+                        </li>
+                        ';
+                    }
+                    ?>
 
                     <?php
                     if (in_array('employee-salary-voucher-my', $_SESSION['allowed_modules'])) {
@@ -125,12 +138,26 @@ session_start();
                     <li>
                         <a href="employee-salary-voucher-my">
                             <i class="fa fa-circle-o"></i>
-                            <span>View My Salary Vouchers</span>
+                            <span>My Salary Vouchers</span>
                         </a>
                     </li>
                     ';
                     }
-                ?>
+                    ?>
+
+                    
+                    <?php
+                    if (in_array('employee-salary-voucher-my-pt', $_SESSION['allowed_modules'])) {
+                    echo '
+                    <li>
+                        <a href="employee-salary-voucher-my-pt">
+                            <i class="fa fa-circle-o"></i>
+                            <span>My Salary Vouchers (PT)</span>
+                        </a>
+                    </li>
+                    ';
+                    }
+                    ?>
 
                     <?php
                     if (in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules'])) {

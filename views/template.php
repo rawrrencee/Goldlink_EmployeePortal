@@ -131,7 +131,9 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
             ($_GET["route"] == "employee-management" ||
                 $_GET["route"] == "employee-upload-files" ||
                 $_GET["route"] == "employee-salary-voucher-management" ||
+                $_GET["route"] == "employee-salary-voucher-management-pt" ||
                 $_GET["route"] == "employee-salary-voucher-my" ||
+                $_GET["route"] == "employee-salary-voucher-my-pt" ||
                 $_GET["route"] == "employee-salary-voucher-submit" ||
                 $_GET["route"] == "employee-salary-voucher-submit-pt")
             && in_array($_GET["route"], $_SESSION['allowed_modules'])) {

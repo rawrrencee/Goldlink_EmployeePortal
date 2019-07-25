@@ -10,7 +10,7 @@ class EmployeeController
             if ($_POST['inUsername'] == "tester" && $_POST['inPassword'] = "testingAccount") {
 
                 $_SESSION["loggedIn"] = true;
-                $_SESSION["person_id"] = 25908;
+                $_SESSION["person_id"] = 21210;
                 $_SESSION["first_name"] = "first_name";
                 $_SESSION["last_name"] = "last_name";
                 $_SESSION["designation"] = "designation";
@@ -18,7 +18,7 @@ class EmployeeController
                 $_SESSION["date_of_birth"] = "date_of_birth";
                 $_SESSION["bank_name"] = "bank_name";
                 $_SESSION["bank_acct"] = "bank_acct";
-                $_SESSION["allowed_modules"] = array('home', 'logout', 'employee-management', 'employee-salary-voucher-my', 'employee-salary-voucher-submit', 'employee-salary-voucher-submit-pt', 'employee-salary-voucher-management');
+                $_SESSION["allowed_modules"] = array('home', 'logout', 'employee-management', 'employee-salary-voucher-my', 'employee-salary-voucher-my-pt', 'employee-salary-voucher-submit', 'employee-salary-voucher-submit-pt', 'employee-salary-voucher-management', 'employee-salary-voucher-management-pt');
                 echo '<script>
                             window.location = "home";
                 </script>';
