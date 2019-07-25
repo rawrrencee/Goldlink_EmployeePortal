@@ -72,10 +72,10 @@
 
             <ul class="nav nav-tabs" id="tabContent">
                 <li class="active"><a href="#salaryTab" data-toggle="tab">Salary</a></li>
+                <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
                 <li><a href="#deductionsTab" data-toggle="tab">Deductions</a></li>
                 <li><a href="#othersTab" data-toggle="tab">Others</a></li>
                 <li><a href="#dailySalesFigureTab" data-toggle="tab">Daily Sales Figure</a></li>
-                <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
 
                 <div class="btn-group pull-right" style="padding: 10px;">
                     <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
@@ -507,7 +507,7 @@
                                         for ($i = 1; $i <= 10; $i++) {
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
-                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                <td style="width: 100%;">
                                                     <select disabled id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
@@ -541,7 +541,7 @@
                                         for ($i = 11; $i <= 20; $i++) {
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
-                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                <td style="width: 100%;">
                                                     <select disabled id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
@@ -575,7 +575,7 @@
                                         for ($i = 21; $i <= 31; $i++) {
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
-                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                <td style="width: 100%;">
                                                     <select disabled id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
