@@ -178,7 +178,7 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             else if (answer[i]['module_title'] == "employee-salary-voucher-my" && answer[i]['active'] == 1) {
               $('#editViewOwnSalaryVoucher').iCheck('check');
             }
-            else if (answer[i]['module_title'] == "employee-salary-voucher-my" && answer[i]['active'] == 1) {
+            else if (answer[i]['module_title'] == "employee-salary-voucher-my-pt" && answer[i]['active'] == 1) {
               $('#editViewOwnSalaryVoucherPT').iCheck('check');
             }
             else if (answer[i]['module_title'] == "employee-salary-voucher-download" && answer[i]['active'] == 1) {
@@ -257,16 +257,9 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
                         </div>`);
                   }
 
-                  $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                    checkboxClass: 'icheckbox_minimal-blue',
-                    radioClass: 'iradio_minimal-blue'
-                  })
-
-
                   $('#editCompanySelection').select2({
                     placeholder: "Select a Company"
                   });
-
 
                 }
               })
@@ -321,9 +314,29 @@ $('#editPasswordSelection').on('ifChecked', function (event) {
   $('.editPasswordSelection').val("1");
 });
 
-
 $("#newStoreEmployeeRepeater").createRepeater();
 $("#editStoreEmployeeRepeater").createRepeater();
+
+//SWITCH TO TAB UPON UNFILLED REQUIRED
+//BUTTONS STUFF HERE
+$('#editEmployeeButton').click(function () {
+  alert("Hi");
+  $(':required:invalid', '#editEmployeeForm').each(function () {
+    var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
+
+    $('.nav a[href="#' + id + '"]').tab('show');
+  });
+});
+
+//SWITCH TO TAB UPON UNFILLED REQUIRED
+//BUTTONS STUFF HERE
+$('#addEmployeeButton').click(function () {
+  $(':required:invalid', '#addEmployeeForm').each(function () {
+    var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
+
+    $('.nav a[href="#' + id + '"]').tab('show');
+  });
+});
 
 $('.datepicker').datepicker({
   format: "dd/mm/yyyy",

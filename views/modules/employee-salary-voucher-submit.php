@@ -77,8 +77,7 @@
                     <li class="active"><a href="#salaryTab" data-toggle="tab">Salary</a></li>
                     <li><a href="#deductionsTab" data-toggle="tab">Deductions</a></li>
                     <li><a href="#othersTab" data-toggle="tab">Others</a></li>
-                    <li><a href="#dailySalesFigureTab" data-toggle="tab">Daily Sales Figure</a></li>
-                    <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
+                    <li><a href="#dailySalesFigureTab" data-toggle="tab">Attendance/Sales</a></li>
 
                     <div class="btn-group pull-right" style="padding: 10px;">
                         <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
@@ -90,7 +89,8 @@
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
-                <input type="hidden" id="newCompanyName" name="newCompanyName" value="<?php echo $_SESSION['company_name'] ?>">
+                <input type="hidden" id="newCompanyName" name="newCompanyName"
+                    value="<?php echo $_SESSION['company_name'] ?>">
 
                 <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
@@ -110,7 +110,8 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newMonthOfVoucher">Month <small style="color:red;">*Required</small></label>
+                                        <label for="newMonthOfVoucher">Month <small
+                                                style="color:red;">*Required</small></label>
                                         <select required id="newMonthOfVoucher" name="newMonthOfVoucher"
                                             class="form-control select2" style="width: 100%;">
                                             <option></option>
@@ -129,7 +130,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newYearOfVoucher">Year <small style="color:red;">*Required</small></label>
+                                        <label for="newYearOfVoucher">Year <small
+                                                style="color:red;">*Required</small></label>
                                         <select required id="newYearOfVoucher" name="newYearOfVoucher"
                                             class="form-control select2" style="width: 100%;">
                                             <option></option>
@@ -177,7 +179,7 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newDateOfBirth">Date Of Birth</label>
-                                        <input type="text" class="form-control" id="newDateOfBirth"
+                                        <input readonly type="text" class="form-control" id="newDateOfBirth"
                                             name="newDateOfBirth" value="<?php echo $_SESSION['date_of_birth'];?>">
                                     </div>
                                 </div>
@@ -186,13 +188,15 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankName">Bank Name</label>
-                                        <input type="text" class="form-control" id="newBankName" name="newBankName"
-                                            value="<?php echo $_SESSION['bank_name'];?>">
+                                        <label for="newBankName">Bank Name <small
+                                                style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newBankName"
+                                            name="newBankName" value="<?php echo $_SESSION['bank_name'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankAccount">Bank Account</label>
-                                        <input type="text" class="form-control" id="newBankAccount"
+                                        <label for="newBankAccount">Bank Account Number <small
+                                                style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newBankAccount"
                                             name="newBankAccount" value="<?php echo $_SESSION['bank_acct'];?>">
                                     </div>
                                 </div>
@@ -340,7 +344,8 @@
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <label for="newLevyAmount">Levy (if applicable)</label>
                                         <input readonly type="number" class="form-control" id="newLevyAmount" min="0.00"
-                                            step="0.01" value="<?php echo $_SESSION['levy_amount'] ?>" name="newLevyAmount">
+                                            step="0.01" value="<?php echo $_SESSION['levy_amount'] ?>"
+                                            name="newLevyAmount">
                                     </div>
                                 </div>
                             </div>
@@ -393,25 +398,11 @@
 
                     <div class="tab-pane" id="dailySalesFigureTab">
                         <div class="box-body">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <p style="font-size: 20px;">Daily Sales Figure</p>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newNumDaysZeroSales">Number of days closing $0 sales</label>
-                                        <input type="number" class="form-control" id="newNumDaysZeroSales"
-                                            name="newNumDaysZeroSales" value="0" min="0" step="0">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newNumReportsSubmitted">Number of reports submitted</label>
-                                        <input type="number" class="form-control" id="newNumReportsSubmitted"
-                                            name="newNumReportsSubmitted" value="0" min="0" step="0">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Personal Sales</p>
                                     </div>
                                 </div>
                             </div>
@@ -419,7 +410,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12 col-xs-12">
-                                        <label for="newPersonalSales">Personal Sales</label>
+                                        <label for="newPersonalSales">Amount</label>
                                         <strong>S$&nbsp;</strong>
                                         <input readonly type="number" class="form-control" id="newPersonalSales"
                                             min="0.00" step="0.01" value="0.00" name="newPersonalSales">
@@ -528,11 +519,30 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="tab-pane" id="attendanceTab">
-                        <div class="box-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <p style="font-size: 20px;">Daily Sales Figure</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                                        <label for="newNumDaysZeroSales">No. days closing $0 sales</label>
+                                        <input type="number" class="form-control" id="newNumDaysZeroSales"
+                                            name="newNumDaysZeroSales" value="0" min="0" step="0">
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                                        <label for="newNumReportsSubmitted">No. reports submitted</label>
+                                        <input type="number" class="form-control" id="newNumReportsSubmitted"
+                                            name="newNumReportsSubmitted" value="0" min="0" step="0">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group">
@@ -542,26 +552,26 @@
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                         <label for="newOffDays">Off Days</label>
-                                        <input type="text" class="form-control" id="newOffDays" value=""
-                                            name="newOffDays" placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
+                                        <textarea readonly class="form-control" id="newOffDays" rows="5" value=""
+                                            name="newOffDays"></textarea>
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                         <label for="newLateDays">Late Days</label>
-                                        <input type="text" class="form-control" id="newLateDays" value=""
-                                            name="newLateDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
+                                        <textarea class="form-control" id="newLateDays" rows="5" value=""
+                                            name="newLateDays"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                        <label for="newLeaveMCDays">Leave/MC Days</label>
+                                        <textarea readonly class="form-control" id="newLeaveMCDays" rows="5" value=""
+                                            name="newLeaveMCDays"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newLeaveMCDays">Leave/MC Days</label>
-                                        <input type="text" class="form-control" id="newLeaveMCDays" value=""
-                                            name="newLeaveMCDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-3 col-sm-3 col-xs-6">
                                         <label for="newTotalWorkingDays">Total Working Days</label>
                                         <input type="number" class="form-control" id="newTotalWorkingDays" min="0"
                                             name="newTotalWorkingDays" step="0" value="0">
@@ -579,27 +589,26 @@
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                         <label for="newLeaveEntitled">Leave Entitled</label>
                                         <input type="number" class="form-control" id="newLeaveEntitled" min="0" step="0"
                                             name="newLeaveEntitled" value="0">
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                         <label for="newLeaveTaken">Leave Taken</label>
                                         <input type="number" class="form-control" id="newLeaveTaken" min="0" step="0"
                                             name="newLeaveTaken" value="0">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                         <label for="newLeaveRemaining">Leave Remaining</label>
                                         <input type="text" class="form-control" id="newLeaveRemaining" min="0" step="0"
                                             name="newLeaveRemaining" value="0">
                                     </div>
                                 </div>
                             </div>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -622,8 +631,16 @@
                         <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
                             value="0.00">
                     </div>
-
-
+                </div>
+                
+                <div class="box-footer">
+                    <div class="pull-right">
+                        <div class="btn-group" style="padding: 10px;">
+                            <a class="btn btn-default btnPrevious"><i
+                                    class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
+                            <a class="btn btn-default btnNext">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="box-footer">
@@ -641,11 +658,6 @@
                                         class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="btn-group" style="padding: 10px;">
-                        <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
-                        <a class="btn btn-default btnNext">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
 

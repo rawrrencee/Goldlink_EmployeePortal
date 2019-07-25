@@ -74,9 +74,6 @@
                     </table>
                 </div>
             </div>
-            <div class="box-footer">
-                Footer
-            </div>
         </div>
 
     </section>

@@ -184,15 +184,15 @@ if (isset($_GET['voucherId'])) {
             /* --- Cell --- */
             $pdf->SetXY(10, 33);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Goldlink Asia - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Goldlink Asia Distribution Pte Ltd - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
         } else if ($salaryVoucherData['company_name'] == 'Goldlink Technologies') {
             $pdf->SetXY(10, 15);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Goldlink Technologies - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Goldlink Technologies Pte Ltd - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
         } else {
             $pdf->SetXY(10, 15);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Doro  International - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Doro International Pte Ltd - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
         }
     } else {
         if ($salaryVoucherData['company_name'] == 'Goldlink Asia') {
@@ -201,15 +201,15 @@ if (isset($_GET['voucherId'])) {
             /* --- Cell --- */
             $pdf->SetXY(10, 33);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Goldlink Asia - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Goldlink Asia Distribution Pte Ltd - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
         } else if ($salaryVoucherData['company_name'] == 'Goldlink Technologies') {
             $pdf->SetXY(10, 15);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Goldlink Technologies - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Goldlink Technologies Pte Ltd - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
         } else {
             $pdf->SetXY(10, 15);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Doro  International - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Doro International Pte Ltd - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
         }
     }
 
@@ -224,7 +224,7 @@ if (isset($_GET['voucherId'])) {
     /* --- Cell --- */
     $pdf->SetXY(151, 27);
     $pdf->SetFont('', '', 10);
-    $pdf->Cell(49, 3, '#' . $salaryVoucherData['voucher_id'], 0, 1, 'L', false);
+    $pdf->Cell(49, 3, '#100' . $salaryVoucherData['voucher_id'], 0, 1, 'L', false);
 
     /* --- Cell --- */
     $pdf->SetXY(10, 44);
@@ -335,21 +335,27 @@ if (isset($_GET['voucherId'])) {
             $pdf->SetFontSize(10);
             $pdf->Cell(19, 3, $salaryRecordData[$index]['subtotal'], 0, 1, 'R', false);
             /* --- Cell --- */
-            $pdf->SetXY(65, 82 + 6 * $index);
+            $pdf->SetXY(45, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(4, 3, 'Rate: ', 0, 1, 'L', false);
             /* --- Cell --- */
-            $pdf->SetXY(95, 82 + 6 * $index);
+            $pdf->SetXY(70, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(5, 3, $salaryRecordData[$index]['rate'] . ' / unit', 0, 1, 'R', false);
             /* --- Cell --- */
-            $pdf->SetXY(115, 82 + 6 * $index);
+            $pdf->SetXY(80, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(1, 3, ' x ', 0, 1, 'R', false);
             /* --- Cell --- */
-            $pdf->SetXY(120, 82 + 6 * $index);
+            $pdf->SetXY(75, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(19, 3, $salaryRecordData[$index]['unit'] . ' units', 0, 1, 'R', false);
+            if ($salaryRecordData[$index]['remarks'] != "") {
+                /* --- Cell --- */
+                $pdf->SetXY(105, 82 + 6 * $index);
+                $pdf->SetFont('', 'I', 7);
+                $pdf->Cell(19, 3, '(Remarks: ' . $salaryRecordData[$index]['remarks'] . ')', 0, 1, 'L', false);
+            }
 
             $finalHeight = 82 + 6 * $index;
         }

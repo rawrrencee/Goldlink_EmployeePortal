@@ -54,9 +54,6 @@
                     </table>
                 </div>
             </div>
-            <div class="box-footer">
-                Footer
-            </div>
         </div>
 
     </section>
@@ -73,7 +70,7 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form role="form" method="POST" enctype="multipart/form-data">
+                    <form id="addEmployeeForm" role="form" method="POST" enctype="multipart/form-data">
                         <div class="col-md-12">
                             <p style="font-size: 2em;">Profile Picture</p>
                         </div>
@@ -260,9 +257,9 @@
                                 <select class="form-control select2" id="newCompanySelection" name="newCompanySelection"
                                     style="width: 100%;">
                                     <option></option>
-                                    <option>Goldlink Asia</option>
-                                    <option>Goldlink Technologies</option>
-                                    <option>Doro International</option>
+                                    <option>Goldlink Asia Distribution Pte Ltd</option>
+                                    <option>Goldlink Technologies Pte Ltd</option>
+                                    <option>Doro International Pte Ltd</option>
                                 </select>
                             </div>
                         </div>
@@ -359,17 +356,36 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <input type="hidden" name="allowedModulesSelection[3]" value="0">
-                                <input type="checkbox" class="minimal" id="newViewOwnSalaryVoucher"
+                                <input type="checkbox" class="minimal" id="newSalaryVoucherMgtPT"
                                     name="allowedModulesSelection[3]" value="1">
-                                <input type="hidden" name="allowedModules[3]" value="employee-salary-voucher-my">
+                                <input type="hidden" name="allowedModules[3]"
+                                    value="employee-salary-voucher-management-pt">
+
+                                <p style="margin-top: 5px;">View/Update/Approve/Reject/Download
+                                    <strong>ALL</strong>
+                                    Salary Vouchers (PT)</p>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="allowedModulesSelection[4]" value="0">
+                                <input type="checkbox" class="minimal" id="newViewOwnSalaryVoucher"
+                                    name="allowedModulesSelection[4]" value="1">
+                                <input type="hidden" name="allowedModules[4]" value="employee-salary-voucher-my">
 
                                 <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers</p>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[4]" value="0">
+                                <input type="hidden" name="allowedModulesSelection[5]" value="0">
+                                <input type="checkbox" class="minimal" id="newViewOwnSalaryVoucherPT"
+                                    name="allowedModulesSelection[5]" value="1">
+                                <input type="hidden" name="allowedModules[5]" value="employee-salary-voucher-my-pt">
+
+                                <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers (PT)</p>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="allowedModulesSelection[6]" value="0">
                                 <input type="checkbox" class="minimal" id="newDownloadOwnSalaryVoucher"
-                                    name="allowedModulesSelection[4]" value="1">
-                                <input type="hidden" name="allowedModules[4]" value="employee-salary-voucher-download">
+                                    name="allowedModulesSelection[6]" value="1">
+                                <input type="hidden" name="allowedModules[6]" value="employee-salary-voucher-download">
 
                                 <p style="margin-top: 5px;">Download <strong>OWN</strong> Salary Vouchers</p>
                             </div>
@@ -379,7 +395,15 @@
                                     name="allowedModulesSelection[5]" value="1">
                                 <input type="hidden" name="allowedModules[5]" value="employee-salary-voucher-submit">
 
-                                <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers</p>
+                                <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (FT)</p>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="allowedModulesSelection[8]" value="0">
+                                <input type="checkbox" class="minimal" id="newSubmitOwnSalaryVoucherPT"
+                                    name="allowedModulesSelection[8]" value="1">
+                                <input type="hidden" name="allowedModules[8]" value="employee-salary-voucher-submit-pt">
+
+                                <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (PT)</p>
                             </div>
                         </div>
 
@@ -388,26 +412,26 @@
                                 <h4><strong>Customer Management</strong></h4>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[6]" value="0">
+                                <input type="hidden" name="newAllowedModulesSelection[9]" value="0">
                                 <input type="checkbox" class="minimal" id="newCustomerManagement"
-                                    name="newAllowedModulesSelection[6]" value="1">
-                                <input type="hidden" name="allowedModules[6]" value="customer-management">
+                                    name="newAllowedModulesSelection[9]" value="1">
+                                <input type="hidden" name="allowedModules[9]" value="customer-management">
 
                                 <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[7]" value="0">
+                                <input type="hidden" name="newAllowedModulesSelection[10]" value="0">
                                 <input type="checkbox" class="minimal" id="newViewCustomerArchives"
-                                    name="newAllowedModulesSelection[7]" value="1">
-                                <input type="hidden" name="allowedModules[7]" value="customer-archives">
+                                    name="newAllowedModulesSelection[10]" value="1">
+                                <input type="hidden" name="allowedModules[10]" value="customer-archives">
 
                                 <p style="margin-top: 5px;">View/Update Customer Archives</p>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[8]" value="0">
+                                <input type="hidden" name="newAllowedModulesSelection[11]" value="0">
                                 <input type="checkbox" class="minimal" id="newCustomerAnalytics"
-                                    name="newAllowedModulesSelection[8]" value="1">
-                                <input type="hidden" name="allowedModules[8]" value="customer-analytics">
+                                    name="newAllowedModulesSelection[11]" value="1">
+                                <input type="hidden" name="allowedModules[11]" value="customer-analytics">
 
                                 <p style="margin-top: 5px;">View Customer Analytics</p>
                             </div>
@@ -416,7 +440,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary addEmployeeButton">Save</button>
             </div>
 
             <?php
@@ -448,7 +472,7 @@
                 <li><a href="#editAccountTab" data-toggle="tab">Account</a></li>
                 <li><a href="#editPermissionsTab" data-toggle="tab">Permissions</a></li>
             </ul>
-            <form role="form" method="POST" enctype="multipart/form-data">
+            <form id="editEmployeeForm" role="form" method="POST" enctype="multipart/form-data">
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="editProfilePictureTab">
@@ -471,7 +495,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary postButton">Update</button>
                         </div>
                     </div>
                     <div class="tab-pane" id="editInformationTab">
@@ -482,13 +506,13 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="editFirstName">First Name<small
+                                        <label for="editFirstName">First Name&nbsp;&nbsp;<small
                                                 style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editFirstName" name="editFirstName"
                                             required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="editLastName">Last Name<small
+                                        <label for="editLastName">Last Name&nbsp;&nbsp;<small
                                                 style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editLastName" name="editLastName"
                                             required>
@@ -527,14 +551,14 @@
                                             name="editDesignation">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="editEmail">Email<small style="color:red;">*Required</small></label>
+                                        <label for="editEmail">Email&nbsp;&nbsp;<small style="color:red;">*Required</small></label>
                                         <input type="email" class="form-control" id="editEmail" name="editEmail"
                                             required>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="editMobileNumber">Mobile Number<small
+                                        <label for="editMobileNumber">Mobile Number&nbsp;&nbsp;<small
                                                 style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="editMobileNumber"
                                             name="editMobileNumber" required>
@@ -640,9 +664,9 @@
                                         <select class="form-control select2" id="editCompanySelection"
                                             name="editCompanySelection" style="width: 100%;">
                                             <option></option>
-                                            <option>Goldlink Asia</option>
-                                            <option>Goldlink Technologies</option>
-                                            <option>Doro International</option>
+                                            <option>Goldlink Asia Distribution Pte Ltd</option>
+                                            <option>Goldlink Technologies Pte Ltd</option>
+                                            <option>Doro International Pte Ltd</option>
                                         </select>
                                     </div>
                                 </div>
@@ -806,7 +830,7 @@
                                         <input type="hidden" name="allowedModules[4]"
                                             value="employee-salary-voucher-my">
 
-                                        <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers</p>
+                                        <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers (FT)</p>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="hidden" name="editAllowedModulesSelection[5]" value="0">
@@ -879,7 +903,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary editEmployeeButton">Update</button>
                         </div>
                     </div>
                     <?php

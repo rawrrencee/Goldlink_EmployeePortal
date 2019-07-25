@@ -161,7 +161,7 @@ session_start();
 
                     <?php
                     if (in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules'])) {
-                        if (strpos($_SESSION['designation'], '(FT)')) {
+                        if (strpos($_SESSION['designation'], '(FT)') !== false) {
                             echo '
                             <li>
                                 <a href="employee-salary-voucher-submit">

@@ -76,9 +76,6 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                     </form>
                 </div>
 
-                <div class="box-footer">
-                    Footer
-                </div>
             </div>
 
     </section>
@@ -194,8 +191,8 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newPayToPersonName">Pay To (as in NRIC)</label>
-                                        <input type="text" class="form-control" id="newPayToPersonName"
+                                        <label for="newPayToPersonName">Pay To (as in NRIC) <small style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newPayToPersonName"
                                             name="newPayToPersonName"
                                             value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
                                     </div>
@@ -211,14 +208,14 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newNRIC">NRIC</label>
-                                        <input type="text" class="form-control" id="newNRIC" name="newNRIC"
+                                        <label for="newNRIC">NRIC <small style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newNRIC" name="newNRIC"
                                             value="<?php echo $_SESSION['nric'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newDateOfBirth">Date Of Birth</label>
-                                        <input type="text" class="form-control" id="newDateOfBirth"
-                                            name="newDateOfBirth" value="<?php echo $_SESSION['date_of_birth'];?>">
+                                        <input type="text" class="form-control datepicker" id="newDateOfBirth"
+                                            name="newDateOfBirth" style="background-color: white;" value="<?php echo $_SESSION['date_of_birth'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -226,13 +223,13 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankName">Bank Name</label>
-                                        <input type="text" class="form-control" id="newBankName" name="newBankName"
+                                        <label for="newBankName">Bank Name <small style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newBankName" name="newBankName"
                                             value="<?php echo $_SESSION['bank_name'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankAccount">Bank Account</label>
-                                        <input type="text" class="form-control" id="newBankAccount"
+                                        <label for="newBankAccount">Bank Account <small style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newBankAccount"
                                             name="newBankAccount" value="<?php echo $_SESSION['bank_acct'];?>">
                                     </div>
                                 </div>
@@ -452,11 +449,6 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -486,11 +478,6 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -520,11 +507,6 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -576,11 +558,6 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                                                     <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -610,11 +587,6 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                                                     <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -644,11 +616,6 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                                                     <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>

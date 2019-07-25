@@ -181,7 +181,7 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newDateOfBirth">Date Of Birth</label>
-                                        <input type="text" class="form-control" id="newDateOfBirth"
+                                        <input readonly type="text" class="form-control" id="newDateOfBirth"
                                             name="newDateOfBirth" value="<?php echo $_SESSION['date_of_birth'];?>">
                                     </div>
                                 </div>
@@ -190,13 +190,13 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankName">Bank Name</label>
-                                        <input type="text" class="form-control" id="newBankName" name="newBankName"
+                                        <label for="newBankName">Bank Name <small style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newBankName" name="newBankName"
                                             value="<?php echo $_SESSION['bank_name'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankAccount">Bank Account</label>
-                                        <input type="text" class="form-control" id="newBankAccount"
+                                        <label for="newBankAccount">Bank Account Number <small style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newBankAccount"
                                             name="newBankAccount" value="<?php echo $_SESSION['bank_acct'];?>">
                                     </div>
                                 </div>
@@ -240,13 +240,13 @@
                                     </div>
                                     <div class="form-group col-md-2 col-sm-3 col-xs-6">
                                         <label for="newSalaryUnit">Unit</label>
-                                        <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0" step="0"
-                                            value="0" name="salaryUnit[0]">
+                                        <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0"
+                                            step="0" value="0" name="salaryUnit[0]">
                                     </div>
                                     <div class="form-group col-md-2 col-sm-3 col-xs-6">
                                         <label for="newSalarySubtotal">Subtotal</label>
-                                        <input readonly type="number" class="form-control subTotalPT grossPay" id="newSalarySubtotal"
-                                            min="0" step="0" value="0" name="salarySubtotal[0]">
+                                        <input readonly type="number" class="form-control subTotalPT grossPay"
+                                            id="newSalarySubtotal" min="0" step="0" value="0" name="salarySubtotal[0]">
                                     </div>
                                     <div class="form-group col-md-3 col-sm-3 col-xs-6">
                                         <label for="newSalaryRemarks">Remarks</label>
@@ -418,11 +418,6 @@
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -452,11 +447,6 @@
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -486,11 +476,6 @@
                                                     <select required id="newSalesInformation'.$i.'" class="form-control select2 newSalesInformation" name="newSalesInformation['.$i.']" style="width: 85%">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -538,15 +523,10 @@
                                         for ($i = 1; $i <= 10; $i++) {
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
-                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                <td style="width: 100%;">
                                                     <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -572,15 +552,10 @@
                                         for ($i = 11; $i <= 20; $i++) {
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
-                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                <td style="width: 100%;">
                                                     <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%;">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -606,15 +581,10 @@
                                         for ($i = 21; $i <= 31; $i++) {
                                             echo'<tr>
                                                 <td style="width: 20px;">'.$i.'<input type="hidden" id="newDayOfMonth" name="newDayOfMonth['.$i.']" value="'.$i.'"></td>
-                                                <td style="width: 100%;"><strong>S$&nbsp;</strong>
+                                                <td style="width: 100%;">
                                                     <select required id="newDailyHoursWorked'.$i.'" class="form-control select2 newDailyHoursWorked" name="newDailyHoursWorked['.$i.']" style="width: 85%">
                                                         <option></option>
                                                         <option disabled>Select or type a number</option>
-                                                        <option value="Sick Leave">Sick Leave</option>
-                                                        <option value="Annual Leave">Annual Leave</option>
-                                                        <option value="Unpaid Leave">Unpaid Leave</option>
-                                                        <option value="OFF">OFF</option>
-                                                        <option value="PH/RO">PH/RO</option>
                                                         <option selected value="N/A">N/A</option>
                                                     </select>
                                                 </td>
@@ -647,8 +617,15 @@
                 <input readonly type="number" id="newFinalAmount" class="form-control" name="newFinalAmount"
                     value="0.00">
             </div>
+        </div>
 
-
+        <div class="box-footer">
+            <div class="pull-right">
+                <div class="btn-group" style="padding: 10px;">
+                    <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
+                    <a class="btn btn-default btnNext">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
         </div>
 
         <div class="box-footer">
@@ -666,11 +643,6 @@
                                 class="fa fa-check"></i>&nbsp;&nbsp;Submit</button>
                     </div>
                 </div>
-            </div>
-
-            <div class="btn-group" style="padding: 10px;">
-                <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
-                <a class="btn btn-default btnNext">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
             </div>
         </div>
 

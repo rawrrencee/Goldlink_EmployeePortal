@@ -54,10 +54,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <div class="box-footer">
-                    Footer
-                </div>
             </div>
 
     </section>
@@ -78,8 +74,7 @@
                 <li class="active"><a href="#salaryTab" data-toggle="tab">Salary</a></li>
                 <li><a href="#deductionsTab" data-toggle="tab">Deductions</a></li>
                 <li><a href="#othersTab" data-toggle="tab">Others</a></li>
-                <li><a href="#dailySalesFigureTab" data-toggle="tab">Daily Sales Figure</a></li>
-                <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
+                <li><a href="#dailySalesFigureTab" data-toggle="tab">Attendance/Sales</a></li>
 
                 <div class="btn-group pull-right" style="padding: 10px;">
                     <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
@@ -382,21 +377,6 @@
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="viewNumDaysZeroSales">Number of days closing $0 sales</label>
-                                    <input readonly type="number" class="form-control" id="viewNumDaysZeroSales"
-                                        name="viewNumDaysZeroSales" value="0" min="0" step="0">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="viewNumReportsSubmitted">Number of reports submitted</label>
-                                    <input readonly type="number" class="form-control" id="viewNumReportsSubmitted"
-                                        name="viewNumReportsSubmitted" value="0" min="0" step="0">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                     <label for="viewPersonalSales">Personal Sales</label>
                                     <strong>S$&nbsp;</strong>
@@ -507,11 +487,30 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
 
-                <div class="tab-pane" id="attendanceTab">
-                    <div class="box-body">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <p style="font-size: 20px;">Daily Sales Figure</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                                    <label for="viewNumDaysZeroSales">No. days closing $0 sales</label>
+                                    <input readonly type="number" class="form-control" id="viewNumDaysZeroSales"
+                                        name="viewNumDaysZeroSales" value="0" min="0" step="0">
+                                </div>
+                                <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                                    <label for="viewNumReportsSubmitted">No. reports submitted</label>
+                                    <input readonly type="number" class="form-control" id="viewNumReportsSubmitted"
+                                        name="viewNumReportsSubmitted" value="0" min="0" step="0">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
                                 <div class="form-group">
@@ -521,26 +520,26 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                     <label for="viewOffDays">Off Days</label>
-                                    <input readonly type="text" class="form-control" id="viewOffDays" value=""
-                                        name="viewOffDays" placeholder="e.g. 10/10/2019, 11/10/2019 (2 DAYS)">
+                                    <textarea readonly class="form-control" id="viewOffDays" value=""
+                                        name="viewOffDays"></textarea>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                     <label for="viewLateDays">Late Days</label>
-                                    <input readonly type="text" class="form-control" id="viewLateDays" value=""
-                                        name="viewLateDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
+                                    <textarea readonly class="form-control" id="viewLateDays" value=""
+                                        name="viewLateDays"></textarea>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                    <label for="viewLeaveMCDays">Leave/MC Days</label>
+                                    <textarea readonly class="form-control" id="viewLeaveMCDays" value=""
+                                        name="viewLeaveMCDays"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <label for="viewLeaveMCDays">Leave/MC Days</label>
-                                    <input readonly type="text" class="form-control" id="viewLeaveMCDays" value=""
-                                        name="viewLeaveMCDays" placeholder="e.g. DD/MM/YYYY (NO. OF DAYS)">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group col-md-3 col-sm-3 col-xs-6">
                                     <label for="viewTotalWorkingDays">Total Working Days</label>
                                     <input readonly type="number" class="form-control" id="viewTotalWorkingDays" min="0"
                                         name="viewTotalWorkingDays" step="0" value="0">
@@ -558,29 +557,28 @@
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                     <label for="viewLeaveEntitled">Leave Entitled</label>
-                                    <input readonly type="number" class="form-control" id="viewLeaveEntitled" min="0"
-                                        step="0" name="viewLeaveEntitled" value="0">
+                                    <input readonly type="number" class="form-control" id="viewLeaveEntitled" min="0" step="0"
+                                        name="viewLeaveEntitled" value="0">
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                     <label for="viewLeaveTaken">Leave Taken</label>
-                                    <input readonly type="number" class="form-control" id="viewLeaveTaken" min="0"
-                                        step="0" name="viewLeaveTaken" value="0">
+                                    <input readonly type="number" class="form-control" id="viewLeaveTaken" min="0" step="0"
+                                        name="viewLeaveTaken" value="0">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                     <label for="viewLeaveRemaining">Leave Remaining</label>
-                                    <input readonly type="text" class="form-control" id="viewLeaveRemaining" min="0"
-                                        step="0" name="viewLeaveRemaining" value="0">
+                                    <input readonly type="text" class="form-control" id="viewLeaveRemaining" min="0" step="0"
+                                        name="viewLeaveRemaining" value="0">
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
+
             </div>
 
             <div class="box-footer">

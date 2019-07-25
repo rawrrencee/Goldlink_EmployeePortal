@@ -396,7 +396,7 @@ class EmployeeController
     public static function ctrEditEmployee()
     {
         if (isset($_POST['editEmployeeId'])) {
-            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             $employeeId = (int) filter_var((int) $_POST['editEmployeeId'], FILTER_SANITIZE_NUMBER_INT);
 

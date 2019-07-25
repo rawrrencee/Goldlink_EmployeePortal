@@ -478,7 +478,7 @@ var allSalaryVouchersTablePT = $('.tableAllSalaryVouchersPT').DataTable({
     "targets": 29,
     "data": null,
     "render": function (data, type, row) {
-        return `
+      return `
       <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-info btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
       <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[5] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
       `;
@@ -719,12 +719,22 @@ $('#newMonthOfVoucher').select2({
   placeholder: "Select month"
 });
 
+$('#newMonthOfVoucher').on('select2:select', function (e) {
+  autofillAttendance();
+});
+
 $('#newYearOfVoucher').select2({
   placeholder: "Select year"
 });
 
+$('#newYearOfVoucher').on('select2:select', function (e) {
+  autofillAttendance();
+});
+
+
 $('.newSalesInformation').on('select2:select', function (e) {
   recalculatePersonalSales();
+  autofillAttendance();
 });
 
 $('.newDailyHoursWorked').on('select2:select', function (e) {
@@ -1588,7 +1598,7 @@ $(".tableMySalaryVouchersPT tbody").on("click", "button.btnViewSalaryVoucher", f
 
   var getDailySalesFigureByVoucherId = new FormData();
   getDailySalesFigureByVoucherId.append('getDailySalesFigureByVoucherId', voucher_id);
-  
+
   var getDailyWorkingHoursByVoucherId = new FormData();
   getDailyWorkingHoursByVoucherId.append('getDailyWorkingHoursByVoucherId', voucher_id);
 
@@ -1656,9 +1666,9 @@ $(".tableMySalaryVouchersPT tbody").on("click", "button.btnViewSalaryVoucher", f
         processData: false,
         dataType: "json",
         success: function (answer) {
-            for (var i = 0; i < answer.length; i++) {
-                $("#appendSalaryListingPT").append(
-                  `
+          for (var i = 0; i < answer.length; i++) {
+            $("#appendSalaryListingPT").append(
+              `
                     <div class="form-row">
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                       <label for="updateSalaryTitle">Title</label>
@@ -1682,7 +1692,7 @@ $(".tableMySalaryVouchersPT tbody").on("click", "button.btnViewSalaryVoucher", f
                     </div>
                   </div>
                     `)
-              }
+          }
 
           $.ajax({
             url: "ajax/payroll.ajax.php",
@@ -1887,7 +1897,7 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
 
       $('#newMethodOfPayment').select2({
         placeholder: "Select method of payment"
-      });      
+      });
 
       $.ajax({
         url: "ajax/payroll.ajax.php",
@@ -2125,7 +2135,7 @@ $(".tableAllSalaryVouchersPT tbody").on("click", "button.btnEditSalaryVoucher", 
 
       $('#newMethodOfPayment').select2({
         placeholder: "Select method of payment"
-      });      
+      });
 
       $.ajax({
         url: "ajax/payroll.ajax.php",
@@ -2419,6 +2429,93 @@ function recalculatePersonalSales() {
   })
 
   $("#newPersonalSales").val(Number(currentPersonalSales).toFixed(2));
+}
+
+function autofillAttendance() {
+  var offDays = "";
+  var numOffDays = 0;
+  var leaveMCDays = "";
+  var sickLeaveDays = "";
+  var numSickLeaveDays = 0;
+  var annualLeaveDays = "";
+  var numAnnualLeaveDays = 0;
+  var unpaidLeaveDays = "";
+  var numUnpaidLeaveDays = 0;
+  var numWorkingDays = 0;
+
+  var total = $("#salaryVoucherForm").find('.newSalesInformation').length;
+
+  $("#salaryVoucherForm").find('.newSalesInformation').each(function (index, element) {
+
+    if (isNaN(parseFloat($(element).val()))) {
+
+      if ($(element).val() == "Sick Leave") {
+        if (numSickLeaveDays == 0) {
+          sickLeaveDays = "Sick Leave: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          sickLeaveDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numSickLeaveDays++;
+      } else if ($(element).val() == "Annual Leave") {
+        if (numAnnualLeaveDays == 0) {
+          annualLeaveDays = "Annual Leave: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          annualLeaveDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numAnnualLeaveDays++;
+      } else if ($(element).val() == "Unpaid Leave") {
+        if (numUnpaidLeaveDays == 0) {
+          unpaidLeaveDays = "Unpaid Leave: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          unpaidLeaveDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numUnpaidLeaveDays++;
+      } else if ($(element).val() == "OFF") {
+        if (numOffDays == 0) {
+          offDays = "Off Days: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          offDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numOffDays++;
+      }
+
+      //LAST ONE
+      if (index === total - 1) {
+        sickLeaveDays = sickLeaveDays.substr(0, sickLeaveDays.length - 2);
+        if (sickLeaveDays != "") {
+          sickLeaveDays += " (" + numSickLeaveDays + " DAYS)";
+        } else {
+          sickLeaveDays = "Sick Leave: (0 DAYS)"
+        }
+        annualLeaveDays = annualLeaveDays.substr(0, annualLeaveDays.length - 2);
+        if (annualLeaveDays != "") {
+          annualLeaveDays += " (" + numAnnualLeaveDays + " DAYS)";
+        } else {
+          annualLeaveDays = "Annual Leave: (0 DAYS)"
+        }
+        unpaidLeaveDays = unpaidLeaveDays.substr(0, unpaidLeaveDays.length - 2);
+        if (unpaidLeaveDays != "") {
+          unpaidLeaveDays += " (" + numUnpaidLeaveDays + " DAYS)";
+        } else {
+          unpaidLeaveDays = "Unpaid Leave: (0 DAYS)"
+        }
+        offDays = offDays.substr(0, offDays.length - 2);
+        if (offDays != "") {
+          offDays += " (" + numOffDays + " DAYS)";
+        } else {
+          offDays = "Off Days: (0 DAYS)"
+        }
+
+        $("#newLeaveMCDays").val(sickLeaveDays + "\n" + annualLeaveDays + "\n" + unpaidLeaveDays);
+        $("#newOffDays").val(offDays);
+
+        return;
+      }
+    } else {
+      numWorkingDays++;
+      $("#newTotalWorkingDays").val(numWorkingDays);
+    }
+  })
 }
 
 function recalculateDailyHoursWorked() {
