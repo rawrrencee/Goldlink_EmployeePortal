@@ -297,8 +297,8 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <button type="button" id="addSalaryListing"
-                                            class="btn btn-primary addSalaryListing"><i
+                                        <button type="button" id="addSalaryListingPT"
+                                            class="btn btn-primary addSalaryListingPT"><i
                                                 class="fa fa-plus"></i>&nbsp;&nbsp;Add Salary Listing</button>
                                     </div>
                                 </div>

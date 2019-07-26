@@ -957,7 +957,7 @@ class PayrollController
 						});
 
                         </script>';
-                } else {
+                } else if ($submittedForm['is_part_time'] == 1) {
                     echo '<script>
 
 						swal({
@@ -970,12 +970,31 @@ class PayrollController
 
 							if(result.value){
 
-								window.location = "employee-salary-voucher-management";
+								window.location = "employee-salary-voucher-management-pt";
 							}
 
 						});
 
                         </script>';
+                } else if ($submittedForm['is_part_time'] == 0) {
+                    echo '<script>
+    
+                            swal({
+                                type: "success",
+                                title: "Salary information submitted succesfully.",
+                                showConfirmButton: true,
+                                confirmButtonText: "Close"
+    
+                            }).then(function(result){
+    
+                                if(result.value){
+    
+                                    window.location = "employee-salary-voucher-management";
+                                }
+    
+                            });
+    
+                            </script>';
                 }
             } else {
                 echo '<script>

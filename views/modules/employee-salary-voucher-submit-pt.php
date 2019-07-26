@@ -228,27 +228,27 @@
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div id="appendSalaryListingPT_first" class="form-row">
-                                    <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                         <label for="newSalaryTitle">Title</label>
                                         <input type="text" class="form-control" id="newSalaryTitle"
                                             name="salaryTitle[0]" value="">
                                     </div>
-                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
+                                    <div class="form-group col-md-2 col-sm-6 col-xs-6">
                                         <label for="newSalaryRate">Rate</label>
                                         <input type="number" class="form-control ratePT" id="newSalaryRate" min="0.00"
                                             step="0.01" value="0.00" name="salaryRate[0]">
                                     </div>
-                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
+                                    <div class="form-group col-md-2 col-sm-6 col-xs-6">
                                         <label for="newSalaryUnit">Unit</label>
                                         <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0"
                                             step="0" value="0" name="salaryUnit[0]">
                                     </div>
-                                    <div class="form-group col-md-2 col-sm-3 col-xs-6">
+                                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                         <label for="newSalarySubtotal">Subtotal</label>
                                         <input readonly type="number" class="form-control subTotalPT grossPay"
                                             id="newSalarySubtotal" min="0" step="0" value="0" name="salarySubtotal[0]">
                                     </div>
-                                    <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                         <label for="newSalaryRemarks">Remarks</label>
                                         <input type="text" class="form-control" id="newSalaryRemarks"
                                             name="salaryRemarks[0]">
