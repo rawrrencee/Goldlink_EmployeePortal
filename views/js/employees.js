@@ -213,12 +213,18 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             processData: false,
             dataType: "json",
             success: function (answer) {
-              //console.log(answer);
               if (answer.length != 0) {
                 $('#editCompanySelection').val(answer[0]['company_name']);
                 $('#editCompanySelection').select2().trigger('change');
                 $('#editLevyAmount').val(answer[0]['levy_amount']);
+                $('#editRace').val(answer[0]['race']);
+                $('#editRace').select2().trigger('change');
               }
+
+              $('#editRace').select2({
+                placeholder: "Select your race",
+                tags: true
+              });
 
               var formData = new FormData();
               formData.append("get_employees_stores", employeeId);
@@ -305,6 +311,17 @@ $('#editCompanySelection').select2({
   placeholder: "Select a Company"
 });
 
+$('#newRace').select2({
+  placeholder: "Select your race",
+  tags: true
+});
+
+$('#editRace').select2({
+  placeholder: "Select your race",
+  tags: true
+});
+
+
 $('#editPasswordSelection').on('ifUnchecked', function (event) {
   $("#editPassword").prop("readonly", true);
 });
@@ -339,7 +356,7 @@ $('#addEmployeeButton').click(function () {
 });
 
 $('.datepicker').datepicker({
-  format: "dd/mm/yyyy",
+  format: "dd-mm-yyyy",
   autoclose: true,
   disableTouchKeyboard: true,
   Readonly: true

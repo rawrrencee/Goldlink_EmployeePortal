@@ -59,7 +59,7 @@
     </section>
 </div>
 
-<div id="modalAddEmployee" class="modal fade" role="dialog" tabindex="-1">
+<div id="modalAddEmployee" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -200,6 +200,16 @@
                                 <input type="text" class="form-control" id="newComments" name="newComments"
                                     placeholder="Comments">
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="newRace">Race</label>
+                                <select class="form-control select2" id="newRace" name="newRace">
+                                    <option></option>
+                                    <option value="Chinese">Chinese</option>
+                                    <option value="Malay">Malay</option>
+                                    <option value="Indian">Indian</option>
+                                    <option value="Eurasian">Eurasian</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="col-md-12">
@@ -266,7 +276,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="newLevyAmount">Levy (if applicable)</label>
+                                <label for="newLevyAmount">Foreign Worker Levy</label>
                                 <input type="number" class="form-control" id="newLevyAmount" min="0.00" step="0.01"
                                     value="0.00" name="newLevyAmount">
                             </div>
@@ -455,7 +465,7 @@
 </div>
 
 
-<div id="modalEditEmployee" class="modal fade" role="dialog" tabindex="-1">
+<div id="modalEditEmployee" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -551,7 +561,8 @@
                                             name="editDesignation">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="editEmail">Email&nbsp;&nbsp;<small style="color:red;">*Required</small></label>
+                                        <label for="editEmail">Email&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
                                         <input type="email" class="form-control" id="editEmail" name="editEmail"
                                             required>
                                     </div>
@@ -615,6 +626,16 @@
                                         <label for="editComments">Comments</label>
                                         <input type="text" class="form-control" id="editComments" name="editComments">
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="editRace">Race</label>
+                                        <select class="form-control select2" id="editRace" name="editRace">
+                                            <option></option>
+                                            <option value="Chinese">Chinese</option>
+                                            <option value="Malay">Malay</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Eurasian">Eurasian</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-12">
@@ -673,7 +694,7 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="editLevyAmount">Levy (if applicable)</label>
+                                        <label for="editLevyAmount">Foreign Worker Levy</label>
                                         <input type="number" class="form-control" id="editLevyAmount" min="0.00"
                                             step="0.01" value="0.00" name="editLevyAmount">
                                     </div>

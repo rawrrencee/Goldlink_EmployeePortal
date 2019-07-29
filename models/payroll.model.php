@@ -104,7 +104,7 @@ class PayrollModel
         $conn = new Connection();
         $conn = $conn->connect();
 
-        $stmt = $conn->prepare("INSERT INTO $table(created_on, modified_on, person_id, month_of_voucher, year_of_voucher, is_draft, pay_to_name, designation, nric, date_of_birth, bank_name, bank_acct, gross_pay, total_deductions, total_others, final_amount, is_sg_pr, cpf_employee, cpf_employer, boutique, boutique_sales, personal_sales, num_days_zero_sales, num_reports_submitted, levy_amount, company_name) VALUES (:created_on, :modified_on, :person_id, :month_of_voucher, :year_of_voucher, :is_draft, :pay_to_name, :designation, :nric, :date_of_birth, :bank_name, :bank_acct, :gross_pay, :total_deductions, :total_others, :final_amount, :is_sg_pr, :cpf_employee, :cpf_employer, :boutique, :boutique_sales, :personal_sales, :num_days_zero_sales, :num_reports_submitted, :levy_amount, :company_name)");
+        $stmt = $conn->prepare("INSERT INTO $table(created_on, modified_on, person_id, month_of_voucher, year_of_voucher, is_draft, pay_to_name, designation, nric, date_of_birth, bank_name, bank_acct, gross_pay, total_deductions, total_others, final_amount, is_sg_pr, is_csm, cpf_employee, cpf_employer, boutique, boutique_sales, personal_sales, num_days_zero_sales, num_reports_submitted, levy_amount, sdl_amount, company_name) VALUES (:created_on, :modified_on, :person_id, :month_of_voucher, :year_of_voucher, :is_draft, :pay_to_name, :designation, :nric, :date_of_birth, :bank_name, :bank_acct, :gross_pay, :total_deductions, :total_others, :final_amount, :is_sg_pr, :is_csm, :cpf_employee, :cpf_employer, :boutique, :boutique_sales, :personal_sales, :num_days_zero_sales, :num_reports_submitted, :levy_amount, :sdl_amount, :company_name)");
 
         try {
 
@@ -127,6 +127,7 @@ class PayrollModel
             $stmt->bindParam(":total_others", $salaryVoucherData['total_others'], PDO::PARAM_STR);
             $stmt->bindParam(":final_amount", $salaryVoucherData['final_amount'], PDO::PARAM_STR);
             $stmt->bindParam(":is_sg_pr", $salaryVoucherData['is_sg_pr'], PDO::PARAM_INT);
+            $stmt->bindParam(":is_csm", $salaryVoucherData['is_csm'], PDO::PARAM_INT);
             $stmt->bindParam(":cpf_employee", $salaryVoucherData['cpf_employee'], PDO::PARAM_STR);
             $stmt->bindParam(":cpf_employer", $salaryVoucherData['cpf_employer'], PDO::PARAM_STR);
             $stmt->bindParam(":boutique", $salaryVoucherData['boutique'], PDO::PARAM_STR);
@@ -135,6 +136,7 @@ class PayrollModel
             $stmt->bindParam(":num_days_zero_sales", $salaryVoucherData['num_days_zero_sales'], PDO::PARAM_INT);
             $stmt->bindParam(":num_reports_submitted", $salaryVoucherData['num_reports_submitted'], PDO::PARAM_INT);
             $stmt->bindParam(":levy_amount", $salaryVoucherData['levy_amount'], PDO::PARAM_STR);
+            $stmt->bindParam(":sdl_amount", $salaryVoucherData['sdl_amount'], PDO::PARAM_STR);
             $stmt->bindParam(":company_name", $salaryVoucherData['company_name'], PDO::PARAM_STR);
 
             $stmt->execute();
@@ -217,7 +219,7 @@ class PayrollModel
         $conn = new Connection();
         $conn = $conn->connect();
 
-        $stmt = $conn->prepare("INSERT INTO $table(created_on, modified_on, person_id, month_of_voucher, year_of_voucher, is_draft, is_part_time, pay_to_name, designation, nric, date_of_birth, bank_name, bank_acct, gross_pay, total_deductions, total_others, final_amount, is_sg_pr, cpf_employee, cpf_employer, boutique, boutique_sales, personal_sales, num_days_zero_sales, num_reports_submitted, levy_amount, company_name, total_hours_worked) VALUES (:created_on, :modified_on, :person_id, :month_of_voucher, :year_of_voucher, :is_draft, :is_part_time, :pay_to_name, :designation, :nric, :date_of_birth, :bank_name, :bank_acct, :gross_pay, :total_deductions, :total_others, :final_amount, :is_sg_pr, :cpf_employee, :cpf_employer, :boutique, :boutique_sales, :personal_sales, :num_days_zero_sales, :num_reports_submitted, :levy_amount, :company_name, :total_hours_worked)");
+        $stmt = $conn->prepare("INSERT INTO $table(created_on, modified_on, person_id, month_of_voucher, year_of_voucher, is_draft, is_part_time, pay_to_name, designation, nric, date_of_birth, bank_name, bank_acct, gross_pay, total_deductions, total_others, final_amount, is_sg_pr, is_csm, cpf_employee, cpf_employer, boutique, boutique_sales, personal_sales, num_days_zero_sales, num_reports_submitted, levy_amount, sdl_amount, company_name, total_hours_worked) VALUES (:created_on, :modified_on, :person_id, :month_of_voucher, :year_of_voucher, :is_draft, :is_part_time, :pay_to_name, :designation, :nric, :date_of_birth, :bank_name, :bank_acct, :gross_pay, :total_deductions, :total_others, :final_amount, :is_sg_pr, :is_csm, :cpf_employee, :cpf_employer, :boutique, :boutique_sales, :personal_sales, :num_days_zero_sales, :num_reports_submitted, :levy_amount, :sdl_amount, :company_name, :total_hours_worked)");
 
         try {
 
@@ -241,6 +243,7 @@ class PayrollModel
             $stmt->bindParam(":total_others", $salaryVoucherData['total_others'], PDO::PARAM_STR);
             $stmt->bindParam(":final_amount", $salaryVoucherData['final_amount'], PDO::PARAM_STR);
             $stmt->bindParam(":is_sg_pr", $salaryVoucherData['is_sg_pr'], PDO::PARAM_INT);
+            $stmt->bindParam(":is_csm", $salaryVoucherData['is_csm'], PDO::PARAM_INT);
             $stmt->bindParam(":cpf_employee", $salaryVoucherData['cpf_employee'], PDO::PARAM_STR);
             $stmt->bindParam(":cpf_employer", $salaryVoucherData['cpf_employer'], PDO::PARAM_STR);
             $stmt->bindParam(":boutique", $salaryVoucherData['boutique'], PDO::PARAM_STR);
@@ -249,6 +252,7 @@ class PayrollModel
             $stmt->bindParam(":num_days_zero_sales", $salaryVoucherData['num_days_zero_sales'], PDO::PARAM_INT);
             $stmt->bindParam(":num_reports_submitted", $salaryVoucherData['num_reports_submitted'], PDO::PARAM_INT);
             $stmt->bindParam(":levy_amount", $salaryVoucherData['levy_amount'], PDO::PARAM_STR);
+            $stmt->bindParam(":sdl_amount", $salaryVoucherData['sdl_amount'], PDO::PARAM_STR);
             $stmt->bindParam(":company_name", $salaryVoucherData['company_name'], PDO::PARAM_STR);
             $stmt->bindParam(":total_hours_worked", $salaryVoucherData['total_hours_worked'], PDO::PARAM_STR);
 
@@ -443,7 +447,7 @@ class PayrollModel
         $conn = new Connection();
         $conn = $conn->connect();
 
-        $stmt = $conn->prepare(" UPDATE $table SET created_on = :created_on, modified_on = :modified_on, person_id = :person_id, month_of_voucher = :month_of_voucher, year_of_voucher = :year_of_voucher, is_draft = :is_draft, method_of_payment = :method_of_payment, pay_to_name = :pay_to_name, designation = :designation, nric = :nric, date_of_birth = :date_of_birth, bank_name = :bank_name, bank_acct = :bank_acct, gross_pay = :gross_pay, total_deductions = :total_deductions, levy_amount = :levy_amount, total_others = :total_others, final_amount = :final_amount, is_sg_pr = :is_sg_pr, cpf_employee = :cpf_employee, cpf_employer = :cpf_employer, boutique = :boutique, boutique_sales = :boutique_sales, personal_sales = :personal_sales, num_days_zero_sales = :num_days_zero_sales, num_reports_submitted = :num_reports_submitted, status = :status, updated_by = :updated_by, company_name = :company_name WHERE voucher_id = :voucher_id");
+        $stmt = $conn->prepare(" UPDATE $table SET created_on = :created_on, modified_on = :modified_on, person_id = :person_id, month_of_voucher = :month_of_voucher, year_of_voucher = :year_of_voucher, is_draft = :is_draft, method_of_payment = :method_of_payment, pay_to_name = :pay_to_name, designation = :designation, nric = :nric, date_of_birth = :date_of_birth, bank_name = :bank_name, bank_acct = :bank_acct, gross_pay = :gross_pay, total_deductions = :total_deductions, levy_amount = :levy_amount, sdl_amount = :sdl_amount, total_others = :total_others, final_amount = :final_amount, is_sg_pr = :is_sg_pr, is_csm = :is_csm, cpf_employee = :cpf_employee, cpf_employer = :cpf_employer, boutique = :boutique, boutique_sales = :boutique_sales, personal_sales = :personal_sales, num_days_zero_sales = :num_days_zero_sales, num_reports_submitted = :num_reports_submitted, status = :status, updated_by = :updated_by, company_name = :company_name WHERE voucher_id = :voucher_id");
 
         try {
 
@@ -466,9 +470,11 @@ class PayrollModel
             $stmt->bindParam(":gross_pay", $salaryVoucherData['gross_pay'], PDO::PARAM_STR);
             $stmt->bindParam(":total_deductions", $salaryVoucherData['total_deductions'], PDO::PARAM_STR);
             $stmt->bindParam(":levy_amount", $salaryVoucherData['levy_amount'], PDO::PARAM_STR);
+            $stmt->bindParam(":sdl_amount", $salaryVoucherData['sdl_amount'], PDO::PARAM_STR);
             $stmt->bindParam(":total_others", $salaryVoucherData['total_others'], PDO::PARAM_STR);
             $stmt->bindParam(":final_amount", $salaryVoucherData['final_amount'], PDO::PARAM_STR);
             $stmt->bindParam(":is_sg_pr", $salaryVoucherData['is_sg_pr'], PDO::PARAM_INT);
+            $stmt->bindParam(":is_csm", $salaryVoucherData['is_csm'], PDO::PARAM_INT);
             $stmt->bindParam(":cpf_employee", $salaryVoucherData['cpf_employee'], PDO::PARAM_STR);
             $stmt->bindParam(":cpf_employer", $salaryVoucherData['cpf_employer'], PDO::PARAM_STR);
             $stmt->bindParam(":boutique", $salaryVoucherData['boutique'], PDO::PARAM_STR);
@@ -556,7 +562,7 @@ class PayrollModel
         $conn = new Connection();
         $conn = $conn->connect();
 
-        $stmt = $conn->prepare(" UPDATE $table SET created_on = :created_on, modified_on = :modified_on, person_id = :person_id, month_of_voucher = :month_of_voucher, year_of_voucher = :year_of_voucher, is_draft = :is_draft, is_part_time = :is_part_time, method_of_payment = :method_of_payment, pay_to_name = :pay_to_name, designation = :designation, nric = :nric, date_of_birth = :date_of_birth, bank_name = :bank_name, bank_acct = :bank_acct, gross_pay = :gross_pay, total_deductions = :total_deductions, levy_amount = :levy_amount, total_others = :total_others, final_amount = :final_amount, is_sg_pr = :is_sg_pr, cpf_employee = :cpf_employee, cpf_employer = :cpf_employer, boutique = :boutique, boutique_sales = :boutique_sales, personal_sales = :personal_sales, num_days_zero_sales = :num_days_zero_sales, num_reports_submitted = :num_reports_submitted, status = :status, updated_by = :updated_by, company_name = :company_name, total_hours_worked = :total_hours_worked WHERE voucher_id = :voucher_id");
+        $stmt = $conn->prepare(" UPDATE $table SET created_on = :created_on, modified_on = :modified_on, person_id = :person_id, month_of_voucher = :month_of_voucher, year_of_voucher = :year_of_voucher, is_draft = :is_draft, is_part_time = :is_part_time, method_of_payment = :method_of_payment, pay_to_name = :pay_to_name, designation = :designation, nric = :nric, date_of_birth = :date_of_birth, bank_name = :bank_name, bank_acct = :bank_acct, gross_pay = :gross_pay, total_deductions = :total_deductions, levy_amount = :levy_amount, sdl_amount = :sdl_amount, total_others = :total_others, final_amount = :final_amount, is_sg_pr = :is_sg_pr, is_csm = :is_csm, cpf_employee = :cpf_employee, cpf_employer = :cpf_employer, boutique = :boutique, boutique_sales = :boutique_sales, personal_sales = :personal_sales, num_days_zero_sales = :num_days_zero_sales, num_reports_submitted = :num_reports_submitted, status = :status, updated_by = :updated_by, company_name = :company_name, total_hours_worked = :total_hours_worked WHERE voucher_id = :voucher_id");
 
         try {
 
@@ -580,9 +586,11 @@ class PayrollModel
             $stmt->bindParam(":gross_pay", $salaryVoucherData['gross_pay'], PDO::PARAM_STR);
             $stmt->bindParam(":total_deductions", $salaryVoucherData['total_deductions'], PDO::PARAM_STR);
             $stmt->bindParam(":levy_amount", $salaryVoucherData['levy_amount'], PDO::PARAM_STR);
+            $stmt->bindParam(":sdl_amount", $salaryVoucherData['sdl_amount'], PDO::PARAM_STR);
             $stmt->bindParam(":total_others", $salaryVoucherData['total_others'], PDO::PARAM_STR);
             $stmt->bindParam(":final_amount", $salaryVoucherData['final_amount'], PDO::PARAM_STR);
             $stmt->bindParam(":is_sg_pr", $salaryVoucherData['is_sg_pr'], PDO::PARAM_INT);
+            $stmt->bindParam(":is_csm", $salaryVoucherData['is_csm'], PDO::PARAM_INT);
             $stmt->bindParam(":cpf_employee", $salaryVoucherData['cpf_employee'], PDO::PARAM_STR);
             $stmt->bindParam(":cpf_employer", $salaryVoucherData['cpf_employer'], PDO::PARAM_STR);
             $stmt->bindParam(":boutique", $salaryVoucherData['boutique'], PDO::PARAM_STR);

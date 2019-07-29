@@ -225,11 +225,12 @@ class EmployeeModel
 
     public static function mdlCreateEmployeePayroll($conn, $personData)
     {
-        $stmt = $conn->prepare("INSERT INTO employees_payroll(person_id, company_name, levy_amount) VALUES (:person_id, :company_name, :levy_amount)");
+        $stmt = $conn->prepare("INSERT INTO employees_payroll(person_id, company_name, levy_amount, race) VALUES (:person_id, :company_name, :levy_amount, :race)");
 
         $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":company_name", $personData["company_name"], PDO::PARAM_STR);
         $stmt->bindParam(":levy_amount", $personData["levy_amount"], PDO::PARAM_STR);
+        $stmt->bindParam(":race", $personData["race"], PDO::PARAM_STR);
 
         $stmt->execute();
     }
@@ -393,11 +394,12 @@ class EmployeeModel
 
     public static function mdlUpdateEmployeesPayroll($conn, $personData)
     {
-        $stmt = $conn->prepare("UPDATE employees_payroll SET company_name = :company_name, levy_amount = :levy_amount WHERE person_id = :person_id");
+        $stmt = $conn->prepare("UPDATE employees_payroll SET company_name = :company_name, levy_amount = :levy_amount, race = :race WHERE person_id = :person_id");
 
         $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":company_name", $personData["company_name"], PDO::PARAM_STR);
         $stmt->bindParam(":levy_amount", $personData["levy_amount"], PDO::PARAM_STR);
+        $stmt->bindParam(":race", $personData["race"], PDO::PARAM_STR);
 
         $stmt->execute();
     }

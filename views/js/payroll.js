@@ -657,6 +657,9 @@ $("#salaryVoucherForm").on("change", "input.grossPay", function () {
   if (document.getElementById("newIsSGPR").checked) {
     setCPF();
   }
+  if (document.getElementById("newCSMSelection").checked) {
+    calculateCSM();
+  }
   recalculateTotalDeductions();
 })
 
@@ -666,6 +669,9 @@ $("#salaryVoucherForm").on("change", "input.ratePT", function () {
   if (document.getElementById("newIsSGPR").checked) {
     setCPF();
   }
+  if (document.getElementById("newCSMSelection").checked) {
+    calculateCSM();
+  }
   recalculateTotalDeductions();
 })
 
@@ -673,6 +679,9 @@ $("#salaryVoucherForm").on("change", "input.unitPT", function () {
   calculateSubtotalPT();
   if (document.getElementById("newIsSGPR").checked) {
     setCPF();
+  }
+  if (document.getElementById("newCSMSelection").checked) {
+    calculateCSM();
   }
   recalculateTotalDeductions();
 })
@@ -688,6 +697,17 @@ $('#newIsSGPR').on('ifUnchecked', function (event) {
 
 $('#newIsSGPR').on('ifChecked', function (event) {
   setCPF();
+  recalculateTotalDeductions();
+});
+
+$('#newCSMSelection').on('ifUnchecked', function (event) {
+  $('#newCSMTitle').val("N/A");
+  $('#newCSMAmount').val("0.00");
+  recalculateTotalDeductions();
+});
+
+$('#newCSMSelection').on('ifChecked', function (event) {
+  calculateCSM();
   recalculateTotalDeductions();
 });
 
@@ -914,6 +934,7 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
       $('#newBankAccount').val(answer['bank_acct']);
       $('#newGrossPay').val(answer['gross_pay']);
       $('#newLevyAmount').val(answer['levy_amount']);
+      $('#newSDLAmount').val(answer['sdl_amount']);
       $('#newTotalDeductions').val(answer['total_deductions']);
       $('#newTotalOthers').val(answer['total_others']);
       $('#newFinalAmount').val(answer['final_amount']);
@@ -921,6 +942,11 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
         $('#newIsSGPR').iCheck('check');
       } else {
         $('#newIsSGPR').iCheck('uncheck');
+      }
+      if (answer['is_csm'] == 1) {
+        $('#newCSMSelection').iCheck('check');
+      } else {
+        $('#newCSMSelection').iCheck('uncheck');
       }
       $('#newCPFEmployee').val(answer['cpf_employee']);
       $('#newCPFEmployer').val(answer['cpf_employer']);
@@ -989,6 +1015,9 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#newCPFEmployee').val(answer[i]['amount']);
+                } else if (answer[i]['title'] == "CDAC" || answer[i]['title'] == "MBMF" || answer[i]['title'] == "SINDA" || answer[i]['title'] == "ECF" || answer[i]['title'] == "N/A") {
+                  $('#newCSMTitle').val(answer[i]['title']);
+                  $('#newCSMAmount').val(answer[i]['amount']);
                 } else {
                   $("#appendDeductionListing").append(
                     `
@@ -1152,6 +1181,7 @@ $(".tableSalaryVoucherDraftsPT tbody").on("click", "button.btnLoadSalaryVoucherD
       $('#newBankAccount').val(answer['bank_acct']);
       $('#newGrossPay').val(answer['gross_pay']);
       $('#newLevyAmount').val(answer['levy_amount']);
+      $('#newSDLAmount').val(answer['sdl_amount']);
       $('#newTotalDeductions').val(answer['total_deductions']);
       $('#newTotalOthers').val(answer['total_others']);
       $('#newFinalAmount').val(answer['final_amount']);
@@ -1159,6 +1189,11 @@ $(".tableSalaryVoucherDraftsPT tbody").on("click", "button.btnLoadSalaryVoucherD
         $('#newIsSGPR').iCheck('check');
       } else {
         $('#newIsSGPR').iCheck('uncheck');
+      }
+      if (answer['is_csm'] == 1) {
+        $('#newCSMSelection').iCheck('check');
+      } else {
+        $('#newCSMSelection').iCheck('uncheck');
       }
       $('#newCPFEmployee').val(answer['cpf_employee']);
       $('#newCPFEmployer').val(answer['cpf_employer']);
@@ -1226,6 +1261,9 @@ $(".tableSalaryVoucherDraftsPT tbody").on("click", "button.btnLoadSalaryVoucherD
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#newCPFEmployee').val(answer[i]['amount']);
+                } else if (answer[i]['title'] == "CDAC" || answer[i]['title'] == "MBMF" || answer[i]['title'] == "SINDA" || answer[i]['title'] == "ECF" || answer[i]['title'] == "N/A") {
+                  $('#newCSMTitle').val(answer[i]['title']);
+                  $('#newCSMAmount').val(answer[i]['amount']);
                 } else {
                   $("#appendDeductionListing").append(
                     `
@@ -1415,12 +1453,18 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
       $('#viewGrossPay').val(answer['gross_pay']);
       $('#viewTotalDeductions').val(answer['total_deductions']);
       $('#viewLevyAmount').val(answer['levy_amount']);
+      $('#viewSDLAmount').val(answer['sdl_amount']);
       $('#viewTotalOthers').val(answer['total_others']);
       $('#viewFinalAmount').val(answer['final_amount']);
       if (answer['is_sg_pr'] == 1) {
         $('#viewIsSGPR').iCheck('check');
       } else {
         $('#viewIsSGPR').iCheck('uncheck');
+      }
+      if (answer['is_csm'] == 1) {
+        $('#viewCSMSelection').iCheck('check');
+      } else {
+        $('#viewCSMSelection').iCheck('uncheck');
       }
       $('#viewCPFEmployee').val(answer['cpf_employee']);
       $('#viewCPFEmployer').val(answer['cpf_employer']);
@@ -1484,6 +1528,9 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#viewCPFEmployee').val(answer[i]['amount']);
+                } else if (answer[i]['title'] == "CDAC" || answer[i]['title'] == "MBMF" || answer[i]['title'] == "SINDA" || answer[i]['title'] == "ECF" || answer[i]['title'] == "N/A") {
+                  $('#newCSMTitle').val(answer[i]['title']);
+                  $('#newCSMAmount').val(answer[i]['amount']);
                 } else {
                   $("#appendDeductionListing").append(
                     `
@@ -1633,12 +1680,18 @@ $(".tableMySalaryVouchersPT tbody").on("click", "button.btnViewSalaryVoucher", f
       $('#viewGrossPay').val(answer['gross_pay']);
       $('#viewTotalDeductions').val(answer['total_deductions']);
       $('#viewLevyAmount').val(answer['levy_amount']);
+      $('#viewSDLAmount').val(answer['sdl_amount']);
       $('#viewTotalOthers').val(answer['total_others']);
       $('#viewFinalAmount').val(answer['final_amount']);
       if (answer['is_sg_pr'] == 1) {
         $('#viewIsSGPR').iCheck('check');
       } else {
         $('#viewIsSGPR').iCheck('uncheck');
+      }
+      if (answer['is_csm'] == 1) {
+        $('#viewCSMSelection').iCheck('check');
+      } else {
+        $('#viewCSMSelection').iCheck('uncheck');
       }
       $('#viewCPFEmployee').val(answer['cpf_employee']);
       $('#viewCPFEmployer').val(answer['cpf_employer']);
@@ -1706,6 +1759,9 @@ $(".tableMySalaryVouchersPT tbody").on("click", "button.btnViewSalaryVoucher", f
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#viewCPFEmployee').val(answer[i]['amount']);
+                } else if (answer[i]['title'] == "CDAC" || answer[i]['title'] == "MBMF" || answer[i]['title'] == "SINDA" || answer[i]['title'] == "ECF" || answer[i]['title'] == "N/A") {
+                  $('#newCSMTitle').val(answer[i]['title']);
+                  $('#newCSMAmount').val(answer[i]['amount']);
                 } else {
                   $("#appendDeductionListing").append(
                     `
@@ -1875,12 +1931,18 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
       $('#newGrossPay').val(answer['gross_pay']);
       $('#newTotalDeductions').val(answer['total_deductions']);
       $('#newLevyAmount').val(answer['levy_amount']);
+      $('#newSDLAmount').val(answer['sdl_amount']);
       $('#newTotalOthers').val(answer['total_others']);
       $('#newFinalAmount').val(answer['final_amount']);
       if (answer['is_sg_pr'] == 1) {
         $('#newIsSGPR').iCheck('check');
       } else {
         $('#newIsSGPR').iCheck('uncheck');
+      }
+      if (answer['is_csm'] == 1) {
+        $('#newCSMSelection').iCheck('check');
+      } else {
+        $('#newCSMSelection').iCheck('uncheck');
       }
       $('#newCPFEmployee').val(answer['cpf_employee']);
       $('#newCPFEmployer').val(answer['cpf_employer']);
@@ -1897,6 +1959,22 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
 
       $('#newMethodOfPayment').select2({
         placeholder: "Select method of payment"
+      });
+
+      var get_employees_payroll = new FormData();
+      get_employees_payroll.append('get_employees_payroll', answer['person_id']);
+
+      $.ajax({
+        url: "ajax/employees.ajax.php",
+        method: "POST",
+        data: get_employees_payroll,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (answer) {
+          $('#newRaceValue').val(answer[0]['race']);
+        }
       });
 
       $.ajax({
@@ -1953,6 +2031,9 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#newCPFEmployee').val(answer[i]['amount']);
+                } else if (answer[i]['title'] == "CDAC" || answer[i]['title'] == "MBMF" || answer[i]['title'] == "SINDA" || answer[i]['title'] == "ECF" || answer[i]['title'] == "N/A") {
+                  $('#newCSMTitle').val(answer[i]['title']);
+                  $('#newCSMAmount').val(answer[i]['amount']);
                 } else {
                   $("#appendDeductionListing").append(
                     `
@@ -2111,12 +2192,18 @@ $(".tableAllSalaryVouchersPT tbody").on("click", "button.btnEditSalaryVoucher", 
       $('#newGrossPay').val(answer['gross_pay']);
       $('#newTotalDeductions').val(answer['total_deductions']);
       $('#newLevyAmount').val(answer['levy_amount']);
+      $('#newSDLAmount').val(answer['sdl_amount']);
       $('#newTotalOthers').val(answer['total_others']);
       $('#newFinalAmount').val(answer['final_amount']);
       if (answer['is_sg_pr'] == 1) {
         $('#newIsSGPR').iCheck('check');
       } else {
         $('#newIsSGPR').iCheck('uncheck');
+      }
+      if (answer['is_csm'] == 1) {
+        $('#newCSMSelection').iCheck('check');
+      } else {
+        $('#newCSMSelection').iCheck('uncheck');
       }
       $('#newCPFEmployee').val(answer['cpf_employee']);
       $('#newCPFEmployer').val(answer['cpf_employer']);
@@ -2135,6 +2222,22 @@ $(".tableAllSalaryVouchersPT tbody").on("click", "button.btnEditSalaryVoucher", 
 
       $('#newMethodOfPayment').select2({
         placeholder: "Select method of payment"
+      });
+
+      var get_employees_payroll = new FormData();
+      get_employees_payroll.append('get_employees_payroll', answer['person_id']);
+
+      $.ajax({
+        url: "ajax/employees.ajax.php",
+        method: "POST",
+        data: get_employees_payroll,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (answer) {
+          $('#newRaceValue').val(answer[0]['race']);
+        }
       });
 
       $.ajax({
@@ -2188,6 +2291,9 @@ $(".tableAllSalaryVouchersPT tbody").on("click", "button.btnEditSalaryVoucher", 
               for (var i = 0; i < answer.length; i++) {
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#newCPFEmployee').val(answer[i]['amount']);
+                } else if (answer[i]['title'] == "CDAC" || answer[i]['title'] == "MBMF" || answer[i]['title'] == "SINDA" || answer[i]['title'] == "ECF" || answer[i]['title'] == "N/A") {
+                  $('#newCSMTitle').val(answer[i]['title']);
+                  $('#newCSMAmount').val(answer[i]['amount']);
                 } else {
                   $("#appendDeductionListing").append(
                     `
@@ -2376,10 +2482,116 @@ function recalculateGrossPay() {
     currentGrossPay = currentGrossPay + amount;
   })
 
+  calculateSDL(currentGrossPay);
+
   $("#newGrossPay").val(Number(currentGrossPay).toFixed(2));
   calculateFinalAmount();
 }
 
+//CDAC, SINDA, MBMF, ECF
+function calculateCSM() {
+  var currentGrossPay = parseFloat(document.getElementById("newGrossPay").value);
+  var race = document.getElementById('newRaceValue').value;
+  if (race == "Chinese") {
+    calculateCDACCSM(currentGrossPay);
+    $('#newCSMTitle').val("CDAC");
+  } else if (race == "Malay") {
+    $('#newCSMTitle').val("MBMF");
+    calculateMBMFCSM(currentGrossPay);
+  } else if (race == "Indian") {
+    $('#newCSMTitle').val("SINDA");
+    calculateSindaCSM(currentGrossPay);
+  } else if (race == "Eurasian") {
+    $('#newCSMTitle').val("ECF");
+    calculateECFCSM(currentGrossPay);
+  }
+}
+
+function calculateCDACCSM(currentGrossPay) {
+  if (currentGrossPay <= 2000) {
+    $("#newCSMAmount").val(Number(0.50).toFixed(2));
+  } else if (currentGrossPay > 2000 && currentGrossPay <= 3500) {
+    $("#newCSMAmount").val(Number(1.00).toFixed(2));
+  } else if (currentGrossPay > 3500 && currentGrossPay <= 5000) {
+    $("#newCSMAmount").val(Number(1.50).toFixed(2));
+  } else if (currentGrossPay > 5000 && currentGrossPay <= 7500) {
+    $("#newCSMAmount").val(Number(2.00).toFixed(2));
+  } else if (currentGrossPay > 7500) {
+    $("#newCSMAmount").val(Number(3.00).toFixed(2));
+  }
+}
+
+function calculateMBMFCSM(currentGrossPay) {
+  if (currentGrossPay <= 1000) {
+    $("#newCSMAmount").val(Number(3.00).toFixed(2));
+  } else if (currentGrossPay > 1000 && currentGrossPay <= 2000) {
+    $("#newCSMAmount").val(Number(4.50).toFixed(2));
+  } else if (currentGrossPay > 2000 && currentGrossPay <= 3000) {
+    $("#newCSMAmount").val(Number(6.50).toFixed(2));
+  } else if (currentGrossPay > 3000 && currentGrossPay <= 4000) {
+    $("#newCSMAmount").val(Number(15.00).toFixed(2));
+  } else if (currentGrossPay > 4000 && currentGrossPay <= 6000) {
+    $("#newCSMAmount").val(Number(19.50).toFixed(2));
+  } else if (currentGrossPay > 6000 && currentGrossPay <= 8000) {
+    $("#newCSMAmount").val(Number(22.00).toFixed(2));
+  } else if (currentGrossPay > 8000 && currentGrossPay <= 10000) {
+    $("#newCSMAmount").val(Number(24.00).toFixed(2));
+  } else if (currentGrossPay > 10000) {
+    $("#newCSMAmount").val(Number(26.00).toFixed(2));
+  }
+}
+
+function calculateSindaCSM(currentGrossPay) {
+  if (currentGrossPay <= 1000) {
+    $("#newCSMAmount").val(Number(1.00).toFixed(2));
+  } else if (currentGrossPay > 1000 && currentGrossPay <= 1500) {
+    $("#newCSMAmount").val(Number(3.00).toFixed(2));
+  } else if (currentGrossPay > 1500 && currentGrossPay <= 2500) {
+    $("#newCSMAmount").val(Number(5.00).toFixed(2));
+  } else if (currentGrossPay > 2500 && currentGrossPay <= 4500) {
+    $("#newCSMAmount").val(Number(7.00).toFixed(2));
+  } else if (currentGrossPay > 4500 && currentGrossPay <= 7500) {
+    $("#newCSMAmount").val(Number(9.00).toFixed(2));
+  } else if (currentGrossPay > 7500 && currentGrossPay <= 10000) {
+    $("#newCSMAmount").val(Number(12.00).toFixed(2));
+  } else if (currentGrossPay > 10000 && currentGrossPay <= 15000) {
+    $("#newCSMAmount").val(Number(18.00).toFixed(2));
+  } else if (currentGrossPay > 15000) {
+    $("#newCSMAmount").val(Number(30.00).toFixed(2));
+  }
+}
+
+function calculateECFCSM(currentGrossPay) {
+  if (currentGrossPay <= 1000) {
+    $("#newCSMAmount").val(Number(2.00).toFixed(2));
+  } else if (currentGrossPay > 1000 && currentGrossPay <= 1500) {
+    $("#newCSMAmount").val(Number(4.00).toFixed(2));
+  } else if (currentGrossPay > 1500 && currentGrossPay <= 2500) {
+    $("#newCSMAmount").val(Number(6.00).toFixed(2));
+  } else if (currentGrossPay > 2500 && currentGrossPay <= 4000) {
+    $("#newCSMAmount").val(Number(9.00).toFixed(2));
+  } else if (currentGrossPay > 4500 && currentGrossPay <= 7000) {
+    $("#newCSMAmount").val(Number(12.00).toFixed(2));
+  } else if (currentGrossPay > 7000 && currentGrossPay <= 10000) {
+    $("#newCSMAmount").val(Number(16.00).toFixed(2));
+  } else if (currentGrossPay > 10000) {
+    $("#newCSMAmount").val(Number(20.00).toFixed(2));
+  }
+}
+
+function calculateSDL(currentGrossPay) {
+  var SDLamount = 0.00;
+  if (currentGrossPay <= 800) {
+    SDLamount = 2.00;
+    $("#newSDLAmount").val(Number(SDLamount).toFixed(2));
+  } else if (currentGrossPay > 800 && currentGrossPay < 4500) {
+    SDLamount = currentGrossPay * (0.25 / 100);
+    $("#newSDLAmount").val(Number(SDLamount).toFixed(2));
+  } else {
+    SDLamount = 11.25;
+    $("#newSDLAmount").val(Number(SDLamount).toFixed(2));
+  }
+}
 
 function recalculateTotalDeductions() {
   var currentTotalDeductions = 0;
@@ -2546,39 +2758,177 @@ function calculateFinalAmount() {
 }
 
 function setCPF() {
-  currentGrossPay = parseFloat(document.getElementById("newGrossPay").value);
-  CPF_employee = 0.00;
-  CPF_employer = 0.00;
-  amount = 0.00;
+  var currentGrossPay = parseFloat(document.getElementById("newGrossPay").value);
+  var currentAge = calculate_age(Date.parse(document.getElementById("currentPersonDOB").value));
 
-  if (currentGrossPay >= 750) {
-    $("#salaryVoucherForm").find('input.grossPay').each(function (index, element) {
-      if (index == 0) {
-        if ($(element).val() >= 6000) {
-          CPF_employee = 1200.00;
-          CPF_employer = 2220.00;
+  var CPF_employee = 0.00;
+  var CPF_employer = 0.00;
+  var amount = 0.00;
+  var totalPercentage = 0;
+
+
+  if (currentAge <= 55) {
+    employerPercentage = 0.17;
+    employeePercentage = 0.20;
+
+    if (currentGrossPay >= 750) {
+      $("#salaryVoucherForm").find('input.grossPay').each(function (index, element) {
+        if (index == 0) {
+          if ($(element).val() >= 6000) {
+            CPF_employee = 1200.00;
+            CPF_employer = 2220.00;
+          } else {
+            CPF_employee = parseFloat($(element).val()) * employeePercentage;
+            CPF_employer = parseFloat($(element).val()) * (employeePercentage + employerPercentage);
+          }
         } else {
-          CPF_employee = parseFloat($(element).val()) * 0.20;
-          CPF_employer = parseFloat($(element).val()) * 0.37;
+          amount = amount + parseFloat($(element).val());
         }
-      } else {
-        amount = amount + parseFloat($(element).val());
-      }
-    })
-    CPF_employee = Math.floor(CPF_employee + amount * 0.20);
-    CPF_employer = Math.round(CPF_employer + amount * 0.37) - CPF_employee;
-  } else if (currentGrossPay > 500 && currentGrossPay < 750) {
-    CPF_employee = Math.floor(0.6 * (currentGrossPay - 500.00));
-    CPF_employer = Math.round(0.17 * currentGrossPay + 0.6 * (currentGrossPay - 500.00)) - CPF_employee;
-  } else if (currentGrossPay > 50 && currentGrossPay <= 500) {
-    CPF_employee = 0.00;
-    CPF_employer = Math.round(0.17 * currentGrossPay);
-  } else if (currentGrossPay <= 50) {
-    CPF_employee = 0.00;
-    CPF_employer = 0.00;
-  }
+      })
+      CPF_employee = Math.floor(CPF_employee + amount * employeePercentage);
+      CPF_employer = Math.round(CPF_employer + amount * (employeePercentage + employerPercentage)) - CPF_employee;
+    } else if (currentGrossPay > 500 && currentGrossPay < 750) {
+      CPF_employee = Math.floor(0.6 * (currentGrossPay - 500.00));
+      CPF_employer = Math.round(employerPercentage * currentGrossPay + 0.6 * (currentGrossPay - 500.00)) - CPF_employee;
+    } else if (currentGrossPay > 50 && currentGrossPay <= 500) {
+      CPF_employee = 0.00;
+      CPF_employer = Math.round(employerPercentage * currentGrossPay);
+    } else if (currentGrossPay <= 50) {
+      CPF_employee = 0.00;
+      CPF_employer = 0.00;
+    }
 
+  } else if (currentAge > 55 && currentAge <= 60) {
+    employerPercentage = 0.13;
+    employeePercentage = 0.13;
+
+    if (currentGrossPay >= 750) {
+      $("#salaryVoucherForm").find('input.grossPay').each(function (index, element) {
+        if (index == 0) {
+          if ($(element).val() >= 6000) {
+            CPF_employee = 780.00;
+            CPF_employer = 1560.00;
+          } else {
+            CPF_employee = parseFloat($(element).val()) * employeePercentage;
+            CPF_employer = parseFloat($(element).val()) * (employeePercentage + employerPercentage);
+          }
+        } else {
+          amount = amount + parseFloat($(element).val());
+        }
+      })
+      CPF_employee = Math.floor(CPF_employee + amount * employeePercentage);
+      CPF_employer = Math.round(CPF_employer + amount * (employeePercentage + employerPercentage)) - CPF_employee;
+    } else if (currentGrossPay > 500 && currentGrossPay < 750) {
+      CPF_employee = Math.floor(0.39 * (currentGrossPay - 500.00));
+      CPF_employer = Math.round(employerPercentage * currentGrossPay + 0.39 * (currentGrossPay - 500.00)) - CPF_employee;
+    } else if (currentGrossPay > 50 && currentGrossPay <= 500) {
+      CPF_employee = 0.00;
+      CPF_employer = Math.round(employerPercentage * currentGrossPay);
+    } else if (currentGrossPay <= 50) {
+      CPF_employee = 0.00;
+      CPF_employer = 0.00;
+    }
+
+  } else if (currentAge > 60 && currentAge <= 65) {
+    employerPercentage = 0.09;
+    employeePercentage = 0.075;
+
+    if (currentGrossPay >= 750) {
+      $("#salaryVoucherForm").find('input.grossPay').each(function (index, element) {
+        if (index == 0) {
+          if ($(element).val() >= 6000) {
+            CPF_employee = 450.00;
+            CPF_employer = 990.00;
+          } else {
+            CPF_employee = parseFloat($(element).val()) * employeePercentage;
+            CPF_employer = parseFloat($(element).val()) * (employeePercentage + employerPercentage);
+          }
+        } else {
+          amount = amount + parseFloat($(element).val());
+        }
+      })
+      CPF_employee = Math.floor(CPF_employee + amount * employeePercentage);
+      CPF_employer = Math.round(CPF_employer + amount * (employeePercentage + employerPercentage)) - CPF_employee;
+    } else if (currentGrossPay > 500 && currentGrossPay < 750) {
+      CPF_employee = Math.floor(0.225 * (currentGrossPay - 500.00));
+      CPF_employer = Math.round(employerPercentage * currentGrossPay + 0.225 * (currentGrossPay - 500.00)) - CPF_employee;
+    } else if (currentGrossPay > 50 && currentGrossPay <= 500) {
+      CPF_employee = 0.00;
+      CPF_employer = Math.round(employerPercentage * currentGrossPay);
+    } else if (currentGrossPay <= 50) {
+      CPF_employee = 0.00;
+      CPF_employer = 0.00;
+    }
+
+  } else if (currentAge > 65) {
+    employerPercentage = 0.075;
+    employeePercentage = 0.05;
+
+    if (currentGrossPay >= 750) {
+      $("#salaryVoucherForm").find('input.grossPay').each(function (index, element) {
+        if (index == 0) {
+          if ($(element).val() >= 6000) {
+            CPF_employee = 780.00;
+            CPF_employer = 1560.00;
+          } else {
+            CPF_employee = parseFloat($(element).val()) * employeePercentage;
+            CPF_employer = parseFloat($(element).val()) * (employeePercentage + employerPercentage);
+          }
+        } else {
+          amount = amount + parseFloat($(element).val());
+        }
+      })
+      CPF_employee = Math.floor(CPF_employee + amount * employeePercentage);
+      CPF_employer = Math.round(CPF_employer + amount * (employeePercentage + employerPercentage)) - CPF_employee;
+    } else if (currentGrossPay > 500 && currentGrossPay < 750) {
+      CPF_employee = Math.floor(0.15 * (currentGrossPay - 500.00));
+      CPF_employer = Math.round(employerPercentage * currentGrossPay + 0.15 * (currentGrossPay - 500.00)) - CPF_employee;
+    } else if (currentGrossPay > 50 && currentGrossPay <= 500) {
+      CPF_employee = 0.00;
+      CPF_employer = Math.round(employerPercentage * currentGrossPay);
+    } else if (currentGrossPay <= 50) {
+      CPF_employee = 0.00;
+      CPF_employer = 0.00;
+    }
+  } else {
+    employerPercentage = 0.17;
+    employeePercentage = 0.20;
+
+    if (currentGrossPay >= 750) {
+      $("#salaryVoucherForm").find('input.grossPay').each(function (index, element) {
+        if (index == 0) {
+          if ($(element).val() >= 6000) {
+            CPF_employee = 1200.00;
+            CPF_employer = 2220.00;
+          } else {
+            CPF_employee = parseFloat($(element).val()) * employeePercentage;
+            CPF_employer = parseFloat($(element).val()) * (employeePercentage + employerPercentage);
+          }
+        } else {
+          amount = amount + parseFloat($(element).val());
+        }
+      })
+      CPF_employee = Math.floor(CPF_employee + amount * employeePercentage);
+      CPF_employer = Math.round(CPF_employer + amount * (employeePercentage + employerPercentage)) - CPF_employee;
+    } else if (currentGrossPay > 500 && currentGrossPay < 750) {
+      CPF_employee = Math.floor(0.6 * (currentGrossPay - 500.00));
+      CPF_employer = Math.round(employerPercentage * currentGrossPay + 0.6 * (currentGrossPay - 500.00)) - CPF_employee;
+    } else if (currentGrossPay > 50 && currentGrossPay <= 500) {
+      CPF_employee = 0.00;
+      CPF_employer = Math.round(employerPercentage * currentGrossPay);
+    } else if (currentGrossPay <= 50) {
+      CPF_employee = 0.00;
+      CPF_employer = 0.00;
+    }
+  }
 
   $("#newCPFEmployee").val(Number(CPF_employee).toFixed(2));
   $("#newCPFEmployer").val(Number(CPF_employer).toFixed(2));
+}
+
+function calculate_age(dob) {
+  var diff_ms = Date.now() - dob;
+  var age_dt = new Date(diff_ms);
+
+  return Math.abs(age_dt.getUTCFullYear() - 1970);
 }

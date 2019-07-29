@@ -301,10 +301,36 @@
                                         step="0.01" value="0.00" name="viewCPFEmployer">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                    <label for="viewLevyAmount">Levy</label>
+                                    <label for="viewLevyAmount">Foreign Worker Levy</label>
                                     <input readonly type="number" class="form-control" id="viewLevyAmount" min="0.00"
                                         step="0.01" value="0.00" name="viewLevyAmount">
                                 </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                    <label for="viewSDLAmount">Skills Development Levy</label>
+                                    <input readonly type="number" class="form-control" id="newSDLAmount" min="0.00"
+                                        step="0.01" value="0.00" name="newSDLAmount">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label for="viewCSMSelection">Self-Help Groups (SHGs) and SHARE Donations</label>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <input type="hidden" name='viewCSMSelection' value="0" />
+                                <input type="checkbox" class="minimal" id="viewCSMSelection" name="viewCSMSelection"
+                                    value="1">&nbsp;&nbsp;Yes
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <label for="viewCSMTitle">SHGs and SHARE Donations to</label>
+                                <input readonly type="text" class="form-control" id="viewCSMTitle"
+                                    name="deductionTitle[1]" value="N/A">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <label for="viewCSMAmount">Amount</label>
+                                <input readonly type="number" class="form-control totalDeductions" id="viewCSMAmount"
+                                    min="0.00" step="0.01" value="0.00" name="deductionAmount[1]">
                             </div>
                         </div>
 

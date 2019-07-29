@@ -26,6 +26,9 @@ class EmployeeController
 
             if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['inUsername'])) {
 
+                
+            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+
                 $table = 'employees';
                 $item = 'username';
                 $username = filter_var($_POST['inUsername'], FILTER_SANITIZE_STRING);
@@ -66,7 +69,9 @@ class EmployeeController
                             //echo "<script type='text/javascript'> alert('System has migrated your account details successfully.') </script>";
 
                             $_SESSION["loggedIn"] = true;
-                            self::setSessionVariables($response);
+                            $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
+                            $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);
+                            self::setSessionVariables($response, $payrollData, $allowedStoresData);
 
                             echo '<script>
                                 window.location = "home";
@@ -107,6 +112,7 @@ class EmployeeController
         $_SESSION["bank_acct"] = $response["bank_acct"];
         $_SESSION["company_name"] = $payrollData[0]["company_name"];
         $_SESSION["levy_amount"] = $payrollData[0]["levy_amount"];
+        $_SESSION["race"] = $payrollData[0]["race"];
         $_SESSION["allowedStoresData"] = $allowedStoresData;
 
         $response = EmployeeModel::mdlViewEmployeePermissions($response['person_id']);
@@ -211,6 +217,7 @@ class EmployeeController
                 $submittedForm['emergency_address'] = filter_var($_POST['newEmergencyAddress'], FILTER_SANITIZE_STRING);
                 $submittedForm['emergency_contact'] = filter_var($_POST['newEmergencyContact'], FILTER_SANITIZE_STRING);
 
+                $submittedForm['race'] = filter_var($_POST['newRace'], FILTER_SANITIZE_STRING);
                 $submittedForm['company_name'] = filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING);
                 $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
                 foreach ($_POST['newStoreSelections'] as $index => $storeId) {
@@ -241,6 +248,7 @@ class EmployeeController
                     'emergency_contact' => $submittedForm['emergency_contact'],
                     'company_name' => $submittedForm['company_name'],
                     'levy_amount' => $submittedForm['levy_amount'],
+                    'race' => $submittedForm['race'],
                     'employees_stores' => $submittedForm['employees_stores'],
                     'username' => $newUsername,
                     'password' => $_POST["newPassword"]);
@@ -422,6 +430,7 @@ class EmployeeController
             $submittedForm['emergency_address'] = filter_var($_POST['editEmergencyAddress'], FILTER_SANITIZE_STRING);
             $submittedForm['emergency_contact'] = filter_var($_POST['editEmergencyContact'], FILTER_SANITIZE_STRING);
 
+            $submittedForm['race'] = filter_var($_POST['editRace'], FILTER_SANITIZE_STRING);
             $submittedForm['company_name'] = filter_var($_POST['editCompanySelection'], FILTER_SANITIZE_STRING);
             $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['editLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
             foreach ($_POST['updateStoreActive'] as $index => $active) {
@@ -460,6 +469,7 @@ class EmployeeController
                 'emergency_contact' => $submittedForm["emergency_contact"],
                 'company_name' => $submittedForm['company_name'],
                 'levy_amount' => $submittedForm['levy_amount'],
+                'race' => $submittedForm['race'],
                 'employees_stores' => $submittedForm['employees_stores'],
                 'updateStoreActive' => $submittedForm['updateStoreActive'],
                 'updateStoreSelection' => $submittedForm['updateStoreSelection']

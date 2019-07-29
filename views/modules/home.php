@@ -15,11 +15,13 @@ session_start();
             <li class="active">Dashboard</li>
         </ol>
 
-        <div class="text-center">
-            <iframe
-                src="https://freesecure.timeanddate.com/clock/i6v5pe01/n236/szw210/szh210/hoc000/hbw4/cf100/hgr0/fav0/fiv0/mqc000/mqs3/mql25/mqw2/mqd96/mhc000/mhs3/mhl20/mhw2/mhd96/mmc000/mms3/mml5/mmw2/mmd96/hhs2/hhw8/hms2/hmw8/hmr4/hsc000/hss3/hsl90"
-                frameborder="0" width="210" height="210" style="margin-top: 20px;">
-            </iframe>
+        <div class="hidden-xs hidden-sm">
+            <div class="text-center">
+                <iframe
+                    src="https://freesecure.timeanddate.com/clock/i6v5pe01/n236/szw210/szh210/hoc000/hbw4/cf100/hgr0/fav0/fiv0/mqc000/mqs3/mql25/mqw2/mqd96/mhc000/mhs3/mhl20/mhw2/mhd96/mmc000/mms3/mml5/mmw2/mmd96/hhs2/hhw8/hms2/hmw8/hmr4/hsc000/hss3/hsl90"
+                    frameborder="0" width="210" height="210" style="margin-top: 20px;">
+                </iframe>
+            </div>
         </div>
 
         <div class="text-center">

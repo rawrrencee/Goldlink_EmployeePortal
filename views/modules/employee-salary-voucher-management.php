@@ -107,6 +107,7 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
 
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentPersonId" name="currentPersonId" value="">
+                <input type="hidden" id="currentPersonDOB" name="currentPersonDOB" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
 
                 <input type="hidden" id="updateVoucherStatus" name="updateVoucherStatus" value="">
@@ -115,6 +116,7 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
 
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="3">
                 <input type="hidden" id="newCompanyName" name="newCompanyName" value="">
+                <input type="hidden" id="newRaceValue" name="newRaceValue" value="">
                 <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="">
 
                 <div class="tab-content">
@@ -191,7 +193,8 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newPayToPersonName">Pay To (as in NRIC) <small style="color:red;">*Required</small></label>
+                                        <label for="newPayToPersonName">Pay To (as in NRIC) <small
+                                                style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="newPayToPersonName"
                                             name="newPayToPersonName"
                                             value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'];?>">
@@ -215,7 +218,8 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <label for="newDateOfBirth">Date Of Birth</label>
                                         <input required type="text" class="form-control datepicker" id="newDateOfBirth"
-                                            name="newDateOfBirth" style="background-color: white;" value="<?php echo $_SESSION['date_of_birth'];?>">
+                                            name="newDateOfBirth" style="background-color: white;"
+                                            value="<?php echo $_SESSION['date_of_birth'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -223,12 +227,14 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankName">Bank Name <small style="color:red;">*Required</small></label>
+                                        <label for="newBankName">Bank Name <small
+                                                style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="newBankName" name="newBankName"
                                             value="<?php echo $_SESSION['bank_name'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankAccount">Bank Account <small style="color:red;">*Required</small></label>
+                                        <label for="newBankAccount">Bank Account <small
+                                                style="color:red;">*Required</small></label>
                                         <input type="text" class="form-control" id="newBankAccount"
                                             name="newBankAccount" value="<?php echo $_SESSION['bank_acct'];?>">
                                     </div>
@@ -374,12 +380,39 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                             step="0.01" value="0.00" name="newCPFEmployer">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                        <label for="newLevyAmount">Levy (if applicable)</label>
+                                        <label for="newLevyAmount">Foreign Worker Levy</label>
                                         <input type="number" class="form-control" id="newLevyAmount" min="0.00"
                                             step="0.01" value="0.00" name="newLevyAmount">
                                     </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                        <label for="newSDLAmount">Skills Development Levy</label>
+                                        <input type="number" class="form-control" id="newSDLAmount" min="0.00"
+                                            step="0.01" value="0.00" name="newSDLAmount">
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="form-row col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label for="newCSMSelection">Self-Help Groups (SHGs) and SHARE Donations</label>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <input type="hidden" name='newCSMSelection' value="0" />
+                                    <input type="checkbox" class="minimal" id="newCSMSelection" name="newCSMSelection"
+                                        value="1">&nbsp;&nbsp;Yes
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                    <label for="newCSMTitle">SHGs and SHARE Donations to</label>
+                                    <input type="text" class="form-control" id="newCSMTitle"
+                                        name="deductionTitle[1]" value="N/A">
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                    <label for="newCSMAmount">Amount</label>
+                                    <input type="number" class="form-control totalDeductions" id="newCSMAmount"
+                                        min="0.00" step="0.01" value="0.00" name="deductionAmount[1]">
+                                </div>
+                            </div>
+
 
                             <div class="form-row col-md-12 col-sm-12 col-xs-12">
                                 <div id="appendDeductionListing">

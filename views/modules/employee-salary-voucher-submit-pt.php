@@ -89,10 +89,13 @@
 
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
+                <input type="hidden" id="currentPersonDOB" name="currentPersonDOB" value="<?php echo $_SESSION['date_of_birth'] ?>">
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
                 <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="1">
                 <input type="hidden" id="newCompanyName" name="newCompanyName"
                     value="<?php echo $_SESSION['company_name'] ?>">
+                <input type="hidden" id="newRaceValue" name="newRaceValue" value="<?php echo $_SESSION['race'] ?>">
+
 
                 <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
@@ -309,14 +312,41 @@
                                         <input readonly type="number" class="form-control" id="newCPFEmployer"
                                             min="0.00" step="0.01" value="0.00" name="newCPFEmployer">
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                        <label for="newLevyAmount">Levy (if applicable)</label>
+                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                        <label for="newLevyAmount">Foreign Worker Levy </label>
                                         <input readonly type="number" class="form-control" id="newLevyAmount" min="0.00"
                                             step="0.01" value="<?php echo $_SESSION['levy_amount'] ?>"
                                             name="newLevyAmount">
                                     </div>
+                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                        <label for="newSDLAmount">Skills Development Levy</label>
+                                        <input readonly type="number" class="form-control" id="newSDLAmount" min="0.00"
+                                            step="0.01" value="0.00" name="newSDLAmount">
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="form-row col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label for="newCSMSelection">Self-Help Groups (SHGs) and SHARE Donations</label>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <input type="hidden" name='newCSMSelection' value="0" />
+                                    <input type="checkbox" class="minimal" id="newCSMSelection" name="newCSMSelection"
+                                        value="1">&nbsp;&nbsp;Yes
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                    <label for="newCSMTitle">SHGs and SHARE Donations to</label>
+                                    <input readonly type="text" class="form-control" id="newCSMTitle"
+                                        name="deductionTitle[1]" value="N/A">
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                    <label for="newCSMAmount">Amount</label>
+                                    <input readonly type="number" class="form-control totalDeductions" id="newCSMAmount"
+                                        min="0.00" step="0.01" value="0.00" name="deductionAmount[1]">
+                                </div>
+                            </div>
+
 
                             <div class="form-row col-md-12 col-sm-12 col-xs-12">
                                 <div id="appendDeductionListing">

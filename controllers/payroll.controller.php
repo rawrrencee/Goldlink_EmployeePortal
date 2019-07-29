@@ -111,6 +111,7 @@ class PayrollController
                 $submittedForm['boutique_sales'] = filter_var($_POST['newBoutiqueSales'], FILTER_SANITIZE_STRING);
             }
             $submittedForm['is_sg_pr'] = (int) filter_var((int) $_POST['newIsSGPR'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['is_csm'] = (int) filter_var((int) $_POST['newCSMSelection'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['cpf_employee'] = number_format(floatval(filter_var($_POST['deductionAmount'][0], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['cpf_employer'] = number_format(floatval(filter_var($_POST['newCPFEmployer'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['num_days_zero_sales'] = (int) filter_var((int) $_POST['newNumDaysZeroSales'], FILTER_SANITIZE_NUMBER_INT);
@@ -130,6 +131,7 @@ class PayrollController
             $submittedForm['leave_remaining'] = (int) filter_var((int) $_POST['newLeaveRemaining'], FILTER_SANITIZE_NUMBER_INT);
 
             $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['sdl_amount'] = number_format(floatval(filter_var($_POST['newSDLAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['company_name'] = filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING);
 
             if ($_POST['newIsPartTime'] == 1) {
@@ -196,6 +198,7 @@ class PayrollController
                     'total_others' => $submittedForm['total_others'],
                     'final_amount' => $submittedForm['final_amount'],
                     'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'is_csm' => $submittedForm['is_csm'],
                     'cpf_employee' => $submittedForm['cpf_employee'],
                     'cpf_employer' => $submittedForm['cpf_employer'],
                     'boutique' => $submittedForm['boutique'],
@@ -223,6 +226,7 @@ class PayrollController
                     'sales_information' => $submittedForm['newSalesInformation'],
                     'hours' => $submittedForm['newDailyHoursWorked'],
                     'levy_amount' => $submittedForm['levy_amount'],
+                    'sdl_amount' => $submittedForm['sdl_amount'],
                     'company_name' => $submittedForm['company_name'],
                     'total_hours_worked' => $submittedForm['total_hours_worked'],
                 );
@@ -245,6 +249,7 @@ class PayrollController
                     'total_others' => $submittedForm['total_others'],
                     'final_amount' => $submittedForm['final_amount'],
                     'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'is_csm' => $submittedForm['is_csm'],
                     'cpf_employee' => $submittedForm['cpf_employee'],
                     'cpf_employer' => $submittedForm['cpf_employer'],
                     'boutique' => $submittedForm['boutique'],
@@ -269,6 +274,7 @@ class PayrollController
                     'days_of_month' => $submittedForm['newDayOfMonth'],
                     'sales_information' => $submittedForm['newSalesInformation'],
                     'levy_amount' => $submittedForm['levy_amount'],
+                    'sdl_amount' => $submittedForm['sdl_amount'],
                     'company_name' => $submittedForm['company_name'],
                 );
             }
@@ -430,6 +436,7 @@ class PayrollController
                 $submittedForm['boutique_sales'] = filter_var($_POST['newBoutiqueSales'], FILTER_SANITIZE_STRING);
             }
             $submittedForm['is_sg_pr'] = (int) filter_var((int) $_POST['newIsSGPR'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['is_csm'] = (int) filter_var((int) $_POST['newCSMSelection'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['cpf_employee'] = number_format(floatval(filter_var($_POST['deductionAmount'][0], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['cpf_employer'] = number_format(floatval(filter_var($_POST['newCPFEmployer'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['num_days_zero_sales'] = (int) filter_var((int) $_POST['newNumDaysZeroSales'], FILTER_SANITIZE_NUMBER_INT);
@@ -449,6 +456,7 @@ class PayrollController
             $submittedForm['leave_remaining'] = (int) filter_var((int) $_POST['newLeaveRemaining'], FILTER_SANITIZE_NUMBER_INT);
 
             $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['sdl_amount'] = number_format(floatval(filter_var($_POST['newSDLAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['company_name'] = filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING);
             $submittedForm['status'] = "Pending";
             $submittedForm['updated_by'] = filter_var($_POST['voucherUpdatedBy'], FILTER_SANITIZE_STRING);
@@ -518,6 +526,7 @@ class PayrollController
                     'total_others' => $submittedForm['total_others'],
                     'final_amount' => $submittedForm['final_amount'],
                     'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'is_csm' => $submittedForm['is_csm'],
                     'cpf_employee' => $submittedForm['cpf_employee'],
                     'cpf_employer' => $submittedForm['cpf_employer'],
                     'boutique' => $submittedForm['boutique'],
@@ -545,8 +554,9 @@ class PayrollController
                     'sales_information' => $submittedForm['newSalesInformation'],
                     'hours' => $submittedForm['newDailyHoursWorked'],
                     'levy_amount' => $submittedForm['levy_amount'],
+                    'sdl_amount' => $submittedForm['sdl_amount'],
                     'company_name' => $submittedForm['company_name'],
-                    'total_hours_worked' => $submittedForm['total_hours_worked'],
+                    'total_hours_worked' => $submittedForm['total_hours_worked']
                 );
             } else {
                 $salaryVoucherData = array(
@@ -568,6 +578,7 @@ class PayrollController
                     'total_others' => $submittedForm['total_others'],
                     'final_amount' => $submittedForm['final_amount'],
                     'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'is_csm' => $submittedForm['is_csm'],
                     'cpf_employee' => $submittedForm['cpf_employee'],
                     'cpf_employer' => $submittedForm['cpf_employer'],
                     'boutique' => $submittedForm['boutique'],
@@ -592,7 +603,8 @@ class PayrollController
                     'days_of_month' => $submittedForm['newDayOfMonth'],
                     'sales_information' => $submittedForm['newSalesInformation'],
                     'levy_amount' => $submittedForm['levy_amount'],
-                    'company_name' => $submittedForm['company_name'],
+                    'sdl_amount' => $submittedForm['sdl_amount'],
+                    'company_name' => $submittedForm['company_name']
                 );
             }
 
@@ -754,6 +766,7 @@ class PayrollController
                 $submittedForm['boutique_sales'] = filter_var($_POST['newBoutiqueSales'], FILTER_SANITIZE_STRING);
             }
             $submittedForm['is_sg_pr'] = (int) filter_var((int) $_POST['newIsSGPR'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['is_csm'] = (int) filter_var((int) $_POST['newCSMSelection'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['cpf_employee'] = number_format(floatval(filter_var($_POST['deductionAmount'][0], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['cpf_employer'] = number_format(floatval(filter_var($_POST['newCPFEmployer'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['num_days_zero_sales'] = (int) filter_var((int) $_POST['newNumDaysZeroSales'], FILTER_SANITIZE_NUMBER_INT);
@@ -761,7 +774,6 @@ class PayrollController
             $submittedForm['personal_sales'] = number_format(floatval(filter_var($_POST['newPersonalSales'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['gross_pay'] = number_format(floatval(filter_var($_POST['newGrossPay'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['total_deductions'] = number_format(floatval(filter_var($_POST['newTotalDeductions'], FILTER_SANITIZE_STRING)), 2, '.', '');
-            $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['total_others'] = number_format(floatval(filter_var($_POST['newTotalOthers'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['final_amount'] = number_format(floatval(filter_var($_POST['newFinalAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
 
@@ -772,6 +784,9 @@ class PayrollController
             $submittedForm['leave_entitled'] = (int) filter_var((int) $_POST['newLeaveEntitled'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['leave_taken'] = (int) filter_var((int) $_POST['newLeaveTaken'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['leave_remaining'] = (int) filter_var((int) $_POST['newLeaveRemaining'], FILTER_SANITIZE_NUMBER_INT);
+
+            $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['sdl_amount'] = number_format(floatval(filter_var($_POST['newSDLAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
 
             $submittedForm['status'] = filter_var($_POST['updateVoucherStatus'], FILTER_SANITIZE_STRING);
             $submittedForm['updated_by'] = filter_var($_POST['voucherUpdatedBy'], FILTER_SANITIZE_STRING);
@@ -842,6 +857,7 @@ class PayrollController
                     'total_others' => $submittedForm['total_others'],
                     'final_amount' => $submittedForm['final_amount'],
                     'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'is_csm' => $submittedForm['is_csm'],
                     'cpf_employee' => $submittedForm['cpf_employee'],
                     'cpf_employer' => $submittedForm['cpf_employer'],
                     'boutique' => $submittedForm['boutique'],
@@ -871,8 +887,9 @@ class PayrollController
                     'sales_information' => $submittedForm['newSalesInformation'],
                     'hours' => $submittedForm['newDailyHoursWorked'],
                     'levy_amount' => $submittedForm['levy_amount'],
+                    'sdl_amount' => $submittedForm['sdl_amount'],
                     'company_name' => $submittedForm['company_name'],
-                    'total_hours_worked' => $submittedForm['total_hours_worked'],
+                    'total_hours_worked' => $submittedForm['total_hours_worked']
                 );
             } else {
                 $salaryVoucherData = array(
@@ -897,6 +914,7 @@ class PayrollController
                     'total_others' => $submittedForm['total_others'],
                     'final_amount' => $submittedForm['final_amount'],
                     'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'is_csm' => $submittedForm['is_csm'],
                     'cpf_employee' => $submittedForm['cpf_employee'],
                     'cpf_employer' => $submittedForm['cpf_employer'],
                     'boutique' => $submittedForm['boutique'],
@@ -924,8 +942,9 @@ class PayrollController
                     'sales_information' => $submittedForm['newSalesInformation'],
                     'hours' => $submittedForm['newDailyHoursWorked'],
                     'levy_amount' => $submittedForm['levy_amount'],
+                    'sdl_amount' => $submittedForm['sdl_amount'],
                     'company_name' => $submittedForm['company_name'],
-                    'total_hours_worked' => $submittedForm['total_hours_worked'],
+                    'total_hours_worked' => $submittedForm['total_hours_worked']
                 );
             }
 
