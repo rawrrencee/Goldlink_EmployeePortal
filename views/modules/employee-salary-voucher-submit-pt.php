@@ -89,7 +89,8 @@
 
                 <input type="hidden" id="currentVoucherId" name="currentVoucherId" value="">
                 <input type="hidden" id="currentCreatedOn" name="currentCreatedOn" value="">
-                <input type="hidden" id="currentPersonDOB" name="currentPersonDOB" value="<?php echo $_SESSION['date_of_birth'] ?>">
+                <input type="hidden" id="currentPersonDOB" name="currentPersonDOB"
+                    value="<?php echo $_SESSION['date_of_birth'] ?>">
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="">
                 <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="1">
                 <input type="hidden" id="newCompanyName" name="newCompanyName"
@@ -193,12 +194,14 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankName">Bank Name <small style="color:red;">*Required</small></label>
-                                        <input required type="text" class="form-control" id="newBankName" name="newBankName"
-                                            value="<?php echo $_SESSION['bank_name'];?>">
+                                        <label for="newBankName">Bank Name <small
+                                                style="color:red;">*Required</small></label>
+                                        <input required type="text" class="form-control" id="newBankName"
+                                            name="newBankName" value="<?php echo $_SESSION['bank_name'];?>">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newBankAccount">Bank Account Number <small style="color:red;">*Required</small></label>
+                                        <label for="newBankAccount">Bank Account Number <small
+                                                style="color:red;">*Required</small></label>
                                         <input required type="text" class="form-control" id="newBankAccount"
                                             name="newBankAccount" value="<?php echo $_SESSION['bank_acct'];?>">
                                     </div>
@@ -331,14 +334,28 @@
                                     <label for="newCSMSelection">Self-Help Groups (SHGs) and SHARE Donations</label>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <input type="hidden" name='newCSMSelection' value="0" />
-                                    <input type="checkbox" class="minimal" id="newCSMSelection" name="newCSMSelection"
-                                        value="1">&nbsp;&nbsp;Yes
+                                    <input type="hidden" name='newCSMSelection' value="1" />
+                                    <input checked type="checkbox" class="minimal" id="newCSMSelection"
+                                        name="newCSMSelection" value="1">&nbsp;&nbsp;Yes
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                     <label for="newCSMTitle">SHGs and SHARE Donations to</label>
                                     <input readonly type="text" class="form-control" id="newCSMTitle"
-                                        name="deductionTitle[1]" value="N/A">
+                                        name="deductionTitle[1]" value="<?php
+                                        switch($_SESSION['race']) {case "Chinese":
+                                                    echo "CDAC";
+                                                    break;
+                                                case "Malay":
+                                                    echo "MBMF";
+                                                    break;
+                                                case "Indian":
+                                                    echo "SINDA";
+                                                    break;
+                                                case "Eurasian":
+                                                    echo "ECF";
+                                                    break;
+                                                default:
+                                                    break;}?>">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                     <label for="newCSMAmount">Amount</label>

@@ -126,6 +126,14 @@ session_start();
                 ?>
                     </strong>
                 </p>
+                <p>
+                    Your company is
+                    <strong>
+                        <?php 
+                echo $_SESSION['company_name'].'.';
+                ?>
+                    </strong>
+                </p>
             </div>
             <!-- /.box-body -->
         </div>
