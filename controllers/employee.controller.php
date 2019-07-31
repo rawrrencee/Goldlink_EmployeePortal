@@ -27,7 +27,7 @@ class EmployeeController
             if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['inUsername'])) {
 
                 
-            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
                 $table = 'employees';
                 $item = 'username';

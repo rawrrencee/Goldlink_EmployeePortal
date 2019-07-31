@@ -120,22 +120,24 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         if (
 
             $_GET["route"] == "home" ||
-            $_GET["route"] == "logout" ||
-            $_GET["route"] == "customer-archives" ||
-            $_GET["route"] == "customer-management"
+            $_GET["route"] == "logout"
             ) {
             include "modules/" . $_GET["route"] . ".php";
             
         } else if (
 
-            ($_GET["route"] == "employee-management" ||
+            (
+                $_GET["route"] == "customer-archives" ||
+                $_GET["route"] == "customer-management" ||
+                $_GET["route"] == "employee-management" ||
                 $_GET["route"] == "employee-upload-files" ||
                 $_GET["route"] == "employee-salary-voucher-management" ||
                 $_GET["route"] == "employee-salary-voucher-management-pt" ||
                 $_GET["route"] == "employee-salary-voucher-my" ||
                 $_GET["route"] == "employee-salary-voucher-my-pt" ||
                 $_GET["route"] == "employee-salary-voucher-submit" ||
-                $_GET["route"] == "employee-salary-voucher-submit-pt")
+                $_GET["route"] == "employee-salary-voucher-submit-pt" ||
+                $_GET["route"] == "employee-salary-voucher-analysis")
             && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
 
             include "modules/" . $_GET["route"] . ".php";
@@ -163,6 +165,7 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
     <script src="views/js/template.js"></script>
     <script src="views/js/header.js"></script>
     <script src="views/js/employees.js"></script>
+    <script src="views/js/employee-salary-voucher-analysis.js"></script>
     <script src="views/js/customers.js"></script>
     <script src="views/js/customer-archives.js"></script>
     <script src="views/js/payroll.js"></script>

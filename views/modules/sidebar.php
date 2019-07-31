@@ -93,7 +93,7 @@ session_start();
 
             <li class="treeview menu-open">
                 <?php
-                    if (in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-my', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules'])) {
+                    if (in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-my', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-analysis', $_SESSION['allowed_modules'])) {
                         echo '
                         <a href="#">
                         <i class="fa fa-address-book"></i>
@@ -106,6 +106,19 @@ session_start();
                     }
                 ?>
                 <ul class="treeview-menu menu-open treeview-menu-visible">
+                    <?php
+                    if (in_array('employee-salary-voucher-analysis', $_SESSION['allowed_modules'])) {
+                    echo '
+                        <li>
+                            <a href="employee-salary-voucher-analysis">
+                                <i class="fa fa-circle-o"></i>
+                                <span>Salary Voucher Analysis</span>
+                            </a>
+                        </li>
+                        ';
+                    }
+                    ?>
+
                     <?php
                     if (in_array('employee-salary-voucher-management', $_SESSION['allowed_modules'])) {
                     echo '

@@ -2726,6 +2726,67 @@ function autofillAttendance() {
         return;
       }
     } else {
+      if ($(element).val() == "Sick Leave") {
+        if (numSickLeaveDays == 0) {
+          sickLeaveDays = "Sick Leave: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          sickLeaveDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numSickLeaveDays++;
+      } else if ($(element).val() == "Annual Leave") {
+        if (numAnnualLeaveDays == 0) {
+          annualLeaveDays = "Annual Leave: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          annualLeaveDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numAnnualLeaveDays++;
+      } else if ($(element).val() == "Unpaid Leave") {
+        if (numUnpaidLeaveDays == 0) {
+          unpaidLeaveDays = "Unpaid Leave: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          unpaidLeaveDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numUnpaidLeaveDays++;
+      } else if ($(element).val() == "OFF") {
+        if (numOffDays == 0) {
+          offDays = "Off Days: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          offDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numOffDays++;
+      }
+
+      //LAST ONE
+      if (index === total - 1) {
+        sickLeaveDays = sickLeaveDays.substr(0, sickLeaveDays.length - 2);
+        if (sickLeaveDays != "") {
+          sickLeaveDays += " (" + numSickLeaveDays + " DAYS)";
+        } else {
+          sickLeaveDays = "Sick Leave: (0 DAYS)"
+        }
+        annualLeaveDays = annualLeaveDays.substr(0, annualLeaveDays.length - 2);
+        if (annualLeaveDays != "") {
+          annualLeaveDays += " (" + numAnnualLeaveDays + " DAYS)";
+        } else {
+          annualLeaveDays = "Annual Leave: (0 DAYS)"
+        }
+        unpaidLeaveDays = unpaidLeaveDays.substr(0, unpaidLeaveDays.length - 2);
+        if (unpaidLeaveDays != "") {
+          unpaidLeaveDays += " (" + numUnpaidLeaveDays + " DAYS)";
+        } else {
+          unpaidLeaveDays = "Unpaid Leave: (0 DAYS)"
+        }
+        offDays = offDays.substr(0, offDays.length - 2);
+        if (offDays != "") {
+          offDays += " (" + numOffDays + " DAYS)";
+        } else {
+          offDays = "Off Days: (0 DAYS)"
+        }
+
+        $("#newLeaveMCDays").val(sickLeaveDays + "\n" + annualLeaveDays + "\n" + unpaidLeaveDays);
+        $("#newOffDays").val(offDays);
+
+      }
       numWorkingDays++;
       $("#newTotalWorkingDays").val(numWorkingDays);
     }

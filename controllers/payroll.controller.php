@@ -76,6 +76,15 @@ class PayrollController
 
     }
 
+    public static function ctrViewAllSalaryVouchersByMonth($monthToAnalyse, $yearToAnalyse)
+    {
+
+        $response = PayrollModel::mdlViewAllSalaryVouchersByMonth($monthToAnalyse, $yearToAnalyse);
+
+        return $response;
+
+    }
+
     public static function ctrRetrieveIndivSalaryVoucherByStatus($data)
     {
 
@@ -788,6 +797,7 @@ class PayrollController
 
             $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
             $submittedForm['sdl_amount'] = number_format(floatval(filter_var($_POST['newSDLAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['company_name'] = filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING);
 
             $submittedForm['status'] = filter_var($_POST['updateVoucherStatus'], FILTER_SANITIZE_STRING);
             $submittedForm['updated_by'] = filter_var($_POST['voucherUpdatedBy'], FILTER_SANITIZE_STRING);
