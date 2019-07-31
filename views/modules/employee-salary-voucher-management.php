@@ -35,6 +35,7 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                             <thead>
                                 <tr>
                                     <th style="width: 40px;">ID</th>
+                                    <th>Company</th>
                                     <th>Month</th>
                                     <th>Year</th>
                                     <th>First Name</th>

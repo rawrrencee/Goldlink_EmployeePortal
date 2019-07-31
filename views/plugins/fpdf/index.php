@@ -184,15 +184,15 @@ if (isset($_GET['voucherId'])) {
             /* --- Cell --- */
             $pdf->SetXY(10, 33);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Goldlink Asia Distribution Pte Ltd - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Goldlink Asia Distribution Pte Ltd - ' . $salaryVoucherData['year_of_voucher'] . ' (Part Time)', 0, 1, 'L', false);
         } else if ($salaryVoucherData['company_name'] == 'Goldlink Technologies Pte Ltd') {
             $pdf->SetXY(10, 15);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Goldlink Technologies Pte Ltd - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Goldlink Technologies Pte Ltd - ' . $salaryVoucherData['year_of_voucher'] . ' (Part Time)', 0, 1, 'L', false);
         } else {
             $pdf->SetXY(10, 15);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Doro International Pte Ltd - ' . date(Y) . ' (Part Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Doro International Pte Ltd - ' . $salaryVoucherData['year_of_voucher'] . ' (Part Time)', 0, 1, 'L', false);
         }
     } else {
         if ($salaryVoucherData['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
@@ -201,15 +201,15 @@ if (isset($_GET['voucherId'])) {
             /* --- Cell --- */
             $pdf->SetXY(10, 33);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Goldlink Asia Distribution Pte Ltd - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Goldlink Asia Distribution Pte Ltd - ' . $salaryVoucherData['year_of_voucher'] . ' (Full Time)', 0, 1, 'L', false);
         } else if ($salaryVoucherData['company_name'] == 'Goldlink Technologies Pte Ltd') {
             $pdf->SetXY(10, 15);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Goldlink Technologies Pte Ltd - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Goldlink Technologies Pte Ltd - ' . $salaryVoucherData['year_of_voucher'] . ' (Full Time)', 0, 1, 'L', false);
         } else {
             $pdf->SetXY(10, 15);
             $pdf->SetFont('', 'B', 14);
-            $pdf->Cell(0, 5, 'Doro International Pte Ltd - ' . date(Y) . ' (Full Time)', 0, 1, 'L', false);
+            $pdf->Cell(0, 5, 'Doro International Pte Ltd - ' . $salaryVoucherData['year_of_voucher'] . ' (Full Time)', 0, 1, 'L', false);
         }
     }
 

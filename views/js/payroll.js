@@ -318,7 +318,7 @@ var mySalaryVouchersTablePT = $('.tableMySalaryVouchersPT').DataTable({
     { "data": 25 }
   ],
   "columnDefs": [{
-    "targets": [0, 1, 7],
+    "targets": [0, 2, 4],
     "responsivePriority": 1
   }, {
     "targets": 26,
@@ -362,7 +362,7 @@ var allSalaryVouchersTable = $('.tableAllSalaryVouchers').DataTable({
   "serverSide": true,
   "processing": true,
   "autoWidth": false,
-  "order": [[9, 'desc']],
+  "order": [[10, 'desc']],
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -392,13 +392,14 @@ var allSalaryVouchersTable = $('.tableAllSalaryVouchers').DataTable({
     { "data": 25 },
     { "data": 26 },
     { "data": 27 },
-    { "data": 28 }
+    { "data": 28 },
+    { "data": 29 }
   ],
   "columnDefs": [{
-    "targets": [0, 1, 3],
+    "targets": [0, 2, 4],
     "responsivePriority": 1
   }, {
-    "targets": 29,
+    "targets": 30,
     "data": null,
     "render": function (data, type, row) {
       return `
@@ -439,7 +440,7 @@ var allSalaryVouchersTablePT = $('.tableAllSalaryVouchersPT').DataTable({
   "serverSide": true,
   "processing": true,
   "autoWidth": false,
-  "order": [[9, 'desc']],
+  "order": [[10, 'desc']],
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -469,13 +470,14 @@ var allSalaryVouchersTablePT = $('.tableAllSalaryVouchersPT').DataTable({
     { "data": 25 },
     { "data": 26 },
     { "data": 27 },
-    { "data": 28 }
+    { "data": 28 },
+    { "data": 29 }
   ],
   "columnDefs": [{
-    "targets": [0, 1, 3],
+    "targets": [0, 2, 3],
     "responsivePriority": 1
   }, {
-    "targets": 29,
+    "targets": 30,
     "data": null,
     "render": function (data, type, row) {
       return `
