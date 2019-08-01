@@ -5,7 +5,7 @@
             <small>Payroll Management</small>
         </h1>
     </section>
-    
+
     <div id="loading">
         <img id="loading-image" src="views/img/template/loading.gif" alt="Loading..." />
     </div>
@@ -78,11 +78,11 @@
             <form id="salaryVoucherForm" role="form" method="POST">
 
                 <ul class="nav nav-tabs" id="tabContent">
-                    <li class="active"><a href="#salaryTab" data-toggle="tab">Salary</a></li>
-                    <li><a href="#attendanceTab" data-toggle="tab">Attendance</a></li>
-                    <li><a href="#deductionsTab" data-toggle="tab">Deductions</a></li>
-                    <li><a href="#othersTab" data-toggle="tab">Others</a></li>
-                    <li><a href="#dailySalesFigureTab" data-toggle="tab">Daily Sales Figure</a></li>
+                    <li class="active"><a href="#salaryTabPT" data-toggle="tab">Salary</a></li>
+                    <li><a href="#attendanceTabPT" data-toggle="tab">Attendance</a></li>
+                    <li><a href="#deductionsTabPT" data-toggle="tab">Deductions</a></li>
+                    <li><a href="#othersTabPT" data-toggle="tab">Others</a></li>
+                    <li><a href="#dailySalesFigureTabPT" data-toggle="tab">Daily Sales Figure</a></li>
 
                     <div class="btn-group pull-right" style="padding: 10px;">
                         <a class="btn btn-default btnPrevious"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</a>
@@ -106,7 +106,7 @@
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="salaryTab">
+                    <div class="tab-pane active" id="salaryTabPT">
                         <div class="box-body">
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -245,18 +245,19 @@
                                     </div>
                                     <div class="form-group col-md-2 col-sm-6 col-xs-6">
                                         <label for="newSalaryRate">Rate</label>
-                                        <input type="number" class="form-control ratePT" id="newSalaryRate" min="0.00"
+                                        <input required type="number" class="form-control ratePT" id="newSalaryRate" min="0.00"
                                             step="0.01" value="0.00" name="salaryRate[0]">
                                     </div>
                                     <div class="form-group col-md-2 col-sm-6 col-xs-6">
                                         <label for="newSalaryUnit">Unit</label>
-                                        <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0"
-                                            step="0" value="0" name="salaryUnit[0]">
+                                        <input required type="number" class="form-control unitPT" id="newSalaryUnit" min="0"
+                                            step="0.01" value="0.00" name="salaryUnit[0]">
                                     </div>
                                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                         <label for="newSalarySubtotal">Subtotal</label>
                                         <input readonly type="number" class="form-control subTotalPT grossPay"
-                                            id="newSalarySubtotal" min="0" step="0" value="0" name="salarySubtotal[0]">
+                                            id="newSalarySubtotal" min="0" step="0.01" value="0.00"
+                                            name="salarySubtotal[0]">
                                     </div>
                                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                         <label for="newSalaryRemarks">Remarks</label>
@@ -285,7 +286,7 @@
                     </div>
 
 
-                    <div class="tab-pane" id="deductionsTab">
+                    <div class="tab-pane" id="deductionsTabPT">
 
                         <div class="box-body">
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -387,7 +388,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="othersTab">
+                    <div class="tab-pane" id="othersTabPT">
                         <div class="box-body">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
@@ -415,7 +416,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="dailySalesFigureTab">
+                    <div class="tab-pane" id="dailySalesFigureTabPT">
                         <div class="box-body">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
@@ -540,7 +541,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="attendanceTab">
+                    <div class="tab-pane" id="attendanceTabPT">
                         <div class="box-body">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">

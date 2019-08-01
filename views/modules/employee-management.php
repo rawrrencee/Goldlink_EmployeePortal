@@ -487,6 +487,7 @@
                     style="color: #ffffff; opacity: 1;">&times;</button>
                 <h4 class="modal-title">Edit Employee</h4>
             </div>
+            <form id="editEmployeeForm" role="form" method="POST" enctype="multipart/form-data">
 
             <ul class="nav nav-tabs" id="tabContent">
                 <li class="active"><a href="#editProfilePictureTab" data-toggle="tab">Profile Picture</a></li>
@@ -495,7 +496,6 @@
                 <li><a href="#editAccountTab" data-toggle="tab">Account</a></li>
                 <li><a href="#editPermissionsTab" data-toggle="tab">Permissions</a></li>
             </ul>
-            <form id="editEmployeeForm" role="form" method="POST" enctype="multipart/form-data">
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="editProfilePictureTab">
@@ -518,7 +518,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary postButton">Update</button>
+                            <button type="submit" class="btn btn-primary editEmployeeButton">Update</button>
                         </div>
                     </div>
                     <div class="tab-pane" id="editInformationTab">
@@ -682,7 +682,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary editEmployeeButton">Update</button>
                         </div>
                     </div>
                     <div class="tab-pane" id="editCompanyTab">
@@ -772,7 +772,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary editEmployeeButton">Update</button>
                         </div>
                     </div>
                     <div class="tab-pane" id="editAccountTab">
@@ -802,7 +802,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary editEmployeeButton">Update</button>
                         </div>
                     </div>
                     <div class="tab-pane" id="editPermissionsTab">

@@ -553,11 +553,11 @@ $("#salaryVoucherForm").on("click", "button.addSalaryListingPT", function () {
       </div>
       <div class="form-group col-md-2 col-sm-6 col-xs-6">
         <label for="newSalaryUnit">Unit</label>
-        <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0" step="0" value="0" name="salaryUnit[]">
+        <input type="number" class="form-control unitPT" id="newSalaryUnit" min="0.00" step="0.01" value="0.00" name="salaryUnit[]">
       </div>
       <div class="form-group col-md-2 col-sm-12 col-xs-12">
         <label for="newSalarySubtotal">Subtotal</label>
-        <input readonly type="number" class="form-control subTotalPT grossPay" id="newSalarySubtotal" min="0" step="0" value="0" name="salarySubtotal[]">
+        <input readonly type="number" class="form-control subTotalPT grossPay" id="newSalarySubtotal" min="0.00" step="0.01" value="0.00" name="salarySubtotal[]">
       </div>
       <div class="form-group col-md-3 col-sm-12 col-xs-12">
         <label for="newSalaryRemarks">Remarks</label>
@@ -768,7 +768,6 @@ $('.newDailyHoursWorked').on('select2:select', function (e) {
 $('.postButton').click(function () {
   $(':required:invalid', '#salaryVoucherForm').each(function () {
     var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
-
     $('.nav a[href="#' + id + '"]').tab('show');
   });
 });
@@ -1235,11 +1234,11 @@ $(".tableSalaryVoucherDraftsPT tbody").on("click", "button.btnLoadSalaryVoucherD
                 </div>
                 <div class="form-group col-md-2 col-sm-6 col-xs-6">
                   <label for="updateSalaryUnit">Unit</label>
-                  <input type="number" class="form-control unitPT" id="updateSalaryUnit" min="0" step="0" value="` + answer[i]['unit'] + `" name="salaryUnit[]">
+                  <input type="number" class="form-control unitPT" id="updateSalaryUnit" min="0.00" step="0.01" value="` + answer[i]['unit'] + `" name="salaryUnit[]">
                 </div>
                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                   <label for="updateSalarySubtotal">Subtotal</label>
-                  <input readonly type="number" class="form-control subTotalPT grossPay" id="updateSalarySubtotal" min="0" step="0" value="` + answer[i]['subtotal'] + `" name="salarySubtotal[]">
+                  <input readonly type="number" class="form-control subTotalPT grossPay" id="updateSalarySubtotal" min="0.00" step="0.01" value="` + answer[i]['subtotal'] + `" name="salarySubtotal[]">
                 </div>
                 <div class="form-group col-md-3 col-sm-12 col-xs-12">
                   <label for="updateSalaryRemarks">Remarks</label>
@@ -1735,11 +1734,11 @@ $(".tableMySalaryVouchersPT tbody").on("click", "button.btnViewSalaryVoucher", f
                     </div>
                     <div class="form-group col-md-2 col-sm-6 col-xs-6">
                       <label for="updateSalaryUnit">Unit</label>
-                      <input readonly type="number" class="form-control unitPT" id="updateSalaryUnit" min="0" step="0" value="` + answer[i]['unit'] + `" name="salaryUnit[]">
+                      <input readonly type="number" class="form-control unitPT" id="updateSalaryUnit" min="0.00" step="0.01" value="` + answer[i]['unit'] + `" name="salaryUnit[]">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                       <label for="updateSalarySubtotal">Subtotal</label>
-                      <input readonly type="number" class="form-control subTotalPT grossPay" id="updateSalarySubtotal" min="0" step="0" value="` + answer[i]['subtotal'] + `" name="salarySubtotal[]">
+                      <input readonly type="number" class="form-control subTotalPT grossPay" id="updateSalarySubtotal" min="0.00" step="0.01" value="` + answer[i]['subtotal'] + `" name="salarySubtotal[]">
                     </div>
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                       <label for="updateSalaryRemarks">Remarks</label>
@@ -2265,11 +2264,11 @@ $(".tableAllSalaryVouchersPT tbody").on("click", "button.btnEditSalaryVoucher", 
                 </div>
                 <div class="form-group col-md-2 col-sm-6 col-xs-6">
                   <label for="updateSalaryUnit">Unit</label>
-                  <input type="number" class="form-control unitPT" id="updateSalaryUnit" min="0" step="0" value="` + answer[i]['unit'] + `" name="salaryUnit[]">
+                  <input type="number" class="form-control unitPT" id="updateSalaryUnit" min="0.00" step="0.01" value="` + answer[i]['unit'] + `" name="salaryUnit[]">
                 </div>
                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                   <label for="updateSalarySubtotal">Subtotal</label>
-                  <input readonly type="number" class="form-control subTotalPT grossPay" id="updateSalarySubtotal" min="0" step="0" value="` + answer[i]['subtotal'] + `" name="salarySubtotal[]">
+                  <input readonly type="number" class="form-control subTotalPT grossPay" id="updateSalarySubtotal" min="0.00" step="0.01" value="` + answer[i]['subtotal'] + `" name="salarySubtotal[]">
                 </div>
                 <div class="form-group col-md-3 col-sm-12 col-xs-12">
                   <label for="updateSalaryRemarks">Remarks</label>

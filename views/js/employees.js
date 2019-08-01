@@ -340,8 +340,7 @@ $("#editStoreEmployeeRepeater").createRepeater();
 
 //SWITCH TO TAB UPON UNFILLED REQUIRED
 //BUTTONS STUFF HERE
-$('#editEmployeeButton').click(function () {
-  alert("Hi");
+$('.editEmployeeButton').click(function () {
   $(':required:invalid', '#editEmployeeForm').each(function () {
     var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
 
