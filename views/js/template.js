@@ -45,8 +45,8 @@ $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
     radioClass: 'iradio_minimal-blue'
 })
 
-$('input').on('ifChecked', function (event){
-    $(this).closest("input").attr('checked', true);          
+$('input').on('ifChecked', function (event) {
+    $(this).closest("input").attr('checked', true);
 });
 $('input').on('ifUnchecked', function (event) {
     $(this).closest("input").attr('checked', false);
@@ -57,3 +57,19 @@ SELECT2
 =============================================*/
 
 $('.select2').select2();
+
+/*=============================================
+AJAX LOADING GIF
+=============================================*/
+
+$(document).ajaxStart(function () {
+    $("#loading").show();
+});
+
+$(document).ajaxStop(function () {
+    $("#loading").hide();
+});
+
+$(document).ready(function () {
+    $("#loading").hide();
+});

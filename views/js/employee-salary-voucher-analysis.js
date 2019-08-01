@@ -18,6 +18,13 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
 
     var elementName = "";
     var deduction_CDAC = 0.00;
+
+    var other_deductions = 0.00;
+
+    var total_other_deductions_GAD = 0.00;
+    var total_other_deductions_Goldtech = 0.00;
+    var total_other_deductions_Doro = 0.00;
+
     var total_CPF = 0.00;
 
     //JOURNAL
@@ -96,7 +103,42 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
 
             for (var i = 0; i < answer.length; i++) {
 
-                deduction_CDAC = Number(answer[i]['total_deductions'] - answer[i]['cpf_employee']).toFixed(2);
+                deduction_CDAC = 0.00;
+
+                var getDeductionRecordsByVoucherId = new FormData();
+                getDeductionRecordsByVoucherId.append('getDeductionRecordsByVoucherId', answer[i]['voucher_id']);
+
+                $.ajax({
+                    url: "ajax/payroll.ajax.php",
+                    async: false,
+                    method: "POST",
+                    data: getDeductionRecordsByVoucherId,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json"
+                }).done(function (data) {
+                    deduction_records = data;
+                })
+
+                for (var j = 0; j < deduction_records.length; j++) {
+                    if (deduction_records[j]['title'] != "CPF-EE") {
+                        if (deduction_records[j]['title'] == "CDAC") {
+                            deduction_CDAC = parseFloat(deduction_records[j]['amount']);
+                        } else {
+                            other_deductions = parseFloat(deduction_records[j]['amount']);
+                            if (answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                total_other_deductions_GAD += parseFloat(deduction_records[j]['amount']);
+                            } else if (answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                total_other_deductions_Goldtech += parseFloat(deduction_records[j]['amount']);
+                            } else if (answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                total_other_deductions_Doro += parseFloat(deduction_records[j]['amount']);
+                            }
+                        }
+                    }
+                }
+
+                deduction_CDAC = Number(deduction_CDAC).toFixed(2);
                 total_CPF = Number(parseFloat(answer[i]['cpf_employee']) + parseFloat(answer[i]['cpf_employer'])).toFixed(2);
 
                 if (answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
@@ -155,7 +197,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     }
 
                     table_left_GAD = grossSalary_GAD + directorRemuneration_GAD + directorCPF_GAD + erCPF_GAD + SDL_GAD;
-                    table_right_GAD = cpfPayable_GAD + byCheque_GAD + salaryPayable_GAD;
+                    table_right_GAD = cpfPayable_GAD + byCheque_GAD + salaryPayable_GAD + total_other_deductions_GAD;
 
                 } else if (answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
                     if (answer[i]['is_part_time'] == 0) {
@@ -213,7 +255,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     }
 
                     table_left_Goldtech = grossSalary_Goldtech + directorRemuneration_Goldtech + directorCPF_Goldtech + erCPF_Goldtech + SDL_Goldtech;
-                    table_right_Goldtech = cpfPayable_Goldtech + byCheque_Goldtech + salaryPayable_Goldtech;
+                    table_right_Goldtech = cpfPayable_Goldtech + byCheque_Goldtech + salaryPayable_Goldtech + total_other_deductions_Goldtech;
                 } else {
                     if (answer[i]['is_part_time'] == 0) {
                         elementName = '#appendAnalysisContent_Doro';
@@ -270,7 +312,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     }
 
                     table_left_Doro = grossSalary_Doro + directorRemuneration_Doro + directorCPF_Doro + erCPF_Doro + SDL_Doro;
-                    table_right_Doro = cpfPayable_Doro + byCheque_Doro + salaryPayable_Doro;
+                    table_right_Doro = cpfPayable_Doro + byCheque_Doro + salaryPayable_Doro + total_other_deductions_Doro;
                 }
 
                 var getSalaryRecordsByVoucherId = new FormData();
@@ -293,9 +335,9 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         salary_records = data;
                     })
 
-                    for (var j = 0; j < salary_records.length; j++) {
-                        if (salary_records[j]['title'].toLowerCase().includes("commission")) {
-                            temp_commission_amount += parseFloat(salary_records[j]['amount']);
+                    for (var k = 0; k < salary_records.length; k++) {
+                        if (salary_records[k]['title'].toLowerCase().includes("commission")) {
+                            temp_commission_amount += parseFloat(salary_records[k]['amount']);
                         }
                     }
 
@@ -308,6 +350,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         <td align="right">`+ salary_records[2]['amount'] + `</td>
                         <td align="right">`+ Number(temp_commission_amount).toFixed(2) + `</td>
                         <td align="right">`+ answer[i]['gross_pay'] + `</td>
+                        <td align="right">`+ Number(other_deductions).toFixed(2) + `</td>
                         <td align="right">`+ deduction_CDAC + `</td>
                         <td align="right">`+ answer[i]['cpf_employee'] + `</td>
                         <td align="right">`+ answer[i]['cpf_employer'] + `</td>
@@ -324,6 +367,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         <td>`+ answer[i]['person_id'] + `</td>
                         <td>`+ answer[i]['pay_to_name'] + `</td>
                         <td align="right">`+ answer[i]['gross_pay'] + `</td>
+                        <td align="right">`+ Number(other_deductions).toFixed(2) + `</td>
                         <td align="right">`+ deduction_CDAC + `</td>
                         <td align="right">`+ answer[i]['cpf_employee'] + `</td>
                         <td align="right">`+ answer[i]['cpf_employer'] + `</td>
@@ -333,7 +377,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         <td align="right">`+ answer[i]['sdl_amount'] + `</td>
                     </tr>
                     `);
-                }             
+                }
 
             }
 
@@ -381,6 +425,12 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     <td></td>
                     <td align="right">`+ Number(byCheque_GAD).toFixed(2) + `</td>
                 </tr>
+
+                <tr>
+                    <td>Deductions (Others)</td>
+                    <td></td>
+                    <td align="right">`+ Number(total_other_deductions_GAD).toFixed(2) + `</td>
+                </tr>
     
                 <tr>
                     <td>Salary Payable</td>
@@ -418,7 +468,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
     
                 <tr>
                     <td></td>
-                    <td align="right">`+ Number((SDL_GAD + employeeCPF_GAD + employerCPF_GAD + CDAC_GAD)).toFixed(2) + `</td>
+                    <td align="right">`+ Number((SDL_GAD + employeeCPF_GAD + employerCPF_GAD + CDAC_GAD).toFixed(2)) + `</td>
                 </tr>
                 `);
             }
@@ -466,7 +516,13 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     <td></td>
                     <td align="right">`+ Number(byCheque_Goldtech).toFixed(2) + `</td>
                 </tr>
-    
+
+                <tr>
+                    <td>Deductions (Others)</td>
+                    <td></td>
+                    <td align="right">`+ Number(total_other_deductions_Goldtech).toFixed(2) + `</td>
+                </tr>
+
                 <tr>
                     <td>Salary Payable</td>
                     <td></td>
@@ -551,6 +607,12 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     <td></td>
                     <td align="right">`+ Number(byCheque_Doro).toFixed(2) + `</td>
                 </tr>
+
+                <tr>
+                    <td>Deductions (Others)</td>
+                    <td></td>
+                    <td align="right">`+ Number(total_other_deductions_Doro).toFixed(2) + `</td>
+                </tr>
     
                 <tr>
                     <td>Salary Payable</td>
@@ -593,6 +655,13 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                 `);
             }
 
+            swal({
+                type: "success",
+                title: "Salary Voucher Analytics loaded succesfully.",
+                showConfirmButton: true,
+                confirmButtonText: "Close"
+            })
         }
+
     });
 });

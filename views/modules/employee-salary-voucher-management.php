@@ -14,6 +14,10 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
         </h1>
     </section>
 
+    <div id="loading">
+        <img id="loading-image" src="views/img/template/loading.gif" alt="Loading..." />
+    </div>
+
     <section class="content">
 
         <div class="box">

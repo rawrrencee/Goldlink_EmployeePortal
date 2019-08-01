@@ -9,6 +9,11 @@
             <li class="active">Customers</li>
         </ol>
     </section>
+
+    <div id="loading">
+        <img id="loading-image" src="views/img/template/loading.gif" alt="Loading..." />
+    </div>
+    
     <section class="content">
         <div class="box">
             <div class="box-header with-border">

@@ -5,6 +5,10 @@
             <small>Payroll Management</small>
         </h1>
     </section>
+    
+    <div id="loading">
+        <img id="loading-image" src="views/img/template/loading.gif" alt="Loading..." />
+    </div>
 
     <section class="content">
 

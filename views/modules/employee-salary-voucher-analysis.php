@@ -4,6 +4,12 @@ session_start();
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+
+
+    <div id="loading">
+        <img id="loading-image" src="views/img/template/loading.gif" alt="Loading..." />
+    </div>
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -103,6 +109,7 @@ session_start();
                                     <th class="text-right">Productivity</th>
                                     <th class="text-right">Commission</th>
                                     <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
@@ -127,6 +134,7 @@ session_start();
                                     <th>Person ID</th>
                                     <th>Name</th>
                                     <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
@@ -196,6 +204,7 @@ session_start();
                                     <th class="text-right">Productivity</th>
                                     <th class="text-right">Commission</th>
                                     <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
@@ -220,6 +229,7 @@ session_start();
                                     <th>Person ID</th>
                                     <th>Name</th>
                                     <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
@@ -289,6 +299,7 @@ session_start();
                                     <th class="text-right">Productivity</th>
                                     <th class="text-right">Commission</th>
                                     <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
@@ -313,6 +324,7 @@ session_start();
                                     <th>Person ID</th>
                                     <th>Name</th>
                                     <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
