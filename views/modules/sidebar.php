@@ -93,7 +93,7 @@ session_start();
 
             <li class="treeview menu-open">
                 <?php
-                    if (in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-my', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-analysis', $_SESSION['allowed_modules'])) {
+                    if (in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-my', $_SESSION['allowed_modules']) ||  in_array('employee-salary-voucher-my-pt', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit-pt', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-analysis', $_SESSION['allowed_modules'])) {
                         echo '
                         <a href="#">
                         <i class="fa fa-address-book"></i>
@@ -173,7 +173,7 @@ session_start();
                     ?>
 
                     <?php
-                    if (in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules'])) {
+                    if (in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit-pt', $_SESSION['allowed_modules'])) {
                         if (strpos($_SESSION['designation'], '(FT)') !== false) {
                             echo '
                             <li>

@@ -319,7 +319,7 @@
                             </div>
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <input type="hidden" name='viewCSMSelection' value="0" />
-                                <input type="checkbox" class="minimal" id="viewCSMSelection" name="viewCSMSelection"
+                                <input disabled type="checkbox" class="minimal" id="viewCSMSelection" name="viewCSMSelection"
                                     value="1">&nbsp;&nbsp;Yes
                             </div>
                             <div class="form-group col-md-6 col-sm-12 col-xs-12">

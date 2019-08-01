@@ -117,6 +117,7 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
 
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="3">
                 <input type="hidden" id="newCompanyName" name="newCompanyName" value="">
+                <input type="hidden" id="newRaceValue" name="newRaceValue" value="">
                 <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="">
 
                 <div class="tab-content">

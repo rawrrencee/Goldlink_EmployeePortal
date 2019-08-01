@@ -274,8 +274,10 @@ session_start();
                 <h3 class="box-title">Doro International Pte Ltd</h3>
             </div>
             <div class="box-body">
-
                 <div class="col-sm-12 col-md-12 col-xs-12">
+
+                    <h5><strong>Full Timer</strong></h5>
+
                     <div class="table-responsive">
                         <table id="analysis_table_Doro" class="table table-striped">
                             <thead>
