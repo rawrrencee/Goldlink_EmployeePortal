@@ -432,6 +432,10 @@ allSalaryVouchersTable.columns().every(function () {
   });
 });
 
+//Filter Salary Vouchers (FT) DataTable by Status
+$('#dataTablesFilterSVByStatus').on('change', function () {
+  allSalaryVouchersTable.column(8).search(this.value).draw();
+});
 
 //DATATABLES SALARY VOUCHER MANAGEMENT
 /* DATATABLES CONFIGURATION */
@@ -508,6 +512,11 @@ allSalaryVouchersTablePT.columns().every(function () {
   $('input', this.header()).on('click', function (e) {
     e.stopPropagation();
   });
+});
+
+//Filter Salary Vouchers (PT) DataTable by Status
+$('#dataTablesFilterSVByStatus_PT').on('change', function () {
+  allSalaryVouchersTablePT.column(8).search(this.value).draw();
 });
 
 

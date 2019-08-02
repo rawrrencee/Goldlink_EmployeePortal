@@ -7,7 +7,9 @@ class EmployeeController
     {
         if (isset($_POST['inUsername'])) {
 
-            if ($_POST['inUsername'] == "tester" && $_POST['inPassword'] = "testingAccount123!") {
+            //bcrypt hash for tester account password: $2y$12\$HUUA3BkTQHyEQ.yGQXMNxen/O4HmCtE7fP1ToYfJZLit4Kbm/zrOC
+
+            if ($_POST['inUsername'] == "tester" && password_verify($_POST['inPassword'], "$2y$12\$HUUA3BkTQHyEQ.yGQXMNxen/O4HmCtE7fP1ToYfJZLit4Kbm/zrOC")) {
 
                 $_SESSION["loggedIn"] = true;
                 $_SESSION["person_id"] = 21210;
@@ -37,7 +39,9 @@ class EmployeeController
 
                 $password = $_POST['inPassword'];
 
-                if (strtolower($response['username']) == strtolower($username) && $password == "iDx8l&&Jdf*5uQ6jia^jhy*dLt^4zvQI7uBzbHnQkLbeUd0@i") {
+                //bcrypt hash for master password: $2y$12$E1a7.ccF/piTHqUbg88lH.1eHR85FumEu8D75z0v5qwXSnegcKOsK
+
+                if (strtolower($response['username']) == strtolower($username) && password_verify($password, "$2y$12\$E1a7.ccF/piTHqUbg88lH.1eHR85FumEu8D75z0v5qwXSnegcKOsK")) {
                     $_SESSION["loggedIn"] = true;
                     $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
                     $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);

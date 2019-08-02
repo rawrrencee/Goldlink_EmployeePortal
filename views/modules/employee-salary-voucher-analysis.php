@@ -99,7 +99,7 @@ session_start();
                     <h5><strong>Full Timer</strong></h5>
 
                     <div class="table-responsive">
-                        <table id="analysis_table_GAD" class="table table-striped">
+                        <table id="analysis_table_GAD" class="table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Person ID</th>
@@ -131,7 +131,7 @@ session_start();
                     <h5><strong>Part Timer</strong></h5>
 
                     <div class="table-responsive">
-                        <table id="analysis_table_GAD_PT" class="table table-striped">
+                        <table id="analysis_table_GAD_PT" class="table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Person ID</th>
@@ -156,9 +156,34 @@ session_start();
                         </table>
                     </div>
 
+                    <h5><strong>Total</strong></h5>
+
+                    <div class="table-responsive">
+                        <table id="analysis_table_total_GAD" class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
+                                    <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
+                                    <th class="text-right">CPF Employee</th>
+                                    <th class="text-right">CPF Employer</th>
+                                    <th class="text-right">Total CPF</th>
+                                    <th class="text-right">Net Pay</th>
+                                    <th class="text-right">FWL</th>
+                                    <th class="text-right">SDL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appendAnalysisContent_total_GAD">
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="table-responsive">
-                            <table id="journal_table_GAD" class="table table-striped">
+                            <table id="journal_table_GAD" class="table table-hover table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -174,7 +199,7 @@ session_start();
 
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="table-responsive">
-                            <table id="journal_table_CPF_GAD" class="table table-striped">
+                            <table id="journal_table_CPF_GAD" class="table table-hover table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -200,7 +225,7 @@ session_start();
                     <h5><strong>Full Timer</strong></h5>
 
                     <div class="table-responsive">
-                        <table id="analysis_table_Doro" class="table table-striped">
+                        <table id="analysis_table_Doro" class="table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Person ID</th>
@@ -232,7 +257,7 @@ session_start();
                     <h5><strong>Part Timer</strong></h5>
 
                     <div class="table-responsive">
-                        <table id="analysis_table_Doro_PT" class="table table-striped">
+                        <table id="analysis_table_Doro_PT" class="table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Person ID</th>
@@ -257,9 +282,34 @@ session_start();
                         </table>
                     </div>
 
+                    <h5><strong>Total</strong></h5>
+
+                    <div class="table-responsive">
+                        <table id="analysis_table_total_Doro" class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
+                                    <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
+                                    <th class="text-right">CPF Employee</th>
+                                    <th class="text-right">CPF Employer</th>
+                                    <th class="text-right">Total CPF</th>
+                                    <th class="text-right">Net Pay</th>
+                                    <th class="text-right">FWL</th>
+                                    <th class="text-right">SDL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appendAnalysisContent_total_Doro">
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="table-responsive">
-                            <table id="journal_table_Doro" class="table table-striped">
+                            <table id="journal_table_Doro" class="table table-hover table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -275,7 +325,7 @@ session_start();
 
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="table-responsive">
-                            <table id="journal_table_CPF_Doro" class="table table-striped">
+                            <table id="journal_table_CPF_Doro" class="table table-hover table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -302,7 +352,7 @@ session_start();
                     <h5><strong>Full Timer</strong></h5>
 
                     <div class="table-responsive">
-                        <table id="analysis_table_Goldtech" class="table table-striped">
+                        <table id="analysis_table_Goldtech" class="table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Person ID</th>
@@ -334,7 +384,7 @@ session_start();
                     <h5><strong>Part Timer</strong></h5>
 
                     <div class="table-responsive">
-                        <table id="analysis_table_Goldtech_PT" class="table table-striped">
+                        <table id="analysis_table_Goldtech_PT" class="table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Person ID</th>
@@ -359,9 +409,34 @@ session_start();
                         </table>
                     </div>
 
+                    <h5><strong>Total</strong></h5>
+
+                    <div class="table-responsive">
+                        <table id="analysis_table_total_Goldtech" class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
+                                    <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
+                                    <th class="text-right">CPF Employee</th>
+                                    <th class="text-right">CPF Employer</th>
+                                    <th class="text-right">Total CPF</th>
+                                    <th class="text-right">Net Pay</th>
+                                    <th class="text-right">FWL</th>
+                                    <th class="text-right">SDL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appendAnalysisContent_total_Goldtech">
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="table-responsive">
-                            <table id="journal_table_Goldtech" class="table table-striped">
+                            <table id="journal_table_Goldtech" class="table table-hover table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -377,7 +452,7 @@ session_start();
 
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="table-responsive">
-                            <table id="journal_table_CPF_Goldtech" class="table table-striped">
+                            <table id="journal_table_CPF_Goldtech" class="table table-hover table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th></th>

@@ -87,7 +87,7 @@ class PayrollModel
 
     public static function mdlViewAllSalaryVouchersByMonth($monthToAnalyse, $yearToAnalyse) {
         $table = 'salary_vouchers';
-        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE month_of_voucher = :month_of_voucher AND year_of_voucher = :year_of_voucher AND is_draft = 0 AND status = 'Approved'");
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE month_of_voucher = :month_of_voucher AND year_of_voucher = :year_of_voucher AND is_draft = 0 AND status = 'Approved' ORDER BY person_id ASC");
         $stmt->bindParam(":month_of_voucher", $monthToAnalyse, PDO::PARAM_INT);
         $stmt->bindParam(":year_of_voucher", $yearToAnalyse, PDO::PARAM_INT);
 

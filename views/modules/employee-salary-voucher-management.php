@@ -22,8 +22,20 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"><strong>All Submitted Vouchers</strong></h3>
-
+                <div class="col-md-2 col-xs-12">
+                    <h3 class="box-title"><strong>All Submitted Vouchers</strong></h3>
+                </div>
+                <div class="col-md-10 col-xs-12">
+                    <div class="box-tools pull-right">
+                        <span>Filter by status:</span>
+                        <select id="dataTablesFilterSVByStatus" class="select2" style="width: 100%;">
+                            <option></option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="box-body">
@@ -408,8 +420,8 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                     <label for="newCSMTitle">SHGs and SHARE Donations to</label>
-                                    <input type="text" class="form-control" id="newCSMTitle"
-                                        name="deductionTitle[1]" value="N/A">
+                                    <input type="text" class="form-control" id="newCSMTitle" name="deductionTitle[1]"
+                                        value="N/A">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                     <label for="newCSMAmount">Amount</label>

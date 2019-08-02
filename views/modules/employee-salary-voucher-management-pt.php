@@ -23,7 +23,15 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title"><strong>All Submitted Vouchers</strong></h3>
-
+                <div class="box-tools pull-right">
+                    <span>Filter by status:</span>
+                    <select id="dataTablesFilterSVByStatus_PT" class="select2" style="width: 100%;">
+                        <option></option>
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
             </div>
 
             <div class="box-body">
@@ -279,18 +287,19 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
                                     </div>
                                     <div class="form-group col-md-2 col-sm-3 col-xs-6">
                                         <label for="newSalaryRate">Rate</label>
-                                        <input required type="number" class="form-control ratePT" id="newSalaryRate" min="0.00"
-                                            step="0.01" value="0.00" name="salaryRate[0]">
+                                        <input required type="number" class="form-control ratePT" id="newSalaryRate"
+                                            min="0.00" step="0.01" value="0.00" name="salaryRate[0]">
                                     </div>
                                     <div class="form-group col-md-2 col-sm-3 col-xs-6">
                                         <label for="newSalaryUnit">Unit</label>
-                                        <input required type="number" class="form-control unitPT" id="newSalaryUnit" min="0.00"
-                                            step="0.01" value="0.00" name="salaryUnit[0]">
+                                        <input required type="number" class="form-control unitPT" id="newSalaryUnit"
+                                            min="0.00" step="0.01" value="0.00" name="salaryUnit[0]">
                                     </div>
                                     <div class="form-group col-md-2 col-sm-3 col-xs-6">
                                         <label for="newSalarySubtotal">Subtotal</label>
                                         <input readonly type="number" class="form-control subTotalPT grossPay"
-                                            id="newSalarySubtotal" min="0.00" step="0.01" value="0.00" name="salarySubtotal[0]">
+                                            id="newSalarySubtotal" min="0.00" step="0.01" value="0.00"
+                                            name="salarySubtotal[0]">
                                     </div>
                                     <div class="form-group col-md-3 col-sm-3 col-xs-6">
                                         <label for="newSalaryRemarks">Remarks</label>

@@ -45,6 +45,36 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
     var table_left_GAD = 0.00;
     var table_right_GAD = 0.00;
 
+    var basicPaySum_GAD = 0.00;
+    var attendanceSum_GAD = 0.00;
+    var productivitySum_GAD = 0.00;
+    var salaryOthersSum_GAD = 0.00;
+    var grossPaySum_GAD = 0.00;
+    var deductionOthersSum_GAD = 0.00;
+    var deductionCDACSum_GAD = 0.00;
+    var deductionMBMFSum_GAD = 0.00;
+    var deductionSINDASum_GAD = 0.00;
+    var deductionECFSum_GAD = 0.00;
+    var cpfEmployeeSum_GAD = 0.00;
+    var cpfEmployerSum_GAD = 0.00;
+    var totalCPFSum_GAD = 0.00;
+    var netPaySum_GAD = 0.00;
+    var FWLSum_GAD = 0.00;
+    var SDLSum_GAD = 0.00;
+
+    var grossPaySum_GAD_PT = 0.00;
+    var deductionOthersSum_GAD_PT = 0.00;
+    var deductionCDACSum_GAD_PT = 0.00;
+    var deductionMBMFSum_GAD_PT = 0.00;
+    var deductionSINDASum_GAD_PT = 0.00;
+    var deductionECFSum_GAD_PT = 0.00;
+    var cpfEmployeeSum_GAD_PT = 0.00;
+    var cpfEmployerSum_GAD_PT = 0.00;
+    var totalCPFSum_GAD_PT = 0.00;
+    var netPaySum_GAD_PT = 0.00;
+    var FWLSum_GAD_PT = 0.00;
+    var SDLSum_GAD_PT = 0.00;
+
     var grossSalary_Goldtech = 0.00;
     var directorRemuneration_Goldtech = 0.00;
     var directorCPF_Goldtech = 0.00;
@@ -59,6 +89,36 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
     var table_left_Goldtech = 0.00;
     var table_right_Goldtech = 0.00;
 
+    var basicPaySum_Goldtech = 0.00;
+    var attendanceSum_Goldtech = 0.00;
+    var productivitySum_Goldtech = 0.00;
+    var salaryOthersSum_Goldtech = 0.00;
+    var grossPaySum_Goldtech = 0.00;
+    var deductionOthersSum_Goldtech = 0.00;
+    var deductionCDACSum_Goldtech = 0.00;
+    var deductionMBMFSum_Goldtech = 0.00;
+    var deductionSINDASum_Goldtech = 0.00;
+    var deductionECFSum_Goldtech = 0.00;
+    var cpfEmployeeSum_Goldtech = 0.00;
+    var cpfEmployerSum_Goldtech = 0.00;
+    var totalCPFSum_Goldtech = 0.00;
+    var netPaySum_Goldtech = 0.00;
+    var FWLSum_Goldtech = 0.00;
+    var SDLSum_Goldtech = 0.00;
+
+    var grossPaySum_Goldtech_PT = 0.00;
+    var deductionOthersSum_Goldtech_PT = 0.00;
+    var deductionCDACSum_Goldtech_PT = 0.00;
+    var deductionMBMFSum_Goldtech_PT = 0.00;
+    var deductionSINDASum_Goldtech_PT = 0.00;
+    var deductionECFSum_Goldtech_PT = 0.00;
+    var cpfEmployeeSum_Goldtech_PT = 0.00;
+    var cpfEmployerSum_Goldtech_PT = 0.00;
+    var totalCPFSum_Goldtech_PT = 0.00;
+    var netPaySum_Goldtech_PT = 0.00;
+    var FWLSum_Goldtech_PT = 0.00;
+    var SDLSum_Goldtech_PT = 0.00;
+
     var grossSalary_Doro = 0.00;
     var directorRemuneration_Doro = 0.00;
     var directorCPF_Doro = 0.00;
@@ -72,6 +132,36 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
     var salaryPayable_Doro = 0.00;
     var table_left_Doro = 0.00;
     var table_right_Doro = 0.00;
+
+    var basicPaySum_Doro = 0.00;
+    var attendanceSum_Doro = 0.00;
+    var productivitySum_Doro = 0.00;
+    var salaryOthersSum_Doro = 0.00;
+    var grossPaySum_Doro = 0.00;
+    var deductionOthersSum_Doro = 0.00;
+    var deductionCDACSum_Doro = 0.00;
+    var deductionMBMFSum_Doro = 0.00;
+    var deductionSINDASum_Doro = 0.00;
+    var deductionECFSum_Doro = 0.00;
+    var cpfEmployeeSum_Doro = 0.00;
+    var cpfEmployerSum_Doro = 0.00;
+    var totalCPFSum_Doro = 0.00;
+    var netPaySum_Doro = 0.00;
+    var FWLSum_Doro = 0.00;
+    var SDLSum_Doro = 0.00;
+
+    var grossPaySum_Doro_PT = 0.00;
+    var deductionOthersSum_Doro_PT = 0.00;
+    var deductionCDACSum_Doro_PT = 0.00;
+    var deductionMBMFSum_Doro_PT = 0.00;
+    var deductionSINDASum_Doro_PT = 0.00;
+    var deductionECFSum_Doro_PT = 0.00;
+    var cpfEmployeeSum_Doro_PT = 0.00;
+    var cpfEmployerSum_Doro_PT = 0.00;
+    var totalCPFSum_Doro_PT = 0.00;
+    var netPaySum_Doro_PT = 0.00;
+    var FWLSum_Doro_PT = 0.00;
+    var SDLSum_Doro_PT = 0.00;
 
 
     $.ajax({
@@ -127,21 +217,121 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                 for (var j = 0; j < deduction_records.length; j++) {
                     if (deduction_records[j]['title'] != "CPF-EE") {
                         if (deduction_records[j]['title'] == "CDAC") {
+
                             deduction_CDAC = parseFloat(deduction_records[j]['amount']);
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                deductionCDACSum_GAD += deduction_CDAC;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                deductionCDACSum_GAD_PT += deduction_CDAC;
+                            }
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                deductionCDACSum_Goldtech += deduction_CDAC;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                deductionCDACSum_Goldtech_PT += deduction_CDAC;
+                            }
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                deductionCDACSum_Doro += deduction_CDAC;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                deductionCDACSum_Doro_PT += deduction_CDAC;
+                            }
+
                         } else if (deduction_records[j]['title'] == "MBMF") {
+
                             deduction_MBMF = parseFloat(deduction_records[j]['amount']);
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                deductionMBMFSum_GAD += deduction_MBMF;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                deductionMBMFSum_GAD_PT += deduction_MBMF;
+                            }
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                deductionMBMFSum_Goldtech += deduction_MBMF;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                deductionMBMFSum_Goldtech_PT += deduction_MBMF;
+                            }
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                deductionMBMFSum_Doro += deduction_MBMF;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                deductionMBMFSum_Doro_PT += deduction_MBMF;
+                            }
+
                         } else if (deduction_records[j]['title'] == "SINDA") {
+
                             deduction_SINDA = parseFloat(deduction_records[j]['amount']);
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                deductionSINDASum_GAD += deduction_SINDA;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                deductionSINDASum_GAD_PT += deduction_SINDA;
+                            }
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                deductionSINDASum_Goldtech += deduction_SINDA;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                deductionSINDASum_Goldtech_PT += deduction_SINDA;
+                            }
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                deductionSINDASum_Doro += deduction_SINDA;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                deductionSINDASum_Doro_PT += deduction_SINDA;
+                            }
+
                         } else if (deduction_records[j]['title'] == "ECF") {
+
                             deduction_ECF = parseFloat(deduction_records[j]['amount']);
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                deductionECFSum_GAD += deduction_ECF;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
+                                deductionECFSum_GAD_PT += deduction_ECF;
+                            }
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                deductionECFSum_Goldtech += deduction_ECF;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
+                                deductionECFSum_Goldtech_PT += deduction_ECF;
+                            }
+
+                            if (answer[i]['is_part_time'] == 0 && answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                deductionECFSum_Doro += deduction_ECF;
+                            } else if (answer[i]['is_part_time'] == 1 && answer[i]['company_name'] == 'Doro International Pte Ltd') {
+                                deductionECFSum_Doro_PT += deduction_ECF;
+                            }
+
                         } else {
                             other_deductions = parseFloat(deduction_records[j]['amount']);
                             if (answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
                                 total_other_deductions_GAD += parseFloat(deduction_records[j]['amount']);
+
+                                if (answer[i]['is_part_time'] == 0) {
+                                    deductionOthersSum_GAD += parseFloat(deduction_records[j]['amount']);
+                                } else {
+                                    deductionOthersSum_GAD_PT += parseFloat(deduction_records[j]['amount']);
+                                }
+
                             } else if (answer[i]['company_name'] == 'Goldlink Technologies Pte Ltd') {
                                 total_other_deductions_Goldtech += parseFloat(deduction_records[j]['amount']);
+
+                                if (answer[i]['is_part_time'] == 0) {
+                                    deductionOthersSum_GAD += parseFloat(deduction_records[j]['amount']);
+                                } else {
+                                    deductionOthersSum_GAD_PT += parseFloat(deduction_records[j]['amount']);
+                                }
+
                             } else if (answer[i]['company_name'] == 'Doro International Pte Ltd') {
                                 total_other_deductions_Doro += parseFloat(deduction_records[j]['amount']);
+
+                                if (answer[i]['is_part_time'] == 0) {
+                                    deductionOthersSum_GAD += parseFloat(deduction_records[j]['amount']);
+                                } else {
+                                    deductionOthersSum_GAD_PT += parseFloat(deduction_records[j]['amount']);
+                                }
                             }
                         }
                     }
@@ -205,6 +395,24 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         }
                     }
 
+                    if (answer[i]['is_part_time'] == 0) {
+                        grossPaySum_GAD += parseFloat(answer[i]['gross_pay']);
+                        cpfEmployeeSum_GAD += parseFloat(answer[i]['cpf_employee']);
+                        cpfEmployerSum_GAD += parseFloat(answer[i]['cpf_employer']);
+                        totalCPFSum_GAD += parseFloat(answer[i]['cpf_employee']) + parseFloat(answer[i]['cpf_employer']);
+                        netPaySum_GAD += parseFloat(answer[i]['final_amount']);
+                        FWLSum_GAD += parseFloat(answer[i]['levy_amount']);
+                        SDLSum_GAD += parseFloat(answer[i]['sdl_amount']);
+                    } else if (answer[i]['is_part_time'] == 1) {
+                        grossPaySum_GAD_PT += parseFloat(answer[i]['gross_pay']);
+                        cpfEmployeeSum_GAD_PT += parseFloat(answer[i]['cpf_employee']);
+                        cpfEmployerSum_GAD_PT += parseFloat(answer[i]['cpf_employer']);
+                        totalCPFSum_GAD_PT += parseFloat(answer[i]['cpf_employee']) + parseFloat(answer[i]['cpf_employer']);
+                        netPaySum_GAD_PT += parseFloat(answer[i]['final_amount']);
+                        FWLSum_GAD_PT += parseFloat(answer[i]['levy_amount']);
+                        SDLSum_GAD_PT += parseFloat(answer[i]['sdl_amount']);
+                    }
+
                     table_left_GAD = grossSalary_GAD + directorRemuneration_GAD + directorCPF_GAD + erCPF_GAD + SDL_GAD;
                     table_right_GAD = cpfPayable_GAD + byCheque_GAD + salaryPayable_GAD + total_other_deductions_GAD;
 
@@ -263,6 +471,24 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         }
                     }
 
+                    if (answer[i]['is_part_time'] == 0) {
+                        grossPaySum_Goldtech += parseFloat(answer[i]['gross_pay']);
+                        cpfEmployeeSum_Goldtech += parseFloat(answer[i]['cpf_employee']);
+                        cpfEmployerSum_Goldtech += parseFloat(answer[i]['cpf_employer']);
+                        totalCPFSum_Goldtech += parseFloat(answer[i]['cpf_employee']) + parseFloat(answer[i]['cpf_employer']);
+                        netPaySum_Goldtech += parseFloat(answer[i]['final_amount']);
+                        FWLSum_Goldtech += parseFloat(answer[i]['levy_amount']);
+                        SDLSum_Goldtech += parseFloat(answer[i]['sdl_amount']);
+                    } else if (answer[i]['is_part_time'] == 1) {
+                        grossPaySum_Goldtech_PT += parseFloat(answer[i]['gross_pay']);
+                        cpfEmployeeSum_Goldtech_PT += parseFloat(answer[i]['cpf_employee']);
+                        cpfEmployerSum_Goldtech_PT += parseFloat(answer[i]['cpf_employer']);
+                        totalCPFSum_Goldtech_PT += parseFloat(answer[i]['cpf_employee']) + parseFloat(answer[i]['cpf_employer']);
+                        netPaySum_Goldtech_PT += parseFloat(answer[i]['final_amount']);
+                        FWLSum_Goldtech_PT += parseFloat(answer[i]['levy_amount']);
+                        SDLSum_Goldtech_PT += parseFloat(answer[i]['sdl_amount']);
+                    }
+
                     table_left_Goldtech = grossSalary_Goldtech + directorRemuneration_Goldtech + directorCPF_Goldtech + erCPF_Goldtech + SDL_Goldtech;
                     table_right_Goldtech = cpfPayable_Goldtech + byCheque_Goldtech + salaryPayable_Goldtech + total_other_deductions_Goldtech;
                 } else {
@@ -296,6 +522,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                             employerCPF_Doro += parseFloat(answer[i]['cpf_employer']);
                             CDAC_Doro += parseFloat(deduction_CDAC);
                         }
+
                     } else {
                         if (answer[i]['method_of_payment'] != 'Cheque') {
                             directorRemuneration_Doro = parseFloat(answer[i]['gross_pay']);
@@ -318,6 +545,24 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                             employerCPF_Doro += parseFloat(answer[i]['cpf_employer']);
                             CDAC_Doro += parseFloat(deduction_CDAC);
                         }
+                    }
+
+                    if (answer[i]['is_part_time'] == 0) {
+                        grossPaySum_Doro += parseFloat(answer[i]['gross_pay']);
+                        cpfEmployeeSum_Doro += parseFloat(answer[i]['cpf_employee']);
+                        cpfEmployerSum_Doro += parseFloat(answer[i]['cpf_employer']);
+                        totalCPFSum_Doro += parseFloat(answer[i]['cpf_employee']) + parseFloat(answer[i]['cpf_employer']);
+                        netPaySum_Doro += parseFloat(answer[i]['final_amount']);
+                        FWLSum_Doro += parseFloat(answer[i]['levy_amount']);
+                        SDLSum_Doro += parseFloat(answer[i]['sdl_amount']);
+                    } else if (answer[i]['is_part_time'] == 1) {
+                        grossPaySum_Doro_PT += parseFloat(answer[i]['gross_pay']);
+                        cpfEmployeeSum_Doro_PT += parseFloat(answer[i]['cpf_employee']);
+                        cpfEmployerSum_Doro_PT += parseFloat(answer[i]['cpf_employer']);
+                        totalCPFSum_Doro_PT += parseFloat(answer[i]['cpf_employee']) + parseFloat(answer[i]['cpf_employer']);
+                        netPaySum_Doro_PT += parseFloat(answer[i]['final_amount']);
+                        FWLSum_Doro_PT += parseFloat(answer[i]['levy_amount']);
+                        SDLSum_Doro_PT += parseFloat(answer[i]['sdl_amount']);
                     }
 
                     table_left_Doro = grossSalary_Doro + directorRemuneration_Doro + directorCPF_Doro + erCPF_Doro + SDL_Doro;
@@ -350,6 +595,20 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         }
                     }
 
+                    if (answer[i]['company_name'] == "Goldlink Asia Distribution Pte Ltd") {
+                        basicPaySum_GAD += parseFloat(salary_records[0]['amount']);
+                        attendanceSum_GAD += parseFloat(salary_records[1]['amount']);
+                        productivitySum_GAD += parseFloat(salary_records[2]['amount']);
+                    } else if (answer[i]['company_name'] == "Goldlink Technologies Pte Ltd") {
+                        basicPaySum_Goldtech += parseFloat(salary_records[0]['amount']);
+                        attendanceSum_Goldtech += parseFloat(salary_records[1]['amount']);
+                        productivitySum_Goldtech += parseFloat(salary_records[2]['amount']);
+                    } else if (answer[i]['company_name'] == "Doro International Pte Ltd") {
+                        basicPaySum_Doro += parseFloat(salary_records[0]['amount']);
+                        attendanceSum_Doro += parseFloat(salary_records[1]['amount']);
+                        productivitySum_Doro += parseFloat(salary_records[2]['amount']);
+                    }
+
                     $(elementName).append(`
                     <tr>
                         <td>`+ answer[i]['person_id'] + `</td>
@@ -374,6 +633,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     `);
 
                 } else {
+
                     $(elementName).append(`
                     <tr>
                         <td>`+ answer[i]['person_id'] + `</td>
@@ -395,6 +655,177 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                 }
 
             }
+
+            $('#appendAnalysisContent_GAD').append(`
+                <tr>
+                    <td colspan="2"><strong>Subtotal</strong></td>
+                    <td align="right"><strong>`+ Number(basicPaySum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(attendanceSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(productivitySum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(salaryOthersSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(grossPaySum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(deductionOthersSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(deductionCDACSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(deductionMBMFSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(deductionSINDASum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(deductionECFSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(cpfEmployeeSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(cpfEmployerSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(totalCPFSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(netPaySum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(FWLSum_GAD).toFixed(2) + `</strong></td>
+                    <td align="right"><strong>`+ Number(SDLSum_GAD).toFixed(2) + `</strong></td>
+                </tr>
+            `);
+
+            $('#appendAnalysisContent_GAD_PT').append(`
+            <tr>
+                <td colspan="2"><strong>Subtotal</strong></td>
+                <td align="right"><strong>`+ Number(grossPaySum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionOthersSum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionCDACSum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionMBMFSum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionSINDASum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionECFSum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployeeSum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployerSum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(totalCPFSum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(netPaySum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(FWLSum_GAD_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(SDLSum_GAD_PT).toFixed(2) + `</strong></td>
+            </tr>
+            `);
+
+            $('#appendAnalysisContent_total_GAD').append(`
+            <tr>
+                <td align="right">`+ Number(grossPaySum_GAD + grossPaySum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionOthersSum_GAD + deductionOthersSum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionCDACSum_GAD + deductionCDACSum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionMBMFSum_GAD + deductionMBMFSum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionSINDASum_GAD + deductionSINDASum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionECFSum_GAD + deductionECFSum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(cpfEmployeeSum_GAD + cpfEmployeeSum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(cpfEmployerSum_GAD + cpfEmployerSum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(totalCPFSum_GAD + totalCPFSum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(netPaySum_GAD + netPaySum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(FWLSum_GAD + FWLSum_GAD_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(SDLSum_GAD + SDLSum_GAD_PT).toFixed(2) + `</td>
+            </tr>
+            `);
+
+            $('#appendAnalysisContent_Goldtech').append(`
+            <tr>
+                <td colspan="2"><strong>Subtotal</strong></td>
+                <td align="right"><strong>`+ Number(basicPaySum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(attendanceSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(productivitySum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(salaryOthersSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(grossPaySum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionOthersSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionCDACSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionMBMFSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionSINDASum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionECFSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployeeSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployerSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(totalCPFSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(netPaySum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(FWLSum_Goldtech).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(SDLSum_Goldtech).toFixed(2) + `</strong></td>
+                </tr>
+            `);
+
+            $('#appendAnalysisContent_Goldtech_PT').append(`
+            <tr>
+                <td colspan="2"><strong>Subtotal</strong></td>
+                <td align="right"><strong>`+ Number(grossPaySum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionOthersSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionCDACSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionMBMFSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionSINDASum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionECFSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployeeSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployerSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(totalCPFSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(netPaySum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(FWLSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(SDLSum_Goldtech_PT).toFixed(2) + `</strong></td>
+                </tr>
+            `);
+
+            $('#appendAnalysisContent_total_Goldtech').append(`
+            <tr>
+                <td align="right">`+ Number(grossPaySum_Goldtech + grossPaySum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionOthersSum_Goldtech + deductionOthersSum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionCDACSum_Goldtech + deductionCDACSum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionMBMFSum_Goldtech + deductionMBMFSum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionSINDASum_Goldtech + deductionSINDASum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionECFSum_Goldtech + deductionECFSum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(cpfEmployeeSum_Goldtech + cpfEmployeeSum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(cpfEmployerSum_Goldtech + cpfEmployerSum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(totalCPFSum_Goldtech + totalCPFSum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(netPaySum_Goldtech + netPaySum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(FWLSum_Goldtech + FWLSum_Goldtech_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(SDLSum_Goldtech + SDLSum_Goldtech_PT).toFixed(2) + `</td>
+            </tr>
+            `);
+
+            $('#appendAnalysisContent_Doro').append(`
+            <tr>
+                <td colspan="2"><strong>Subtotal</strong></td>
+                <td align="right"><strong>`+ Number(basicPaySum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(attendanceSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(productivitySum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(salaryOthersSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(grossPaySum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionOthersSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionCDACSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionMBMFSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionSINDASum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionECFSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployeeSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployerSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(totalCPFSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(netPaySum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(FWLSum_Doro).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(SDLSum_Doro).toFixed(2) + `</strong></td>
+                </tr>
+            `);
+
+            $('#appendAnalysisContent_Doro_PT').append(`
+            <tr>
+                <td colspan="2"><strong>Subtotal</strong></td>
+                <td align="right"><strong>`+ Number(grossPaySum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionOthersSum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionCDACSum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionMBMFSum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionSINDASum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(deductionECFSum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployeeSum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(cpfEmployerSum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(totalCPFSum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(netPaySum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(FWLSum_Doro_PT).toFixed(2) + `</strong></td>
+                <td align="right"><strong>`+ Number(SDLSum_Doro_PT).toFixed(2) + `</strong></td>
+                </tr>
+            `);
+
+            $('#appendAnalysisContent_total_Doro').append(`
+            <tr>
+                <td align="right">`+ Number(grossPaySum_Doro + grossPaySum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionOthersSum_Doro + deductionOthersSum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionCDACSum_Doro + deductionCDACSum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionMBMFSum_Doro + deductionMBMFSum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionSINDASum_Doro + deductionSINDASum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(deductionECFSum_Doro + deductionECFSum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(cpfEmployeeSum_Doro + cpfEmployeeSum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(cpfEmployerSum_Doro + cpfEmployerSum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(totalCPFSum_Doro + totalCPFSum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(netPaySum_Doro + netPaySum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(FWLSum_Doro + FWLSum_Doro_PT).toFixed(2) + `</td>
+                <td align="right">`+ Number(SDLSum_Doro + SDLSum_Doro_PT).toFixed(2) + `</td>
+            </tr>
+            `);
 
             //Left and right lower tables - SET if (true) so that I can fold the code
             if (true) {
