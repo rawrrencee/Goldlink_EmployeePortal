@@ -347,7 +347,7 @@ if (isset($_GET['voucherId'])) {
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(1, 3, ' x ', 0, 1, 'R', false);
             /* --- Cell --- */
-            $pdf->SetXY(75, 82 + 6 * $index);
+            $pdf->SetXY(85, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(19, 3, $salaryRecordData[$index]['unit'] . ' units', 0, 1, 'R', false);
             if ($salaryRecordData[$index]['remarks'] != "") {

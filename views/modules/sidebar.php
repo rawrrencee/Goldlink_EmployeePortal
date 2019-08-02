@@ -125,7 +125,7 @@ session_start();
                         <li>
                             <a href="employee-salary-voucher-management">
                                 <i class="fa fa-circle-o"></i>
-                                <span>All Salary Vouchers</span>
+                                <span>All Salary Vouchers (FT)</span>
                             </a>
                         </li>
                         ';
@@ -151,7 +151,7 @@ session_start();
                     <li>
                         <a href="employee-salary-voucher-my">
                             <i class="fa fa-circle-o"></i>
-                            <span>My Salary Vouchers</span>
+                            <span>My Salary Vouchers (FT)</span>
                         </a>
                     </li>
                     ';

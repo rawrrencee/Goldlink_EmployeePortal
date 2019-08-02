@@ -18,6 +18,9 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
 
     var elementName = "";
     var deduction_CDAC = 0.00;
+    var deduction_MBMF = 0.00;
+    var deduction_SINDA = 0.00;
+    var deduction_ECF = 0.00;
 
     var other_deductions = 0.00;
 
@@ -125,6 +128,12 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     if (deduction_records[j]['title'] != "CPF-EE") {
                         if (deduction_records[j]['title'] == "CDAC") {
                             deduction_CDAC = parseFloat(deduction_records[j]['amount']);
+                        } else if (deduction_records[j]['title'] == "MBMF") {
+                            deduction_MBMF = parseFloat(deduction_records[j]['amount']);
+                        } else if (deduction_records[j]['title'] == "SINDA") {
+                            deduction_SINDA = parseFloat(deduction_records[j]['amount']);
+                        } else if (deduction_records[j]['title'] == "ECF") {
+                            deduction_ECF = parseFloat(deduction_records[j]['amount']);
                         } else {
                             other_deductions = parseFloat(deduction_records[j]['amount']);
                             if (answer[i]['company_name'] == 'Goldlink Asia Distribution Pte Ltd') {
@@ -319,7 +328,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                 getSalaryRecordsByVoucherId.append('getSalaryRecordsByVoucherId', answer[i]['voucher_id']);
 
                 var salary_records;
-                var temp_commission_amount = 0.00;
+                var salary_others = 0.00;
 
                 if (answer[i]['is_part_time'] == 0) {
                     $.ajax({
@@ -336,8 +345,8 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     })
 
                     for (var k = 0; k < salary_records.length; k++) {
-                        if (salary_records[k]['title'].toLowerCase().includes("commission")) {
-                            temp_commission_amount += parseFloat(salary_records[k]['amount']);
+                        if (salary_records[k]['title'] != "Basic Pay" && salary_records[k]['title'] != "Attendance" && salary_records[k]['title'] != "Productivity") {
+                            salary_others += parseFloat(salary_records[k]['amount']);
                         }
                     }
 
@@ -348,10 +357,13 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         <td align="right">`+ salary_records[0]['amount'] + `</td>
                         <td align="right">`+ salary_records[1]['amount'] + `</td>
                         <td align="right">`+ salary_records[2]['amount'] + `</td>
-                        <td align="right">`+ Number(temp_commission_amount).toFixed(2) + `</td>
+                        <td align="right">`+ Number(salary_others).toFixed(2) + `</td>
                         <td align="right">`+ answer[i]['gross_pay'] + `</td>
                         <td align="right">`+ Number(other_deductions).toFixed(2) + `</td>
-                        <td align="right">`+ deduction_CDAC + `</td>
+                        <td align="right">`+ Number(deduction_CDAC).toFixed(2) + `</td>
+                        <td align="right">`+ Number(deduction_MBMF).toFixed(2) + `</td>
+                        <td align="right">`+ Number(deduction_SINDA).toFixed(2) + `</td>
+                        <td align="right">`+ Number(deduction_ECF).toFixed(2) + `</td>
                         <td align="right">`+ answer[i]['cpf_employee'] + `</td>
                         <td align="right">`+ answer[i]['cpf_employer'] + `</td>
                         <td align="right">`+ total_CPF + `</td>
@@ -368,7 +380,10 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         <td>`+ answer[i]['pay_to_name'] + `</td>
                         <td align="right">`+ answer[i]['gross_pay'] + `</td>
                         <td align="right">`+ Number(other_deductions).toFixed(2) + `</td>
-                        <td align="right">`+ deduction_CDAC + `</td>
+                        <td align="right">`+ Number(deduction_CDAC).toFixed(2) + `</td>
+                        <td align="right">`+ Number(deduction_MBMF).toFixed(2) + `</td>
+                        <td align="right">`+ Number(deduction_SINDA).toFixed(2) + `</td>
+                        <td align="right">`+ Number(deduction_ECF).toFixed(2) + `</td>
                         <td align="right">`+ answer[i]['cpf_employee'] + `</td>
                         <td align="right">`+ answer[i]['cpf_employer'] + `</td>
                         <td align="right">`+ total_CPF + `</td>

@@ -36,7 +36,7 @@ session_start();
                         <input type="hidden" id="tempBasicPay" value="">
                         <input type="hidden" id="tempAttendance" value="">
                         <input type="hidden" id="tempProductivity" value="">
-                        <input type="hidden" id="tempCommission" value="">
+                        <input type="hidden" id="tempSalary (Others)" value="">
 
                         <label for="analyseMonthOfVoucher">Month</label>
                         <select required id="analyseMonthOfVoucher" name="analyseMonthOfVoucher"
@@ -107,10 +107,13 @@ session_start();
                                     <th class="text-right">Basic Pay</th>
                                     <th class="text-right">Attendance</th>
                                     <th class="text-right">Productivity</th>
-                                    <th class="text-right">Commission</th>
+                                    <th class="text-right">Salary (Others)</th>
                                     <th class="text-right">Gross Pay</th>
                                     <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
                                     <th class="text-right">Total CPF</th>
@@ -136,6 +139,9 @@ session_start();
                                     <th class="text-right">Gross Pay</th>
                                     <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
                                     <th class="text-right">Total CPF</th>
@@ -184,101 +190,6 @@ session_start();
             </div>
         </div>
 
-        <div id="analysis_box_Goldtech" class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Goldlink Technologies Pte Ltd</h3>
-            </div>
-            <div class="box-body">
-                <div class="col-sm-12 col-md-12 col-xs-12">
-
-                    <h5><strong>Full Timer</strong></h5>
-
-                    <div class="table-responsive">
-                        <table id="analysis_table_Goldtech" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Person ID</th>
-                                    <th>Name</th>
-                                    <th class="text-right">Basic Pay</th>
-                                    <th class="text-right">Attendance</th>
-                                    <th class="text-right">Productivity</th>
-                                    <th class="text-right">Commission</th>
-                                    <th class="text-right">Gross Pay</th>
-                                    <th class="text-right">Deduction (Others)</th>
-                                    <th class="text-right">Deduction (CDAC)</th>
-                                    <th class="text-right">CPF Employee</th>
-                                    <th class="text-right">CPF Employer</th>
-                                    <th class="text-right">Total CPF</th>
-                                    <th class="text-right">Net Pay</th>
-                                    <th class="text-right">FWL</th>
-                                    <th class="text-right">SDL</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_Goldtech">
-                                <td colspan="10">No information available.</td>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h5><strong>Part Timer</strong></h5>
-
-                    <div class="table-responsive">
-                        <table id="analysis_table_Goldtech_PT" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Person ID</th>
-                                    <th>Name</th>
-                                    <th class="text-right">Gross Pay</th>
-                                    <th class="text-right">Deduction (Others)</th>
-                                    <th class="text-right">Deduction (CDAC)</th>
-                                    <th class="text-right">CPF Employee</th>
-                                    <th class="text-right">CPF Employer</th>
-                                    <th class="text-right">Total CPF</th>
-                                    <th class="text-right">Net Pay</th>
-                                    <th class="text-right">FWL</th>
-                                    <th class="text-right">SDL</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_Goldtech_PT">
-                                <td colspan="10">No information available.</td>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="table-responsive">
-                            <table id="journal_table_Goldtech" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="appendJournalContent_Goldtech">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="table-responsive">
-                            <table id="journal_table_CPF_Goldtech" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="appendJournalContent_CPF_Goldtech">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div id="analysis_box_Doro" class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Doro International Pte Ltd</h3>
@@ -297,10 +208,13 @@ session_start();
                                     <th class="text-right">Basic Pay</th>
                                     <th class="text-right">Attendance</th>
                                     <th class="text-right">Productivity</th>
-                                    <th class="text-right">Commission</th>
+                                    <th class="text-right">Salary (Others)</th>
                                     <th class="text-right">Gross Pay</th>
                                     <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
                                     <th class="text-right">Total CPF</th>
@@ -326,6 +240,9 @@ session_start();
                                     <th class="text-right">Gross Pay</th>
                                     <th class="text-right">Deduction (Others)</th>
                                     <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
                                     <th class="text-right">CPF Employee</th>
                                     <th class="text-right">CPF Employer</th>
                                     <th class="text-right">Total CPF</th>
@@ -375,7 +292,106 @@ session_start();
             </div>
         </div>
 
+        <div id="analysis_box_Goldtech" class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Goldlink Technologies Pte Ltd</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-sm-12 col-md-12 col-xs-12">
 
+                    <h5><strong>Full Timer</strong></h5>
+
+                    <div class="table-responsive">
+                        <table id="analysis_table_Goldtech" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Person ID</th>
+                                    <th>Name</th>
+                                    <th class="text-right">Basic Pay</th>
+                                    <th class="text-right">Attendance</th>
+                                    <th class="text-right">Productivity</th>
+                                    <th class="text-right">Salary (Others)</th>
+                                    <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
+                                    <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
+                                    <th class="text-right">CPF Employee</th>
+                                    <th class="text-right">CPF Employer</th>
+                                    <th class="text-right">Total CPF</th>
+                                    <th class="text-right">Net Pay</th>
+                                    <th class="text-right">FWL</th>
+                                    <th class="text-right">SDL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appendAnalysisContent_Goldtech">
+                                <td colspan="10">No information available.</td>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h5><strong>Part Timer</strong></h5>
+
+                    <div class="table-responsive">
+                        <table id="analysis_table_Goldtech_PT" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Person ID</th>
+                                    <th>Name</th>
+                                    <th class="text-right">Gross Pay</th>
+                                    <th class="text-right">Deduction (Others)</th>
+                                    <th class="text-right">Deduction (CDAC)</th>
+                                    <th class="text-right">Deduction (MBMF)</th>
+                                    <th class="text-right">Deduction (SINDA)</th>
+                                    <th class="text-right">Deduction (ECF)</th>
+                                    <th class="text-right">CPF Employee</th>
+                                    <th class="text-right">CPF Employer</th>
+                                    <th class="text-right">Total CPF</th>
+                                    <th class="text-right">Net Pay</th>
+                                    <th class="text-right">FWL</th>
+                                    <th class="text-right">SDL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appendAnalysisContent_Goldtech_PT">
+                                <td colspan="10">No information available.</td>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="table-responsive">
+                            <table id="journal_table_Goldtech" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appendJournalContent_Goldtech">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="table-responsive">
+                            <table id="journal_table_CPF_Goldtech" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appendJournalContent_CPF_Goldtech">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </section>
     <!-- /.content -->
