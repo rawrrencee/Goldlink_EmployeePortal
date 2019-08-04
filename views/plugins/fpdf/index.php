@@ -644,7 +644,7 @@ if (isset($_GET['voucherId'])) {
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Cell(0, 10, 'Supervisor Sign & Date: ', 1, 1, 'L', false);
     }
-    $pdf->Output('Salary_Voucher_' . date(Y_M) . '_' . $salaryVoucherData['pay_to_name'] . '.pdf', 'I');
+    $pdf->Output('Salary_Voucher_' . $salaryVoucherData['year_of_voucher'] . '_' . $month . '_' . $salaryVoucherData['pay_to_name'] . '.pdf', 'I');
 
     $pdf->Output();
 

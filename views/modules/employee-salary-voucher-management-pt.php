@@ -22,15 +22,20 @@ if (!in_array('employee-salary-voucher-management-pt', $_SESSION['allowed_module
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"><strong>All Submitted Vouchers</strong></h3>
-                <div class="box-tools pull-right">
-                    <span>Filter by status:</span>
-                    <select id="dataTablesFilterSVByStatus_PT" class="select2" style="width: 100%;">
-                        <option></option>
-                        <option value="Pending">Pending</option>
-                        <option value="Approved">Approved</option>
-                        <option value="Rejected">Rejected</option>
-                    </select>
+                <div class="col-md-2 col-xs-12">
+                    <h3 class="box-title"><strong>All Submitted Vouchers</strong></h3>
+                </div>
+                <div class="col-md-10 col-xs-12">
+                    <div class="box-tools pull-right">
+                        <span>Filter by status:</span>
+                        <select id="dataTablesFilterSVByStatus_PT" class="select2" style="width: 100%;">
+                            <option></option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                        <button id="redrawAllSalaryVouchersTablePT" class="btn btn-info" style="margin-top: 10px;">Reset</button>
+                    </div>
                 </div>
             </div>
 

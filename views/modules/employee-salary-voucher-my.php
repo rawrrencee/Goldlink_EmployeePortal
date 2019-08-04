@@ -14,8 +14,22 @@
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"><strong>Submitted</strong></h3>
-
+                <div class="col-md-2 col-xs-12">
+                    <h3 class="box-title"><strong>All Submitted Vouchers</strong></h3>
+                </div>
+                <div class="col-md-10 col-xs-12">
+                    <div class="box-tools pull-right">
+                        <span>Filter by status:</span>
+                        <select id="mySalaryVouchersTableFilterSVByStatus" class="select2" style="width: 100%;">
+                            <option></option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                        <button id="redrawMySalaryVouchersTable" class="btn btn-info"
+                            style="margin-top: 10px;">Reset</button>
+                    </div>
+                </div>
             </div>
 
             <div class="box-body">
@@ -354,8 +368,8 @@
                             </div>
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <input type="hidden" name='viewCSMSelection' value="0" />
-                                <input type="checkbox" class="minimal" id="viewCSMSelection" name="viewCSMSelection"
-                                    value="1">&nbsp;&nbsp;Yes
+                                <input disabled type="checkbox" class="minimal" id="viewCSMSelection"
+                                    name="viewCSMSelection" value="1">&nbsp;&nbsp;Yes
                             </div>
                             <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                 <label for="viewCSMTitle">SHGs and SHARE Donations to</label>

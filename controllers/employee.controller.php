@@ -56,7 +56,7 @@ class EmployeeController
 
                 if (substr($response['password'], 0, 1) == "$") {
 
-                    if (strtolower($response['username']) == strtolower($username) && password_verify($password, $response['password'])) {
+                    if ($response['deleted'] == 0 && strtolower($response['username']) == strtolower($username) && password_verify($password, $response['password'])) {
 
                         $_SESSION["loggedIn"] = true;
                         $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
@@ -77,7 +77,7 @@ class EmployeeController
 
                     }
                 } else {
-                    if (md5($password) == $response['password']) {
+                    if ($response['deleted'] == 0 && md5($password) == $response['password']) {
 
                         $passwordData = array('person_id' => $response['person_id'], 'legacy_password' => $password);
 

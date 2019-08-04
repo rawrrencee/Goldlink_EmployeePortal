@@ -34,13 +34,14 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                             <option value="Approved">Approved</option>
                             <option value="Rejected">Rejected</option>
                         </select>
+                        <button id="redrawAllSalaryVouchersTable" class="btn btn-info" style="margin-top: 10px;">Reset</button>
                     </div>
                 </div>
             </div>
 
             <div class="box-body">
                 <div class="col-md-12 col-sm-12 col-xs-12" style="overflow-y: auto; overflow-x: auto; width: 100%;">
-                    <form id="updateVoucherStatusForm" role="form" method="POST">
+                    <form id="updateVoucherStatusForm" role="form" method="POST" action="#">
                         <input type="hidden" id="voucherIdToUpdate" name="voucherIdToUpdate" value="">
                         <input type="hidden" id="voucherStatusToUpdate" name="voucherStatusToUpdate" value="">
                         <input type="hidden" id="voucherUpdatedBy" name="voucherUpdatedBy"

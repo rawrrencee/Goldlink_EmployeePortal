@@ -8,6 +8,13 @@ var salaryVoucherDraftsTable = $('.tableSalaryVoucherDrafts').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[3, 'desc']],
+  "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('salaryVoucherDraftsTable', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('salaryVoucherDraftsTable'));
+  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -115,6 +122,13 @@ var salaryVoucherDraftsTablePT = $('.tableSalaryVoucherDraftsPT').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[3, 'desc']],
+  "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('salaryVoucherDraftsTablePT', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('salaryVoucherDraftsTablePT'));
+  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -202,7 +216,7 @@ $(".tableSalaryVoucherDraftsPT tbody").on("click", "button.btnDeleteSalaryVouche
   }).then(function (result) {
     if (result.value) {
 
-      window.location = "index.php?route=employee-salary-voucher-submit&voucherIdToDelete=" + voucher_id;
+      window.location = "index.php?route=employee-salary-voucher-submit-pt&voucherIdToDelete=" + voucher_id;
 
     }
   })
@@ -217,6 +231,13 @@ var mySalaryVouchersTable = $('.tableMySalaryVouchers').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[3, 'desc']],
+  "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('mySalaryVouchersTable', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('mySalaryVouchersTable'));
+  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -281,7 +302,16 @@ mySalaryVouchersTable.columns().every(function () {
   });
 });
 
-//DATATABLES MY SALARY VOUCHERS
+$('#redrawMySalaryVouchersTable').click(function () {
+  mySalaryVouchersTable.search('').columns().search('').draw();
+});
+
+//Filter My Salary Vouchers (FT) DataTable by Status
+$('#mySalaryVouchersTableFilterSVByStatus').on('change', function () {
+  mySalaryVouchersTable.column(7).search(this.value).draw();
+});
+
+//DATATABLES MY SALARY VOUCHERS (PT)
 /* DATATABLES CONFIGURATION */
 var mySalaryVouchersTablePT = $('.tableMySalaryVouchersPT').DataTable({
   "ajax": "ajax/datatable-salary-voucher-my-pt.ssp.php",
@@ -289,6 +319,13 @@ var mySalaryVouchersTablePT = $('.tableMySalaryVouchersPT').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[3, 'desc']],
+  "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('mySalaryVouchersTablePT', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('mySalaryVouchersTablePT'));
+  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -353,7 +390,14 @@ mySalaryVouchersTablePT.columns().every(function () {
   });
 });
 
+$('#redrawMySalaryVouchersTablePT').click(function () {
+  mySalaryVouchersTablePT.search('').columns().search('').draw();
+});
 
+//Filter My Salary Vouchers (PT) DataTable by Status
+$('#mySalaryVouchersTablePTFilterSVByStatus').on('change', function () {
+  mySalaryVouchersTablePT.column(7).search(this.value).draw();
+});
 
 //DATATABLES SALARY VOUCHER MANAGEMENT
 /* DATATABLES CONFIGURATION */
@@ -363,6 +407,13 @@ var allSalaryVouchersTable = $('.tableAllSalaryVouchers').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[10, 'desc']],
+  "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('allSalaryVouchersTable', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('allSalaryVouchersTable'));
+  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -432,6 +483,10 @@ allSalaryVouchersTable.columns().every(function () {
   });
 });
 
+$('#redrawAllSalaryVouchersTable').click(function () {
+  allSalaryVouchersTable.search('').columns().search('').draw();
+});
+
 //Filter Salary Vouchers (FT) DataTable by Status
 $('#dataTablesFilterSVByStatus').on('change', function () {
   allSalaryVouchersTable.column(8).search(this.value).draw();
@@ -445,6 +500,13 @@ var allSalaryVouchersTablePT = $('.tableAllSalaryVouchersPT').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[10, 'desc']],
+  "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('allSalaryVouchersTablePT', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('allSalaryVouchersTablePT'));
+  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -514,11 +576,14 @@ allSalaryVouchersTablePT.columns().every(function () {
   });
 });
 
+$('#redrawAllSalaryVouchersTablePT').click(function () {
+  allSalaryVouchersTablePT.search('').columns().search('').draw();
+});
+
 //Filter Salary Vouchers (PT) DataTable by Status
 $('#dataTablesFilterSVByStatus_PT').on('change', function () {
   allSalaryVouchersTablePT.column(8).search(this.value).draw();
 });
-
 
 //APPEND SALARY LISTING
 $("#salaryVoucherForm").on("click", "button.addSalaryListing", function () {
@@ -2655,6 +2720,8 @@ function recalculatePersonalSales() {
 
 function autofillAttendance() {
   var offDays = "";
+  var PHRODays = "";
+  var numPHRODays = 0;
   var numOffDays = 0;
   var leaveMCDays = "";
   var sickLeaveDays = "";
@@ -2699,6 +2766,13 @@ function autofillAttendance() {
           offDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
         }
         numOffDays++;
+      } else if ($(element).val() == "PH/RO") {
+        if (numPHRODays == 0) {
+          PHRODays = "PH/RO Days: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          PHRODays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numPHRODays++;
       }
 
       //LAST ONE
@@ -2727,9 +2801,15 @@ function autofillAttendance() {
         } else {
           offDays = "Off Days: (0 DAYS)"
         }
+        PHRODays = PHRODays.substr(0, PHRODays.length - 2);
+        if (PHRODays != "") {
+          PHRODays += " (" + numPHRODays + " DAYS)";
+        } else {
+          PHRODays = "PH/RO Days: (0 DAYS)"
+        }
 
         $("#newLeaveMCDays").val(sickLeaveDays + "\n" + annualLeaveDays + "\n" + unpaidLeaveDays);
-        $("#newOffDays").val(offDays);
+        $("#newOffDays").val(offDays + "\n" + PHRODays);
 
         return;
       }
@@ -2762,6 +2842,13 @@ function autofillAttendance() {
           offDays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
         }
         numOffDays++;
+      } else if ($(element).val() == "PH/RO") {
+        if (numPHRODays == 0) {
+          PHRODays = "PH/RO Days: " + (index + 1) + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        } else {
+          PHRODays += index + 1 + "/" + $("#newMonthOfVoucher").val() + "/" + $("#newYearOfVoucher").val() + ", ";
+        }
+        numPHRODays++;
       }
 
       //LAST ONE
@@ -2790,10 +2877,15 @@ function autofillAttendance() {
         } else {
           offDays = "Off Days: (0 DAYS)"
         }
+        PHRODays = PHRODays.substr(0, PHRODays.length - 2);
+        if (PHRODays != "") {
+          PHRODays += " (" + numPHRODays + " DAYS)";
+        } else {
+          PHRODays = "PH/RO Days: (0 DAYS)"
+        }
 
         $("#newLeaveMCDays").val(sickLeaveDays + "\n" + annualLeaveDays + "\n" + unpaidLeaveDays);
-        $("#newOffDays").val(offDays);
-
+        $("#newOffDays").val(offDays + "\n" + PHRODays);
       }
       numWorkingDays++;
       $("#newTotalWorkingDays").val(numWorkingDays);

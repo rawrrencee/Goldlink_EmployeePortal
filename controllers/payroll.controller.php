@@ -535,6 +535,7 @@ class PayrollController
                     'total_others' => $submittedForm['total_others'],
                     'final_amount' => $submittedForm['final_amount'],
                     'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'status' => $submittedForm['status'],
                     'is_csm' => $submittedForm['is_csm'],
                     'cpf_employee' => $submittedForm['cpf_employee'],
                     'cpf_employer' => $submittedForm['cpf_employer'],
