@@ -8,13 +8,6 @@ var salaryVoucherDraftsTable = $('.tableSalaryVoucherDrafts').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[3, 'desc']],
-  "bStateSave": true,
-  "fnStateSave": function (oSettings, oData) {
-      localStorage.setItem('salaryVoucherDraftsTable', JSON.stringify(oData));
-  },
-  "fnStateLoad": function (oSettings) {
-      return JSON.parse(localStorage.getItem('salaryVoucherDraftsTable'));
-  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -122,13 +115,6 @@ var salaryVoucherDraftsTablePT = $('.tableSalaryVoucherDraftsPT').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[3, 'desc']],
-  "bStateSave": true,
-  "fnStateSave": function (oSettings, oData) {
-      localStorage.setItem('salaryVoucherDraftsTablePT', JSON.stringify(oData));
-  },
-  "fnStateLoad": function (oSettings) {
-      return JSON.parse(localStorage.getItem('salaryVoucherDraftsTablePT'));
-  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -231,13 +217,6 @@ var mySalaryVouchersTable = $('.tableMySalaryVouchers').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[3, 'desc']],
-  "bStateSave": true,
-  "fnStateSave": function (oSettings, oData) {
-      localStorage.setItem('mySalaryVouchersTable', JSON.stringify(oData));
-  },
-  "fnStateLoad": function (oSettings) {
-      return JSON.parse(localStorage.getItem('mySalaryVouchersTable'));
-  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -319,13 +298,6 @@ var mySalaryVouchersTablePT = $('.tableMySalaryVouchersPT').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[3, 'desc']],
-  "bStateSave": true,
-  "fnStateSave": function (oSettings, oData) {
-      localStorage.setItem('mySalaryVouchersTablePT', JSON.stringify(oData));
-  },
-  "fnStateLoad": function (oSettings) {
-      return JSON.parse(localStorage.getItem('mySalaryVouchersTablePT'));
-  },
   "columns": [
     { "data": 0 },
     { "data": 1 },

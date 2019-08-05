@@ -5,6 +5,12 @@ var employeesTable = $('.tableEmployees').DataTable({
   "processing": true,
   "autoWidth": false,
   "order": [[1, 'asc']],
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('employeesTable', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('employeesTable'));
+  },
   "columns": [
     { "data": 0 },
     { "data": 1 },
@@ -90,6 +96,10 @@ $('.tableEmployees thead th').each(function (index, element) {
   if (index != 22 && index != 23 && index != 24) {
     $(this).append('<input type="text" class="col-search-input" style="width: 100%;" placeholder="Search ' + title + '" />');
   }
+});
+
+$('#redrawEmployeesTable').click(function () {
+  employeesTable.search('').columns().search('').draw();
 });
 
 /* RESET APPENDED ELEMENTS ON HIDE EDIT ITEM MODAL */

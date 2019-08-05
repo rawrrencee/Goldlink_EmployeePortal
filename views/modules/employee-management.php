@@ -13,13 +13,20 @@
     <div id="loading">
         <img id="loading-image" src="views/img/template/loading.gif" alt="Loading..." />
     </div>
-    
+
     <section class="content">
         <div class="box">
             <div class="box-header with-border">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddEmployee">
-                    Add Employee
-                </button>
+                <div class="col-md-2 col-xs-12">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddEmployee">
+                        Add Employee
+                    </button>
+                </div>
+                <div class="col-md-10 col-xs-12">
+                    <div class="box-tools pull-right">
+                        <button id="redrawEmployeesTable" class="btn btn-info" style="margin-top: 10px;">Reset</button>
+                    </div>
+                </div>
             </div>
             <div class="box-body">
                 <div class="col-md-12" style="overflow-y: auto;">
@@ -489,13 +496,13 @@
             </div>
             <form id="editEmployeeForm" role="form" method="POST" enctype="multipart/form-data">
 
-            <ul class="nav nav-tabs" id="tabContent">
-                <li class="active"><a href="#editProfilePictureTab" data-toggle="tab">Profile Picture</a></li>
-                <li><a href="#editInformationTab" data-toggle="tab">Information</a></li>
-                <li><a href="#editCompanyTab" data-toggle="tab">Company</a></li>
-                <li><a href="#editAccountTab" data-toggle="tab">Account</a></li>
-                <li><a href="#editPermissionsTab" data-toggle="tab">Permissions</a></li>
-            </ul>
+                <ul class="nav nav-tabs" id="tabContent">
+                    <li class="active"><a href="#editProfilePictureTab" data-toggle="tab">Profile Picture</a></li>
+                    <li><a href="#editInformationTab" data-toggle="tab">Information</a></li>
+                    <li><a href="#editCompanyTab" data-toggle="tab">Company</a></li>
+                    <li><a href="#editAccountTab" data-toggle="tab">Account</a></li>
+                    <li><a href="#editPermissionsTab" data-toggle="tab">Permissions</a></li>
+                </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="editProfilePictureTab">

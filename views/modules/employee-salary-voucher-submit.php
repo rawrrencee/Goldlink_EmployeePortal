@@ -15,7 +15,7 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title"><strong>Drafts</strong></h3>
-
+                <p><strong>Pressing the yellow "Load" button will load a draft into the Salary Voucher form below.</strong></p>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                         title="Collapse">
@@ -367,7 +367,7 @@
                                     <label for="newCSMSelection">Self-Help Groups (SHGs) and SHARE Donations</label>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <input type="hidden" name='newCSMSelection' value="1" />
+                                    <input type="hidden" name='newCSMSelection' value="0" />
                                     <input checked type="checkbox" class="minimal" id="newCSMSelection"
                                         name="newCSMSelection" value="1">&nbsp;&nbsp;Yes
                                 </div>
