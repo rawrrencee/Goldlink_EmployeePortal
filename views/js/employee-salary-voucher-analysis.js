@@ -176,6 +176,10 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
             $("#appendAnalysisContent_Goldtech").html("");
             $("#appendAnalysisContent_Doro").html("");
 
+            $("#appendAnalysisContent_total_GAD").html("");
+            $("#appendAnalysisContent_total_Goldtech").html("");
+            $("#appendAnalysisContent_total_Doro").html("");
+
             $("#appendAnalysisContent_GAD_PT").html("");
             $("#appendAnalysisContent_Goldtech_PT").html("");
             $("#appendAnalysisContent_Doro_PT").html("");
