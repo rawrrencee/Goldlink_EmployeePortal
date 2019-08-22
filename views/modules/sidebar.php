@@ -112,7 +112,20 @@ session_start();
                         <li>
                             <a href="employee-salary-voucher-analysis">
                                 <i class="fa fa-circle-o"></i>
-                                <span>Salary Voucher Analysis</span>
+                                <span>Salary Analysis (Month)</span>
+                            </a>
+                        </li>
+                        ';
+                    }
+                    ?>
+
+                    <?php
+                    if (in_array('employee-salary-voucher-analysis-yearly', $_SESSION['allowed_modules'])) {
+                    echo '
+                        <li>
+                            <a href="employee-salary-voucher-analysis-yearly">
+                                <i class="fa fa-circle-o"></i>
+                                <span>Salary Analysis (Year)</span>
                             </a>
                         </li>
                         ';
@@ -158,7 +171,7 @@ session_start();
                     }
                     ?>
 
-                    
+
                     <?php
                     if (in_array('employee-salary-voucher-my-pt', $_SESSION['allowed_modules'])) {
                     echo '

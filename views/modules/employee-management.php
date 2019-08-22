@@ -435,6 +435,14 @@
 
                                 <p style="margin-top: 5px;">Salary Voucher Analysis</p>
                             </div>
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="allowedModulesSelection[10]" value="0">
+                                <input type="checkbox" class="minimal" id="newSalaryVoucherAnalysisYearly"
+                                    name="allowedModulesSelection[10]" value="1">
+                                <input type="hidden" name="allowedModules[10]" value="employee-salary-voucher-analysis-yearly">
+
+                                <p style="margin-top: 5px;">Salary Voucher Analysis (Yearly)</p>
+                            </div>
                         </div>
 
                         <div class="form-row">
@@ -442,26 +450,26 @@
                                 <h4><strong>Customer Management</strong></h4>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[10]" value="0">
+                                <input type="hidden" name="newAllowedModulesSelection[11]" value="0">
                                 <input type="checkbox" class="minimal" id="newCustomerManagement"
-                                    name="newAllowedModulesSelection[10]" value="1">
-                                <input type="hidden" name="allowedModules[10]" value="customer-management">
+                                    name="newAllowedModulesSelection[11]" value="1">
+                                <input type="hidden" name="allowedModules[11]" value="customer-management">
 
                                 <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[11]" value="0">
+                                <input type="hidden" name="newAllowedModulesSelection[12]" value="0">
                                 <input type="checkbox" class="minimal" id="newViewCustomerArchives"
-                                    name="newAllowedModulesSelection[11]" value="1">
-                                <input type="hidden" name="allowedModules[11]" value="customer-archives">
+                                    name="newAllowedModulesSelection[12]" value="1">
+                                <input type="hidden" name="allowedModules[12]" value="customer-archives">
 
                                 <p style="margin-top: 5px;">View/Update Customer Archives</p>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[12]" value="0">
+                                <input type="hidden" name="newAllowedModulesSelection[13]" value="0">
                                 <input type="checkbox" class="minimal" id="newCustomerAnalytics"
-                                    name="newAllowedModulesSelection[12]" value="1">
-                                <input type="hidden" name="allowedModules[12]" value="customer-analytics">
+                                    name="newAllowedModulesSelection[13]" value="1">
+                                <input type="hidden" name="allowedModules[13]" value="customer-analytics">
 
                                 <p style="margin-top: 5px;">View Customer Analytics</p>
                             </div>
@@ -918,6 +926,15 @@
 
                                         <p style="margin-top: 5px;">Salary Voucher Analysis</p>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[10]" value="0">
+                                        <input type="checkbox" class="minimal" id="editSalaryVoucherAnalysisYearly"
+                                            name="editAllowedModulesSelection[10]" value="1">
+                                        <input type="hidden" name="allowedModules[10]"
+                                            value="employee-salary-voucher-analysis-yearly">
+
+                                        <p style="margin-top: 5px;">Salary Voucher Analysis (Yearly)</p>
+                                    </div>
                                 </div>
 
                                 <div class="form-row">
@@ -925,26 +942,26 @@
                                         <h4><strong>Customer Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[10]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[11]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerManagement"
-                                            name="editAllowedModulesSelection[10]" value="1">
-                                        <input type="hidden" name="allowedModules[10]" value="customer-management">
+                                            name="editAllowedModulesSelection[11]" value="1">
+                                        <input type="hidden" name="allowedModules[11]" value="customer-management">
 
                                         <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[11]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[12]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerArchives"
-                                            name="editAllowedModulesSelection[11]" value="1">
-                                        <input type="hidden" name="allowedModules[11]" value="customer-archives">
+                                            name="editAllowedModulesSelection[12]" value="1">
+                                        <input type="hidden" name="allowedModules[12]" value="customer-archives">
 
                                         <p style="margin-top: 5px;">View/Update Customer Archives</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[12]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[13]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerAnalytics"
-                                            name="editAllowedModulesSelection[12]" value="1">
-                                        <input type="hidden" name="allowedModules[12]" value="customer-analytics">
+                                            name="editAllowedModulesSelection[13]" value="1">
+                                        <input type="hidden" name="allowedModules[13]" value="customer-analytics">
 
                                         <p style="margin-top: 5px;">View Customer Analytics</p>
                                     </div>

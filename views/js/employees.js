@@ -204,6 +204,9 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             else if (answer[i]['module_title'] == "employee-salary-voucher-analysis" && answer[i]['active'] == 1) {
               $('#editSalaryVoucherAnalysis').iCheck('check');
             }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-analysis-yearly" && answer[i]['active'] == 1) {
+              $('#editSalaryVoucherAnalysisYearly').iCheck('check');
+            }
             else if (answer[i]['module_title'] == "customer-management" && answer[i]['active'] == 1) {
               $('#editCustomerManagement').iCheck('check');
             }

@@ -85,6 +85,18 @@ class PayrollController
 
     }
 
+    public static function ctrViewAllSalaryVouchersByYear($yearToAnalyse) {
+        $response = PayrollModel::mdlViewAllSalaryVouchersByYear($yearToAnalyse);
+        
+        return $response;
+    }
+
+    public static function ctrViewIndivSalaryVouchersByYear($personId, $yearToAnalyse) {
+        $response = PayrollModel::mdlViewIndivSalaryVouchersByYear($personId, $yearToAnalyse);
+        
+        return $response;
+    }
+
     public static function ctrRetrieveIndivSalaryVoucherByStatus($data)
     {
 

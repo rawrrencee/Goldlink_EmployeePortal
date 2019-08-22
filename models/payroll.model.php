@@ -95,6 +95,25 @@ class PayrollModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function mdlViewIndivSalaryVouchersByYear($personId, $yearToAnalyse) {
+        $table = 'salary_vouchers';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE person_id = :person_id AND year_of_voucher = :year_of_voucher AND is_draft = 0 AND status = 'Approved' ORDER BY person_id ASC");
+        $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+        $stmt->bindParam(":year_of_voucher", $yearToAnalyse, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewAllSalaryVouchersByYear($yearToAnalyse) {
+        $table = 'salary_vouchers';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE year_of_voucher = :year_of_voucher AND is_draft = 0 AND status = 'Approved' ORDER BY person_id ASC");
+        $stmt->bindParam(":year_of_voucher", $yearToAnalyse, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function mdlRetrieveIndivSalaryVoucherByStatus($data) {
 
         $table = 'salary_vouchers';
