@@ -27,9 +27,6 @@ session_start();
 
         <!-- Default box -->
         <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Display Gross Salary by Year</h3>
-            </div>
             <div class="box-body">
                 <div class="form-row">
                     <div class="form-group col-md-3 col-sm-6 col-xs-12">
@@ -76,7 +73,7 @@ session_start();
             <div class="box-body">
                 <div class="col-sm-12 col-md-12 col-xs-12">
 
-                    <h5><strong>Full Timer</strong></h5>
+                    <h5><strong>Gross Salary</strong></h5>
 
                     <div class="table-responsive">
                         <table id="analysis_table_yearly_GAD" class="table table-hover table-bordered table-striped">
@@ -100,35 +97,6 @@ session_start();
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_yearly_GAD">
-                                <td colspan="10">No information available.</td>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h5><strong>Part Timer</strong></h5>
-
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_GAD_PT" class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Person ID</th>
-                                    <th>Name</th>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_GAD_PT">
                                 <td colspan="10">No information available.</td>
                             </tbody>
                         </table>
@@ -171,7 +139,7 @@ session_start();
             <div class="box-body">
                 <div class="col-sm-12 col-md-12 col-xs-12">
 
-                    <h5><strong>Full Timer</strong></h5>
+                    <h5><strong>Gross Salary</strong></h5>
 
                     <div class="table-responsive">
                         <table id="analysis_table_yearly_Doro" class="table table-hover table-bordered table-striped">
@@ -195,36 +163,6 @@ session_start();
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_yearly_Doro">
-                                <td colspan="10">No information available.</td>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h5><strong>Part Timer</strong></h5>
-
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_Doro_PT"
-                            class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Person ID</th>
-                                    <th>Name</th>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_Doro_PT">
                                 <td colspan="10">No information available.</td>
                             </tbody>
                         </table>
@@ -269,7 +207,7 @@ session_start();
             <div class="box-body">
                 <div class="col-sm-12 col-md-12 col-xs-12">
 
-                    <h5><strong>Full Timer</strong></h5>
+                    <h5><strong>Gross Salary</strong></h5>
 
                     <div class="table-responsive">
                         <table id="analysis_table_yearly_Goldtech"
@@ -294,36 +232,6 @@ session_start();
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_yearly_Goldtech">
-                                <td colspan="10">No information available.</td>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h5><strong>Part Timer</strong></h5>
-
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_Goldtech_PT"
-                            class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Person ID</th>
-                                    <th>Name</th>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_Goldtech_PT">
                                 <td colspan="10">No information available.</td>
                             </tbody>
                         </table>
