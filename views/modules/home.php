@@ -28,9 +28,12 @@ session_start();
             <h1>
                 Welcome,
                 <strong>
-                    <?php 
-                        echo $_SESSION['first_name'].' '.$_SESSION['last_name'].'.';
-                    ?>
+                    <?php
+                        if ($_SESSION['last_name'] != "") {
+                            echo $_SESSION['first_name'].' '.$_SESSION['last_name'].'.';
+                        } else {
+                            echo $_SESSION['first_name'].'.';
+                    }?>
                 </strong>
             </h1>
         </div>

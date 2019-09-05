@@ -106,10 +106,9 @@
                                     placeholder="Given Name" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="newLastName">Last Name&nbsp;&nbsp;<small
-                                        style="color:red;">*Required</small></label>
+                                <label for="newLastName">Last Name&nbsp;&nbsp;</label>
                                 <input type="text" class="form-control" id="newLastName" name="newLastName"
-                                    placeholder="Surname" required>
+                                    placeholder="Surname">
                             </div>
                         </div>
                         <div class="form-row">
@@ -550,10 +549,8 @@
                                             required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="editLastName">Last Name&nbsp;&nbsp;<small
-                                                style="color:red;">*Required</small></label>
-                                        <input type="text" class="form-control" id="editLastName" name="editLastName"
-                                            required>
+                                        <label for="editLastName">Last Name&nbsp;&nbsp;</label>
+                                        <input type="text" class="form-control" id="editLastName" name="editLastName">
                                     </div>
                                 </div>
                                 <div class="form-row">
