@@ -69,64 +69,121 @@ session_start();
         <div id="analysis_box_yearly_GAD" class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Goldlink Asia Distribution Pte Ltd</h3>
+
+                <ul class="nav nav-tabs" id="tabContent">
+                    <li class="active"><a href="#grossSalaryTab_GAD" data-toggle="tab">Gross Salary</a></li>
+                    <li><a href="#cpfEmployeeTab_GAD" data-toggle="tab">CPF Employee</a></li>
+                    <li><a href="#shgTab_GAD" data-toggle="tab">Self-Help Groups</a></li>
+                </ul>
             </div>
-            <div class="box-body">
-                <div class="col-sm-12 col-md-12 col-xs-12">
+            <div class="tab-content">
+                <div class="tab-pane active" id="grossSalaryTab_GAD">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
 
-                    <h5><strong>Gross Salary</strong></h5>
+                            <h5><strong>Gross Salary</strong></h5>
 
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_GAD" class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Person ID</th>
-                                    <th>Name</th>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_GAD">
-                                <td colspan="10">No information available.</td>
-                            </tbody>
-                        </table>
+                            <div class="table-responsive">
+                                <table id="analysis_table_yearly_GAD"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendAnalysisContent_yearly_GAD">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
+                </div>
 
-                    <h5><strong>Total</strong></h5>
+                <div class="tab-pane" id="cpfEmployeeTab_GAD">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
+                            <h5><strong>CPF Employee Contribution</strong></h5>
 
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_total_GAD"
-                            class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_total_GAD">
-                            </tbody>
-                        </table>
+                            <div class="table-responsive">
+                                <table id="cpf_employee_table_yearly_GAD"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendCPFEmployeeContent_yearly_GAD">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="shgTab_GAD">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
+                            <h5><strong>Self-Help Groups Deduction Contributions</strong></h5>
+
+                            <div class="table-responsive">
+                                <table id="deductions_shg_table_yearly_GAD"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendDeductionsSHGContent_yearly_GAD">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,133 +192,243 @@ session_start();
         <div id="analysis_box_yearly_Doro" class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Doro International Pte Ltd</h3>
+
+                <ul class="nav nav-tabs" id="tabContent">
+                    <li class="active"><a href="#grossSalaryTab_Doro" data-toggle="tab">Gross Salary</a></li>
+                    <li><a href="#cpfEmployeeTab_Doro" data-toggle="tab">CPF Employee</a></li>
+                    <li><a href="#shgTab_Doro" data-toggle="tab">Self-Help Groups</a></li>
+                </ul>
             </div>
-            <div class="box-body">
-                <div class="col-sm-12 col-md-12 col-xs-12">
+            <div class="tab-content">
+                <div class="tab-pane active" id="grossSalaryTab_Doro">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
 
-                    <h5><strong>Gross Salary</strong></h5>
+                            <h5><strong>Gross Salary</strong></h5>
 
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_Doro" class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Person ID</th>
-                                    <th>Name</th>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_Doro">
-                                <td colspan="10">No information available.</td>
-                            </tbody>
-                        </table>
+                            <div class="table-responsive">
+                                <table id="analysis_table_yearly_Doro"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendAnalysisContent_yearly_Doro">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
-
-                    <h5><strong>Total</strong></h5>
-
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_total_Doro"
-                            class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_total_Doro">
-                            </tbody>
-                        </table>
-                    </div>
-
                 </div>
 
+                <div class="tab-pane" id="cpfEmployeeTab_Doro">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
+                            <h5><strong>CPF Employee Contribution</strong></h5>
+
+                            <div class="table-responsive">
+                                <table id="cpf_employee_table_yearly_Doro"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendCPFEmployeeContent_yearly_Doro">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="shgTab_Doro">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
+                            <h5><strong>Self-Help Groups Deduction Contributions</strong></h5>
+
+                            <div class="table-responsive">
+                                <table id="deductions_shg_table_yearly_Doro"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendDeductionsSHGContent_yearly_Doro">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="analysis_box_yearly_Goldtech" class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Goldlink Technologies Pte Ltd</h3>
+                <ul class="nav nav-tabs" id="tabContent">
+                    <li class="active"><a href="#grossSalaryTab_Goldtech" data-toggle="tab">Gross Salary</a></li>
+                    <li><a href="#cpfEmployeeTab_Goldtech" data-toggle="tab">CPF Employee</a></li>
+                    <li><a href="#shgTab_Goldtech" data-toggle="tab">Self-Help Groups</a></li>
+                </ul>
             </div>
-            <div class="box-body">
-                <div class="col-sm-12 col-md-12 col-xs-12">
+            <div class="tab-content">
+                <div class="tab-pane active" id="grossSalaryTab_Goldtech">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
 
-                    <h5><strong>Gross Salary</strong></h5>
+                            <h5><strong>Gross Salary</strong></h5>
 
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_Goldtech"
-                            class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Person ID</th>
-                                    <th>Name</th>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_Goldtech">
-                                <td colspan="10">No information available.</td>
-                            </tbody>
-                        </table>
+                            <div class="table-responsive">
+                                <table id="analysis_table_yearly_Goldtech"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendAnalysisContent_yearly_Goldtech">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
+                </div>
 
-                    <h5><strong>Total</strong></h5>
+                <div class="tab-pane" id="cpfEmployeeTab_Goldtech">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
+                            <h5><strong>CPF Employee Contribution</strong></h5>
 
-                    <div class="table-responsive">
-                        <table id="analysis_table_yearly_total_Goldtech"
-                            class="table table-hover table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="text-right">Jan</th>
-                                    <th class="text-right">Feb</th>
-                                    <th class="text-right">Mar</th>
-                                    <th class="text-right">Apr</th>
-                                    <th class="text-right">May</th>
-                                    <th class="text-right">Jun</th>
-                                    <th class="text-right">Jul</th>
-                                    <th class="text-right">Aug</th>
-                                    <th class="text-right">Sep</th>
-                                    <th class="text-right">Oct</th>
-                                    <th class="text-right">Nov</th>
-                                    <th class="text-right">Dec</th>
-                                    <th class="text-right">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appendAnalysisContent_yearly_total_Goldtech">
-                            </tbody>
-                        </table>
+                            <div class="table-responsive">
+                                <table id="cpf_employee_table_yearly_Goldtech"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendCPFEmployeeContent_yearly_Goldtech">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="shgTab_Goldtech">
+                    <div class="box-body">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
+                            <h5><strong>Self-Help Groups Deduction Contributions</strong></h5>
+
+                            <div class="table-responsive">
+                                <table id="deductions_shg_table_yearly_Goldtech"
+                                    class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Person ID</th>
+                                            <th>Name</th>
+                                            <th class="text-right">Jan</th>
+                                            <th class="text-right">Feb</th>
+                                            <th class="text-right">Mar</th>
+                                            <th class="text-right">Apr</th>
+                                            <th class="text-right">May</th>
+                                            <th class="text-right">Jun</th>
+                                            <th class="text-right">Jul</th>
+                                            <th class="text-right">Aug</th>
+                                            <th class="text-right">Sep</th>
+                                            <th class="text-right">Oct</th>
+                                            <th class="text-right">Nov</th>
+                                            <th class="text-right">Dec</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appendDeductionsSHGContent_yearly_Goldtech">
+                                        <td colspan="10">No information available.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

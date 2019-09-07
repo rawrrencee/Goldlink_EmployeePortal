@@ -120,6 +120,7 @@ session_start();
                                     <th class="text-right">Net Pay</th>
                                     <th class="text-right">FWL</th>
                                     <th class="text-right">SDL</th>
+                                    <th class="text-right">Salary/Sales</th>
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_GAD">
@@ -148,6 +149,7 @@ session_start();
                                     <th class="text-right">Net Pay</th>
                                     <th class="text-right">FWL</th>
                                     <th class="text-right">SDL</th>
+                                    <th class="text-right">Salary/Sales</th>
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_GAD_PT">
@@ -246,6 +248,7 @@ session_start();
                                     <th class="text-right">Net Pay</th>
                                     <th class="text-right">FWL</th>
                                     <th class="text-right">SDL</th>
+                                    <th class="text-right">Salary/Sales</th>
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_Doro">
@@ -274,6 +277,7 @@ session_start();
                                     <th class="text-right">Net Pay</th>
                                     <th class="text-right">FWL</th>
                                     <th class="text-right">SDL</th>
+                                    <th class="text-right">Salary/Sales</th>
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_Doro_PT">
@@ -373,6 +377,7 @@ session_start();
                                     <th class="text-right">Net Pay</th>
                                     <th class="text-right">FWL</th>
                                     <th class="text-right">SDL</th>
+                                    <th class="text-right">Salary/Sales</th>
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_Goldtech">
@@ -401,6 +406,7 @@ session_start();
                                     <th class="text-right">Net Pay</th>
                                     <th class="text-right">FWL</th>
                                     <th class="text-right">SDL</th>
+                                    <th class="text-right">Salary/Sales</th>
                                 </tr>
                             </thead>
                             <tbody id="appendAnalysisContent_Goldtech_PT">

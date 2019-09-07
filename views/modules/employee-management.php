@@ -108,7 +108,7 @@
                             <div class="form-group col-md-6">
                                 <label for="newLastName">Last Name&nbsp;&nbsp;</label>
                                 <input type="text" class="form-control" id="newLastName" name="newLastName"
-                                    placeholder="Surname">
+                                    placeholder="Surname" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -550,7 +550,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="editLastName">Last Name&nbsp;&nbsp;</label>
-                                        <input type="text" class="form-control" id="editLastName" name="editLastName">
+                                        <input type="text" class="form-control" id="editLastName" name="editLastName" required>
                                     </div>
                                 </div>
                                 <div class="form-row">

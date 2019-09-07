@@ -121,9 +121,9 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
 
             $_GET["route"] == "home" ||
             $_GET["route"] == "logout"
-            ) {
+        ) {
             include "modules/" . $_GET["route"] . ".php";
-            
+
         } else if (
 
             (
@@ -139,11 +139,11 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
                 $_GET["route"] == "employee-salary-voucher-submit-pt" ||
                 $_GET["route"] == "employee-salary-voucher-analysis" ||
                 $_GET["route"] == "employee-salary-voucher-analysis-yearly"
-                )
+            )
             && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
 
             include "modules/" . $_GET["route"] . ".php";
-            
+
         } else {
             include "modules/404.php";
         }
