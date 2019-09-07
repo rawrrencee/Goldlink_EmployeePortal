@@ -634,7 +634,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         <td align="right">`+ answer[i]['final_amount'] + `</td>
                         <td align="right">`+ answer[i]['levy_amount'] + `</td>
                         <td align="right">`+ answer[i]['sdl_amount'] + `</td>
-                        <td align="right"><strong>`+ (((parseFloat(answer[i]['gross_pay']) + parseFloat(answer[i]['cpf_employer']) + parseFloat(answer[i]['sdl_amount']))/parseFloat(answer[i]['personal_sales'])) * 100).toFixed(2) + `</strong>%</td>
+                        <td align="right"><strong>`+ (((parseFloat(answer[i]['gross_pay']) + parseFloat(answer[i]['cpf_employer']) + parseFloat(answer[i]['sdl_amount']) + parseFloat(answer[i]['levy_amount']))/parseFloat(answer[i]['personal_sales'])) * 100).toFixed(2) + `</strong>%</td>
                     </tr>
                     `);
 
@@ -656,7 +656,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                         <td align="right">`+ answer[i]['final_amount'] + `</td>
                         <td align="right">`+ answer[i]['levy_amount'] + `</td>
                         <td align="right">`+ answer[i]['sdl_amount'] + `</td>
-                        <td align="right"><strong>`+ (((parseFloat(answer[i]['gross_pay']) + parseFloat(answer[i]['cpf_employer']) + parseFloat(answer[i]['sdl_amount']))/parseFloat(answer[i]['personal_sales'])) * 100).toFixed(2) + `</strong>%</td>
+                        <td align="right"><strong>`+ (((parseFloat(answer[i]['gross_pay']) + parseFloat(answer[i]['cpf_employer']) + parseFloat(answer[i]['sdl_amount']) + parseFloat(answer[i]['levy_amount']))/parseFloat(answer[i]['personal_sales'])) * 100).toFixed(2) + `</strong>%</td>
                         </tr>
                     `);
                 }
