@@ -1576,8 +1576,8 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
                 if (answer[i]['title'] == "CPF-EE") {
                   $('#viewCPFEmployee').val(answer[i]['amount']);
                 } else if (answer[i]['title'] == "CDAC" || answer[i]['title'] == "MBMF" || answer[i]['title'] == "SINDA" || answer[i]['title'] == "ECF" || answer[i]['title'] == "N/A") {
-                  $('#newCSMTitle').val(answer[i]['title']);
-                  $('#newCSMAmount').val(answer[i]['amount']);
+                  $('#viewCSMTitle').val(answer[i]['title']);
+                  $('#viewCSMAmount').val(answer[i]['amount']);
                 } else {
                   $("#appendDeductionListing").append(
                     `
