@@ -1018,13 +1018,13 @@ $(".tableSalaryVoucherDrafts tbody").on("click", "button.btnLoadSalaryVoucherDra
         dataType: "json",
         success: function (answer) {
           for (var i = 0; i < answer.length; i++) {
-            if (answer[i]['title'] == "Basic Pay") {
+            if (i == 0 && answer[i]['title'] == "Basic Pay") {
               $('#newSalaryBasicPayAmount').val(answer[i]['amount']);
               $('#newSalaryBasicPayRemarks').val(answer[i]['remarks']);
-            } else if (answer[i]['title'] == "Attendance") {
+            } else if (i == 1 && answer[i]['title'] == "Attendance") {
               $('#newSalaryAttendanceAmount').val(answer[i]['amount']);
               $('#newSalaryAttendanceRemarks').val(answer[i]['remarks']);
-            } else if (answer[i]['title'] == "Productivity") {
+            } else if (i == 2 && answer[i]['title'] == "Productivity") {
               $('#newSalaryProductivityAmount').val(answer[i]['amount']);
               $('#newSalaryProductivityRemarks').val(answer[i]['remarks']);
             } else {
@@ -1533,13 +1533,13 @@ $(".tableMySalaryVouchers tbody").on("click", "button.btnViewSalaryVoucher", fun
         dataType: "json",
         success: function (answer) {
           for (var i = 0; i < answer.length; i++) {
-            if (answer[i]['title'] == "Basic Pay") {
+            if (i == 0 && answer[i]['title'] == "Basic Pay") {
               $('#viewSalaryBasicPayAmount').val(answer[i]['amount']);
               $('#viewSalaryBasicPayRemarks').val(answer[i]['remarks']);
-            } else if (answer[i]['title'] == "Attendance") {
+            } else if (i == 1 && answer[i]['title'] == "Attendance") {
               $('#viewSalaryAttendanceAmount').val(answer[i]['amount']);
               $('#viewSalaryAttendanceRemarks').val(answer[i]['remarks']);
-            } else if (answer[i]['title'] == "Productivity") {
+            } else if (i == 2 && answer[i]['title'] == "Productivity") {
               $('#viewSalaryProductivityAmount').val(answer[i]['amount']);
               $('#viewSalaryProductivityRemarks').val(answer[i]['remarks']);
             } else {
@@ -2034,13 +2034,13 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
         dataType: "json",
         success: function (answer) {
           for (var i = 0; i < answer.length; i++) {
-            if (answer[i]['title'] == "Basic Pay") {
+            if (i == 0 && answer[i]['title'] == "Basic Pay") {
               $('#newSalaryBasicPayAmount').val(answer[i]['amount']);
               $('#newSalaryBasicPayRemarks').val(answer[i]['remarks']);
-            } else if (answer[i]['title'] == "Attendance") {
+            } else if (i == 1 && answer[i]['title'] == "Attendance") {
               $('#newSalaryAttendanceAmount').val(answer[i]['amount']);
               $('#newSalaryAttendanceRemarks').val(answer[i]['remarks']);
-            } else if (answer[i]['title'] == "Productivity") {
+            } else if (i == 2 && answer[i]['title'] == "Productivity") {
               $('#newSalaryProductivityAmount').val(answer[i]['amount']);
               $('#newSalaryProductivityRemarks').val(answer[i]['remarks']);
             } else {

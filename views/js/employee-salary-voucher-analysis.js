@@ -595,7 +595,9 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                     })
 
                     for (var k = 0; k < salary_records.length; k++) {
-                        if (salary_records[k]['title'] != "Basic Pay" && salary_records[k]['title'] != "Attendance" && salary_records[k]['title'] != "Productivity") {
+                        // k == 0, salary_records[k]['title'] = 'Basic Pay', k == 1, salary_records[k]['title'] = 'Attendance'
+                        // k == 2, salary_records[k]['title'] = 'Productivity' 
+                        if (k != 0 && k != 1 && k != 2) {
                             salary_others += parseFloat(salary_records[k]['amount']);
                         }
                     }
