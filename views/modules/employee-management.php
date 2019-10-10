@@ -242,12 +242,12 @@
                             <div class="form-group col-md-6">
                                 <label for="newEmergencyAddress">Address</label>
                                 <input type="text" class="form-control" id="newEmergencyAddress"
-                                    name="newEmergencyAddress" placeholder="Name">
+                                    name="newEmergencyAddress" placeholder="Address">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="newEmergencyContact">Contact Number</label>
                                 <input type="text" class="form-control" id="newEmergencyContact"
-                                    name="newEmergencyContact" placeholder="Relationship">
+                                    name="newEmergencyContact" placeholder="Contact Number">
                             </div>
                         </div>
 
