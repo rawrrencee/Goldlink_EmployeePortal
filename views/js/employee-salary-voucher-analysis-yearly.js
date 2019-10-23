@@ -295,6 +295,7 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                     totalCPFEE_GAD[7] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[7] += parseFloat(deduction_SHG);
                                 }
+                                break;
                             case 9:
                                 if (!isNaN(data[k]['gross_pay'])) {
                                     grossPay_GAD[8] += parseFloat(data[k]['gross_pay']);
@@ -541,6 +542,7 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                     totalCPFEE_Doro[7] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[7] += parseFloat(deduction_SHG);
                                 }
+                                break;
                             case 9:
                                 if (!isNaN(data[k]['gross_pay'])) {
                                     grossPay_Doro[8] += parseFloat(data[k]['gross_pay']);
@@ -787,6 +789,7 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                     totalCPFEE_Goldtech[7] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[7] += parseFloat(deduction_SHG);
                                 }
+                                break;
                             case 9:
                                 if (!isNaN(data[k]['gross_pay'])) {
                                     grossPay_Goldtech[8] += parseFloat(data[k]['gross_pay']);
