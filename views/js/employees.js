@@ -216,6 +216,9 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             else if (answer[i]['module_title'] == "customer-analytics" && answer[i]['active'] == 1) {
               $('#editCustomerAnalytics').iCheck('check');
             }
+            else if (answer[i]['module_title'] == "supplier-management" && answer[i]['active'] == 1) {
+              $('#editSupplierManagement').iCheck('check');
+            }
           }
 
           var formData = new FormData();

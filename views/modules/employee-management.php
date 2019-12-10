@@ -473,6 +473,20 @@
                                 <p style="margin-top: 5px;">View Customer Analytics</p>
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <h4><strong>Supplier Management</strong></h4>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="newAllowedModulesSelection[14]" value="0">
+                                <input type="checkbox" class="minimal" id="newSupplierManagement"
+                                    name="newAllowedModulesSelection[14]" value="1">
+                                <input type="hidden" name="allowedModules[14]" value="supplier-management">
+
+                                <p style="margin-top: 5px;">Supplier Management</p>
+                            </div>
+                        </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -963,7 +977,21 @@
                                         <p style="margin-top: 5px;">View Customer Analytics</p>
                                     </div>
                                 </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Supplier Management</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[14]" value="0">
+                                        <input type="checkbox" class="minimal" id="editSupplierManagement" name="editAllowedModulesSelection[14]" value="1">
+                                        <input type="hidden" name="allowedModules[14]" value="supplier-management">
+
+                                        <p style="margin-top: 5px;">Supplier Management</p>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
