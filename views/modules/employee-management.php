@@ -80,425 +80,520 @@
                     style="color: #ffffff; opacity: 1;">&times;</button>
                 <h4 class="modal-title">Add New Employee</h4>
             </div>
-            <div class="modal-body">
-                <div class="box-body">
-                    <form id="addEmployeeForm" role="form" method="POST" enctype="multipart/form-data">
-                        <div class="col-md-12">
-                            <p style="font-size: 2em;">Profile Picture</p>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">
-                                <img class="thumbnail preview" src="views/img/users/default/anonymous.png"
+            <form id="addEmployeeForm" role="form" method="POST" enctype="multipart/form-data">
+
+            <ul class="nav nav-tabs" id="tabContent">
+                    <li class="active"><a href="#newProfilePictureTab" data-toggle="tab">Profile Picture</a></li>
+                    <li><a href="#newInformationTab" data-toggle="tab">Information</a></li>
+                    <li><a href="#newCompanyTab" data-toggle="tab">Company</a></li>
+                    <li><a href="#newAccountTab" data-toggle="tab">Account</a></li>
+                    <li><a href="#newPermissionsTab" data-toggle="tab">Permissions</a></li>
+                    <li><a href="#newTeamTab" data-toggle="tab">Team</a></li>
+            </ul>
+
+            <div class="tab-content">
+                    <div class="tab-pane active" id="newProfilePictureTab">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em;">Profile Picture</p>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-2">
+                                        <img class="thumbnail preview" src="views/img/users/default/anonymous.png"
                                     width="100px">
-                            </div>
-                            <div class="col-md-10" style="padding-bottom: 30px;">
-                                <input type="file" class="newProfilePhoto" name="newProfilePhoto">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <p style="font-size: 2em;">Basic Information</p>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newFirstName">First Name&nbsp;&nbsp;<small
-                                        style="color:red;">*Required</small></label>
-                                <input type="text" class="form-control" id="newFirstName" name="newFirstName"
-                                    placeholder="Given Name" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newLastName">Last Name&nbsp;&nbsp;</label>
-                                <input type="text" class="form-control" id="newLastName" name="newLastName"
-                                    placeholder="Surname" required>
+                                    </div>
+                                    <div class="col-md-10" style="padding-bottom: 30px;">
+                                        <input type="file" class="newProfilePhoto" name="newProfilePhoto">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newChineseName">Chinese Name</label>
-                                <input type="text" class="form-control" id="newChineseName" name="newChineseName"
-                                    placeholder="Chinese Name">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newDateOfBirth">Date Of Birth</label>
-                                <input type="text" class="form-control datepicker" id="newDateOfBirth"
-                                    name="newDateOfBirth" style="background-color: white;">
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary addEmployeeButton">Save</button>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newGender">Gender</label>
-                                <select class="form-control" id="newGender" name="newGender">
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newNationality">Nationality</label>
-                                <input type="text" class="form-control" id="newNationality" name="newNationality"
-                                    placeholder="Nationality">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newDesignation">Designation</label>
-                                <input type="text" class="form-control" id="newDesignation" name="newDesignation"
-                                    placeholder="Designation">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newEmail">Email</label>
-                                <input type="email" class="form-control" id="newEmail" name="newEmail"
-                                    placeholder="Email" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newMobileNumber">Mobile Number&nbsp;&nbsp;<small
-                                        style="color:red;">*Required</small></label>
-                                <input type="text" class="form-control" id="newMobileNumber" name="newMobileNumber"
-                                    placeholder="Mobile Number" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newPhoneNumber">Phone Number</label>
-                                <input type="text" class="form-control" id="newPhoneNumber" name="newPhoneNumber"
-                                    placeholder="Phone Number">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newAddress">Address</label>
-                                <input type="text" class="form-control" id="newAddress" name="newAddress"
-                                    placeholder="Address">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newPostalCode">Postal Code</label>
-                                <input type="text" class="form-control" id="newPostalCode" name="newPostalCode"
-                                    placeholder="Postal Code">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newDutyLocation">Duty Location</label>
-                                <input type="text" class="form-control" id="newDutyLocation" name="newDutyLocation"
-                                    placeholder="Duty Location">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newBankName">Bank Name</label>
-                                <input type="text" class="form-control" id="newBankName" name="newBankName"
-                                    placeholder="Bank Name">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newBankAccNum">Bank Account Number</label>
-                                <input type="text" class="form-control" id="newBankAccNum" name="newBankAccNum"
-                                    placeholder="Bank Account Number">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newCommencementDate">Commencement Date</label>
-                                <input type="text" class="form-control datepicker" id="newCommencementDate"
-                                    name="newCommencementDate" style="background-color: white;">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newLeftDate">Left Date</label>
-                                <input type="text" class="form-control datepicker" id="newLeftDate" name="newLeftDate"
-                                    style="background-color: white;">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newComments">Comments</label>
-                                <input type="text" class="form-control" id="newComments" name="newComments"
-                                    placeholder="Comments">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newRace">Race</label>
-                                <select class="form-control select2" id="newRace" name="newRace">
-                                    <option></option>
-                                    <option value="Chinese">Chinese</option>
-                                    <option value="Malay">Malay</option>
-                                    <option value="Indian">Indian</option>
-                                    <option value="Eurasian">Eurasian</option>
-                                </select>
+                    </div>
+
+                    <div class="tab-pane" id="newInformationTab">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em;">Basic Information</p>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newFirstName">First Name&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
+                                        <input type="text" class="form-control" id="newFirstName" name="newFirstName"
+                                            placeholder="Given Name" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newLastName">Last Name&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
+                                        <input type="text" class="form-control" id="newLastName" name="newLastName"
+                                            placeholder="Surname" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newChineseName">Chinese Name</label>
+                                        <input type="text" class="form-control" id="newChineseName" name="newChineseName"
+                                            placeholder="Chinese Name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newDateOfBirth">Date Of Birth</label>
+                                        <input type="text" class="form-control datepicker" id="newDateOfBirth"
+                                            name="newDateOfBirth" style="background-color: white;">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newGender">Gender</label>
+                                        <select class="form-control" id="newGender" name="newGender">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newNationality">Nationality</label>
+                                        <input type="text" class="form-control" id="newNationality" name="newNationality"
+                                            placeholder="Nationality">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newDesignation">Designation</label>
+                                        <input type="text" class="form-control" id="newDesignation" name="newDesignation"
+                                            placeholder="Designation">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newEmail">Email&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
+                                        <input type="email" class="form-control" id="newEmail" name="newEmail"
+                                            placeholder="Email" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newMobileNumber">Mobile Number&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
+                                        <input type="text" class="form-control" id="newMobileNumber" name="newMobileNumber"
+                                            placeholder="Mobile Number" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newPhoneNumber">Phone Number</label>
+                                        <input type="text" class="form-control" id="newPhoneNumber" name="newPhoneNumber"
+                                            placeholder="Phone Number">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newAddress">Address</label>
+                                        <input type="text" class="form-control" id="newAddress" name="newAddress"
+                                            placeholder="Address">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newPostalCode">Postal Code</label>
+                                        <input type="text" class="form-control" id="newPostalCode" name="newPostalCode"
+                                            placeholder="Postal Code">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newDutyLocation">Duty Location</label>
+                                        <input type="text" class="form-control" id="newDutyLocation" name="newDutyLocation"
+                                            placeholder="Duty Location">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newBankName">Bank Name</label>
+                                        <input type="text" class="form-control" id="newBankName" name="newBankName"
+                                            placeholder="Bank Name">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newBankAccNum">Bank Account Number</label>
+                                        <input type="text" class="form-control" id="newBankAccNum" name="newBankAccNum"
+                                            placeholder="Bank Account Number">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newCommencementDate">Commencement Date</label>
+                                        <input type="text" class="form-control datepicker" id="newCommencementDate"
+                                            name="newCommencementDate" style="background-color: white;">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newLeftDate">Left Date</label>
+                                        <input type="text" class="form-control datepicker" id="newLeftDate" name="newLeftDate"
+                                            style="background-color: white;">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newComments">Comments</label>
+                                        <input type="text" class="form-control" id="newComments" name="newComments"
+                                            placeholder="Comments">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newRace">Race</label>
+                                        <select class="form-control select2" id="newRace" name="newRace">
+                                            <option></option>
+                                            <option value="Chinese">Chinese</option>
+                                            <option value="Malay">Malay</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Eurasian">Eurasian</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em;">Emergency Contacts</p>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newEmergencyName">Name</label>
+                                        <input type="text" class="form-control" id="newEmergencyName" name="newEmergencyName"
+                                            placeholder="Name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newEmergencyRelationship">Relationship</label>
+                                        <input type="text" class="form-control" id="newEmergencyRelationship"
+                                            name="newEmergencyRelationship" placeholder="Relationship">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newEmergencyAddress">Address</label>
+                                        <input type="text" class="form-control" id="newEmergencyAddress"
+                                            name="newEmergencyAddress" placeholder="Address">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newEmergencyContact">Contact Number</label>
+                                        <input type="text" class="form-control" id="newEmergencyContact"
+                                            name="newEmergencyContact" placeholder="Contact Number">
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <p style="font-size: 2em;">Emergency Contacts</p>
+                        <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary addEmployeeButton">Save</button>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newEmergencyName">Name</label>
-                                <input type="text" class="form-control" id="newEmergencyName" name="newEmergencyName"
-                                    placeholder="Name">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newEmergencyRelationship">Relationship</label>
-                                <input type="text" class="form-control" id="newEmergencyRelationship"
-                                    name="newEmergencyRelationship" placeholder="Relationship">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newEmergencyAddress">Address</label>
-                                <input type="text" class="form-control" id="newEmergencyAddress"
-                                    name="newEmergencyAddress" placeholder="Address">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newEmergencyContact">Contact Number</label>
-                                <input type="text" class="form-control" id="newEmergencyContact"
-                                    name="newEmergencyContact" placeholder="Contact Number">
-                            </div>
-                        </div>
+                    </div>
 
-                        <div class="col-md-12">
-                            <p style="font-size: 2em;">Login Information</p>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newUsername">Username&nbsp;&nbsp;<small
-                                        style="color:red;">*Required</small></label>
-                                <input type="text" class="form-control" id="newUsername" name="newUsername"
-                                    placeholder="Username">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="newPassword">Password&nbsp;&nbsp;<small
-                                        style="color:red;">*Required</small></label>
-                                <input type="password" class="form-control" id="newPassword" name="newPassword"
-                                    placeholder="Password">
-                            </div>
-                        </div>
+                    <div class="tab-pane" id="newCompanyTab">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em;">Company Information</p>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newCompanySelection">Company Selection</label>
+                                        <select class="form-control select2" id="newCompanySelection" name="newCompanySelection"
+                                            style="width: 100%;">
+                                            <option></option>
+                                            <option>Goldlink Asia Distribution Pte Ltd</option>
+                                            <option>Goldlink Technologies Pte Ltd</option>
+                                            <option>Doro International Pte Ltd</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                        <div class="col-md-12">
-                            <p style="font-size: 2em;">Company Information</p>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newCompanySelection">Company Selection</label>
-                                <select class="form-control select2" id="newCompanySelection" name="newCompanySelection"
-                                    style="width: 100%;">
-                                    <option></option>
-                                    <option>Goldlink Asia Distribution Pte Ltd</option>
-                                    <option>Goldlink Technologies Pte Ltd</option>
-                                    <option>Doro International Pte Ltd</option>
-                                </select>
-                            </div>
-                        </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newLevyAmount">Foreign Worker Levy</label>
+                                        <input type="number" class="form-control" id="newLevyAmount" min="0.00" step="0.01"
+                                            value="0.00" name="newLevyAmount">
+                                    </div>
+                                </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="newLevyAmount">Foreign Worker Levy</label>
-                                <input type="number" class="form-control" id="newLevyAmount" min="0.00" step="0.01"
-                                    value="0.00" name="newLevyAmount">
-                            </div>
-                        </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Store Selection</strong></h4>
+                                    </div>
+                                    <div id="newStoreEmployeeRepeater">
+                                        <div class="clearfix"></div>
+                                        <div class="items" data-group="stores_items">
+                                            <div class="item-content">
+                                                <div class="form-group">
+                                                    <div class="col-md-10 col-xs-9">
+                                                        <label for="newStoreSelections">Store&nbsp;&nbsp;<small
+                                                                style="color:red;">*Required</small></label>
+                                                        <select class="form-control storeSelect2" style="width: 100%;"
+                                                            data-skip-name="true" data-name="newStoreSelections[]" required>
+                                                            <?php
+                                                                $item = null;
+                                                                $value = null;
 
-                        <div class="form-row">
-                            <div class="col-md-12">
-                                <h4><strong>Store Selection</strong></h4>
-                            </div>
-                            <div id="newStoreEmployeeRepeater">
-                                <div class="clearfix"></div>
-                                <div class="items" data-group="stores_items">
-                                    <div class="item-content">
-                                        <div class="form-group">
-                                            <div class="col-md-10 col-xs-9">
-                                                <label for="newStoreSelections">Store&nbsp;&nbsp;<small
-                                                        style="color:red;">*Required</small></label>
-                                                <select class="form-control storeSelect2" style="width: 100%;"
-                                                    data-skip-name="true" data-name="newStoreSelections[]" required>
-                                                    <?php
-                                                        $item = null;
-                                                        $value = null;
+                                                                $stores = StoreController::ctrViewAllStores($item, $value);
 
-                                                        $stores = StoreController::ctrViewAllStores($item, $value);
-
-                                                        foreach ($stores as $key => $value) {
-                                                            echo '<option value ="' . $value["store_id"] . '">' . $value["store_name"] . '</option>';
-                                                        }
-                                                    ?>
-                                                </select>
+                                                                foreach ($stores as $key => $value) {
+                                                                    echo '<option value ="' . $value["store_id"] . '">' . $value["store_name"] . '</option>';
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2 col-xs-3" align="right" style="margin-top: 24px;">
+                                                        <button id="remove-btn" class="btn btn-block btn-danger"
+                                                            onclick="$(this).parents('.items').remove()"><i
+                                                                class="fa fa-minus"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-2 col-xs-3" align="right" style="margin-top: 24px;">
-                                                <button id="remove-btn" class="btn btn-block btn-danger"
-                                                    onclick="$(this).parents('.items').remove()"><i
-                                                        class="fa fa-minus"></i></button>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="repeater-heading col-xs-12" align="center">
+                                                <button type="button" style="margin-top: 24px;"
+                                                    class="btn btn-success repeater-add-btn"><i
+                                                        class="fa fa-plus"></i>&nbsp;&nbsp;Add
+                                                    Store</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <div class="repeater-heading col-xs-12" align="center">
-                                        <button type="button" style="margin-top: 24px;"
-                                            class="btn btn-success repeater-add-btn"><i
-                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add
-                                            Store</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary addEmployeeButton">Save</button>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="newAccountTab">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em;">Login Information</p>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newUsername">Username&nbsp;&nbsp;<small
+                                            style="color:red;">*Required</small></label>
+                                        <input type="text" class="form-control" id="newUsername" name="newUsername"
+                                        placeholder="Username">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="newPassword">Password&nbsp;&nbsp;<small
+                                            style="color:red;">*Required</small></label>
+                                        <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                        placeholder="Password">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-12">
-                            <p style="font-size: 2em; margin-top: 24px;">Staff Permissions</p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary addEmployeeButton">Save</button>
                         </div>
-                        <div class="form-row">
-                            <div class="col-md-12">
-                                <h4><strong>Employee Management</strong></h4>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[0]" value="0">
-                                <input type="checkbox" class="minimal" id="newEmployeeManagement"
-                                    name="allowedModulesSelection[0]" value="1">
-                                <input type="hidden" name="allowedModules[0]" value="employee-management">
-                                <p style="margin-top: 5px;">View/Create/Update/Delete Employee Information</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[1]" value="0">
-                                <input type="checkbox" class="minimal" id="newEmployeeUploadFiles"
-                                    name="allowedModulesSelection[1]" value="1">
-                                <input type="hidden" name="allowedModules[1]" value="employee-upload-files">
-                                <p style="margin-top: 5px;">Upload Employee Documents</p>
+                    </div>
+
+                    <div class="tab-pane" id="newPermissionsTab">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em; margin-top: 24px;">Staff Permissions</p>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Employee Management</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[0]" value="0">
+                                        <input type="checkbox" class="minimal" id="newEmployeeManagement"
+                                        name="allowedModulesSelection[0]" value="1">
+                                        <input type="hidden" name="allowedModules[0]" value="employee-management">
+                                        <p style="margin-top: 5px;">View/Create/Update/Delete Employee Information</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[1]" value="0">
+                                        <input type="checkbox" class="minimal" id="newEmployeeUploadFiles"
+                                        name="allowedModulesSelection[1]" value="1">
+                                        <input type="hidden" name="allowedModules[1]" value="employee-upload-files">
+                                        <p style="margin-top: 5px;">Upload Employee Documents</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Payroll Management</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[2]" value="0">
+                                        <input type="checkbox" class="minimal" id="newSalaryVoucherMgt"
+                                        name="allowedModulesSelection[2]" value="1">
+                                        <input type="hidden" name="allowedModules[2]"
+                                        value="employee-salary-voucher-management">
+
+                                        <p style="margin-top: 5px;">View/Update/Approve/Reject/Download <strong>ALL</strong>
+                                        Salary Vouchers (FT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[3]" value="0">
+                                        <input type="checkbox" class="minimal" id="newSalaryVoucherMgtPT"
+                                        name="allowedModulesSelection[3]" value="1">
+                                        <input type="hidden" name="allowedModules[3]"
+                                        value="employee-salary-voucher-management-pt">
+
+                                        <p style="margin-top: 5px;">View/Update/Approve/Reject/Download
+                                            <strong>ALL</strong> Salary Vouchers (PT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[4]" value="0">
+                                        <input type="checkbox" class="minimal" id="newViewOwnSalaryVoucher"
+                                        name="allowedModulesSelection[4]" value="1">
+                                        <input type="hidden" name="allowedModules[4]" value="employee-salary-voucher-my">
+
+                                        <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[5]" value="0">
+                                        <input type="checkbox" class="minimal" id="newViewOwnSalaryVoucherPT"
+                                        name="allowedModulesSelection[5]" value="1">
+                                        <input type="hidden" name="allowedModules[5]" value="employee-salary-voucher-my-pt">
+
+                                        <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers (PT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[6]" value="0">
+                                        <input type="checkbox" class="minimal" id="newDownloadOwnSalaryVoucher"
+                                        name="allowedModulesSelection[6]" value="1">
+                                        <input type="hidden" name="allowedModules[6]" value="employee-salary-voucher-download">
+
+                                        <p style="margin-top: 5px;">Download <strong>OWN</strong> Salary Vouchers</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[5]" value="0">
+                                        <input type="checkbox" class="minimal" id="newSubmitOwnSalaryVoucher"
+                                            name="allowedModulesSelection[5]" value="1">
+                                        <input type="hidden" name="allowedModules[5]" value="employee-salary-voucher-submit">
+
+                                        <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (FT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[8]" value="0">
+                                        <input type="checkbox" class="minimal" id="newSubmitOwnSalaryVoucherPT"
+                                            name="allowedModulesSelection[8]" value="1">
+                                        <input type="hidden" name="allowedModules[8]" value="employee-salary-voucher-submit-pt">
+
+                                        <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (PT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[9]" value="0">
+                                        <input type="checkbox" class="minimal" id="newSalaryVoucherAnalysis"
+                                            name="allowedModulesSelection[9]" value="1">
+                                        <input type="hidden" name="allowedModules[9]" value="employee-salary-voucher-analysis">
+
+                                        <p style="margin-top: 5px;">Salary Voucher Analysis</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[10]" value="0">
+                                        <input type="checkbox" class="minimal" id="newSalaryVoucherAnalysisYearly"
+                                            name="allowedModulesSelection[10]" value="1">
+                                        <input type="hidden" name="allowedModules[10]" value="employee-salary-voucher-analysis-yearly">
+
+                                        <p style="margin-top: 5px;">Salary Voucher Analysis (Yearly)</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Customer Management</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="newAllowedModulesSelection[11]" value="0">
+                                        <input type="checkbox" class="minimal" id="newCustomerManagement"
+                                            name="newAllowedModulesSelection[11]" value="1">
+                                        <input type="hidden" name="allowedModules[11]" value="customer-management">
+
+                                        <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="newAllowedModulesSelection[12]" value="0">
+                                        <input type="checkbox" class="minimal" id="newViewCustomerArchives"
+                                            name="newAllowedModulesSelection[12]" value="1">
+                                        <input type="hidden" name="allowedModules[12]" value="customer-archives">
+
+                                        <p style="margin-top: 5px;">View/Update Customer Archives</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="newAllowedModulesSelection[13]" value="0">
+                                        <input type="checkbox" class="minimal" id="newCustomerAnalytics"
+                                            name="newAllowedModulesSelection[13]" value="1">
+                                        <input type="hidden" name="allowedModules[13]" value="customer-analytics">
+
+                                        <p style="margin-top: 5px;">View Customer Analytics</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Supplier Management</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="newAllowedModulesSelection[14]" value="0">
+                                        <input type="checkbox" class="minimal" id="newSupplierManagement"
+                                            name="newAllowedModulesSelection[14]" value="1">
+                                        <input type="hidden" name="allowedModules[14]" value="supplier-management">
+
+                                        <p style="margin-top: 5px;">Supplier Management</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary addEmployeeButton">Save</button>
+                        </div>
+                    </div>
 
-                        <div class="form-row">
-                            <div class="col-md-12">
-                                <h4><strong>Payroll Management</strong></h4>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[2]" value="0">
-                                <input type="checkbox" class="minimal" id="newSalaryVoucherMgt"
-                                    name="allowedModulesSelection[2]" value="1">
-                                <input type="hidden" name="allowedModules[2]"
-                                    value="employee-salary-voucher-management">
-
-                                <p style="margin-top: 5px;">View/Update/Approve/Reject/Download <strong>ALL</strong>
-                                    Salary Vouchers (FT)</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[3]" value="0">
-                                <input type="checkbox" class="minimal" id="newSalaryVoucherMgtPT"
-                                    name="allowedModulesSelection[3]" value="1">
-                                <input type="hidden" name="allowedModules[3]"
-                                    value="employee-salary-voucher-management-pt">
-
-                                <p style="margin-top: 5px;">View/Update/Approve/Reject/Download
-                                    <strong>ALL</strong>
-                                    Salary Vouchers (PT)</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[4]" value="0">
-                                <input type="checkbox" class="minimal" id="newViewOwnSalaryVoucher"
-                                    name="allowedModulesSelection[4]" value="1">
-                                <input type="hidden" name="allowedModules[4]" value="employee-salary-voucher-my">
-
-                                <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[5]" value="0">
-                                <input type="checkbox" class="minimal" id="newViewOwnSalaryVoucherPT"
-                                    name="allowedModulesSelection[5]" value="1">
-                                <input type="hidden" name="allowedModules[5]" value="employee-salary-voucher-my-pt">
-
-                                <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers (PT)</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[6]" value="0">
-                                <input type="checkbox" class="minimal" id="newDownloadOwnSalaryVoucher"
-                                    name="allowedModulesSelection[6]" value="1">
-                                <input type="hidden" name="allowedModules[6]" value="employee-salary-voucher-download">
-
-                                <p style="margin-top: 5px;">Download <strong>OWN</strong> Salary Vouchers</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[5]" value="0">
-                                <input type="checkbox" class="minimal" id="newSubmitOwnSalaryVoucher"
-                                    name="allowedModulesSelection[5]" value="1">
-                                <input type="hidden" name="allowedModules[5]" value="employee-salary-voucher-submit">
-
-                                <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (FT)</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[8]" value="0">
-                                <input type="checkbox" class="minimal" id="newSubmitOwnSalaryVoucherPT"
-                                    name="allowedModulesSelection[8]" value="1">
-                                <input type="hidden" name="allowedModules[8]" value="employee-salary-voucher-submit-pt">
-
-                                <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (PT)</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[9]" value="0">
-                                <input type="checkbox" class="minimal" id="newSalaryVoucherAnalysis"
-                                    name="allowedModulesSelection[9]" value="1">
-                                <input type="hidden" name="allowedModules[9]" value="employee-salary-voucher-analysis">
-
-                                <p style="margin-top: 5px;">Salary Voucher Analysis</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="allowedModulesSelection[10]" value="0">
-                                <input type="checkbox" class="minimal" id="newSalaryVoucherAnalysisYearly"
-                                    name="allowedModulesSelection[10]" value="1">
-                                <input type="hidden" name="allowedModules[10]" value="employee-salary-voucher-analysis-yearly">
-
-                                <p style="margin-top: 5px;">Salary Voucher Analysis (Yearly)</p>
+                    <div class="tab-pane" id="newTeamTab">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em;">Employee Team</p>
+                                    <p style="font-size: 1em;"><small>Add employees to the current person's team.</small></p>
+                                    <p style="font-size: 1em; margin-bottom: 20px;"><small>This person will be able to see the salary vouchers of employees added here.</small></p>
+                                </div>
+                                <div class="form-row col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                    <table class="table table-hover table-bordered table-striped dt-responsive tableEmployeesTeamSelection" width="100%">
+                                        <thead>
+                                            <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Duty Location</th>
+                                            <th class="never""><small>Person ID</small></th>
+                                            <th style="width: 40px;"><small>Add</small></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                    <p style="font-size: 2em;">Team List</p>
+                                    <div id="appendDynamicEmployeeTeamList">
+                                        <span id="emptyEmployeeTeamListText">List is empty. Please add an employee.</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-row">
-                            <div class="col-md-12">
-                                <h4><strong>Customer Management</strong></h4>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[11]" value="0">
-                                <input type="checkbox" class="minimal" id="newCustomerManagement"
-                                    name="newAllowedModulesSelection[11]" value="1">
-                                <input type="hidden" name="allowedModules[11]" value="customer-management">
-
-                                <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[12]" value="0">
-                                <input type="checkbox" class="minimal" id="newViewCustomerArchives"
-                                    name="newAllowedModulesSelection[12]" value="1">
-                                <input type="hidden" name="allowedModules[12]" value="customer-archives">
-
-                                <p style="margin-top: 5px;">View/Update Customer Archives</p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[13]" value="0">
-                                <input type="checkbox" class="minimal" id="newCustomerAnalytics"
-                                    name="newAllowedModulesSelection[13]" value="1">
-                                <input type="hidden" name="allowedModules[13]" value="customer-analytics">
-
-                                <p style="margin-top: 5px;">View Customer Analytics</p>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary addEmployeeButton">Save</button>
                         </div>
-
-                        <div class="form-row">
-                            <div class="col-md-12">
-                                <h4><strong>Supplier Management</strong></h4>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="hidden" name="newAllowedModulesSelection[14]" value="0">
-                                <input type="checkbox" class="minimal" id="newSupplierManagement"
-                                    name="newAllowedModulesSelection[14]" value="1">
-                                <input type="hidden" name="allowedModules[14]" value="supplier-management">
-
-                                <p style="margin-top: 5px;">Supplier Management</p>
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary addEmployeeButton">Save</button>
-            </div>
-
+                    </div>
+                    
             <?php
                 $createEmployee = new EmployeeController();
                 $createEmployee->ctrCreateEmployee();
                 $createEmployee->ctrDeleteEmployee();
             ?>
+            </div>
+
             </form>
 
         </div>
@@ -523,6 +618,7 @@
                     <li><a href="#editCompanyTab" data-toggle="tab">Company</a></li>
                     <li><a href="#editAccountTab" data-toggle="tab">Account</a></li>
                     <li><a href="#editPermissionsTab" data-toggle="tab">Permissions</a></li>
+                    <li><a href="#editTeamTab" data-toggle="tab">Team</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -998,9 +1094,51 @@
                             <button type="submit" class="btn btn-primary editEmployeeButton">Update</button>
                         </div>
                     </div>
+                    <div class="tab-pane" id="editTeamTab">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p style="font-size: 2em;">Employee Team</p>
+                                    <p style="font-size: 1em;"><small>Add employees to the current person's team.</small></p>
+                                    <p style="font-size: 1em; margin-bottom: 20px;"><small>This person will be able to see the salary vouchers of employees added here.</small></p>
+                                </div>
+                                <div class="form-row col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                    <table class="table table-hover table-bordered table-striped dt-responsive tableEditEmployeesTeamSelection" width="100%">
+                                        <thead>
+                                            <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Duty Location</th>
+                                            <th class="never""><small>Person ID</small></th>
+                                            <th style="width: 40px;"><small>Add</small></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 20px;">
+                                    <p style="font-size: 2em;">Team List</p>
+                                    <div id="appendDynamicEditEmployeeTeamList">
+                                    </div>
+                                    <span id="emptyEditEmployeeTeamListText">List is empty. Please add an employee.</span>
+                                </div>
+                                <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 20px;">
+                                    <p style="font-size: 2em;">Current Employees in Team</p>
+                                </div>
+                                <div class="form-row col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                    <div id="appendCurrentEditEmployeeTeamList"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary editEmployeeButton">Update</button>
+                        </div>
+                    </div>
                     <?php
-                        $createEmployee = new EmployeeController();
-                        $createEmployee->ctrEditEmployee();
+                        $editEmployee = new EmployeeController();
+                        $editEmployee->ctrEditEmployee();
                     ?>
                 </div>
             </form>

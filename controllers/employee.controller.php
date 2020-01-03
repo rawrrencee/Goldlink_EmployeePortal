@@ -191,12 +191,19 @@ class EmployeeController
         return $response;
     }
 
+    public static function ctrViewEmployeesTeam($personId)
+    {
+        $response = EmployeeModel::mdlViewEmployeesTeam($personId);
+
+        return $response;
+    }
+
     public static function ctrCreateEmployee()
     {
         if (isset($_POST["newFirstName"])) {
 
             //Debug with JS Alert
-            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             if (preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newFirstName"]) &&
                 preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newLastName"]) &&
@@ -287,8 +294,12 @@ class EmployeeController
                 foreach ($_POST['allowedModulesSelection'] as $index => $active) {
                     $permissionsData[$_POST['allowedModules'][$index]] = (int) $active;
                 }
+                
+                foreach ($_POST['newEmployeeTeamIds'] as $index => $employeeId) {
+                    $teamMembersData['employees_team'][$index] = filter_var($employeeId, FILTER_SANITIZE_NUMBER_INT);
+                }
 
-                $response = EmployeeModel::mdlCreateNewEmployee($personData, $permissionsData);
+                $response = EmployeeModel::mdlCreateNewEmployee($personData, $permissionsData, $teamMembersData);
 
                 if (!$response) {
                     echo '<script>
@@ -519,7 +530,21 @@ class EmployeeController
                 $permissionsData[$_POST['allowedModules'][$index]] = (int) $active;
             }
 
-            $response = EmployeeModel::mdlEditEmployee($personData, $employeeData, $permissionsData);
+            foreach ($_POST['updateEmployeeTeamIds'] as $index => $memberId) {
+                $teamMembersData['memberId'][$index] = filter_var($memberId, FILTER_SANITIZE_NUMBER_INT);
+            }
+
+            foreach ($_POST['updateMemberActive'] as $index => $active) {
+                $teamMembersData['active'][$index] = filter_var($active, FILTER_SANITIZE_NUMBER_INT);
+            }
+
+            foreach ($_POST['editEmployeeTeamIds'] as $index => $memberId) {
+                $teamMembersData['employees_team'][$index] = filter_var($memberId, FILTER_SANITIZE_NUMBER_INT);
+            }
+
+            echo "<script type='text/javascript'> alert('" . json_encode($teamMembersData) . "') </script>";
+
+            $response = EmployeeModel::mdlEditEmployee($personData, $employeeData, $permissionsData, $teamMembersData);
 
             //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 

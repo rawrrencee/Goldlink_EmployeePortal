@@ -48,6 +48,14 @@ class AjaxEmployees
         echo json_encode($answer);
     }
 
+    public function getEmployeesTeam() {
+        $value = $this->employeeId;
+
+        $answer = EmployeeController::ctrViewEmployeesTeam($value);
+
+        echo json_encode($answer);
+    }
+
 }
 
 if (isset($_POST['person_id'])) {
@@ -76,4 +84,11 @@ if (isset($_POST['get_employees_stores'])) {
     $getEmployeesStores = new AjaxEmployees();
     $getEmployeesStores -> employeeId = $_POST['get_employees_stores'];
     $getEmployeesStores -> getEmployeesStores();
+}
+
+if (isset($_POST['get_employees_team'])) {
+
+    $getEmployeesTeam = new AjaxEmployees();
+    $getEmployeesTeam -> employeeId = $_POST['get_employees_team'];
+    $getEmployeesTeam -> getEmployeesTeam();
 }

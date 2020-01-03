@@ -79,6 +79,21 @@ class EmployeeModel
         }
     }
 
+    public static function mdlCheckEmployeesTeamMemberExists($conn, $newEmployeesTeamData) {
+        $stmt = $conn->prepare("SELECT * FROM employees_team WHERE leader_id = :leader_id AND member_id = :member_id");
+        
+        $stmt->bindParam(":leader_id", $newEmployeesTeamData["leader_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":member_id", $newEmployeesTeamData["member_id"], PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if (count($stmt->fetchAll(PDO::FETCH_ASSOC)) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function mdlCheckEmployeePayrollExists($conn, $person_id) {
         $stmt = $conn->prepare("SELECT * FROM employees_payroll WHERE person_id = :person_id");
         
@@ -108,6 +123,19 @@ class EmployeeModel
     public static function mdlViewEmployeePermissions($personId)
     {
         $stmt = Connection::connect()->prepare("SELECT * FROM employees_modules WHERE person_id = :person_id AND active = :active");
+
+        $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+        $active = 1;
+        $stmt->bindParam(":active", $active, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewEmployeesTeam($personId)
+    {
+        $stmt = Connection::connect()->prepare("SELECT * FROM employees_team JOIN people ON employees_team.member_id = people.person_id WHERE leader_id = :person_id AND active = :active");
 
         $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
         $active = 1;
@@ -164,7 +192,7 @@ class EmployeeModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function mdlCreateNewEmployee($personData, $permissionsData)
+    public static function mdlCreateNewEmployee($personData, $permissionsData, $teamMembersData)
     {
 
         $conn = new Connection();
@@ -209,6 +237,15 @@ class EmployeeModel
                     'active' => $active);
 
                 self::mdlCreateEmployeePermissions($conn, $allowedModuleData);
+            }
+
+            foreach ($teamMembersData['employees_team'] as $index => $memberId) {
+                $employeesTeamData = array(
+                    'leader_id' => $new_person_id,
+                    'member_id' => $memberId,
+                    'active' => 1);
+
+                self::mdlCreateTeamMembers($conn, $employeesTeamData);
             }
 
             $conn->commit();
@@ -258,6 +295,17 @@ class EmployeeModel
         $stmt->execute();
     }
 
+    public static function mdlCreateTeamMembers($conn, $employeesTeamData)
+    {
+        $stmt = $conn->prepare("INSERT INTO employees_team(leader_id, member_id, active) VALUES (:leader_id, :member_id, :active)");
+
+        $stmt->bindParam(":leader_id", $employeesTeamData["leader_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":member_id", $employeesTeamData["member_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":active", $employeesTeamData["active"], PDO::PARAM_INT);
+
+        $stmt->execute();
+    }
+
     public static function mdlDeleteAllEmployeePermissions($employeeData)
     {
         $table = 'employees_modules';
@@ -268,7 +316,7 @@ class EmployeeModel
         $deleteStmt->execute();
     }
 
-    public static function mdlEditEmployee($personData, $employeeData, $permissionsData)
+    public static function mdlEditEmployee($personData, $employeeData, $permissionsData, $teamMembersData)
     {
 
         $conn = new Connection();
@@ -346,6 +394,31 @@ class EmployeeModel
                 self::mdlUpdateEmployeePermissions($conn, $allowedModuleData);
             }
 
+            foreach ($teamMembersData["memberId"] as $index => $memberId) {
+                $employeesTeamData = array(
+                    'leader_id' => $employeeData["person_id"],
+                    'member_id' => $memberId,
+                    'active' => $teamMembersData["active"][$index]);
+
+                self::mdlUpdateEmployeesTeam($conn, $employeesTeamData);
+            }
+
+            foreach ($teamMembersData['employees_team'] as $index => $memberId) {
+                
+                $newEmployeesTeamData = array(
+                    'leader_id' => $employeeData["person_id"],
+                    'member_id' => $memberId,
+                    'active' => 1
+                );
+                $response = self::mdlCheckEmployeesTeamMemberExists($conn, $newEmployeesTeamData);
+
+                if (!$response) {
+                    self::mdlCreateTeamMembers($conn, $newEmployeesTeamData);
+                } else {
+                    self::mdlUpdateEmployeesTeam($conn, $newEmployeesTeamData);
+                }
+            }
+
             $conn->commit();
 
             return true;
@@ -388,6 +461,17 @@ class EmployeeModel
         $stmt->bindParam(":active", $employeesStoresData["active"], PDO::PARAM_INT);
         $stmt->bindParam(":person_id", $employeesStoresData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":store_id", $employeesStoresData["store_id"], PDO::PARAM_INT);
+
+        $stmt->execute();
+    }
+
+    public static function mdlUpdateEmployeesTeam($conn, $employeesTeamData)
+    {
+        $stmt = $conn->prepare("UPDATE employees_team SET active = :active WHERE leader_id = :leader_id AND member_id = :member_id");
+
+        $stmt->bindParam(":active", $employeesTeamData["active"], PDO::PARAM_INT);
+        $stmt->bindParam(":leader_id", $employeesTeamData["leader_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":member_id", $employeesTeamData["member_id"], PDO::PARAM_INT);
 
         $stmt->execute();
     }
