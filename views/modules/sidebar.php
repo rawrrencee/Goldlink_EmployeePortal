@@ -210,6 +210,34 @@ session_start();
                     }
                     ?>
 
+                    
+                    <?php
+                    if (in_array('employee-salary-voucher-team', $_SESSION['allowed_modules'])) {
+                    echo '
+                    <li>
+                        <a href="employee-salary-voucher-team">
+                            <i class="fa fa-circle-o"></i>
+                            <span>Team Salary Vouchers (FT)</span>
+                        </a>
+                    </li>
+                    ';
+                    }
+                    ?>
+
+                    
+                    <?php
+                    if (in_array('employee-salary-voucher-team-pt', $_SESSION['allowed_modules'])) {
+                    echo '
+                    <li>
+                        <a href="employee-salary-voucher-team-pt">
+                            <i class="fa fa-circle-o"></i>
+                            <span>Team Salary Vouchers (PT)</span>
+                        </a>
+                    </li>
+                    ';
+                    }
+                    ?>
+
                     <?php
                     if (in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit-pt', $_SESSION['allowed_modules'])) {
                         if (strpos($_SESSION['designation'], '(FT)') !== false) {

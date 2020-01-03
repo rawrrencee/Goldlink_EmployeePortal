@@ -457,7 +457,7 @@
 
                                         <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers (PT)</p>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-12">
                                         <input type="hidden" name="allowedModulesSelection[6]" value="0">
                                         <input type="checkbox" class="minimal" id="newDownloadOwnSalaryVoucher"
                                         name="allowedModulesSelection[6]" value="1">
@@ -466,34 +466,50 @@
                                         <p style="margin-top: 5px;">Download <strong>OWN</strong> Salary Vouchers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="allowedModulesSelection[5]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[7]" value="0">
+                                        <input type="checkbox" class="minimal" id="newViewTeamSalaryVoucher"
+                                        name="allowedModulesSelection[7]" value="1">
+                                        <input type="hidden" name="allowedModules[7]" value="employee-salary-voucher-team">
+
+                                        <p style="margin-top: 5px;">View <strong>TEAM</strong> Salary Vouchers (FT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[8]" value="0">
+                                        <input type="checkbox" class="minimal" id="newViewTeamSalaryVoucherPT"
+                                        name="allowedModulesSelection[8]" value="1">
+                                        <input type="hidden" name="allowedModules[8]" value="employee-salary-voucher-team-pt">
+
+                                        <p style="margin-top: 5px;">View <strong>TEAM</strong> Salary Vouchers (PT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[9]" value="0">
                                         <input type="checkbox" class="minimal" id="newSubmitOwnSalaryVoucher"
-                                            name="allowedModulesSelection[5]" value="1">
-                                        <input type="hidden" name="allowedModules[5]" value="employee-salary-voucher-submit">
+                                            name="allowedModulesSelection[9]" value="1">
+                                        <input type="hidden" name="allowedModules[9]" value="employee-salary-voucher-submit">
 
                                         <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (FT)</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="allowedModulesSelection[8]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[10]" value="0">
                                         <input type="checkbox" class="minimal" id="newSubmitOwnSalaryVoucherPT"
-                                            name="allowedModulesSelection[8]" value="1">
-                                        <input type="hidden" name="allowedModules[8]" value="employee-salary-voucher-submit-pt">
+                                            name="allowedModulesSelection[10]" value="1">
+                                        <input type="hidden" name="allowedModules[10]" value="employee-salary-voucher-submit-pt">
 
                                         <p style="margin-top: 5px;">Submit <strong>OWN</strong> Salary Vouchers (PT)</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="allowedModulesSelection[9]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[11]" value="0">
                                         <input type="checkbox" class="minimal" id="newSalaryVoucherAnalysis"
-                                            name="allowedModulesSelection[9]" value="1">
-                                        <input type="hidden" name="allowedModules[9]" value="employee-salary-voucher-analysis">
+                                            name="allowedModulesSelection[11]" value="1">
+                                        <input type="hidden" name="allowedModules[11]" value="employee-salary-voucher-analysis">
 
                                         <p style="margin-top: 5px;">Salary Voucher Analysis</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="allowedModulesSelection[10]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[12]" value="0">
                                         <input type="checkbox" class="minimal" id="newSalaryVoucherAnalysisYearly"
-                                            name="allowedModulesSelection[10]" value="1">
-                                        <input type="hidden" name="allowedModules[10]" value="employee-salary-voucher-analysis-yearly">
+                                            name="allowedModulesSelection[12]" value="1">
+                                        <input type="hidden" name="allowedModules[12]" value="employee-salary-voucher-analysis-yearly">
 
                                         <p style="margin-top: 5px;">Salary Voucher Analysis (Yearly)</p>
                                     </div>
@@ -504,26 +520,26 @@
                                         <h4><strong>Customer Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[11]" value="0">
+                                        <input type="hidden" name="newAllowedModulesSelection[13]" value="0">
                                         <input type="checkbox" class="minimal" id="newCustomerManagement"
-                                            name="newAllowedModulesSelection[11]" value="1">
-                                        <input type="hidden" name="allowedModules[11]" value="customer-management">
+                                            name="newAllowedModulesSelection[13]" value="1">
+                                        <input type="hidden" name="allowedModules[13]" value="customer-management">
 
                                         <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[12]" value="0">
+                                        <input type="hidden" name="newAllowedModulesSelection[14]" value="0">
                                         <input type="checkbox" class="minimal" id="newViewCustomerArchives"
-                                            name="newAllowedModulesSelection[12]" value="1">
-                                        <input type="hidden" name="allowedModules[12]" value="customer-archives">
+                                            name="newAllowedModulesSelection[14]" value="1">
+                                        <input type="hidden" name="allowedModules[14]" value="customer-archives">
 
                                         <p style="margin-top: 5px;">View/Update Customer Archives</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[13]" value="0">
+                                        <input type="hidden" name="newAllowedModulesSelection[15]" value="0">
                                         <input type="checkbox" class="minimal" id="newCustomerAnalytics"
-                                            name="newAllowedModulesSelection[13]" value="1">
-                                        <input type="hidden" name="allowedModules[13]" value="customer-analytics">
+                                            name="newAllowedModulesSelection[15]" value="1">
+                                        <input type="hidden" name="allowedModules[15]" value="customer-analytics">
 
                                         <p style="margin-top: 5px;">View Customer Analytics</p>
                                     </div>
@@ -534,10 +550,10 @@
                                         <h4><strong>Supplier Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[14]" value="0">
+                                        <input type="hidden" name="newAllowedModulesSelection[16]" value="0">
                                         <input type="checkbox" class="minimal" id="newSupplierManagement"
-                                            name="newAllowedModulesSelection[14]" value="1">
-                                        <input type="hidden" name="allowedModules[14]" value="supplier-management">
+                                            name="newAllowedModulesSelection[16]" value="1">
+                                        <input type="hidden" name="allowedModules[16]" value="supplier-management">
 
                                         <p style="margin-top: 5px;">Supplier Management</p>
                                     </div>
@@ -997,7 +1013,7 @@
 
                                         <p style="margin-top: 5px;">View <strong>OWN</strong> Salary Vouchers (PT)</p>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-12">
                                         <input type="hidden" name="editAllowedModulesSelection[6]" value="0">
                                         <input type="checkbox" class="minimal" id="editDownloadOwnSalaryVoucher"
                                             name="editAllowedModulesSelection[6]" value="1">
@@ -1026,18 +1042,36 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="hidden" name="editAllowedModulesSelection[9]" value="0">
-                                        <input type="checkbox" class="minimal" id="editSalaryVoucherAnalysis"
+                                        <input type="checkbox" class="minimal" id="editViewTeamSalaryVoucher"
                                             name="editAllowedModulesSelection[9]" value="1">
                                         <input type="hidden" name="allowedModules[9]"
+                                            value="employee-salary-voucher-team">
+
+                                        <p style="margin-top: 5px;">View <strong>TEAM</strong> Salary Vouchers (FT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[10]" value="0">
+                                        <input type="checkbox" class="minimal" id="editViewTeamSalaryVoucherPT"
+                                            name="editAllowedModulesSelection[10]" value="1">
+                                        <input type="hidden" name="allowedModules[10]"
+                                            value="employee-salary-voucher-team-pt">
+
+                                        <p style="margin-top: 5px;">View <strong>TEAM</strong> Salary Vouchers (PT)</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[11]" value="0">
+                                        <input type="checkbox" class="minimal" id="editSalaryVoucherAnalysis"
+                                            name="editAllowedModulesSelection[11]" value="1">
+                                        <input type="hidden" name="allowedModules[11]"
                                             value="employee-salary-voucher-analysis">
 
                                         <p style="margin-top: 5px;">Salary Voucher Analysis</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[10]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[12]" value="0">
                                         <input type="checkbox" class="minimal" id="editSalaryVoucherAnalysisYearly"
-                                            name="editAllowedModulesSelection[10]" value="1">
-                                        <input type="hidden" name="allowedModules[10]"
+                                            name="editAllowedModulesSelection[12]" value="1">
+                                        <input type="hidden" name="allowedModules[12]"
                                             value="employee-salary-voucher-analysis-yearly">
 
                                         <p style="margin-top: 5px;">Salary Voucher Analysis (Yearly)</p>
@@ -1049,26 +1083,26 @@
                                         <h4><strong>Customer Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[11]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[13]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerManagement"
-                                            name="editAllowedModulesSelection[11]" value="1">
-                                        <input type="hidden" name="allowedModules[11]" value="customer-management">
+                                            name="editAllowedModulesSelection[13]" value="1">
+                                        <input type="hidden" name="allowedModules[13]" value="customer-management">
 
                                         <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[12]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[14]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerArchives"
-                                            name="editAllowedModulesSelection[12]" value="1">
-                                        <input type="hidden" name="allowedModules[12]" value="customer-archives">
+                                            name="editAllowedModulesSelection[14]" value="1">
+                                        <input type="hidden" name="allowedModules[14]" value="customer-archives">
 
                                         <p style="margin-top: 5px;">View/Update Customer Archives</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[13]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[15]" value="0">
                                         <input type="checkbox" class="minimal" id="editCustomerAnalytics"
-                                            name="editAllowedModulesSelection[13]" value="1">
-                                        <input type="hidden" name="allowedModules[13]" value="customer-analytics">
+                                            name="editAllowedModulesSelection[15]" value="1">
+                                        <input type="hidden" name="allowedModules[15]" value="customer-analytics">
 
                                         <p style="margin-top: 5px;">View Customer Analytics</p>
                                     </div>
@@ -1079,9 +1113,9 @@
                                         <h4><strong>Supplier Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[14]" value="0">
-                                        <input type="checkbox" class="minimal" id="editSupplierManagement" name="editAllowedModulesSelection[14]" value="1">
-                                        <input type="hidden" name="allowedModules[14]" value="supplier-management">
+                                        <input type="hidden" name="editAllowedModulesSelection[16]" value="0">
+                                        <input type="checkbox" class="minimal" id="editSupplierManagement" name="editAllowedModulesSelection[16]" value="1">
+                                        <input type="hidden" name="allowedModules[16]" value="supplier-management">
 
                                         <p style="margin-top: 5px;">Supplier Management</p>
                                     </div>

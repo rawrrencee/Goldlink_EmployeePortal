@@ -415,6 +415,12 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             else if (answer[i]['module_title'] == "employee-salary-voucher-download" && answer[i]['active'] == 1) {
               $('#editDownloadOwnSalaryVoucher').iCheck('check');
             }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-team" && answer[i]['active'] == 1) {
+              $('#editViewTeamSalaryVoucher').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "employee-salary-voucher-team-pt" && answer[i]['active'] == 1) {
+              $('#editViewTeamSalaryVoucherPT').iCheck('check');
+            }
             else if (answer[i]['module_title'] == "employee-salary-voucher-submit" && answer[i]['active'] == 1) {
               $('#editSubmitOwnSalaryVoucher').iCheck('check');
             }

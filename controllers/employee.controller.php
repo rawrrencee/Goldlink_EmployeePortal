@@ -45,7 +45,8 @@ class EmployeeController
                     $_SESSION["loggedIn"] = true;
                     $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
                     $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);
-                    self::setSessionVariables($response, $payrollData, $allowedStoresData);
+                    $teamMembersData = self::ctrViewEmployeesTeam($response['person_id']);
+                    self::setSessionVariables($response, $payrollData, $allowedStoresData, $teamMembersData);
 
                     echo '<script>
                         window.location = "home";
@@ -61,7 +62,8 @@ class EmployeeController
                         $_SESSION["loggedIn"] = true;
                         $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
                         $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);
-                        self::setSessionVariables($response, $payrollData, $allowedStoresData);
+                        $teamMembersData = self::ctrViewEmployeesTeam($response['person_id']);
+                        self::setSessionVariables($response, $payrollData, $allowedStoresData, $teamMembersData);
 
                         echo '<script>
                             window.location = "home";
@@ -92,7 +94,8 @@ class EmployeeController
                             $_SESSION["loggedIn"] = true;
                             $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
                             $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);
-                            self::setSessionVariables($response, $payrollData, $allowedStoresData);
+                            $teamMembersData = self::ctrViewEmployeesTeam($response['person_id']);
+                            self::setSessionVariables($response, $payrollData, $allowedStoresData, $teamMembersData);
 
                             echo '<script>
                                 window.location = "home";
@@ -129,7 +132,7 @@ class EmployeeController
         }
     }
 
-    public static function setSessionVariables($response, $payrollData, $allowedStoresData)
+    public static function setSessionVariables($response, $payrollData, $allowedStoresData, $teamMembersData)
     {
         $_SESSION["person_id"] = $response["person_id"];
         $_SESSION["first_name"] = $response["first_name"];
@@ -143,7 +146,8 @@ class EmployeeController
         $_SESSION["levy_amount"] = $payrollData[0]["levy_amount"];
         $_SESSION["race"] = $payrollData[0]["race"];
         $_SESSION["allowedStoresData"] = $allowedStoresData;
-
+        $_SESSION["teamMembersData"] = $teamMembersData;
+        
         $response = EmployeeModel::mdlViewEmployeePermissions($response['person_id']);
         $_SESSION["allowed_modules"] = array();
         foreach ($response as $i => $array) {
@@ -542,7 +546,7 @@ class EmployeeController
                 $teamMembersData['employees_team'][$index] = filter_var($memberId, FILTER_SANITIZE_NUMBER_INT);
             }
 
-            echo "<script type='text/javascript'> alert('" . json_encode($teamMembersData) . "') </script>";
+            //echo "<script type='text/javascript'> alert('" . json_encode($teamMembersData) . "') </script>";
 
             $response = EmployeeModel::mdlEditEmployee($personData, $employeeData, $permissionsData, $teamMembersData);
 

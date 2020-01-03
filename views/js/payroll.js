@@ -557,6 +557,192 @@ $('#dataTablesFilterSVByStatus_PT').on('change', function () {
   allSalaryVouchersTablePT.column(8).search(this.value).draw();
 });
 
+//DATATABLES TEAM SALARY VOUCHER MANAGEMENT
+/* DATATABLES CONFIGURATION */
+var teamSalaryVouchersTable = $('.tableTeamSalaryVouchers').DataTable({
+  "ajax": "ajax/datatable-salary-voucher-team.ssp.php",
+  "serverSide": true,
+  "processing": true,
+  "autoWidth": false,
+  "order": [[10, 'desc']],
+  "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('teamSalaryVouchersTable', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('teamSalaryVouchersTable'));
+  },
+  "columns": [
+    { "data": 0 },
+    { "data": 1 },
+    { "data": 2 },
+    { "data": 3 },
+    { "data": 4 },
+    { "data": 5 },
+    { "data": 6 },
+    { "data": 7 },
+    { "data": 8 },
+    { "data": 9 },
+    { "data": 10 },
+    { "data": 11 },
+    { "data": 12 },
+    { "data": 13 },
+    { "data": 14 },
+    { "data": 15 },
+    { "data": 16 },
+    { "data": 17 },
+    { "data": 18 },
+    { "data": 19 },
+    { "data": 20 },
+    { "data": 21 },
+    { "data": 22 },
+    { "data": 23 },
+    { "data": 24 },
+    { "data": 25 },
+    { "data": 26 },
+    { "data": 27 },
+    { "data": 28 },
+    { "data": 29 }
+  ],
+  "columnDefs": [{
+    "targets": [0, 2, 4],
+    "responsivePriority": 1
+  }, {
+    "targets": 30,
+    "data": null,
+    "render": function (data, type, row) {
+      return `
+      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[6] + ` class='btn btn-info btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[6] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
+      `;
+    },
+    "orderable": false,
+    "responsivePriority": 1
+  }]
+});
+
+$('.tableTeamSalaryVouchers thead th').each(function (index, element) {
+  var title = $(this).text();
+  if (index != 0 && index != 28 && index != 29 && index != 30) {
+    $(this).append('<input type="text" class="col-search-input" style="width: 100%;" placeholder="Search ' + title + '" />');
+  }
+});
+
+teamSalaryVouchersTable.columns().every(function () {
+  var teamSalaryVouchersTable = this;
+  $('input', this.header()).on('keyup change', function () {
+    if (teamSalaryVouchersTable.search() !== this.value) {
+      teamSalaryVouchersTable.search(this.value).draw();
+    }
+  });
+
+  $('input', this.header()).on('click', function (e) {
+    e.stopPropagation();
+  });
+});
+
+$('#redrawTeamSalaryVouchersTable').click(function () {
+  teamSalaryVouchersTable.search('').columns().search('').draw();
+});
+
+//Filter Team Salary Vouchers (FT) DataTable by Status
+$('#dataTablesFilterSVByStatus').on('change', function () {
+  teamSalaryVouchersTable.column(8).search(this.value).draw();
+});
+
+//DATATABLES TEAM SALARY VOUCHER MANAGEMENT (PT)
+/* DATATABLES CONFIGURATION */
+var teamSalaryVouchersTablePT = $('.tableTeamSalaryVouchersPT').DataTable({
+  "ajax": "ajax/datatable-salary-voucher-team-pt.ssp.php",
+  "serverSide": true,
+  "processing": true,
+  "autoWidth": false,
+  "order": [[10, 'desc']],
+  "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('teamSalaryVouchersTablePT', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('teamSalaryVouchersTablePT'));
+  },
+  "columns": [
+    { "data": 0 },
+    { "data": 1 },
+    { "data": 2 },
+    { "data": 3 },
+    { "data": 4 },
+    { "data": 5 },
+    { "data": 6 },
+    { "data": 7 },
+    { "data": 8 },
+    { "data": 9 },
+    { "data": 10 },
+    { "data": 11 },
+    { "data": 12 },
+    { "data": 13 },
+    { "data": 14 },
+    { "data": 15 },
+    { "data": 16 },
+    { "data": 17 },
+    { "data": 18 },
+    { "data": 19 },
+    { "data": 20 },
+    { "data": 21 },
+    { "data": 22 },
+    { "data": 23 },
+    { "data": 24 },
+    { "data": 25 },
+    { "data": 26 },
+    { "data": 27 },
+    { "data": 28 },
+    { "data": 29 }
+  ],
+  "columnDefs": [{
+    "targets": [0, 2, 3],
+    "responsivePriority": 1
+  }, {
+    "targets": 30,
+    "data": null,
+    "render": function (data, type, row) {
+      return `
+      <button type='button' style='margin-bottom: 10px;' id='btnEditSalaryVoucher' title='Edit' voucherId=` + row[0] + ` personId=` + row[6] + ` class='btn btn-info btn-sm btnEditSalaryVoucher' data-toggle='modal' data-target='#modalEditSalaryVoucher'><i class='fa fa-pencil'></i></button>&nbsp;&nbsp;
+      <button type='button' style='margin-bottom: 10px;' id='btnGeneratePDF' title='Download PDF' voucherId=` + row[0] + ` personId=` + row[6] + ` class='btn btn-default btn-sm btnGeneratePDF'><i class='fa fa-download'></i></button>
+      `;
+    },
+    "orderable": false,
+    "responsivePriority": 1
+  }]
+});
+
+$('.tableTeamSalaryVouchersPT thead th').each(function (index, element) {
+  var title = $(this).text();
+  if (index != 0 && index != 28 && index != 29 && index != 30) {
+    $(this).append('<input type="text" class="col-search-input" style="width: 100%;" placeholder="Search ' + title + '" />');
+  }
+});
+
+teamSalaryVouchersTablePT.columns().every(function () {
+  var teamSalaryVouchersTablePT = this;
+  $('input', this.header()).on('keyup change', function () {
+    if (teamSalaryVouchersTablePT.search() !== this.value) {
+      teamSalaryVouchersTablePT.search(this.value).draw();
+    }
+  });
+
+  $('input', this.header()).on('click', function (e) {
+    e.stopPropagation();
+  });
+});
+
+$('#redrawTeamSalaryVouchersTablePT').click(function () {
+  teamSalaryVouchersTablePT.search('').columns().search('').draw();
+});
+
+//Filter Salary Vouchers (PT) DataTable by Status
+$('#dataTablesFilterSVByStatus_PT').on('change', function () {
+  teamSalaryVouchersTablePT.column(8).search(this.value).draw();
+});
+
 //APPEND SALARY LISTING
 $("#salaryVoucherForm").on("click", "button.addSalaryListing", function () {
 
