@@ -153,7 +153,8 @@ class SupplierController
                 'emergency_relation' => $emptyString,
                 'emergency_address' => $emptyString,
                 'emergency_contact' => $emptyString,
-                'company_name' => $_POST["editCompanyName"], 'account_number' => $_POST["editAccountNumber"]);
+                'company_name' => $_POST["editCompanyName"], 
+                'account_number' => $_POST["editAccountNumber"]);
 
             $response = SupplierModel::mdlEditSupplier($supplierData);
 

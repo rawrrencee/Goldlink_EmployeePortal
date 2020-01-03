@@ -23,7 +23,6 @@
                         width="100%">
                         <thead>
                             <tr>
-                                <th style="width: 10px;">#</th>
                                 <th>Company Name</th>
                                 <th>Email</th>
                                 <th>Phone Number</th>
@@ -33,6 +32,7 @@
                                 <th class="none">Bank Name</th>
                                 <th class="none">Account Number</th>
                                 <th class="none">Comments</th>
+                                <th class="never">Person ID</th>
                                 <th style="width: 40px;"><small>Edit</small></th>
                                 <th class="none" style="width: 40px;"><small>Delete</small></th>
                             </tr>

@@ -1,16 +1,50 @@
-$('.tableSuppliers').DataTable({
-    "ajax": "ajax/datatable-suppliers.ajax.php",
-    "deferRender": true,
-    "retrieve": true,
-    "processing": true,
-    "autoWidth": false,
-    "order": [[1, 'asc']],
-    "columnDefs": [
-      { "orderable": false, "targets": [0, 10, 11] },
-      { "responsivePriority": 1, "targets": [10] }
-    ]
-  });
-  
+/* DATATABLES CONFIGURATION */
+var suppliersTable = $('.tableSuppliers').DataTable({
+  "ajax": "ajax/datatable-suppliers.ssp.php",
+  "serverSide": true,
+  "processing": true,
+  "autoWidth": false,
+  "order": [[0, 'asc']],
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('suppliersTable', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('suppliersTable'));
+  },
+  "columns": [
+    { "data": 0 },
+    { "data": 1 },
+    { "data": 2 },
+    { "data": 3 },
+    { "data": 4 },
+    { "data": 5 },
+    { "data": 6 },
+    { "data": 7 },
+    { "data": 8 },
+    { "data": 9 }
+  ],
+  "columnDefs": [{
+    "targets": 0,
+    "responsivePriority": 1
+  }, {
+    "targets": 10,
+    "data": null,
+    "render": function (data, type, row) {
+      return "<button id='btnEditSupplier' supplierId=" + row[9] + " class='btn btn-warning btn-sm' data-toggle='modal' data-target='#modalEditSupplier'><i class='fa fa-pencil'></i></button>";
+    },
+    "orderable": false,
+    "responsivePriority": 2
+  }, {
+    "targets": 11,
+    "data": null,
+    "render": function (data, type, row) {
+      return "<button id='btnDeleteSupplier' supplierId=" + row[9] + " class='btn btn-danger btn-sm btnDeleteSupplier' data-toggle='modal' data-target='#modalDeleteSupplier'><i class='fa fa-times'></i></button>";
+    },
+    "orderable": false,
+    "responsivePriority": 3
+  }]
+});
+
   /* PASS ATTRIBUTE OF DATATABLES ROW */
   $('.tableSuppliers tbody').on('click', '#btnEditSupplier', function () {
     var supplierId = parseInt($(this).attr('supplierId'));
