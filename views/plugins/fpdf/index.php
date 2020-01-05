@@ -335,24 +335,24 @@ if (isset($_GET['voucherId'])) {
             $pdf->SetFontSize(10);
             $pdf->Cell(19, 3, $salaryRecordData[$index]['subtotal'], 0, 1, 'R', false);
             /* --- Cell --- */
-            $pdf->SetXY(45, 82 + 6 * $index);
+            $pdf->SetXY(60, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(4, 3, 'Rate: ', 0, 1, 'L', false);
             /* --- Cell --- */
-            $pdf->SetXY(70, 82 + 6 * $index);
+            $pdf->SetXY(85, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(5, 3, $salaryRecordData[$index]['rate'] . ' / unit', 0, 1, 'R', false);
             /* --- Cell --- */
-            $pdf->SetXY(80, 82 + 6 * $index);
+            $pdf->SetXY(95, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(1, 3, ' x ', 0, 1, 'R', false);
             /* --- Cell --- */
-            $pdf->SetXY(85, 82 + 6 * $index);
+            $pdf->SetXY(100, 82 + 6 * $index);
             $pdf->SetFont('', 'I', 7);
             $pdf->Cell(19, 3, $salaryRecordData[$index]['unit'] . ' units', 0, 1, 'R', false);
             if ($salaryRecordData[$index]['remarks'] != "") {
                 /* --- Cell --- */
-                $pdf->SetXY(105, 82 + 6 * $index);
+                $pdf->SetXY(120, 82 + 6 * $index);
                 $pdf->SetFont('', 'I', 7);
                 $pdf->Cell(19, 3, '(Remarks: ' . $salaryRecordData[$index]['remarks'] . ')', 0, 1, 'L', false);
             }

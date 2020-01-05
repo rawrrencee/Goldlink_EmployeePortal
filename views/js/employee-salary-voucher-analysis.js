@@ -201,6 +201,7 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
 
             for (var i = 0; i < answer.length; i++) {
 
+                other_deductions = 0.00;
                 deduction_CDAC = 0.00;
 
                 var getDeductionRecordsByVoucherId = new FormData();
@@ -324,18 +325,18 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
                                 total_other_deductions_Goldtech += parseFloat(deduction_records[j]['amount']);
 
                                 if (answer[i]['is_part_time'] == 0) {
-                                    deductionOthersSum_GAD += parseFloat(deduction_records[j]['amount']);
+                                    deductionOthersSum_Goldtech += parseFloat(deduction_records[j]['amount']);
                                 } else {
-                                    deductionOthersSum_GAD_PT += parseFloat(deduction_records[j]['amount']);
+                                    deductionOthersSum_Goldtech_PT += parseFloat(deduction_records[j]['amount']);
                                 }
 
                             } else if (answer[i]['company_name'] == 'Doro International Pte Ltd') {
                                 total_other_deductions_Doro += parseFloat(deduction_records[j]['amount']);
 
                                 if (answer[i]['is_part_time'] == 0) {
-                                    deductionOthersSum_GAD += parseFloat(deduction_records[j]['amount']);
+                                    deductionOthersSum_Doro += parseFloat(deduction_records[j]['amount']);
                                 } else {
-                                    deductionOthersSum_GAD_PT += parseFloat(deduction_records[j]['amount']);
+                                    deductionOthersSum_Doro_PT += parseFloat(deduction_records[j]['amount']);
                                 }
                             }
                         }
