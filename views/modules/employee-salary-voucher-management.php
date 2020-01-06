@@ -133,6 +133,7 @@ if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules']
                     value="<?php echo $_SESSION['first_name'].' '.$_SESSION['last_name'] ?>">
 
                 <input type="hidden" id="newIsDraft" name="newIsDraft" value="3">
+                <input type="hidden" id="newIsTeam" name="newIsTeam" value="0">
                 <input type="hidden" id="newCompanyName" name="newCompanyName" value="">
                 <input type="hidden" id="newRaceValue" name="newRaceValue" value="">
                 <input type="hidden" id="newIsPartTime" name="newIsPartTime" value="">

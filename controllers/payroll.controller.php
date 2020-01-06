@@ -85,15 +85,17 @@ class PayrollController
 
     }
 
-    public static function ctrViewAllSalaryVouchersByYear($yearToAnalyse) {
+    public static function ctrViewAllSalaryVouchersByYear($yearToAnalyse)
+    {
         $response = PayrollModel::mdlViewAllSalaryVouchersByYear($yearToAnalyse);
-        
+
         return $response;
     }
 
-    public static function ctrViewIndivSalaryVouchersByYear($personId, $yearToAnalyse) {
+    public static function ctrViewIndivSalaryVouchersByYear($personId, $yearToAnalyse)
+    {
         $response = PayrollModel::mdlViewIndivSalaryVouchersByYear($personId, $yearToAnalyse);
-        
+
         return $response;
     }
 
@@ -578,7 +580,7 @@ class PayrollController
                     'levy_amount' => $submittedForm['levy_amount'],
                     'sdl_amount' => $submittedForm['sdl_amount'],
                     'company_name' => $submittedForm['company_name'],
-                    'total_hours_worked' => $submittedForm['total_hours_worked']
+                    'total_hours_worked' => $submittedForm['total_hours_worked'],
                 );
             } else {
                 $salaryVoucherData = array(
@@ -627,7 +629,7 @@ class PayrollController
                     'sales_information' => $submittedForm['newSalesInformation'],
                     'levy_amount' => $submittedForm['levy_amount'],
                     'sdl_amount' => $submittedForm['sdl_amount'],
-                    'company_name' => $submittedForm['company_name']
+                    'company_name' => $submittedForm['company_name'],
                 );
             }
 
@@ -760,6 +762,7 @@ class PayrollController
     {
         if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null && $_POST['currentPersonId'] != null) {
             //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
+            //return;
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
 
@@ -772,6 +775,7 @@ class PayrollController
                 $submittedForm['created_on'] = filter_var($_POST['currentCreatedOn'], FILTER_SANITIZE_STRING);
             }
             $submittedForm['is_draft'] = (int) filter_var((int) $_POST['newIsDraft'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['is_team'] = (int) filter_var((int) $_POST['newIsTeam'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['is_part_time'] = (int) filter_var((int) $_POST['newIsPartTime'], FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['year_of_voucher'] = (int) filter_var((int) ($_POST['newYearOfVoucher']), FILTER_SANITIZE_NUMBER_INT);
             $submittedForm['month_of_voucher'] = (int) filter_var((int) $_POST['newMonthOfVoucher'], FILTER_SANITIZE_NUMBER_INT);
@@ -913,7 +917,7 @@ class PayrollController
                     'levy_amount' => $submittedForm['levy_amount'],
                     'sdl_amount' => $submittedForm['sdl_amount'],
                     'company_name' => $submittedForm['company_name'],
-                    'total_hours_worked' => $submittedForm['total_hours_worked']
+                    'total_hours_worked' => $submittedForm['total_hours_worked'],
                 );
             } else {
                 $salaryVoucherData = array(
@@ -968,7 +972,7 @@ class PayrollController
                     'levy_amount' => $submittedForm['levy_amount'],
                     'sdl_amount' => $submittedForm['sdl_amount'],
                     'company_name' => $submittedForm['company_name'],
-                    'total_hours_worked' => $submittedForm['total_hours_worked']
+                    'total_hours_worked' => $submittedForm['total_hours_worked'],
                 );
             }
 
@@ -1000,7 +1004,7 @@ class PayrollController
 						});
 
                         </script>';
-                } else if ($submittedForm['is_part_time'] == 1) {
+                } else if ($submittedForm['is_part_time'] == 1 && $submittedForm['is_team'] == 0) {
                     echo '<script>
 
 						swal({
@@ -1019,28 +1023,65 @@ class PayrollController
 						});
 
                         </script>';
-                } else if ($submittedForm['is_part_time'] == 0) {
+                } else if ($submittedForm['is_part_time'] == 0 && $submittedForm['is_team'] == 0) {
                     echo '<script>
-    
+
                             swal({
                                 type: "success",
                                 title: "Salary information submitted succesfully.",
                                 showConfirmButton: true,
                                 confirmButtonText: "Close"
-    
+
                             }).then(function(result){
-    
+
                                 if(result.value){
-    
+
                                     window.location = "employee-salary-voucher-management";
                                 }
-    
+
                             });
-    
+
                             </script>';
-                }
-            } else {
-                echo '<script>
+                } else if ($submittedForm['is_part_time'] == 0 && $submittedForm['is_team'] == 1) {
+                    echo '<script>
+
+                        swal({
+                            type: "success",
+                            title: "Salary information submitted succesfully.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-salary-voucher-team";
+                            }
+
+                        });
+
+                        </script>';
+                } else if ($submittedForm['is_part_time'] == 1 && $submittedForm['is_team'] == 1) {
+                    echo '<script>
+
+                        swal({
+                            type: "success",
+                            title: "Salary information submitted succesfully.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "employee-salary-voucher-team-pt";
+                            }
+
+                        });
+
+                        </script>';
+                } else {
+                    echo '<script>
                     swal({
 
                         type: "error",
@@ -1056,8 +1097,9 @@ class PayrollController
                             }
                     });
                 </script>';
-            }
 
+                }
+            }
         }
 
         return;
