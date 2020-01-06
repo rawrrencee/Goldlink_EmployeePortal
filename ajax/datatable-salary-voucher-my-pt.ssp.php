@@ -26,7 +26,7 @@ $table = <<<EOT
  (
 	SELECT 
     *
-    FROM salary_vouchers
+    FROM payroll_salary_vouchers
  ) temp
 EOT;
 

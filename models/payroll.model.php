@@ -6,7 +6,7 @@ class PayrollModel
 {
     public static function mdlViewSalaryVoucherById($value)
     {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -16,7 +16,7 @@ class PayrollModel
 
     public static function mdlViewSalaryRecordsByVoucherId($value)
     {
-        $table = 'salary_records';
+        $table = 'payroll_salary_records';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -27,7 +27,7 @@ class PayrollModel
 
     public static function mdlViewSalaryRecordsPTByVoucherId($value)
     {
-        $table = 'salary_records_pt';
+        $table = 'payroll_salary_records_pt';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -37,7 +37,7 @@ class PayrollModel
 
     public static function mdlViewDeductionRecordsByVoucherId($value)
     {
-        $table = 'deduction_records';
+        $table = 'payroll_deduction_records';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -47,7 +47,7 @@ class PayrollModel
 
     public static function mdlViewOtherRecordsByVoucherId($value)
     {
-        $table = 'other_records';
+        $table = 'payroll_other_records';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -57,7 +57,7 @@ class PayrollModel
 
     public static function mdlViewDailySalesFigureByVoucherId($value)
     {
-        $table = 'daily_sales_figure';
+        $table = 'payroll_daily_sales_figure';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -67,7 +67,7 @@ class PayrollModel
 
     public static function mdlViewDailyWorkingHoursByVoucherId($value)
     {
-        $table = 'daily_working_hours';
+        $table = 'payroll_daily_working_hours_hours';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -77,7 +77,7 @@ class PayrollModel
 
     public static function mdlViewAttendanceRecordsByVoucherId($value)
     {
-        $table = 'attendance_records';
+        $table = 'payroll_attendance_records';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -86,7 +86,7 @@ class PayrollModel
     }
 
     public static function mdlViewAllSalaryVouchersByMonth($monthToAnalyse, $yearToAnalyse) {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE month_of_voucher = :month_of_voucher AND year_of_voucher = :year_of_voucher AND is_draft = 0 AND status = 'Approved' ORDER BY person_id ASC");
         $stmt->bindParam(":month_of_voucher", $monthToAnalyse, PDO::PARAM_INT);
         $stmt->bindParam(":year_of_voucher", $yearToAnalyse, PDO::PARAM_INT);
@@ -96,7 +96,7 @@ class PayrollModel
     }
 
     public static function mdlViewIndivSalaryVouchersByYear($personId, $yearToAnalyse) {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE person_id = :person_id AND year_of_voucher = :year_of_voucher AND is_draft = 0 AND status = 'Approved' ORDER BY person_id ASC");
         $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
         $stmt->bindParam(":year_of_voucher", $yearToAnalyse, PDO::PARAM_INT);
@@ -106,7 +106,7 @@ class PayrollModel
     }
 
     public static function mdlViewAllSalaryVouchersByYear($yearToAnalyse) {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE year_of_voucher = :year_of_voucher AND is_draft = 0 AND status = 'Approved' ORDER BY person_id ASC");
         $stmt->bindParam(":year_of_voucher", $yearToAnalyse, PDO::PARAM_INT);
 
@@ -116,7 +116,7 @@ class PayrollModel
 
     public static function mdlRetrieveIndivSalaryVoucherByStatus($data) {
 
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $stmt = Connection::connect()->prepare("SELECT COUNT(*) FROM $table WHERE person_id = :person_id AND status = :status AND is_draft = :is_draft");
         $stmt->bindParam(":person_id", $data['person_id'], PDO::PARAM_INT);
         $stmt->bindParam(":status", $data['status'], PDO::PARAM_STR);
@@ -129,7 +129,7 @@ class PayrollModel
 
     public static function mdlCreateNewSalaryVoucher($salaryVoucherData)
     {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $conn = new Connection();
         $conn = $conn->connect();
 
@@ -244,7 +244,7 @@ class PayrollModel
     }
 
     public static function mdlCreateNewSalaryVoucherPT($salaryVoucherData) {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $conn = new Connection();
         $conn = $conn->connect();
 
@@ -374,7 +374,7 @@ class PayrollModel
     public static function mdlCreateSalaryRecords($conn, $salaryRecordData)
     {
 
-        $table = 'salary_records';
+        $table = 'payroll_salary_records';
         $stmt = $conn->prepare("INSERT INTO $table (voucher_id, title, amount, remarks) VALUES (:voucher_id, :title, :amount, :remarks)");
         $stmt->bindParam(":voucher_id", $salaryRecordData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":title", $salaryRecordData['title'], PDO::PARAM_STR);
@@ -388,7 +388,7 @@ class PayrollModel
     public static function mdlCreateSalaryRecordsPT($conn, $salaryRecordData)
     {
 
-        $table = 'salary_records_pt';
+        $table = 'payroll_salary_records_pt';
         $stmt = $conn->prepare("INSERT INTO $table (voucher_id, title, rate, unit, subtotal, remarks) VALUES (:voucher_id, :title, :rate, :unit, :subtotal, :remarks)");
         $stmt->bindParam(":voucher_id", $salaryRecordData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":title", $salaryRecordData['title'], PDO::PARAM_STR);
@@ -404,7 +404,7 @@ class PayrollModel
     public static function mdlCreateDeductionRecords($conn, $deductionRecordData)
     {
 
-        $table = 'deduction_records';
+        $table = 'payroll_deduction_records';
         $stmt = $conn->prepare("INSERT INTO $table (voucher_id, title, amount) VALUES (:voucher_id, :title, :amount)");
         $stmt->bindParam(":voucher_id", $deductionRecordData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":title", $deductionRecordData['title'], PDO::PARAM_STR);
@@ -417,7 +417,7 @@ class PayrollModel
     public static function mdlCreateOtherRecords($conn, $otherRecordData)
     {
 
-        $table = 'other_records';
+        $table = 'payroll_other_records';
         $stmt = $conn->prepare("INSERT INTO $table (voucher_id, title, amount) VALUES (:voucher_id, :title, :amount)");
         $stmt->bindParam(":voucher_id", $otherRecordData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":title", $otherRecordData['title'], PDO::PARAM_STR);
@@ -430,7 +430,7 @@ class PayrollModel
     public static function mdlCreateDailySalesFigures($conn, $dailySalesFigureData)
     {
 
-        $table = 'daily_sales_figure';
+        $table = 'payroll_daily_sales_figure';
         $stmt = $conn->prepare("INSERT INTO $table (voucher_id, day_of_month, sales_information) VALUES (:voucher_id, :day_of_month, :sales_information)");
         $stmt->bindParam(":voucher_id", $dailySalesFigureData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":day_of_month", $dailySalesFigureData['day_of_month'], PDO::PARAM_INT);
@@ -443,7 +443,7 @@ class PayrollModel
     public static function mdlCreateDailyWorkingHours($conn, $dailyWorkingHoursData)
     {
 
-        $table = 'daily_working_hours';
+        $table = 'payroll_daily_working_hours_hours';
         $stmt = $conn->prepare("INSERT INTO $table (voucher_id, day_of_month, hours) VALUES (:voucher_id, :day_of_month, :hours)");
         $stmt->bindParam(":voucher_id", $dailyWorkingHoursData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":day_of_month", $dailyWorkingHoursData['day_of_month'], PDO::PARAM_INT);
@@ -455,7 +455,7 @@ class PayrollModel
 
     public static function mdlCreateAttendanceRecords($conn, $attendanceRecordData)
     {
-        $table = 'attendance_records';
+        $table = 'payroll_attendance_records';
         $stmt = $conn->prepare("INSERT INTO $table (voucher_id, off_days, late_days, leave_mc_days, total_working_days, leave_entitled, leave_taken, leave_remaining) VALUES (:voucher_id, :off_days, :late_days, :leave_mc_days, :total_working_days, :leave_entitled, :leave_taken, :leave_remaining)");
 
         $stmt->bindParam(":voucher_id", $attendanceRecordData['voucher_id'], PDO::PARAM_INT);
@@ -472,7 +472,7 @@ class PayrollModel
 
     public static function mdlUpdateSalaryVoucher($salaryVoucherData)
     {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $conn = new Connection();
         $conn = $conn->connect();
 
@@ -587,7 +587,7 @@ class PayrollModel
 
     public static function mdlUpdateSalaryVoucherPT($salaryVoucherData)
     {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $conn = new Connection();
         $conn = $conn->connect();
 
@@ -716,7 +716,7 @@ class PayrollModel
     public static function mdlUpdateDailySalesFigures($conn, $dailySalesFigureData)
     {
 
-        $table = 'daily_sales_figure';
+        $table = 'payroll_daily_sales_figure';
         $stmt = $conn->prepare("UPDATE $table SET sales_information = :sales_information WHERE voucher_id = :voucher_id AND day_of_month = :day_of_month");
         $stmt->bindParam(":voucher_id", $dailySalesFigureData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":day_of_month", $dailySalesFigureData['day_of_month'], PDO::PARAM_INT);
@@ -729,7 +729,7 @@ class PayrollModel
     public static function mdlUpdateDailyWorkingHours($conn, $dailyWorkingHoursData)
     {
 
-        $table = 'daily_working_hours';
+        $table = 'payroll_daily_working_hours_hours';
         $stmt = $conn->prepare("UPDATE $table SET hours = :hours WHERE voucher_id = :voucher_id AND day_of_month = :day_of_month");
         $stmt->bindParam(":voucher_id", $dailyWorkingHoursData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":day_of_month", $dailyWorkingHoursData['day_of_month'], PDO::PARAM_INT);
@@ -741,7 +741,7 @@ class PayrollModel
 
     public static function mdlUpdateSalaryVoucherStatus($salaryVoucherData)
     {
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $conn = new Connection();
         $conn = $conn->connect();
 
@@ -773,7 +773,7 @@ class PayrollModel
 
     public static function mdlUpdateAttendanceRecords($conn, $attendanceRecordData)
     {
-        $table = 'attendance_records';
+        $table = 'payroll_attendance_records';
         $stmt = $conn->prepare("UPDATE $table SET off_days = :off_days, late_days = :late_days, leave_mc_days = :leave_mc_days, total_working_days = :total_working_days, leave_entitled = :leave_entitled, leave_taken = :leave_taken, leave_remaining = :leave_remaining WHERE voucher_id = :voucher_id");
 
         $stmt->bindParam(":voucher_id", $attendanceRecordData['voucher_id'], PDO::PARAM_INT);
@@ -791,7 +791,7 @@ class PayrollModel
     public static function mdlDeleteSalaryVoucher($salaryRecordData)
     {
 
-        $table = 'salary_vouchers';
+        $table = 'payroll_salary_vouchers';
         $voucher_id = $salaryRecordData['voucher_id'];
 
         $conn = new Connection();
@@ -828,7 +828,7 @@ class PayrollModel
 
     public static function mdlDeleteSalaryRecords($conn, $salaryRecordData)
     {
-        $table = 'salary_records';
+        $table = 'payroll_salary_records';
         $voucher_id = $salaryRecordData['voucher_id'];
 
         if (count(self::mdlViewSalaryRecordsByVoucherId($voucher_id)) != 0) {
@@ -841,7 +841,7 @@ class PayrollModel
 
     public static function mdlDeleteSalaryRecordsPT($conn, $salaryRecordData)
     {
-        $table = 'salary_records_pt';
+        $table = 'payroll_salary_records_pt';
         $voucher_id = $salaryRecordData['voucher_id'];
 
         if (count(self::mdlViewSalaryRecordsPTByVoucherId($voucher_id)) != 0) {
@@ -855,7 +855,7 @@ class PayrollModel
     public static function mdlDeleteDeductionRecords($conn, $deductionRecordData)
     {
 
-        $table = 'deduction_records';
+        $table = 'payroll_deduction_records';
         $voucher_id = $deductionRecordData['voucher_id'];
 
         if (count(self::mdlViewDeductionRecordsByVoucherId($voucher_id)) != 0) {
@@ -869,7 +869,7 @@ class PayrollModel
     public static function mdlDeleteOtherRecords($conn, $otherRecordData)
     {
 
-        $table = 'other_records';
+        $table = 'payroll_other_records';
         $voucher_id = $otherRecordData['voucher_id'];
 
         if (count(self::mdlViewOtherRecordsByVoucherId($voucher_id)) != 0) {
@@ -883,7 +883,7 @@ class PayrollModel
     public static function mdlDeleteAttendanceRecords($conn, $attendanceRecordData)
     {
 
-        $table = 'attendance_records';
+        $table = 'payroll_attendance_records';
         $voucher_id = $attendanceRecordData['voucher_id'];
 
         if (count(self::mdlViewAttendanceRecordsByVoucherId($voucher_id)) != 0) {
@@ -897,7 +897,7 @@ class PayrollModel
     public static function mdlDeleteDailySalesFigures($conn, $dailySalesFigureData)
     {
 
-        $table = 'daily_sales_figure';
+        $table = 'payroll_daily_sales_figure';
         $voucher_id = $dailySalesFigureData['voucher_id'];
 
         if (count(self::mdlViewDailySalesFigureByVoucherId($voucher_id)) != 0) {
@@ -911,7 +911,7 @@ class PayrollModel
     public static function mdlDeleteDailyWorkingHours($conn, $dailyWorkingHoursData)
     {
 
-        $table = 'daily_working_hours';
+        $table = 'payroll_daily_working_hours_hours';
         $voucher_id = $dailyWorkingHoursData['voucher_id'];
 
         if (count(self::mdlViewDailyWorkingHoursByVoucherId($voucher_id)) != 0) {

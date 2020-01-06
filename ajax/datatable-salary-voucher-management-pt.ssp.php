@@ -25,10 +25,10 @@ if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) die("Invalid Authen
 $table = <<<EOT
  (
 	SELECT 
-    salary_vouchers.*, people.first_name, people.last_name
-	FROM salary_vouchers
+    payroll_salary_vouchers.*, people.first_name, people.last_name
+	FROM payroll_salary_vouchers
 	JOIN people
-	ON salary_vouchers.person_id = people.person_id
+	ON payroll_salary_vouchers.person_id = people.person_id
  ) temp
 EOT;
 

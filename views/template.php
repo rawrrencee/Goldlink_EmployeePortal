@@ -108,65 +108,72 @@ session_start();
 
     <?php
 
-if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+    $maintenance_mode = 1;
 
-    echo '<div class="wrapper">';
-
-    include "modules/header.php";
-
-    include "modules/sidebar.php";
-
-    if (isset($_GET["route"])) {
-        if (
-
-            $_GET["route"] == "home" ||
-            $_GET["route"] == "logout"
-        ) {
-            include "modules/" . $_GET["route"] . ".php";
-
-        } else if (
-
-            (
-                $_GET["route"] == "customer-archives" ||
-                $_GET["route"] == "customer-management" ||
-                $_GET["route"] == "employee-management" ||
-                $_GET["route"] == "employee-upload-files" ||
-                $_GET["route"] == "employee-salary-voucher-management" ||
-                $_GET["route"] == "employee-salary-voucher-management-pt" ||
-                $_GET["route"] == "employee-salary-voucher-team" ||
-                $_GET["route"] == "employee-salary-voucher-team-pt" ||
-                $_GET["route"] == "employee-salary-voucher-my" ||
-                $_GET["route"] == "employee-salary-voucher-my-pt" ||
-                $_GET["route"] == "employee-salary-voucher-submit" ||
-                $_GET["route"] == "employee-salary-voucher-submit-pt" ||
-                $_GET["route"] == "employee-salary-voucher-analysis" ||
-                $_GET["route"] == "employee-salary-voucher-analysis-yearly" ||
-                $_GET["route"] == "item-management" ||
-                $_GET["route"] == "item-kit-management" ||
-                $_GET["route"] == "supplier-management"
-            )
-            && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
-
-            include "modules/" . $_GET["route"] . ".php";
-
-        } else {
-            include "modules/404.php";
-        }
-    } else {
-        include "modules/home.php";
+    if ($maintenance_mode == 1) {
+        echo '<p style="color: white; padding: 10%">Website under maintenance.</p>';
+        return;
     }
 
-    include "modules/footer.php";
+    if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
 
-    echo '</div>';
+            echo '<div class="wrapper">';
 
-} else {
+            include "modules/header.php";
 
-    include "modules/login.php";
+            include "modules/sidebar.php";
 
-}
+            if (isset($_GET["route"])) {
+                if (
 
-?>
+                    $_GET["route"] == "home" ||
+                    $_GET["route"] == "logout"
+                ) {
+                    include "modules/" . $_GET["route"] . ".php";
+
+                } else if (
+
+                    (
+                        $_GET["route"] == "customer-archives" ||
+                        $_GET["route"] == "customer-management" ||
+                        $_GET["route"] == "employee-management" ||
+                        $_GET["route"] == "employee-upload-files" ||
+                        $_GET["route"] == "employee-salary-voucher-management" ||
+                        $_GET["route"] == "employee-salary-voucher-management-pt" ||
+                        $_GET["route"] == "employee-salary-voucher-team" ||
+                        $_GET["route"] == "employee-salary-voucher-team-pt" ||
+                        $_GET["route"] == "employee-salary-voucher-my" ||
+                        $_GET["route"] == "employee-salary-voucher-my-pt" ||
+                        $_GET["route"] == "employee-salary-voucher-submit" ||
+                        $_GET["route"] == "employee-salary-voucher-submit-pt" ||
+                        $_GET["route"] == "employee-salary-voucher-analysis" ||
+                        $_GET["route"] == "employee-salary-voucher-analysis-yearly" ||
+                        $_GET["route"] == "item-management" ||
+                        $_GET["route"] == "item-kit-management" ||
+                        $_GET["route"] == "supplier-management"
+                    )
+                    && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
+
+                    include "modules/" . $_GET["route"] . ".php";
+
+                } else {
+                    include "modules/404.php";
+                }
+            } else {
+                include "modules/home.php";
+            }
+
+            include "modules/footer.php";
+
+            echo '</div>';
+
+        } else {
+
+            include "modules/login.php";
+
+        }
+
+    ?>
 
     </div>
     <script src="views/js/template.js"></script>
