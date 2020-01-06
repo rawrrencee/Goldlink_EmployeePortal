@@ -40,7 +40,7 @@ class StoreModel
     }
 
     public static function mdlViewAllowedStores($table, $value) {
-        $stmt = Connection::connect()->prepare("SELECT stores.store_id, stores.store_name FROM $table JOIN stores ON $table.store_id = stores.store_id WHERE stores_employees.person_id = :person_id ORDER BY stores.store_name ASC");
+        $stmt = Connection::connect()->prepare("SELECT stores.store_id, stores.store_name FROM $table JOIN stores ON $table.store_id = stores.store_id WHERE $table.person_id = :person_id ORDER BY stores.store_name ASC");
         $stmt->bindParam(":person_id", $value, PDO::PARAM_INT);
         $stmt->execute();
 

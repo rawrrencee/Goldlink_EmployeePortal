@@ -17,7 +17,7 @@ class StoreController{
     }
 
     public static function ctrViewAllowedStores($person_id) {
-        $table = 'stores_employees';
+        $table = 'employees_stores';
         $response = StoreModel::mdlViewAllowedStores($table, $person_id);
 
         return $response;

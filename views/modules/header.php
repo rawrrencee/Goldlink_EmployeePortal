@@ -1,3 +1,10 @@
+<?php
+    if (isset($_POST['switchStore'])) {
+        $switchStore = new StoreController();
+        $switchStore->ctrSwitchStore();
+    }
+?>
+
 <header class="main-header">
 
     <!--=====================================
@@ -25,6 +32,18 @@ NAVBAR
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-map-marker"></i><small>&nbsp;
+                        <?php
+                        if ($_SESSION['store_name'] != "") {
+                            echo ''.$_SESSION['store_name'].'';
+                        } else {
+                            echo 'Not Available';
+                        }
+                    ?></small></a>
+                </li>
+
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
@@ -83,3 +102,38 @@ NAVBAR
 
 
 </header>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <div class="tab-content">
+        <h3 class="control-sidebar-heading"><strong>Current Store</strong></h3>
+        <h4 class="control-sidebar-subheading">
+            <?php
+                if ($_SESSION['store_name'] != "") {
+                echo ''.$_SESSION['store_name'].'';
+                } else {
+                echo 'Not Available';
+                }
+            ?>
+        </h4>
+        <h3 class="control-sidebar-heading"><strong>Switch Store</strong></h3>
+        <form id="switchStoreForm" method="POST">
+            <select class="form-control input-md select2" name="switchStore">
+                <?php
+                    $person_id = $_SESSION['person_id'];
+
+                    $allowed_stores_array = StoreController::ctrViewAllowedStores($person_id);
+
+                    foreach($allowed_stores_array as $key => $value) {
+                        echo '<option value="'.$value['store_id'].'">'.$value['store_name'].'</option>';
+                    }
+                ?>
+            </select>
+            <br>
+            <div class="menu-info">
+                <button type="submit" style="margin-top: 20px;" class="btn btn-sm btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>
