@@ -67,7 +67,7 @@ class PayrollModel
 
     public static function mdlViewDailyWorkingHoursByVoucherId($value)
     {
-        $table = 'payroll_daily_working_hours_hours';
+        $table = 'payroll_daily_working_hours';
         $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE voucher_id = :voucher_id");
         $stmt->bindParam(":voucher_id", $value, PDO::PARAM_INT);
 
@@ -443,7 +443,7 @@ class PayrollModel
     public static function mdlCreateDailyWorkingHours($conn, $dailyWorkingHoursData)
     {
 
-        $table = 'payroll_daily_working_hours_hours';
+        $table = 'payroll_daily_working_hours';
         $stmt = $conn->prepare("INSERT INTO $table (voucher_id, day_of_month, hours) VALUES (:voucher_id, :day_of_month, :hours)");
         $stmt->bindParam(":voucher_id", $dailyWorkingHoursData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":day_of_month", $dailyWorkingHoursData['day_of_month'], PDO::PARAM_INT);
@@ -729,7 +729,7 @@ class PayrollModel
     public static function mdlUpdateDailyWorkingHours($conn, $dailyWorkingHoursData)
     {
 
-        $table = 'payroll_daily_working_hours_hours';
+        $table = 'payroll_daily_working_hours';
         $stmt = $conn->prepare("UPDATE $table SET hours = :hours WHERE voucher_id = :voucher_id AND day_of_month = :day_of_month");
         $stmt->bindParam(":voucher_id", $dailyWorkingHoursData['voucher_id'], PDO::PARAM_INT);
         $stmt->bindParam(":day_of_month", $dailyWorkingHoursData['day_of_month'], PDO::PARAM_INT);
@@ -911,7 +911,7 @@ class PayrollModel
     public static function mdlDeleteDailyWorkingHours($conn, $dailyWorkingHoursData)
     {
 
-        $table = 'payroll_daily_working_hours_hours';
+        $table = 'payroll_daily_working_hours';
         $voucher_id = $dailyWorkingHoursData['voucher_id'];
 
         if (count(self::mdlViewDailyWorkingHoursByVoucherId($voucher_id)) != 0) {

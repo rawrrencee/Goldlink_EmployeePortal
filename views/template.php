@@ -108,7 +108,7 @@ session_start();
 
     <?php
 
-    $maintenance_mode = 1;
+    $maintenance_mode = 0;
 
     if ($maintenance_mode == 1) {
         echo '<p style="color: white; padding: 10%">Website under maintenance.</p>';
