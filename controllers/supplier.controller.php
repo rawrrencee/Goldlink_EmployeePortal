@@ -203,6 +203,50 @@ class SupplierController
 
     public static function ctrDeleteSupplier()
     {
+        if (isset($_GET["supplierIdToDelete"])) {
+            $supplierData = array(
+                'person_id' => filter_var($_GET['supplierIdToDelete'], FILTER_SANITIZE_NUMBER_INT),
+            );
 
+            $response = SupplierModel::mdlDeleteSupplier($supplierData);
+
+            if ($response) {
+                echo '<script>
+
+						swal({
+							type: "success",
+							title: "Supplier deleted succesfully.",
+							showConfirmButton: true,
+							confirmButtonText: "Close"
+
+						}).then(function(result){
+
+							if(result.value){
+
+								window.location = "supplier-management";
+							}
+
+						});
+
+                        </script>';
+            } else {
+                echo '<script>
+                    swal({
+
+                        type: "error",
+                        title: "An error occurred. The supplier was not deleted.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "supplier-management";
+                            }
+                    });
+                </script>';
+            }
+        }
     }
 }

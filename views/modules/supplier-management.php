@@ -130,6 +130,7 @@
             <?php
                 $createSupplier = new SupplierController();
                 $createSupplier->ctrCreateSupplier();
+                $createSupplier->ctrDeleteSupplier();
             ?>
             </form>
 

@@ -81,3 +81,24 @@ var suppliersTable = $('.tableSuppliers').DataTable({
   $('div.dataTables_filter input').focus();
   $('div.dataTables_filter label input').attr('id', 'search');
   
+  $(".tableSuppliers tbody").on("click", "button.btnDeleteSupplier", function () {
+
+    var supplier_id = $(this).attr("supplierId");
+  
+    swal({
+  
+      title: 'Are you sure you want to delete this supplier?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Delete'
+    }).then(function (result) {
+      if (result.value) {
+  
+        window.location = "index.php?route=supplier-management&supplierIdToDelete=" + supplier_id;
+  
+      }
+    })
+  })

@@ -98,4 +98,31 @@ class SupplierModel
             return "Exception: " . $e->getMessage();
         }
     }
+
+    public static function mdlDeleteSupplier($supplierData)
+    {
+        $conn = new Connection();
+        $conn = $conn->connect();
+
+        try {
+            $conn->beginTransaction();
+
+            $stmt = $conn->prepare("UPDATE suppliers SET deleted = :deleted WHERE person_id = :person_id");
+            $deleted = 1;
+            $stmt->bindParam(":deleted", $deleted, PDO::PARAM_INT);
+            $stmt->bindParam(":person_id", $supplierData["person_id"], PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            $conn->commit();
+
+            return true;
+
+        } catch (PDOException $e) {
+            $conn->rollBack();
+            return false;
+        }
+
+        return false;
+    }
 }
