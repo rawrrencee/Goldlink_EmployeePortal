@@ -445,6 +445,12 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             else if (answer[i]['module_title'] == "supplier-management" && answer[i]['active'] == 1) {
               $('#editSupplierManagement').iCheck('check');
             }
+            else if (answer[i]['module_title'] == "item-management" && answer[i]['active'] == 1) {
+              $('#editItemManagement').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "item-kit-management" && answer[i]['active'] == 1) {
+              $('#editItemKitManagement').iCheck('check');
+            }
           }
 
           var formData = new FormData();

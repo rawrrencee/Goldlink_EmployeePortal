@@ -141,6 +141,8 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
                 $_GET["route"] == "employee-salary-voucher-submit-pt" ||
                 $_GET["route"] == "employee-salary-voucher-analysis" ||
                 $_GET["route"] == "employee-salary-voucher-analysis-yearly" ||
+                $_GET["route"] == "item-management" ||
+                $_GET["route"] == "item-kit-management" ||
                 $_GET["route"] == "supplier-management"
             )
             && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
@@ -175,6 +177,8 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
     <script src="views/js/employees.js"></script>
     <script src="views/js/employee-salary-voucher-analysis.js"></script>
     <script src="views/js/employee-salary-voucher-analysis-yearly.js"></script>
+    <script src="views/js/items.js"></script>
+    <script src="views/js/item-kits.js"></script>
     <script src="views/js/payroll-submit.js"></script>
     <script src="views/js/payroll-functions.js"></script>
     <script src="views/js/payroll-salary-voucher-drafts.js"></script>

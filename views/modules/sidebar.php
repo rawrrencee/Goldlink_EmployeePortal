@@ -62,6 +62,45 @@ session_start();
             }
             ?>
 
+            <?php 
+            if (in_array('item-management', $_SESSION['allowed_modules'])) {
+                echo'
+                    <li class="treeview menu-open">
+                        <a href="#">
+                            <i class="fa fa-address-book"></i>
+                            <span>Items</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu menu-open treeview-menu-visible">
+                            <li>
+                                <a href="item-management">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>Item Management</span>
+                                </a>
+                            </li>
+                        </ul>
+                    ';
+            }
+            if (in_array('item-kit-management', $_SESSION['allowed_modules'])) {
+                echo'
+                        <ul class="treeview-menu menu-open treeview-menu-visible">
+                            <li>
+                                <a href="item-kit-management">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>Item Kits Management</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    ';
+            } else {
+                echo '</li>';
+            }
+            ?>
+
             <li class="treeview menu-open">
                 <?php
                     if (in_array('customer-management', $_SESSION['allowed_modules']) || in_array('customer-archives', $_SESSION['allowed_modules']) || in_array('customer-analytics', $_SESSION['allowed_modules'])) {

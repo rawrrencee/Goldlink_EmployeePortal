@@ -556,7 +556,30 @@
                                             name="newAllowedModulesSelection[16]" value="1">
                                         <input type="hidden" name="allowedModules[16]" value="supplier-management">
 
-                                        <p style="margin-top: 5px;">Supplier Management</p>
+                                        <p style="margin-top: 5px;">View/Edit/Delete Suppliers</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Item Management</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="newAllowedModulesSelection[17]" value="0">
+                                        <input type="checkbox" class="minimal" id="newItemManagement"
+                                            name="newAllowedModulesSelection[17]" value="1">
+                                        <input type="hidden" name="allowedModules[17]" value="item-management">
+
+                                        <p style="margin-top: 5px;">View/Edit/Delete Items</p>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="newAllowedModulesSelection[18]" value="0">
+                                        <input type="checkbox" class="minimal" id="newItemKitManagement"
+                                            name="newAllowedModulesSelection[18]" value="1">
+                                        <input type="hidden" name="allowedModules[18]" value="item-kit-management">
+
+                                        <p style="margin-top: 5px;">View/Edit/Delete Item Kits</p>
                                     </div>
                                 </div>
                             </div>
@@ -1122,6 +1145,30 @@
                                         <p style="margin-top: 5px;">Supplier Management</p>
                                     </div>
                                 </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Item Management</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[17]" value="0">
+                                        <input type="checkbox" class="minimal" id="editItemManagement"
+                                            name="editAllowedModulesSelection[17]" value="1">
+                                        <input type="hidden" name="allowedModules[17]" value="item-management">
+
+                                        <p style="margin-top: 5px;">View/Edit/Delete Items</p>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[18]" value="0">
+                                        <input type="checkbox" class="minimal" id="editItemKitManagement"
+                                            name="editAllowedModulesSelection[18]" value="1">
+                                        <input type="hidden" name="allowedModules[18]" value="item-kit-management">
+
+                                        <p style="margin-top: 5px;">View/Edit/Delete Item Kits</p>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
