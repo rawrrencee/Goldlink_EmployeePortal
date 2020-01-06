@@ -237,8 +237,9 @@
                                             placeholder="Comments">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="newRace">Race</label>
-                                        <select class="form-control select2" id="newRace" name="newRace">
+                                        <label for="newRace">Race&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
+                                        <select class="form-control select2" id="newRace" name="newRace" required>
                                             <option></option>
                                             <option value="Chinese">Chinese</option>
                                             <option value="Malay">Malay</option>
@@ -778,8 +779,9 @@
                                         <input type="text" class="form-control" id="editComments" name="editComments">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="editRace">Race</label>
-                                        <select class="form-control select2" id="editRace" name="editRace">
+                                        <label for="editRace">Race&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
+                                        <select class="form-control select2" id="editRace" name="editRace" required>
                                             <option></option>
                                             <option value="Chinese">Chinese</option>
                                             <option value="Malay">Malay</option>

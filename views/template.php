@@ -175,7 +175,16 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
     <script src="views/js/employees.js"></script>
     <script src="views/js/employee-salary-voucher-analysis.js"></script>
     <script src="views/js/employee-salary-voucher-analysis-yearly.js"></script>
-    <script src="views/js/payroll.js"></script>
+    <script src="views/js/payroll-submit.js"></script>
+    <script src="views/js/payroll-functions.js"></script>
+    <script src="views/js/payroll-salary-voucher-drafts.js"></script>
+    <script src="views/js/payroll-salary-voucher-drafts-pt.js"></script>
+    <script src="views/js/payroll-salary-voucher-management.js"></script>
+    <script src="views/js/payroll-salary-voucher-management-pt.js"></script>
+    <script src="views/js/payroll-salary-voucher-my.js"></script>
+    <script src="views/js/payroll-salary-voucher-my-pt.js"></script>
+    <script src="views/js/payroll-salary-voucher-team.js"></script>
+    <script src="views/js/payroll-salary-voucher-team-pt.js"></script>
     <script src="views/js/people.js"></script>
     <script src="views/js/suppliers.js"></script>
 
