@@ -394,8 +394,20 @@ function calculateFinalAmount() {
 }
 
 function setCPF() {
+  
+  var monthOfVoucher = parseFloat(document.getElementById("newMonthOfVoucher").value);
+  var yearOfVoucher = parseFloat(document.getElementById("newYearOfVoucher").value);
+
+  if (isNaN(monthOfVoucher) || isNaN(yearOfVoucher)) {
+    alert("Please select a month & year for your salary voucher.");
+    return;
+  }
+
+  //Voucher CPF is calculated based on the 1st of the month/year of the voucher
+  var dateOfVoucher = new Date(yearOfVoucher, monthOfVoucher - 1, 1);
+
   var currentGrossPay = parseFloat(document.getElementById("newGrossPay").value);
-  var currentAge = calculate_age(Date.parse(document.getElementById("currentPersonDOB").value));
+  var currentAge = calculate_age(dateOfVoucher, Date.parse(document.getElementById("currentPersonDOB").value));
 
   var CPF_employee = 0.00;
   var CPF_employer = 0.00;
@@ -403,7 +415,7 @@ function setCPF() {
   var totalPercentage = 0;
 
 
-  if (currentAge <= 55) {
+  if (currentAge < 55) {
     employerPercentage = 0.17;
     employeePercentage = 0.20;
 
@@ -434,7 +446,7 @@ function setCPF() {
       CPF_employer = 0.00;
     }
 
-  } else if (currentAge > 55 && currentAge <= 60) {
+  } else if (currentAge >= 55 && currentAge < 60) {
     employerPercentage = 0.13;
     employeePercentage = 0.13;
 
@@ -465,7 +477,7 @@ function setCPF() {
       CPF_employer = 0.00;
     }
 
-  } else if (currentAge > 60 && currentAge <= 65) {
+  } else if (currentAge >= 60 && currentAge < 65) {
     employerPercentage = 0.09;
     employeePercentage = 0.075;
 
@@ -496,7 +508,7 @@ function setCPF() {
       CPF_employer = 0.00;
     }
 
-  } else if (currentAge > 65) {
+  } else if (currentAge >= 65) {
     employerPercentage = 0.075;
     employeePercentage = 0.05;
 
@@ -562,9 +574,9 @@ function setCPF() {
   $("#newCPFEmployer").val(Number(CPF_employer).toFixed(2));
 }
 
-function calculate_age(dob) {
-  var diff_ms = Date.now() - dob;
+function calculate_age(dateOfVoucher, dob) {
+  var diff_ms = dateOfVoucher - dob;
   var age_dt = new Date(diff_ms);
 
-  return Math.abs(age_dt.getUTCFullYear() - 1970);
+  return Math.abs(age_dt.getFullYear() - 1970);
 }

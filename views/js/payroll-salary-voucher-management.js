@@ -147,6 +147,7 @@ $(".tableAllSalaryVouchers tbody").on("click", "button.btnEditSalaryVoucher", fu
       $('#newDesignation').val(answer['designation']);
       $('#newNRIC').val(answer['nric']);
       $('#newDateOfBirth').val(answer['date_of_birth']);
+      $('#currentPersonDOB').val(answer['date_of_birth']);
       $('#newBankName').val(answer['bank_name']);
       $('#newBankAccount').val(answer['bank_acct']);
       $('#newGrossPay').val(answer['gross_pay']);

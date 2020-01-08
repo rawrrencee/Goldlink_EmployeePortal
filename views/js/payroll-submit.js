@@ -230,6 +230,10 @@ $('#newMonthOfVoucher').select2({
 
 $('#newMonthOfVoucher').on('select2:select', function (e) {
   autofillAttendance();
+  if (document.getElementById("newIsSGPR").checked) {
+    setCPF();
+    recalculateTotalDeductions();
+  }
 });
 
 $('#newYearOfVoucher').select2({
@@ -238,6 +242,10 @@ $('#newYearOfVoucher').select2({
 
 $('#newYearOfVoucher').on('select2:select', function (e) {
   autofillAttendance();
+  if (document.getElementById("newIsSGPR").checked) {
+    setCPF();
+    recalculateTotalDeductions();
+  }
 });
 
 

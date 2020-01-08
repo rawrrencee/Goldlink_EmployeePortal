@@ -97,6 +97,8 @@ session_start();
     <script src="views/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <!-- javascript repeater -->
     <script src="views/plugins/repeater/repeater.js"></script>
+    <!-- date.js -->
+    <script type="text/javascript" src="views/plugins/dateJS/date.js"></script>
 </head>
 
 <!--=====================================
