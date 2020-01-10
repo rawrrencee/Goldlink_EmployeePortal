@@ -235,33 +235,33 @@ class EmployeeController
                     return;
                 }
 
-                $submittedForm['first_name'] = filter_var($_POST['newFirstName'], FILTER_SANITIZE_STRING);
-                $submittedForm['last_name'] = filter_var($_POST['newLastName'], FILTER_SANITIZE_STRING);
-                $submittedForm['date_of_birth'] = filter_var($_POST['newDateOfBirth'], FILTER_SANITIZE_STRING);
-                $submittedForm['gender'] = filter_var($_POST['newGender'], FILTER_SANITIZE_STRING);
-                $submittedForm['nationality'] = filter_var($_POST['newNationality'], FILTER_SANITIZE_STRING);
-                $submittedForm['designation'] = filter_var($_POST['newDesignation'], FILTER_SANITIZE_STRING);
-                $submittedForm['email'] = filter_var($_POST['newEmail'], FILTER_SANITIZE_EMAIL);
-                $submittedForm['mobile_number'] = filter_var($_POST['newMobileNumber'], FILTER_SANITIZE_STRING);
-                $submittedForm['phone_number'] = filter_var($_POST['newPhoneNumber'], FILTER_SANITIZE_STRING);
-                $submittedForm['address_1'] = filter_var($_POST['newAddress'], FILTER_SANITIZE_STRING);
-                $submittedForm['zip'] = filter_var($_POST['newPostalCode'], FILTER_SANITIZE_STRING);
-                $submittedForm['duty_location'] = filter_var($_POST['newDutyLocation'], FILTER_SANITIZE_STRING);
-                $submittedForm['bank_name'] = filter_var($_POST['newBankName'], FILTER_SANITIZE_STRING);
-                $submittedForm['bank_acct'] = filter_var($_POST['newBankAccNum'], FILTER_SANITIZE_STRING);
-                $submittedForm['commencement'] = filter_var($_POST['newCommencementDate'], FILTER_SANITIZE_STRING);
-                $submittedForm['left_date'] = filter_var($_POST['newLeftDate'], FILTER_SANITIZE_STRING);
-                $submittedForm['comments'] = filter_var($_POST['newComments'], FILTER_SANITIZE_STRING);
-                $submittedForm['emergency_name'] = filter_var($_POST['newEmergencyName'], FILTER_SANITIZE_STRING);
-                $submittedForm['emergency_relation'] = filter_var($_POST['newEmergencyRelationship'], FILTER_SANITIZE_STRING);
-                $submittedForm['emergency_address'] = filter_var($_POST['newEmergencyAddress'], FILTER_SANITIZE_STRING);
-                $submittedForm['emergency_contact'] = filter_var($_POST['newEmergencyContact'], FILTER_SANITIZE_STRING);
+                $submittedForm['first_name'] = trim(filter_var($_POST['newFirstName'], FILTER_SANITIZE_STRING));
+                $submittedForm['last_name'] = trim(filter_var($_POST['newLastName'], FILTER_SANITIZE_STRING));
+                $submittedForm['date_of_birth'] = trim(filter_var($_POST['newDateOfBirth'], FILTER_SANITIZE_STRING));
+                $submittedForm['gender'] = trim(filter_var($_POST['newGender'], FILTER_SANITIZE_STRING));
+                $submittedForm['nationality'] = trim(filter_var($_POST['newNationality'], FILTER_SANITIZE_STRING));
+                $submittedForm['designation'] = trim(filter_var($_POST['newDesignation'], FILTER_SANITIZE_STRING));
+                $submittedForm['email'] = trim(filter_var($_POST['newEmail'], FILTER_SANITIZE_EMAIL));
+                $submittedForm['mobile_number'] = trim(filter_var($_POST['newMobileNumber'], FILTER_SANITIZE_STRING));
+                $submittedForm['phone_number'] = trim(filter_var($_POST['newPhoneNumber'], FILTER_SANITIZE_STRING));
+                $submittedForm['address_1'] = trim(filter_var($_POST['newAddress'], FILTER_SANITIZE_STRING));
+                $submittedForm['zip'] = trim(filter_var($_POST['newPostalCode'], FILTER_SANITIZE_STRING));
+                $submittedForm['duty_location'] = trim(filter_var($_POST['newDutyLocation'], FILTER_SANITIZE_STRING));
+                $submittedForm['bank_name'] = trim(filter_var($_POST['newBankName'], FILTER_SANITIZE_STRING));
+                $submittedForm['bank_acct'] = trim(filter_var($_POST['newBankAccNum'], FILTER_SANITIZE_STRING));
+                $submittedForm['commencement'] = trim(filter_var($_POST['newCommencementDate'], FILTER_SANITIZE_STRING));
+                $submittedForm['left_date'] = trim(filter_var($_POST['newLeftDate'], FILTER_SANITIZE_STRING));
+                $submittedForm['comments'] = trim(filter_var($_POST['newComments'], FILTER_SANITIZE_STRING));
+                $submittedForm['emergency_name'] = trim(filter_var($_POST['newEmergencyName'], FILTER_SANITIZE_STRING));
+                $submittedForm['emergency_relation'] = trim(filter_var($_POST['newEmergencyRelationship'], FILTER_SANITIZE_STRING));
+                $submittedForm['emergency_address'] = trim(filter_var($_POST['newEmergencyAddress'], FILTER_SANITIZE_STRING));
+                $submittedForm['emergency_contact'] = trim(filter_var($_POST['newEmergencyContact'], FILTER_SANITIZE_STRING));
 
-                $submittedForm['race'] = filter_var($_POST['newRace'], FILTER_SANITIZE_STRING);
-                $submittedForm['company_name'] = filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING);
-                $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+                $submittedForm['race'] = trim(filter_var($_POST['newRace'], FILTER_SANITIZE_STRING));
+                $submittedForm['company_name'] = trim(filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING));
+                $submittedForm['levy_amount'] = number_format(floatval(trim(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', ''));
                 foreach ($_POST['newStoreSelections'] as $index => $storeId) {
-                    $submittedForm['employees_stores'][$index] = filter_var($storeId, FILTER_SANITIZE_NUMBER_INT);
+                    $submittedForm['employees_stores'][$index] = trim(filter_var($storeId, FILTER_SANITIZE_NUMBER_INT));
                 }
 
                 $personData = array('first_name' => $submittedForm['first_name'],
@@ -452,39 +452,39 @@ class EmployeeController
 
             $employeeId = (int) filter_var((int) $_POST['editEmployeeId'], FILTER_SANITIZE_NUMBER_INT);
 
-            $submittedForm['first_name'] = filter_var($_POST['editFirstName'], FILTER_SANITIZE_STRING);
-            $submittedForm['last_name'] = filter_var($_POST['editLastName'], FILTER_SANITIZE_STRING);
-            $submittedForm['date_of_birth'] = filter_var($_POST['editDateOfBirth'], FILTER_SANITIZE_STRING);
-            $submittedForm['gender'] = filter_var($_POST['editGender'], FILTER_SANITIZE_STRING);
-            $submittedForm['nationality'] = filter_var($_POST['editNationality'], FILTER_SANITIZE_STRING);
-            $submittedForm['designation'] = filter_var($_POST['editDesignation'], FILTER_SANITIZE_STRING);
-            $submittedForm['email'] = filter_var($_POST['editEmail'], FILTER_SANITIZE_EMAIL);
-            $submittedForm['mobile_number'] = filter_var($_POST['editMobileNumber'], FILTER_SANITIZE_STRING);
-            $submittedForm['phone_number'] = filter_var($_POST['editPhoneNumber'], FILTER_SANITIZE_STRING);
-            $submittedForm['address_1'] = filter_var($_POST['editAddress'], FILTER_SANITIZE_STRING);
-            $submittedForm['zip'] = filter_var($_POST['editPostalCode'], FILTER_SANITIZE_STRING);
-            $submittedForm['duty_location'] = filter_var($_POST['editDutyLocation'], FILTER_SANITIZE_STRING);
-            $submittedForm['bank_name'] = filter_var($_POST['editBankName'], FILTER_SANITIZE_STRING);
-            $submittedForm['bank_acct'] = filter_var($_POST['editBankAccNum'], FILTER_SANITIZE_STRING);
-            $submittedForm['commencement'] = filter_var($_POST['editCommencementDate'], FILTER_SANITIZE_STRING);
-            $submittedForm['left_date'] = filter_var($_POST['editLeftDate'], FILTER_SANITIZE_STRING);
-            $submittedForm['comments'] = filter_var($_POST['editComments'], FILTER_SANITIZE_STRING);
-            $submittedForm['emergency_name'] = filter_var($_POST['editEmergencyName'], FILTER_SANITIZE_STRING);
-            $submittedForm['emergency_relation'] = filter_var($_POST['editEmergencyRelationship'], FILTER_SANITIZE_STRING);
-            $submittedForm['emergency_address'] = filter_var($_POST['editEmergencyAddress'], FILTER_SANITIZE_STRING);
-            $submittedForm['emergency_contact'] = filter_var($_POST['editEmergencyContact'], FILTER_SANITIZE_STRING);
+            $submittedForm['first_name'] = trim(filter_var($_POST['editFirstName'], FILTER_SANITIZE_STRING));
+            $submittedForm['last_name'] = trim(filter_var($_POST['editLastName'], FILTER_SANITIZE_STRING));
+            $submittedForm['date_of_birth'] = trim(filter_var($_POST['editDateOfBirth'], FILTER_SANITIZE_STRING));
+            $submittedForm['gender'] = trim(filter_var($_POST['editGender'], FILTER_SANITIZE_STRING));
+            $submittedForm['nationality'] = trim(filter_var($_POST['editNationality'], FILTER_SANITIZE_STRING));
+            $submittedForm['designation'] = trim(filter_var($_POST['editDesignation'], FILTER_SANITIZE_STRING));
+            $submittedForm['email'] = trim(filter_var($_POST['editEmail'], FILTER_SANITIZE_EMAIL));
+            $submittedForm['mobile_number'] = trim(filter_var($_POST['editMobileNumber'], FILTER_SANITIZE_STRING));
+            $submittedForm['phone_number'] = trim(filter_var($_POST['editPhoneNumber'], FILTER_SANITIZE_STRING));
+            $submittedForm['address_1'] = trim(filter_var($_POST['editAddress'], FILTER_SANITIZE_STRING));
+            $submittedForm['zip'] = trim(filter_var($_POST['editPostalCode'], FILTER_SANITIZE_STRING));
+            $submittedForm['duty_location'] = trim(filter_var($_POST['editDutyLocation'], FILTER_SANITIZE_STRING));
+            $submittedForm['bank_name'] = trim(filter_var($_POST['editBankName'], FILTER_SANITIZE_STRING));
+            $submittedForm['bank_acct'] = trim(filter_var($_POST['editBankAccNum'], FILTER_SANITIZE_STRING));
+            $submittedForm['commencement'] = trim(filter_var($_POST['editCommencementDate'], FILTER_SANITIZE_STRING));
+            $submittedForm['left_date'] = trim(filter_var($_POST['editLeftDate'], FILTER_SANITIZE_STRING));
+            $submittedForm['comments'] = trim(filter_var($_POST['editComments'], FILTER_SANITIZE_STRING));
+            $submittedForm['emergency_name'] = trim(filter_var($_POST['editEmergencyName'], FILTER_SANITIZE_STRING));
+            $submittedForm['emergency_relation'] = trim(filter_var($_POST['editEmergencyRelationship'], FILTER_SANITIZE_STRING));
+            $submittedForm['emergency_address'] = trim(filter_var($_POST['editEmergencyAddress'], FILTER_SANITIZE_STRING));
+            $submittedForm['emergency_contact'] = trim(filter_var($_POST['editEmergencyContact'], FILTER_SANITIZE_STRING));
 
-            $submittedForm['race'] = filter_var($_POST['editRace'], FILTER_SANITIZE_STRING);
-            $submittedForm['company_name'] = filter_var($_POST['editCompanySelection'], FILTER_SANITIZE_STRING);
-            $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['editLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['race'] = trim(filter_var($_POST['editRace'], FILTER_SANITIZE_STRING));
+            $submittedForm['company_name'] = trim(filter_var($_POST['editCompanySelection'], FILTER_SANITIZE_STRING));
+            $submittedForm['levy_amount'] = number_format(floatval(trim(filter_var($_POST['editLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', ''));
             foreach ($_POST['updateStoreActive'] as $index => $active) {
-                $submittedForm['updateStoreActive'][$index] = filter_var($active, FILTER_SANITIZE_NUMBER_INT);
+                $submittedForm['updateStoreActive'][$index] = trim(filter_var($active, FILTER_SANITIZE_NUMBER_INT));
             }
             foreach ($_POST['updateStoreSelection'] as $index => $storeId) {
-                $submittedForm['updateStoreSelection'][$index] = filter_var($storeId, FILTER_SANITIZE_NUMBER_INT);
+                $submittedForm['updateStoreSelection'][$index] = trim(filter_var($storeId, FILTER_SANITIZE_NUMBER_INT));
             }
             foreach ($_POST['editStoreSelections'] as $index => $storeId) {
-                $submittedForm['employees_stores'][$index] = filter_var($storeId, FILTER_SANITIZE_NUMBER_INT);
+                $submittedForm['employees_stores'][$index] = trim(filter_var($storeId, FILTER_SANITIZE_NUMBER_INT));
             }
 
             $personData = array(

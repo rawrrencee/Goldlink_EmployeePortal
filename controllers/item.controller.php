@@ -23,7 +23,7 @@ class ItemController
         if (isset($_POST["newItemNumber"])) {
             if (preg_match('/^[-0-9A-Za-z@._,\/\- ]+$/', $_POST["newItemNumber"])) {
 
-                $newItemNumber = filter_var($_POST["newItemNumber"], FILTER_SANITIZE_STRING);
+                $newItemNumber = trim(filter_var($_POST["newItemNumber"], FILTER_SANITIZE_STRING));
                 $results = ItemModel::mdlViewItemByItemNumber($newItemNumber);
 
                 if (count($results) > 0) {
@@ -41,14 +41,14 @@ class ItemController
                     return;
                 }
 
-                $submittedForm['name'] = filter_var($_POST['newItemName'], FILTER_SANITIZE_STRING);
-                $submittedForm['category'] = filter_var($_POST['newCategory'], FILTER_SANITIZE_STRING);
-                $submittedForm['supplier_id'] = filter_var($_POST['newSupplierId'], FILTER_SANITIZE_STRING);
-                $submittedForm['item_number'] = filter_var($_POST['newItemNumber'], FILTER_SANITIZE_STRING);
-                $submittedForm['description'] = filter_var($_POST['newDescription'], FILTER_SANITIZE_STRING);
-                $submittedForm['cost_price'] = number_format(floatval(filter_var($_POST['newCostPrice'], FILTER_SANITIZE_STRING)), 2, '.', '');
-                $submittedForm['unit_price'] = number_format(floatval(filter_var($_POST['newUnitPrice'], FILTER_SANITIZE_STRING)), 2, '.', '');
-                $submittedForm['factory_id'] = filter_var($_POST['newFactoryId'], FILTER_SANITIZE_STRING);
+                $submittedForm['name'] = trim(filter_var($_POST['newItemName'], FILTER_SANITIZE_STRING));
+                $submittedForm['category'] = trim(filter_var($_POST['newCategory'], FILTER_SANITIZE_STRING));
+                $submittedForm['supplier_id'] = trim(filter_var($_POST['newSupplierId'], FILTER_SANITIZE_STRING));
+                $submittedForm['item_number'] = trim(filter_var($_POST['newItemNumber'], FILTER_SANITIZE_STRING));
+                $submittedForm['description'] = trim(filter_var($_POST['newDescription'], FILTER_SANITIZE_STRING));
+                $submittedForm['cost_price'] = number_format(floatval(trim(filter_var($_POST['newCostPrice'], FILTER_SANITIZE_STRING))), 2, '.', '');
+                $submittedForm['unit_price'] = number_format(floatval(trim(filter_var($_POST['newUnitPrice'], FILTER_SANITIZE_STRING))), 2, '.', '');
+                $submittedForm['factory_id'] = trim(filter_var($_POST['newFactoryId'], FILTER_SANITIZE_STRING));
 
                 //echo "<script type='text/javascript'> alert('" . json_encode($submittedForm) . "') </script>";
 
@@ -183,14 +183,14 @@ class ItemController
 
             $itemId = (int) filter_var((int) $_POST['editItemId'], FILTER_SANITIZE_NUMBER_INT);
 
-            $submittedForm['name'] = filter_var($_POST['editItemName'], FILTER_SANITIZE_STRING);
-            $submittedForm['category'] = filter_var($_POST['editCategory'], FILTER_SANITIZE_STRING);
-            $submittedForm['supplier_id'] = filter_var($_POST['editSupplierId'], FILTER_SANITIZE_STRING);
-            $submittedForm['item_number'] = filter_var($_POST['editItemNumber'], FILTER_SANITIZE_STRING);
-            $submittedForm['description'] = filter_var($_POST['editDescription'], FILTER_SANITIZE_STRING);
-            $submittedForm['cost_price'] = number_format(floatval(filter_var($_POST['editCostPrice'], FILTER_SANITIZE_STRING)), 2, '.', '');
-            $submittedForm['unit_price'] = number_format(floatval(filter_var($_POST['editUnitPrice'], FILTER_SANITIZE_STRING)), 2, '.', '');
-            $submittedForm['factory_id'] = filter_var($_POST['editFactoryId'], FILTER_SANITIZE_STRING);
+            $submittedForm['name'] = trim(filter_var($_POST['editItemName'], FILTER_SANITIZE_STRING));
+            $submittedForm['category'] = trim(filter_var($_POST['editCategory'], FILTER_SANITIZE_STRING));
+            $submittedForm['supplier_id'] = trim(filter_var($_POST['editSupplierId'], FILTER_SANITIZE_STRING));
+            $submittedForm['item_number'] = trim(filter_var($_POST['editItemNumber'], FILTER_SANITIZE_STRING));
+            $submittedForm['description'] = trim(filter_var($_POST['editDescription'], FILTER_SANITIZE_STRING));
+            $submittedForm['cost_price'] = number_format(floatval(trim(filter_var($_POST['editCostPrice'], FILTER_SANITIZE_STRING))), 2, '.', '');
+            $submittedForm['unit_price'] = number_format(floatval(trim(filter_var($_POST['editUnitPrice'], FILTER_SANITIZE_STRING))), 2, '.', '');
+            $submittedForm['factory_id'] = trim(filter_var($_POST['editFactoryId'], FILTER_SANITIZE_STRING));
 
             // UPDATE ITEM FIRST
             $itemData = array(
