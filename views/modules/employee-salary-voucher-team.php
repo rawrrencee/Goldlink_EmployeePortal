@@ -1,9 +1,6 @@
 <?php
 
 session_start();
-if (!in_array('employee-salary-voucher-management', $_SESSION['allowed_modules'])) {
-    //die('Invalid Authentication');
-}
 
 ?>
 <div class="content-wrapper">

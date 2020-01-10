@@ -23,6 +23,8 @@ session_start();
 
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="views/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- jQuery UI Theme -->
+    <link rel="stylesheet" href="views/bower_components/jquery-ui/themes/custom-theme/autocomplete.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -57,6 +59,8 @@ session_start();
     <script src="views/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- jQuery UI -->
     <script src="views/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- jQuery Migrate -->
+    <script src="views/bower_components/jquery/dist/jquery-migrate-3.1.0.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="views/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->
@@ -152,6 +156,7 @@ session_start();
                         $_GET["route"] == "employee-salary-voucher-analysis-yearly" ||
                         $_GET["route"] == "item-management" ||
                         $_GET["route"] == "item-kit-management" ||
+                        $_GET["route"] == "sales-terminal" ||
                         $_GET["route"] == "supplier-management"
                     )
                     && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
@@ -199,6 +204,7 @@ session_start();
     <script src="views/js/payroll-salary-voucher-team.js"></script>
     <script src="views/js/payroll-salary-voucher-team-pt.js"></script>
     <script src="views/js/people.js"></script>
+    <script src="views/js/sales.js"></script>
     <script src="views/js/suppliers.js"></script>
 
 </body>

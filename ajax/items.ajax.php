@@ -32,6 +32,19 @@ class AjaxItems
 
     }
 
+    public function checkItemImageExists() {
+
+        $value = $this->itemId;
+        $routeImg = "../uploads/items/" . $value . "/item.jpg";
+
+        if (file_exists($routeImg)) {
+            echo json_encode(true);
+        } else {
+            echo json_encode(false);
+        }
+
+    }
+
 }
 
 if (isset($_POST['item_id'])) {
@@ -47,5 +60,13 @@ if (isset($_POST['getStoresWithItem_item_id'])) {
     $getStoresWithItem = new AjaxItems();
     $getStoresWithItem -> itemId = $_POST['getStoresWithItem_item_id'];
     $getStoresWithItem -> getStoresWithItem();
+
+}
+
+if (isset($_POST['checkItemImageExists'])) {
+
+    $checkItemImageExists = new AjaxItems();
+    $checkItemImageExists -> itemId = $_POST['checkItemImageExists'];
+    $checkItemImageExists -> checkItemImageExists();
 
 }

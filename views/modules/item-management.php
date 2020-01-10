@@ -91,7 +91,7 @@
                                     width="100px">
                             </div>
                             <div class="col-md-10" style="padding-bottom: 30px;">
-                                <input type="file" class="newItemPicture" name="newItemPicture">
+                                <input type="file" class="newItemImage" name="newItemImage">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -306,7 +306,7 @@
                                     width="100px">
                             </div>
                             <div class="col-md-10" style="padding-bottom: 30px;">
-                                <input type="file" class="editItemPicture" name="editItemPicture">
+                                <input type="file" class="editItemImage" name="editItemImage">
                             </div>
                         </div>
                         <div class="col-md-12">

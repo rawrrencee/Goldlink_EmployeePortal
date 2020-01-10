@@ -10,7 +10,8 @@ class ItemController
         return $response;
     }
 
-    public static function ctrViewAllCategories() {
+    public static function ctrViewAllCategories()
+    {
         $response = ItemModel::mdlViewAllCategories();
 
         return $response;
@@ -22,65 +23,135 @@ class ItemController
         if (isset($_POST["newItemNumber"])) {
             if (preg_match('/^[-0-9A-Za-z@._,\/\- ]+$/', $_POST["newItemNumber"])) {
 
+                $newItemNumber = filter_var($_POST["newItemNumber"], FILTER_SANITIZE_STRING);
+                $results = ItemModel::mdlViewItemByItemNumber($newItemNumber);
+
+                if (count($results) > 0) {
+                    echo '<script>
+                    swal({
+                        type: "error",
+                        title: "Item Number already exists. Please use another item number.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+                    });
+                    </script>';
+
+                    return;
+                }
+
+                $submittedForm['name'] = filter_var($_POST['newItemName'], FILTER_SANITIZE_STRING);
+                $submittedForm['category'] = filter_var($_POST['newCategory'], FILTER_SANITIZE_STRING);
+                $submittedForm['supplier_id'] = filter_var($_POST['newSupplierId'], FILTER_SANITIZE_STRING);
+                $submittedForm['item_number'] = filter_var($_POST['newItemNumber'], FILTER_SANITIZE_STRING);
+                $submittedForm['description'] = filter_var($_POST['newDescription'], FILTER_SANITIZE_STRING);
+                $submittedForm['cost_price'] = number_format(floatval(filter_var($_POST['newCostPrice'], FILTER_SANITIZE_STRING)), 2, '.', '');
+                $submittedForm['unit_price'] = number_format(floatval(filter_var($_POST['newUnitPrice'], FILTER_SANITIZE_STRING)), 2, '.', '');
+                $submittedForm['factory_id'] = filter_var($_POST['newFactoryId'], FILTER_SANITIZE_STRING);
+
+                //echo "<script type='text/javascript'> alert('" . json_encode($submittedForm) . "') </script>";
+
                 $table = 'items';
                 $emptyString = "";
                 $defaultValue = 0;
-                $itemData = array('name' => $_POST["newItemName"],
-                    'category' => $_POST["newCategory"],
-                    'supplier_id' => $_POST["newSupplierId"],
-                    'item_number' => $_POST["newItemNumber"],
-                    'description' => $_POST["newDescription"],
-                    'cost_price' => $_POST["newCostPrice"],
-                    'unit_price' => $_POST["newUnitPrice"],
+                $itemData = array('name' => $submittedForm["name"],
+                    'category' => $submittedForm["category"],
+                    'supplier_id' => $submittedForm["supplier_id"],
+                    'item_number' => $submittedForm["item_number"],
+                    'description' => $submittedForm["description"],
+                    'cost_price' => $submittedForm["cost_price"],
+                    'unit_price' => $submittedForm["unit_price"],
                     'reorder_level' => $defaultValue,
                     'location' => $emptyString,
                     'allow_alt_description' => $defaultValue,
                     'is_serialized' => $defaultValue,
-                    'factory_id' => $_POST["newFactoryId"]);
-
-                //echo "<script type='text/javascript'> alert('".json_encode($itemData)."') </script>";
-
-                $response = ItemModel::mdlCreateNewItem($table, $itemData);
-                $new_item_id = (int) $response["item_id"];
-
-                //Debug with JS Alert
-                //echo "<script type='text/javascript'> alert('".json_encode($response)."') </script>";
-                //echo "<script type='text/javascript'> alert('".json_encode($new_item_id)."') </script>";
+                    'factory_id' => $submittedForm["factory_id"]);
 
                 $newStoreSelections = $_POST["newStoreSelections"];
                 $newItemQuantities = $_POST["newItemQuantities"];
 
-                $table = 'stores_items';
-                $response = true;
+                $response = ItemModel::mdlCreateNewItem($itemData, $newStoreSelections, $newItemQuantities);
+                //echo "<script type='text/javascript'> alert('" . json_encode($response) . "') </script>";
 
-                foreach ($newStoreSelections as $i => $store) {
-                    if ($newItemQuantities[$i] == "" or is_null($newItemQuantities[$i])) {
-                        $newItemQuantities[$i] = 0;
+                if (!strstr($response, 'Exception')) {
+
+                    //Create Folder Directory
+                    $folder = "uploads/items/" . $response;
+
+                    if (!file_exists($folder)) {
+                        mkdir($folder, 0755);
                     }
-                    $data = array('item_id' => $new_item_id, 'store_id' => (int) $store, 'quantity' => (int) $newItemQuantities[$i]);
 
-                    $check_record = ItemModel::mdlViewStoreItemStatusByStoreId($table, $data);
+                    if (isset($_FILES["newItemImage"]["tmp_name"])) {
 
-                    //echo "<script type='text/javascript'> alert('Record: " . json_encode($check_record) . "') </script>";
+                        list($width, $height) = getimagesize($_FILES["newItemImage"]["tmp_name"]);
 
-                    if (count($check_record) == 0) {
-                        $added = ItemModel::mdlAddItemToStore($table, $data);
-                        //echo "<script type='text/javascript'> alert('Added: " . json_encode($added) . "') </script>";
+                        $newWidth = 500;
+                        $newHeight = 500;
 
-                    } else {
-                        if ($check_record['active'] === 0) {
-                            $data['active'] = 1;
-                            $added = ItemModel::mdlUpdateStoreItem($table, $data);
-                            //echo "<script type='text/javascript'> alert('Updated quantity: " . json_encode($added) . "') </script>";
+                        if ($_FILES["newItemImage"]["type"] == "image/jpeg" || $_FILES["newItemImage"]["type"] == "image/jpg") {
+
+                            $filename = "item";
+
+                            $photo = $folder . "/" . $filename . ".jpg";
+
+                            $srcImage = imagecreatefromjpeg($_FILES["newItemImage"]["tmp_name"]);
+
+                            $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                            imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                            imagejpeg($destination, $photo);
 
                         }
+
+                        if ($_FILES["newItemImage"]["type"] == "image/png") {
+
+                            $filename = "item";
+
+                            $photo = $folder . "/" . $filename . ".png";
+
+                            $srcImage = imagecreatefrompng($_FILES["newItemImage"]["tmp_name"]);
+
+                            $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                            imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                            imagepng($destination, $photo);
+
+                            $image = imagecreatefrompng($photo);
+                            $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
+                            imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
+                            imagealphablending($bg, true);
+                            imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+                            imagedestroy($image);
+                            $quality = 100; // 0 = worst / smaller file, 100 = better / bigger file
+                            imagejpeg($bg, $photo . ".jpg", $quality);
+                            imagedestroy($bg);
+                        }
                     }
-                    //echo "<script type='text/javascript'> alert('" . json_encode($added) . "') </script>";
                 }
 
-                //echo "<script type='text/javascript'> alert('".json_encode($response)."') </script>";
+                if (strstr($response, 'Exception')) {
+                    echo '<script>
+                    swal({
 
-                if ($response) {
+                        type: "error",
+                        title: "An error has occurred: ' . $response . '",
+                        showConfirmButton: true,
+                        confirmButtonText: "Close"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "item-management";
+                            }
+                    });
+                    </script>';
+
+                } else {
                     echo '<script>
 
                     swal({
@@ -99,25 +170,6 @@ class ItemController
                     });
 
                     </script>';
-
-                    return;
-                } else {
-                    echo '<script>
-                    swal({
-
-                        type: "error",
-                        title: "An unknown error has occurred.",
-                        showConfirmButton: true,
-                        confirmButtonText: "Close"
-
-                        }).then(function(result){
-
-                            if(result.value){
-
-                                window.location = "item-management";
-                            }
-                    });
-                </script>';
                 }
             }
         }
@@ -129,30 +181,107 @@ class ItemController
         if (isset($_POST['editItemId'])) {
             //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
-            $itemId = (int) $_POST[editItemId];
+            $itemId = (int) filter_var((int) $_POST['editItemId'], FILTER_SANITIZE_NUMBER_INT);
+
+            $submittedForm['name'] = filter_var($_POST['editItemName'], FILTER_SANITIZE_STRING);
+            $submittedForm['category'] = filter_var($_POST['editCategory'], FILTER_SANITIZE_STRING);
+            $submittedForm['supplier_id'] = filter_var($_POST['editSupplierId'], FILTER_SANITIZE_STRING);
+            $submittedForm['item_number'] = filter_var($_POST['editItemNumber'], FILTER_SANITIZE_STRING);
+            $submittedForm['description'] = filter_var($_POST['editDescription'], FILTER_SANITIZE_STRING);
+            $submittedForm['cost_price'] = number_format(floatval(filter_var($_POST['editCostPrice'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['unit_price'] = number_format(floatval(filter_var($_POST['editUnitPrice'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['factory_id'] = filter_var($_POST['editFactoryId'], FILTER_SANITIZE_STRING);
 
             // UPDATE ITEM FIRST
             $itemData = array(
-                'item_id' => (int) $_POST['editItemId'],
-                'item_number' => $_POST['editItemNumber'],
-                'factory_id' => $_POST['editFactoryId'],
-                'name' => $_POST['editItemName'],
-                'category' => $_POST['editCategory'],
-                'cost_price' => $_POST['editCostPrice'],
-                'unit_price' => $_POST['editUnitPrice'],
-                'description' => $_POST['editDescription'],
-                'supplier_id' => (int) $_POST['editSupplierId']);
+                'item_id' => $itemId,
+                'item_number' => $submittedForm['item_number'],
+                'factory_id' => $submittedForm['factory_id'],
+                'name' => $submittedForm['name'],
+                'category' => $submittedForm['category'],
+                'cost_price' => $submittedForm['cost_price'],
+                'unit_price' => $submittedForm['unit_price'],
+                'description' => $submittedForm['description'],
+                'supplier_id' => (int) $submittedForm['supplier_id']);
 
-            $table = 'items';
-            $response = ItemModel::mdlEditItem($table, $itemData);
-            //echo "<script type='text/javascript'> alert('" . json_encode($response) . "') </script>";
+            // UPDATE STORE ITEM INFORMATION
+            $updateStoreActive = $_POST['updateStoreActive'];
+            $updateStoreSelection = $_POST['updateStoreSelection'];
+            $updateStoreQuantity = $_POST['updateStoreQuantity'];
 
-            if (!$response) {
+            // ADD STORES+QTY IF NOT ALREADY EXISTING (ELSE FAIL)
+            $editStoreSelections = $_POST["editStoreSelections"];
+            $editItemQuantities = $_POST["editItemQuantities"];
+
+            $response = ItemModel::mdlEditItem($itemData, $updateStoreActive, $updateStoreSelection, $updateStoreQuantity, $editStoreSelections, $editItemQuantities);
+
+            if (!strstr($response, 'Exception')) {
+
+                //Create Folder Directory
+                $folder = "uploads/items/" . $response;
+
+                if (!file_exists($folder)) {
+                    mkdir($folder, 0755);
+                }
+
+                if (isset($_FILES["newItemImage"]["tmp_name"])) {
+
+                    list($width, $height) = getimagesize($_FILES["newItemImage"]["tmp_name"]);
+
+                    $newWidth = 500;
+                    $newHeight = 500;
+
+                    if ($_FILES["newItemImage"]["type"] == "image/jpeg" || $_FILES["newItemImage"]["type"] == "image/jpg") {
+
+                        $filename = "item";
+
+                        $photo = $folder . "/" . $filename . ".jpg";
+
+                        $srcImage = imagecreatefromjpeg($_FILES["newItemImage"]["tmp_name"]);
+
+                        $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                        imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        imagejpeg($destination, $photo);
+
+                    }
+
+                    if ($_FILES["newItemImage"]["type"] == "image/png") {
+
+                        $filename = "item";
+
+                        $photo = $folder . "/" . $filename . ".png";
+
+                        $srcImage = imagecreatefrompng($_FILES["newItemImage"]["tmp_name"]);
+
+                        $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                        imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        imagepng($destination, $photo);
+
+                        $image = imagecreatefrompng($photo);
+                        $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
+                        imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
+                        imagealphablending($bg, true);
+                        imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+                        imagedestroy($image);
+                        $quality = 100; // 0 = worst / smaller file, 100 = better / bigger file
+                        imagejpeg($bg, $photo . ".jpg", $quality);
+                        imagedestroy($bg);
+                    }
+                }
+            }
+
+            if (strstr($response, 'Exception')) {
+                echo "<script type='text/javascript'> alert('" . json_encode($response) . "') </script>";
+
                 echo '<script>
                 swal({
 
                     type: "error",
-                    title: "An error has occurred. An item with the same UPC/EAN/ISBN already exists, please use a different one.",
+                    title: "An error has occurred: ' . $response . '",
                     showConfirmButton: true,
                     confirmButtonText: "Close"
 
@@ -164,65 +293,8 @@ class ItemController
                         }
                 });
                 </script>';
-                return;
-            }
 
-            // UPDATE STORE ITEM INFORMATION
-            $updateStoreActive = $_POST['updateStoreActive'];
-            $updateStoreSelection = $_POST['updateStoreSelection'];
-            $updateStoreQuantity = $_POST['updateStoreQuantity'];
-
-            $table = 'stores_items';
-            $response = true;
-
-            foreach ($updateStoreSelection as $i => $store) {
-                if ($updateStoreQuantity[$i] == "" or is_null($updateStoreQuantity[$i])) {
-                    $updateStoreQuantity[$i] = 0;
-                }
-                $storeItemData = array(
-                    'item_id' => $itemId,
-                    'store_id' => (int) $store,
-                    'quantity' => (int) $updateStoreQuantity[$i],
-                    'active' => (int) $updateStoreActive[$i]);
-
-                //echo "<script type='text/javascript'> alert('" . json_encode($storeItemData) . "') </script>";
-
-                $response = ItemModel::mdlUpdateStoreItem($table, $storeItemData);
-                //echo "<script type='text/javascript'> alert('" . json_encode($response) . "') </script>";
-            }
-
-            // ADD STORES+QTY IF NOT ALREADY EXISTING (ELSE FAIL)
-            $editStoreSelections = $_POST["editStoreSelections"];
-            $editItemQuantities = $_POST["editItemQuantities"];
-
-            $table = 'stores_items';
-            $response = true;
-
-            foreach ($editStoreSelections as $i => $store) {
-                if ($editItemQuantities[$i] == "" or is_null($editItemQuantities[$i])) {
-                    $editItemQuantities[$i] = 0;
-                }
-                $data = array('item_id' => $itemId, 'store_id' => (int) $store, 'quantity' => (int) $editItemQuantities[$i]);
-                $check_record = ItemModel::mdlViewStoreItemStatusByStoreId($table, $data);
-
-                //echo "<script type='text/javascript'> alert('CHECK RECORD: " . json_encode($check_record) . "') </script>";
-
-                if (count($check_record) == 0) {
-                    $added = ItemModel::mdlAddItemToStore($table, $data);
-                    //echo "<script type='text/javascript'> alert('Added: " . json_encode($added) . "') </script>";
-                } else {
-                    if ($check_record['active'] == 0) {
-                        $data['active'] = 1;
-                        $added = ItemModel::mdlUpdateStoreItem($table, $data);
-                        //echo "<script type='text/javascript'> alert('Updated: " . json_encode($added) . "') </script>";
-                    }
-                }
-                if (!$added) {
-                    $response = false;
-                }
-            }
-
-            if ($response) {
+            } else {
                 echo '<script>
 
                 swal({
@@ -241,27 +313,7 @@ class ItemController
                 });
 
                 </script>';
-
-                return;
-            } else {
-                echo '<script>
-                swal({
-
-                    type: "error",
-                    title: "An error has occurred. A record for an added store already exists, please modify the quantity instead.",
-                    showConfirmButton: true,
-                    confirmButtonText: "Close"
-
-                    }).then(function(result){
-
-                        if(result.value){
-
-                            window.location = "item-management";
-                        }
-                });
-            </script>';
             }
-
             return;
         }
     }

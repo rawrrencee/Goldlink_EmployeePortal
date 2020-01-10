@@ -67,6 +67,27 @@ $('.tableItems tbody').on('click', '#btnEditItem', function () {
     var formData = new FormData();
     formData.append("item_id", itemId);
 
+    var checkItemImageExists = new FormData();
+    checkItemImageExists.append("checkItemImageExists", itemId);
+    routeImg = "uploads/items/" + itemId + "/item.jpg";
+
+    $.ajax({
+        url: "ajax/items.ajax.php",
+        method: "POST",
+        data: checkItemImageExists,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (answer) {
+            if (answer) {
+                $(".preview").attr("src", routeImg);
+            } else {
+                $(".preview").attr("src", "views/img/items/default/anonymous.png");
+            }
+        }
+    });
+
     $.ajax({
         url: "ajax/items.ajax.php",
         method: "POST",
@@ -176,16 +197,6 @@ $('.tableItems tbody').on('click', '#btnEditItem', function () {
     })
 });
 
-/* SET CHECKBOXES VALUE BASED ON EDIT ITEM STATUS (ACTIVE/NOT ACTIVE) -- REQUIRED FOR NON-PHP SERVERS
-$("#editItemForm").on('submit', function () {
-    // to each unchecked checkbox
-    $(this + 'input[type=checkbox]:not(:checked)').each(function () {
-        // set value 0 and check it
-        $(this).attr('checked', true).val(0);
-    });
-})
-*/
-
 /* REPEATER PLUGIN */
 $("#newItemRepeater").createRepeater();
 $("#modalEditItemRepeater").createRepeater();
@@ -215,18 +226,84 @@ $('#editCategory').select2({
 
 $.fn.modal.Constructor.prototype.enforceFocus = function () { };
 
-/* SELECT2 UNUSED CODE
-$('#newStoreSelection').select2({
-    closeOnSelect: false
-});
+$(".newItemImage").change(function () {
+    var image = this.files[0];
 
-var scrollTop;
-$('#newStoreSelection').on("select2:selecting", function (event) {
-    var $pr = $('#' + event.params.args.data._resultId).parent();
-    scrollTop = $pr.prop('scrollTop');
-});
-$('#newStoreSelection').on("select2:select", function (event) {
-    var $pr = $('#' + event.params.data._resultId).parent();
-    $pr.prop('scrollTop', scrollTop);
-});
-*/
+    if (image["type"] != "image/jpeg" && image["type"] != "image/png" && image["type"] != "image/jpg") {
+        $(".newItemImage").val("");
+
+        swal({
+            type: "error",
+            title: "Error uploading image",
+            text: "Image has to be JPEG or PNG!",
+            showConfirmButton: true,
+            confirmButtonText: "Close"
+        });
+    } else if (image["size"] > 10000000) {
+
+        $(".newItemImage").val("");
+
+        swal({
+            type: "error",
+            title: "Error uploading image",
+            text: "Please upload an image lesser than 10Mb.",
+            showConfirmButton: true,
+            confirmButtonText: "Close"
+        });
+
+    } else {
+
+        var imgData = new FileReader;
+        imgData.readAsDataURL(image);
+
+        $(imgData).on("load", function (event) {
+
+            var routeImg = event.target.result;
+
+            $(".preview").attr("src", routeImg);
+
+        });
+
+    }
+})
+
+$(".editItemImage").change(function () {
+    var image = this.files[0];
+
+    if (image["type"] != "image/jpeg" && image["type"] != "image/png" && image["type"] != "image/jpg") {
+        $(".editItemImage").val("");
+
+        swal({
+            type: "error",
+            title: "Error uploading image",
+            text: "Image has to be JPEG or PNG!",
+            showConfirmButton: true,
+            confirmButtonText: "Close"
+        });
+    } else if (image["size"] > 10000000) {
+
+        $(".editItemImage").val("");
+
+        swal({
+            type: "error",
+            title: "Error uploading image",
+            text: "Please upload an image lesser than 10Mb.",
+            showConfirmButton: true,
+            confirmButtonText: "Close"
+        });
+
+    } else {
+
+        var imgData = new FileReader;
+        imgData.readAsDataURL(image);
+
+        $(imgData).on("load", function (event) {
+
+            var routeImg = event.target.result;
+
+            $(".preview").attr("src", routeImg);
+
+        });
+
+    }
+})
