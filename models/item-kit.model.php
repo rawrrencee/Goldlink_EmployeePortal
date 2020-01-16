@@ -92,8 +92,8 @@ class ItemKitModel
         
     }
 
-    public static function mdlRetrieveItemKitByStoreId($table, $itemKitData) {
-        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE item_kit_number = :item_kit_number AND store_id = :store_id");
+    public static function mdlRetrieveItemKitByStoreId($itemKitData) {
+        $stmt = Connection::connect()->prepare("SELECT * FROM item_kits WHERE item_kit_number = :item_kit_number AND store_id = :store_id");
         $stmt->bindParam(":item_kit_number", $itemKitData['item_kit_number'], PDO::PARAM_INT);
         $stmt->bindParam(":store_id", $itemKitData['store_id'], PDO::PARAM_INT);
 
@@ -104,8 +104,8 @@ class ItemKitModel
         $stmt = null;
     }
 
-    public static function mdlRetrieveUndeletedItemKitByStoreId($table, $itemKitData) {
-        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE item_kit_number = :item_kit_number AND store_id = :store_id AND deleted = :deleted");
+    public static function mdlRetrieveUndeletedItemKitByStoreId($itemKitData) {
+        $stmt = Connection::connect()->prepare("SELECT * FROM item_kits WHERE item_kit_number = :item_kit_number AND store_id = :store_id AND deleted = :deleted");
         $stmt->bindParam(":item_kit_number", $itemKitData['item_kit_number'], PDO::PARAM_INT);
         $stmt->bindParam(":store_id", $itemKitData['store_id'], PDO::PARAM_INT);
         $deleted = 0;
@@ -118,54 +118,76 @@ class ItemKitModel
         $stmt = null;
     }
 
-    public static function mdlCreateItemKit($table, $itemKitData) {
-        $stmt = Connection::connect()->prepare("INSERT INTO $table(item_kit_number, name, description, category, unit_price, cost_price, store_id, deleted) VALUES (:item_kit_number, :name, :description, :category, :unit_price, :cost_price, :store_id, :deleted)");
+    public static function mdlCreateItemKit($itemKitData, $newStoreSelections, $newItemKitItemIds, $newItemKitItemQuantities) {
+        $conn = new Connection();
+        $conn = $conn->connect();
 
-        $stmt->bindParam(":item_kit_number", $itemKitData['item_kit_number'], PDO::PARAM_STR);
-        $stmt->bindParam(":name", $itemKitData['name'], PDO::PARAM_STR);
-        $stmt->bindParam(":item_kit_number", $itemKitData['item_kit_number'], PDO::PARAM_STR);
-        $stmt->bindParam(":description", $itemKitData['description'], PDO::PARAM_STR);
-        $stmt->bindParam(":category", $itemKitData['category'], PDO::PARAM_STR);
-        $stmt->bindParam(":unit_price", $itemKitData['unit_price'], PDO::PARAM_STR);
-        $stmt->bindParam(":cost_price", $itemKitData['cost_price'], PDO::PARAM_STR);
-        $stmt->bindParam(":store_id", $itemKitData['store_id'], PDO::PARAM_INT);
-        $deleted = 0;
-        $stmt->bindParam(":deleted", $deleted, PDO::PARAM_INT);
+        try {
+            $conn->beginTransaction();
 
-        if ($stmt->execute()) {
-            $newItemKitIdStmt = Connection::connect()->prepare("SELECT item_kit_id FROM $table WHERE item_kit_number = :item_kit_number AND name = :name ORDER BY item_kit_id DESC");
-            $newItemKitIdStmt->bindParam(":item_kit_number", $itemKitData["item_kit_number"], PDO::PARAM_STR);
-            $newItemKitIdStmt->bindParam(":name", $itemKitData["name"], PDO::PARAM_STR);
-            $newItemKitIdStmt->execute();
+            foreach ($newStoreSelections as $i => $store) {
+                $itemKitData['store_id'] = (int) $store;
+                $check_record = self::mdlRetrieveUndeletedItemKitByStoreId($itemKitData);
 
-            $results = $newItemKitIdStmt->fetch(PDO::FETCH_ASSOC);
+                if (count($check_record) > 0) {
+                    $persistStatus = false;
+                    $issuesFaced = true;
 
-            return $results;
-        } else {
-            $error = print_r($stmt->errorInfo(), true);
-            return error;
+                    continue;
+                }
+
+                $stmt = $conn->prepare("INSERT INTO item_kits(item_kit_number, name, description, category, unit_price, cost_price, store_id, deleted) VALUES (:item_kit_number, :name, :description, :category, :unit_price, :cost_price, :store_id, :deleted)");
+                $stmt->bindParam(":item_kit_number", $itemKitData['item_kit_number'], PDO::PARAM_STR);
+                $stmt->bindParam(":name", $itemKitData['name'], PDO::PARAM_STR);
+                $stmt->bindParam(":item_kit_number", $itemKitData['item_kit_number'], PDO::PARAM_STR);
+                $stmt->bindParam(":description", $itemKitData['description'], PDO::PARAM_STR);
+                $stmt->bindParam(":category", $itemKitData['category'], PDO::PARAM_STR);
+                $stmt->bindParam(":unit_price", $itemKitData['unit_price'], PDO::PARAM_STR);
+                $stmt->bindParam(":cost_price", $itemKitData['cost_price'], PDO::PARAM_STR);
+                $stmt->bindParam(":store_id", $itemKitData['store_id'], PDO::PARAM_INT);
+                $deleted = 0;
+                $stmt->bindParam(":deleted", $deleted, PDO::PARAM_INT);
+                $stmt->execute();
+
+                $newItemKitIdStmt = $conn->prepare("SELECT item_kit_id FROM item_kits WHERE item_kit_number = :item_kit_number AND name = :name ORDER BY item_kit_id DESC");
+                $newItemKitIdStmt->bindParam(":item_kit_number", $itemKitData["item_kit_number"], PDO::PARAM_STR);
+                $newItemKitIdStmt->bindParam(":name", $itemKitData["name"], PDO::PARAM_STR);
+                $newItemKitIdStmt->execute();
+    
+                $results = $newItemKitIdStmt->fetch(PDO::FETCH_ASSOC);
+
+                $new_item_kit_id = $results['item_kit_id'];
+
+                foreach ($newItemKitItemIds as $k => $item) {
+
+                    $itemKitItems = array(
+                        'item_kit_id' => $new_item_kit_id,
+                        'item_id' => (int) $item,
+                        'quantity' => (int) $newItemKitItemQuantities[$k],
+                    );
+
+                    $created = self::mdlCreateItemKitItems($conn, $itemKitItems);
+                }
+            }
+
+            $conn->commit();
+
+            return true;
+
+        } catch (Exception $e) {
+            $conn->rollBack();
+            return "Exception: " . $e->getMessage();
         }
-
-        $stmt->close();
-        $stmt = null;
     }
 
-    public function mdlCreateItemKitItems($table, $itemKitItems) {
-        $stmt = Connection::connect()->prepare("INSERT INTO $table(item_kit_id, item_id, quantity) VALUES (:item_kit_id, :item_id, :quantity)");
+    public function mdlCreateItemKitItems($conn, $itemKitItems) {
+        $stmt = $conn->prepare("INSERT INTO item_kit_items(item_kit_id, item_id, quantity) VALUES (:item_kit_id, :item_id, :quantity)");
 
         $stmt->bindParam(":item_kit_id", $itemKitItems['item_kit_id'], PDO::PARAM_INT);
         $stmt->bindParam(":item_id", $itemKitItems['item_id'], PDO::PARAM_INT);
         $stmt->bindParam(":quantity", $itemKitItems['quantity'], PDO::PARAM_STR);
 
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-
-        $stmt->close();
-        $stmt = null;
-        
+        $stmt->execute();
     }
 
     public static function mdlUpdateItemKit($table, $itemKitData){

@@ -212,17 +212,19 @@ if (isset($_GET['voucherId'])) {
             $pdf->Cell(0, 5, 'Doro International Pte Ltd - ' . $salaryVoucherData['year_of_voucher'] . ' (Full Time)', 0, 1, 'L', false);
         }
     }
+    
+    $lastDay = cal_days_in_month(CAL_GREGORIAN, $salaryVoucherData['month_of_voucher'], $salaryVoucherData['year_of_voucher']); 
 
     /* --- Cell --- */
-    $pdf->SetXY(151, 15);
+    $pdf->SetXY(135, 15);
     $pdf->SetFont('', 'B', 14);
     $pdf->Cell(49, 3, 'SALARY VOUCHER', 0, 1, 'L', false);
     /* --- Cell --- */
-    $pdf->SetXY(151, 21);
+    $pdf->SetXY(135, 21);
     $pdf->SetFontSize(10);
-    $pdf->Cell(49, 3, $month, 0, 1, 'L', false);
+    $pdf->Cell(49, 3, '1 '.$month.' '.$salaryVoucherData['year_of_voucher'].' - '.$lastDay.' '.$month.' '.$salaryVoucherData['year_of_voucher'], 0, 1, 'L', false);
     /* --- Cell --- */
-    $pdf->SetXY(151, 27);
+    $pdf->SetXY(135, 27);
     $pdf->SetFont('', '', 10);
     $pdf->Cell(49, 3, '#100' . $salaryVoucherData['voucher_id'], 0, 1, 'L', false);
 
@@ -301,6 +303,9 @@ if (isset($_GET['voucherId'])) {
 
     if ($salaryVoucherData['is_part_time'] == 0) {
         foreach ($salaryRecordData as $index => $record) {
+            if (strtolower(trim($record['title'])) == "ot" || strtolower(trim($record['title'])) == "overtime") {
+                $record['title'] = "OT "."(1 ".$month." ".$salaryVoucherData['year_of_voucher']." - ".$lastDay." ".$month." ".$salaryVoucherData['year_of_voucher'].")";
+            }
             /* --- Cell --- */
             $pdf->SetXY(10, 82 + 6 * $index);
             $pdf->SetFont('', '', 10);

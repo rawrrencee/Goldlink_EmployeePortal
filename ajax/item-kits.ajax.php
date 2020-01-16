@@ -11,6 +11,7 @@ class AjaxItemKits
     public $itemKitId;
 
     public $storeId;
+    public $itemKitNumber;
 
     public function getItemKitDetails() {
 
@@ -51,6 +52,19 @@ class AjaxItemKits
         echo json_encode($answer);
     }
 
+    public function checkItemKitImageExists() {
+
+        $value = $this->itemKitNumber;
+        $routeImg = "../uploads/item-kits/" . $value . "/item-kit.jpg";
+
+        if (file_exists($routeImg)) {
+            echo json_encode(true);
+        } else {
+            echo json_encode(false);
+        }
+
+    }
+
 }
 
 if (isset($_POST['getItemKitStores'])) {
@@ -84,5 +98,13 @@ if (isset($_POST['storeId'])) {
     $getStoreItemDetails -> storeId = json_decode($_POST['storeId']);
     $getStoreItemDetails -> itemKitId = json_decode($_POST['itemKitId']);
     $getStoreItemDetails -> getStoreItemDetails();
+
+}
+
+if (isset($_POST['checkItemKitImageExists'])) {
+
+    $checkItemKitImageExists = new AjaxItemKits();
+    $checkItemKitImageExists -> itemKitNumber = $_POST['checkItemKitImageExists'];
+    $checkItemKitImageExists -> checkItemKitImageExists();
 
 }

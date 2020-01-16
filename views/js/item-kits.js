@@ -20,7 +20,7 @@ var itemKitsTable = $('.tableItemKits').DataTable({
         "targets": 9,
         "data": null,
         "render": function (data, type, row) {
-            return "<button id='btnEditItemKit' storeId=" + row[7] + " itemKitId=" + row[8] + " class='btn btn-warning btn-sm' data-toggle='modal' data-target='#modalEditItemKit'><i class='fa fa-pencil'></i></button>";
+            return "<button id='btnEditItemKit' storeId=" + row[7] + " itemKitId=" + row[8] + " itemKitNumber=" + row[1] + " class='btn btn-warning btn-sm' data-toggle='modal' data-target='#modalEditItemKit'><i class='fa fa-pencil'></i></button>";
         },
         "orderable": false,
         "responsivePriority": 1
@@ -449,9 +449,31 @@ $(".editItemKitForm").on("change", "input.itemQuantity", function () {
 /* PASS ATTRIBUTE OF DATATABLES ROW */
 $('.tableItemKits tbody').on('click', '#btnEditItemKit', function () {
     var itemKitId = parseInt($(this).attr('itemKitId'));
+    var itemKitNumber = $(this).attr('itemKitNumber');
 
     var formData = new FormData();
     formData.append("getItemKitItems", itemKitId);
+
+    var checkItemKitImageExists = new FormData();
+    checkItemKitImageExists.append("checkItemKitImageExists", itemKitNumber);
+    routeImg = "uploads/item-kits/" + itemKitNumber + "/item-kit.jpg";
+
+    $.ajax({
+        url: "ajax/item-kits.ajax.php",
+        method: "POST",
+        data: checkItemKitImageExists,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (answer) {
+            if (answer) {
+                $("#editItemKitImagePreview").attr("src", routeImg);
+            } else {
+                $("#editItemKitImagePreview").attr("src", "views/img/items/default/anonymous.png");
+            }
+        }
+    });
 
     $.ajax({
         url: "ajax/item-kits.ajax.php",
@@ -703,6 +725,88 @@ $('#modalEditItemKit').on('click', '#btnItemKitStockCheck', function () {
     });
 
 });
+
+$(".newItemKitImage").change(function () {
+    var image = this.files[0];
+
+    if (image["type"] != "image/jpeg" && image["type"] != "image/png" && image["type"] != "image/jpg") {
+        $(".newItemKitImage").val("");
+
+        swal({
+            type: "error",
+            title: "Error uploading image",
+            text: "Image has to be JPEG or PNG!",
+            showConfirmButton: true,
+            confirmButtonText: "Close"
+        });
+    } else if (image["size"] > 10000000) {
+
+        $(".newItemKitImage").val("");
+
+        swal({
+            type: "error",
+            title: "Error uploading image",
+            text: "Please upload an image lesser than 10Mb.",
+            showConfirmButton: true,
+            confirmButtonText: "Close"
+        });
+
+    } else {
+
+        var imgData = new FileReader;
+        imgData.readAsDataURL(image);
+
+        $(imgData).on("load", function (event) {
+
+            var routeImg = event.target.result;
+
+            $(".preview").attr("src", routeImg);
+
+        });
+
+    }
+})
+
+$(".editItemKitImage").change(function () {
+    var image = this.files[0];
+
+    if (image["type"] != "image/jpeg" && image["type"] != "image/png" && image["type"] != "image/jpg") {
+        $(".editItemKitImage").val("");
+
+        swal({
+            type: "error",
+            title: "Error uploading image",
+            text: "Image has to be JPEG or PNG!",
+            showConfirmButton: true,
+            confirmButtonText: "Close"
+        });
+    } else if (image["size"] > 10000000) {
+
+        $(".editItemKitImage").val("");
+
+        swal({
+            type: "error",
+            title: "Error uploading image",
+            text: "Please upload an image lesser than 10Mb.",
+            showConfirmButton: true,
+            confirmButtonText: "Close"
+        });
+
+    } else {
+
+        var imgData = new FileReader;
+        imgData.readAsDataURL(image);
+
+        $(imgData).on("load", function (event) {
+
+            var routeImg = event.target.result;
+
+            $(".preview").attr("src", routeImg);
+
+        });
+
+    }
+})
 
 /* SET FOCUS ON SEARCH BAR OF DATATABLES */
 $('div.dataTables_filter input').focus();

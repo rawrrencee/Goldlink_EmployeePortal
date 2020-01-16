@@ -91,7 +91,7 @@
                                     width="100px">
                             </div>
                             <div class="col-md-10" style="padding-bottom: 30px;">
-                                <input type="file" class="newItemKitPicture" name="newItemKitPicture">
+                                <input type="file" class="newItemKitImage" name="newItemKitImage">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -463,11 +463,11 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-2">
-                                    <img class="thumbnail preview" src="views/img/items/default/anonymous.png"
+                                    <img id="editItemKitImagePreview" class="thumbnail preview" src="views/img/items/default/anonymous.png"
                                         width="100px">
                                 </div>
                                 <div class="col-md-10" style="padding-bottom: 30px;">
-                                    <input type="file" class="editItemKitPicture" name="editItemKitPicture">
+                                    <input type="file" class="editItemKitImage" name="editItemKitImage">
                                 </div>
                             </div>
                         </div>

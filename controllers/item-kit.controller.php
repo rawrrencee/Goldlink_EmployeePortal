@@ -59,73 +59,80 @@ class ItemKitController
         if (isset($_POST["newItemKitNumber"])) {
             //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
+            $submittedForm['item_kit_number'] = trim(filter_var($_POST["newItemKitNumber"], FILTER_SANITIZE_STRING));
+            $submittedForm['name'] = trim(filter_var($_POST["newItemKitName"], FILTER_SANITIZE_STRING));
+            $submittedForm['description'] = trim(filter_var($_POST["newItemKitDescription"], FILTER_SANITIZE_STRING));
+            $submittedForm['category'] = trim(filter_var($_POST["newCategory"], FILTER_SANITIZE_STRING));
+            $submittedForm['cost_price'] = number_format(floatval(trim(filter_var($_POST['newCostPrice'], FILTER_SANITIZE_STRING))), 2, '.', '');$submittedForm['item_kit_number'] = trim(filter_var($_POST["newItemKitNumber"], FILTER_SANITIZE_STRING));
+            $submittedForm['unit_price'] = number_format(floatval(trim(filter_var($_POST['newUnitPrice'], FILTER_SANITIZE_STRING))), 2, '.', '');$submittedForm['item_kit_number'] = trim(filter_var($_POST["newItemKitNumber"], FILTER_SANITIZE_STRING));
+
             $itemKitData = array(
-                'item_kit_number' => $_POST['newItemKitNumber'],
-                'name' => $_POST['newItemKitName'],
-                'description' => $_POST['newItemKitDescription'],
-                'category' => $_POST['newCategory'],
-                'cost_price' => $_POST['newCostPrice'],
-                'unit_price' => $_POST['newUnitPrice'],
+                'item_kit_number' => $submittedForm['item_kit_number'],
+                'name' => $submittedForm['name'],
+                'description' => $submittedForm['description'],
+                'category' => $submittedForm['category'],
+                'cost_price' => $submittedForm['cost_price'],
+                'unit_price' => $submittedForm['unit_price']
             );
-            $persistStatus = false;
-            $issuesFaced = false;
 
             $newStoreSelections = $_POST['newStoreSelections'];
             $newItemKitItemIds = $_POST['newItemKitItemIds'];
             $newItemKitItemQuantities = $_POST['newItemKitItemQuantities'];
 
-            foreach ($newStoreSelections as $i => $store) {
-                $table = 'item_kits';
-                $persistStatus = false;
+            $response = ItemKitModel::mdlCreateItemKit($itemKitData, $newStoreSelections, $newItemKitItemIds, $newItemKitItemQuantities);
 
-                $itemKitData['store_id'] = (int) $store;
+            echo "<script type='text/javascript'> alert('response:" . json_encode($response)."') </script>";
 
-                //CHECK IF ANY ITEM KIT EXISTS WITH THE PROVIDED ITEM KIT NUMBER
-                $check_item_number_exists = ItemKitModel::mdlRetrieveItemKitByStoreId($table, $itemKitData);
+            if (!strstr($response, 'Exception')) {
 
-                echo "<script type='text/javascript'> alert('check_item_number_exists: " . json_encode(count($check_item_number_exists)) . "') </script>";
+                //Create Folder Directory
+                $folder = "uploads/item-kits/" . $submittedForm['item_kit_number'];
 
-                if (count($check_item_number_exists) > 0) {
-                    $persistStatus = false;
-                    break;
+                if (!file_exists($folder)) {
+                    mkdir($folder, 0755);
                 }
 
-                $check_record = ItemKitModel::mdlRetrieveUndeletedItemKitByStoreId($table, $itemKitData);
+                if (isset($_FILES["newItemKitImage"]["tmp_name"])) {
 
-                echo "<script type='text/javascript'> alert('check_record: " . json_encode(count($check_record)) . "') </script>";
+                    list($width, $height) = getimagesize($_FILES["newItemKitImage"]["tmp_name"]);
 
-                if (count($check_record) > 0) {
-                    $persistStatus = false;
-                    $issuesFaced = true;
+                    $newWidth = 500;
+                    $newHeight = 500;
 
-                    continue;
-                }
+                    if ($_FILES["newItemKitImage"]["type"] == "image/jpeg" || $_FILES["newItemKitImage"]["type"] == "image/jpg") {
 
-                $response = ItemKitModel::mdlCreateItemKit($table, $itemKitData);
+                        $filename = "item-kit";
 
-                $new_item_kit_id = $response['item_kit_id'];
-                $table = 'item_kit_items';
+                        $photo = $folder . "/" . $filename . ".jpg";
 
-                $persistStatus = true;
+                        $srcImage = imagecreatefromjpeg($_FILES["newItemKitImage"]["tmp_name"]);
 
-                foreach ($newItemKitItemIds as $k => $item) {
-                    $persistStatus = false;
+                        $destination = imagecreatetruecolor($newWidth, $newHeight);
 
-                    $itemKitItems = array(
-                        'item_kit_id' => $new_item_kit_id,
-                        'item_id' => (int) $item,
-                        'quantity' => (int) $newItemKitItemQuantities[$k],
-                    );
+                        imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-                    $created = ItemKitModel::mdlCreateItemKitItems($table, $itemKitItems);
+                        imagejpeg($destination, $photo);
 
-                    $persistStatus = $created;
+                    }
+
+                    if ($_FILES["newItemKitImage"]["type"] == "image/png") {
+
+                        $filename = "item-kit";
+
+                        $photo = $folder . "/" . $filename . ".png";
+
+                        $srcImage = imagecreatefrompng($_FILES["newItemKitImage"]["tmp_name"]);
+
+                        $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                        imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        imagepng($destination, $photo);
+                    }
                 }
             }
 
-            echo "<script type='text/javascript'> alert('persistStatus:" . json_encode($persistStatus) . ", issuesFaced: " . json_encode($issuesFaced) . "') </script>";
-
-            if ($persistStatus && !$issuesFaced) {
+            if (!strstr($response, 'Exception')) {
                 echo '<script>
 
                 swal({
@@ -146,32 +153,12 @@ class ItemKitController
                 </script>';
 
                 return;
-            } else if ($persistStatus && $issuesFaced) {
-                echo '<script>
-
-                swal({
-                    type: "info",
-                    title: "Item Kit added. NOTE: Duplicate stores selected during creation were ignored.",
-                    showConfirmButton: true,
-                    confirmButtonText: "Close"
-
-                }).then(function(result){
-
-                    if(result.value){
-
-                        window.location = "item-kit-management";
-                    }
-
-                });
-
-                </script>';
-                return;
             } else {
                 echo '<script>
                 swal({
 
                     type: "error",
-                    title: "There was an issue creating the item kit due to an already used UPC/EAN/ISBN. Please check the records before adding again.",
+                    title: "There was an issue creating the item kit. Please check the records before adding again.",
                     showConfirmButton: true,
                     confirmButtonText: "Close"
 

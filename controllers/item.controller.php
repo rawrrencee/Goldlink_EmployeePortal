@@ -119,16 +119,6 @@ class ItemController
                             imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
                             imagepng($destination, $photo);
-
-                            $image = imagecreatefrompng($photo);
-                            $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
-                            imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
-                            imagealphablending($bg, true);
-                            imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
-                            imagedestroy($image);
-                            $quality = 100; // 0 = worst / smaller file, 100 = better / bigger file
-                            imagejpeg($bg, $photo . ".jpg", $quality);
-                            imagedestroy($bg);
                         }
                     }
                 }
