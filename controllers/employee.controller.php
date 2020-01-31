@@ -5,7 +5,7 @@ class EmployeeController
 
     public static function userLogin()
     {
-        $requireCacheClear = true;
+        $requireCacheClear = false;
 
         if ($requireCacheClear) {
             echo "<script type='text/javascript'> alert('Core system functions updated. Please manually clear cookies & site data via Settings and login again!') </script>";
