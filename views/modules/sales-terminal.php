@@ -21,7 +21,7 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title" style="padding-bottom: 10px"><strong>Sales Terminal</strong></h3>
-                        <input type="text" class="form-control" id="salesItemSearchBar" placeholder="Search">
+                        <input type="text" class="form-control salesItemSearchBar" id="salesItemSearchBar" placeholder="Search">
                     </div>
 
                     <div class="box-body">
@@ -40,7 +40,9 @@
                                         <th style="width:120px">Total</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody id="appendSalesTerminalRows">
+                                    <td id="emptyCart" colspan="10">No item added.</td>
+                                </tbody>
                             </table>
                         </div>
 
@@ -103,7 +105,8 @@
                                 <label class="col-sm-3 control-label">Cust.</label>
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <input type="text" class="form-control " id="customerId" value="" placeholder="Enter name">
+                                        <input type="text" class="form-control " id="customerId" value=""
+                                            placeholder="Enter name">
                                         <span class="input-group-btn">
                                             <button type="submit" title="New Customer" class="btn btn-primary "
                                                 id="newCustomerButton" name="newCustomerButton">
@@ -126,27 +129,32 @@
                                 <label class="col-sm-3  control-label">Salesperson</label>
                                 <div class="col-sm-9">
                                     <input readonly="" type="text" class="form-control transactionOwner"
-                                        id="transactionOwner" value="<?php 
-                                        if ($_SESSION['last_name'] != "") {
-                                            echo $_SESSION['first_name'].' '.$_SESSION['last_name'];
-                                        } else {
-                                            echo $_SESSION['first_name'];
-                                        } ?>
-                                    ">
+                                        id="transactionOwner" value="<?php
+                                            if ($_SESSION['last_name'] != "") {
+                                                echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
+                                            } else {
+                                                echo $_SESSION['first_name'];
+                                            }?>">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Store</label>
                                 <div class="col-sm-9">
-                                    <input readonly="" type="text" class="form-control transactionOwner"
-                                        id="transactionOwner" value="<?php
+                                    <input readonly="" type="text" class="form-control transactionStoreName"
+                                        id="transactionStoreName" value="<?php
                                         if ($_SESSION['store_name'] != "") {
-                                            echo ''.$_SESSION['store_name'].'';
+                                            echo '' . $_SESSION['store_name'] . '';
                                         } else {
                                             echo 'Not Available';
-                                        }?>
-                                    ">
+                                        }?>">
+                                    <input type="hidden" class="form-control transactionStoreID"
+                                        id="transactionStoreID" value="<?php
+                                        if ($_SESSION['store_id'] != "") {
+                                            echo '' . $_SESSION['store_id'] . '';
+                                        } else {
+                                            echo '-1';
+                                        }?>">
                                 </div>
                             </div>
 

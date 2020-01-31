@@ -241,7 +241,7 @@
                                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                         <label for="newSalaryTitle">Title</label>
                                         <input type="text" class="form-control" id="newSalaryTitle"
-                                            name="salaryTitle[0]" value="">
+                                            name="salaryTitle[0]" value="Part-Time Sales Associate">
                                     </div>
                                     <div class="form-group col-md-2 col-sm-6 col-xs-6">
                                         <label for="newSalaryRate">Rate</label>

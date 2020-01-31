@@ -1,26 +1,155 @@
 //APPEND SALARY LISTING
 $("#salaryVoucherForm").on("click", "button.addSalaryListing", function () {
 
-  $("#appendSalaryListing").append(
-    `
-    <div class="form-row">
-      <div class="form-group col-md-4 col-sm-12 col-xs-12">
-        <label for="appendSalaryTitle">Title</label>
-        <input required type="text" class="form-control" id="appendSalaryTitle" name="salaryTitle[]">
+  let $selectedItem = $("#newSalaryListingCategory").val();
+
+  console.log ($selectedItem);
+
+  if ($selectedItem == null) {
+    swal({
+      type: "warning",
+      title: "No category selected.",
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      cancelButtonText: "Cancel"
+    });
+  } else if ($selectedItem == "Medical") {
+    $("#appendSalaryListing").append(
+      `
+      <div class="form-row">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryTitle">Title</label>
+          <input required type="text" class="form-control" id="appendSalaryTitle" name="salaryTitle[]" value="Medical">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12">
+          <label for="appendSalaryAmount">Amount</label>
+          <input type="number" class="form-control grossPay" id="appendSalaryAmount" min="0.00" step="0.01" value="0.00" name="salaryAmount[]">
+        </div>
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryRemarks">Remarks</label>
+          <input type="text" class="form-control" id="appendSalaryRemarks" name="salaryRemarks[]">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
+          <button type="button" id="removeSalaryListing" class="btn btn-block btn-danger removeSalaryListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
+        </div>
       </div>
-      <div class="form-group col-md-2 col-sm-12 col-xs-12">
-        <label for="appendSalaryAmount">Amount</label>
-        <input type="number" class="form-control grossPay" id="appendSalaryAmount" min="0.00" step="0.01" value="0.00" name="salaryAmount[]">
+      `);
+  } else if ($selectedItem == "OT") {
+    $("#appendSalaryListing").append(
+      `
+      <div class="form-row">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryTitle">Title</label>
+          <input required type="text" class="form-control" id="appendSalaryTitle" name="salaryTitle[]" value="` + $( "#newSalaryListingCategory option:selected" ).text().substring(0,3) + $( "#newSalaryListingCategory option:selected" ).text().substring(8,$( "#newSalaryListingCategory option:selected" ).text().length) + `">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12">
+          <label for="appendSalaryAmount">Amount</label>
+          <input type="number" class="form-control grossPay" id="appendSalaryAmount" min="0.00" step="0.01" value="0.00" name="salaryAmount[]">
+        </div>
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryRemarks">Remarks</label>
+          <input type="text" class="form-control" id="appendSalaryRemarks" name="salaryRemarks[]">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
+          <button type="button" id="removeSalaryListing" class="btn btn-block btn-danger removeSalaryListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
+        </div>
       </div>
-      <div class="form-group col-md-4 col-sm-12 col-xs-12">
-        <label for="appendSalaryRemarks">Remarks</label>
-        <input type="text" class="form-control" id="appendSalaryRemarks" name="salaryRemarks[]">
+      `);
+  } else if ($selectedItem == "Commission") {
+    $("#appendSalaryListing").append(
+      `
+      <div class="form-row">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryTitle">Title</label>
+          <input required type="text" class="form-control" id="appendSalaryTitle" name="salaryTitle[]" value="Commission">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12">
+          <label for="appendSalaryAmount">Amount</label>
+          <input type="number" class="form-control grossPay" id="appendSalaryAmount" min="0.00" step="0.01" value="0.00" name="salaryAmount[]">
+        </div>
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryRemarks">Remarks</label>
+          <input type="text" class="form-control" id="appendSalaryRemarks" name="salaryRemarks[]">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
+          <button type="button" id="removeSalaryListing" class="btn btn-block btn-danger removeSalaryListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
+        </div>
       </div>
-      <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
-        <button type="button" id="removeSalaryListing" class="btn btn-block btn-danger removeSalaryListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
+      `);
+  } else if ($selectedItem == "Training Allowance") {
+    $("#appendSalaryListing").append(
+      `
+      <div class="form-row">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryTitle">Title</label>
+          <input required type="text" class="form-control" id="appendSalaryTitle" name="salaryTitle[]" value="Training Allowance">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12">
+          <label for="appendSalaryAmount">Amount</label>
+          <input type="number" class="form-control grossPay" id="appendSalaryAmount" min="0.00" step="0.01" value="0.00" name="salaryAmount[]">
+        </div>
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryRemarks">Remarks</label>
+          <input type="text" class="form-control" id="appendSalaryRemarks" name="salaryRemarks[]">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
+          <button type="button" id="removeSalaryListing" class="btn btn-block btn-danger removeSalaryListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
+        </div>
       </div>
-    </div>
-    `)
+      `);
+  } else if ($selectedItem == "Weekly Sales Report") {
+    $("#appendSalaryListing").append(
+      `
+      <div class="form-row">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryTitle">Title</label>
+          <input required type="text" class="form-control" id="appendSalaryTitle" name="salaryTitle[]" value="Weekly Sales Report">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12">
+          <label for="appendSalaryAmount">Amount</label>
+          <input type="number" class="form-control grossPay" id="appendSalaryAmount" min="0.00" step="0.01" value="0.00" name="salaryAmount[]">
+        </div>
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryRemarks">Remarks</label>
+          <input type="text" class="form-control" id="appendSalaryRemarks" name="salaryRemarks[]">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
+          <button type="button" id="removeSalaryListing" class="btn btn-block btn-danger removeSalaryListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
+        </div>
+      </div>
+      `);
+  } else if ($selectedItem == "Custom") {
+    $("#appendSalaryListing").append(
+      `
+      <div class="form-row">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryTitle">Title</label>
+          <input required type="text" class="form-control" id="appendSalaryTitle" name="salaryTitle[]" value="">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12">
+          <label for="appendSalaryAmount">Amount</label>
+          <input type="number" class="form-control grossPay" id="appendSalaryAmount" min="0.00" step="0.01" value="0.00" name="salaryAmount[]">
+        </div>
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+          <label for="appendSalaryRemarks">Remarks</label>
+          <input type="text" class="form-control" id="appendSalaryRemarks" name="salaryRemarks[]">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 col-xs-12" style="padding-top: 23px;">
+          <button type="button" id="removeSalaryListing" class="btn btn-block btn-danger removeSalaryListing"><i class="fa fa-minus"></i>&nbsp;&nbsp;Remove</button>
+        </div>
+      </div>
+      `);
+  } else {
+    swal({
+      type: "warning",
+      title: "No category selected.",
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      cancelButtonText: "Cancel"
+    });
+  }
 
 });
 

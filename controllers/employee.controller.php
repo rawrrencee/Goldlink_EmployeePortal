@@ -5,6 +5,12 @@ class EmployeeController
 
     public static function userLogin()
     {
+        $requireCacheClear = true;
+
+        if ($requireCacheClear) {
+            echo "<script type='text/javascript'> alert('Core system functions updated. Please manually clear cookies & site data via Settings and login again!') </script>";
+        }
+
         if (isset($_POST['inUsername'])) {
 
             //bcrypt hash for tester account password: $2y$12\$HUUA3BkTQHyEQ.yGQXMNxen/O4HmCtE7fP1ToYfJZLit4Kbm/zrOC
