@@ -163,7 +163,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newPayToPersonName">Pay To (as in bank records) <small
+                                        <label for="newPayToPersonName">Pay To Name (Your name used by the bank) <small
                                                 style="color:red;">*Required</small></label>
                                         <input required type="text" class="form-control" id="newPayToPersonName"
                                             name="newPayToPersonName"
@@ -302,19 +302,24 @@
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">
-                                        <label for="newSalaryListingCategory">Select Salary Listing Category</label>
-                                        <select id="newSalaryListingCategory" name="newSalaryListingCategory"
-                                            class="form-control select2">
-                                            <option selected disabled>Select a category</option>
-                                            <option value="Medical">Medical</option>
-                                            <option value="OT">OT e.g. <?php echo "(1 ".date('M')." ".date('Y')." - ".cal_days_in_month(CAL_GREGORIAN, date('m'), date('y'))." ".date('M')." ".date('Y').")"; ?></option>
-                                            <option value="Commission">Commission (Indicate Type in Remarks)</option>
-                                            <option value="Training Allowance">Training Allowance</option>
-                                            <option value="Weekly Sales Report">Weekly Sales Report</option>
-                                            <option value="Custom">Custom</option>
-                                        </select>
+                                    <div class="form-group col-md-3 col-sm-6 col-xs-6">
+                                            <label for="newSalaryListingCategory">Select Salary Listing Category</label>
+                                            <select id="newSalaryListingCategory" name="newSalaryListingCategory"
+                                                class="form-control select2">
+                                                <option selected disabled>Select a category</option>
+                                                <option value="Medical">Medical</option>
+                                                <option value="OT">OT e.g. <?php echo "(1 ".date('M')." ".date('Y')." - ".cal_days_in_month(CAL_GREGORIAN, date('m'), date('y'))." ".date('M')." ".date('Y').")"; ?></option>
+                                                <option value="Commission">Commission (Indicate Type in Remarks)</option>
+                                                <option value="Training Allowance">Training Allowance</option>
+                                                <option value="Weekly Sales Report">Weekly Sales Report</option>
+                                                <option value="Custom">Custom</option>
+                                            </select>
                                         </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <button type="button" id="addSalaryListing"
                                             class="btn btn-primary addSalaryListing"><i

@@ -209,7 +209,7 @@ session_start();
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newPayToPersonName">Pay To (as in NRIC) <small
+                                        <label for="newPayToPersonName">Pay To Name (Your name used by the bank) <small
                                                 style="color:red;">*Required</small></label>
                                         <input required type="text" class="form-control" id="newPayToPersonName"
                                             name="newPayToPersonName"
