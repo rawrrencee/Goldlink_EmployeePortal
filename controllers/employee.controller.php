@@ -265,7 +265,7 @@ class EmployeeController
 
                 $submittedForm['race'] = trim(filter_var($_POST['newRace'], FILTER_SANITIZE_STRING));
                 $submittedForm['company_name'] = trim(filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING));
-                $submittedForm['levy_amount'] = number_format(floatval(trim(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', ''));
+                $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING), 2, '.', ''));
                 foreach ($_POST['newStoreSelections'] as $index => $storeId) {
                     $submittedForm['employees_stores'][$index] = trim(filter_var($storeId, FILTER_SANITIZE_NUMBER_INT));
                 }
@@ -482,7 +482,8 @@ class EmployeeController
 
             $submittedForm['race'] = trim(filter_var($_POST['editRace'], FILTER_SANITIZE_STRING));
             $submittedForm['company_name'] = trim(filter_var($_POST['editCompanySelection'], FILTER_SANITIZE_STRING));
-            $submittedForm['levy_amount'] = number_format(floatval(trim(filter_var($_POST['editLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', ''));
+            $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['editLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+
             foreach ($_POST['updateStoreActive'] as $index => $active) {
                 $submittedForm['updateStoreActive'][$index] = trim(filter_var($active, FILTER_SANITIZE_NUMBER_INT));
             }
