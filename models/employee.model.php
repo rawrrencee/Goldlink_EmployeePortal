@@ -95,7 +95,7 @@ class EmployeeModel
     }
 
     public static function mdlCheckEmployeePayrollExists($conn, $person_id) {
-        $stmt = $conn->prepare("SELECT * FROM employees_payroll WHERE person_id = :person_id");
+        $stmt = $conn->prepare("SELECT * FROM employees_detail WHERE person_id = :person_id");
         
         $stmt->bindParam(":person_id", $person_id, PDO::PARAM_INT);
 
@@ -167,7 +167,7 @@ class EmployeeModel
         $conn = new Connection();
         $conn = $conn->connect();
 
-        $stmt = $conn->prepare("SELECT * FROM employees_payroll WHERE person_id = :person_id");
+        $stmt = $conn->prepare("SELECT * FROM employees_detail WHERE person_id = :person_id");
 
         $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
 
@@ -262,7 +262,7 @@ class EmployeeModel
 
     public static function mdlCreateEmployeePayroll($conn, $personData)
     {
-        $stmt = $conn->prepare("INSERT INTO employees_payroll(person_id, company_name, levy_amount, race) VALUES (:person_id, :company_name, :levy_amount, :race)");
+        $stmt = $conn->prepare("INSERT INTO employees_detail(person_id, company_name, levy_amount, race) VALUES (:person_id, :company_name, :levy_amount, :race)");
 
         $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":company_name", $personData["company_name"], PDO::PARAM_STR);
@@ -478,7 +478,7 @@ class EmployeeModel
 
     public static function mdlUpdateEmployeesPayroll($conn, $personData)
     {
-        $stmt = $conn->prepare("UPDATE employees_payroll SET company_name = :company_name, levy_amount = :levy_amount, race = :race WHERE person_id = :person_id");
+        $stmt = $conn->prepare("UPDATE employees_detail SET company_name = :company_name, levy_amount = :levy_amount, race = :race WHERE person_id = :person_id");
 
         $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":company_name", $personData["company_name"], PDO::PARAM_STR);

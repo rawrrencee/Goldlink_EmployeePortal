@@ -454,7 +454,7 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
           }
 
           var formData = new FormData();
-          formData.append("get_employees_payroll", employeeId);
+          formData.append("get_employees_detail", employeeId);
 
           $.ajax({
             url: "ajax/employees.ajax.php",

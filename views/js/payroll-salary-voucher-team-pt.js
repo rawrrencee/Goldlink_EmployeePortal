@@ -188,13 +188,13 @@ $(".tableTeamSalaryVouchersPT tbody").on("click", "button.btnEditSalaryVoucher",
         placeholder: "Select method of payment"
       });
 
-      var get_employees_payroll = new FormData();
-      get_employees_payroll.append('get_employees_payroll', answer['person_id']);
+      var get_employees_detail = new FormData();
+      get_employees_detail.append('get_employees_detail', answer['person_id']);
 
       $.ajax({
         url: "ajax/employees.ajax.php",
         method: "POST",
-        data: get_employees_payroll,
+        data: get_employees_detail,
         cache: false,
         contentType: false,
         processData: false,

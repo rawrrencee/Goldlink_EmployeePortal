@@ -72,10 +72,10 @@ if (isset($_POST['get_allowed_modules'])) {
     $getEmployeeDetails -> getAllowedModules();
 }
 
-if (isset($_POST['get_employees_payroll'])) {
+if (isset($_POST['get_employees_detail'])) {
 
     $getEmployeesPayroll = new AjaxEmployees();
-    $getEmployeesPayroll -> employeeId = $_POST['get_employees_payroll'];
+    $getEmployeesPayroll -> employeeId = $_POST['get_employees_detail'];
     $getEmployeesPayroll -> getEmployeesPayroll();
 }
 
