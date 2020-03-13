@@ -25,9 +25,10 @@ if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) die("Invalid Authen
 $table = <<<EOT
  (
 	SELECT 
-    employees.username, employees.deleted, people.first_name, people.last_name, people.duty_location, people.mobile_number, people.designation, people.email, people.date_of_birth, people.address_1, people.zip, people.gender, people.nationality, people.phone_number, people.bank_name, people.bank_acct, people.commencement, people.left_date, people.emergency_name, people.emergency_relation, people.emergency_address, people.emergency_contact, people.person_id 
+    employees.username, employees.deleted, people.first_name, people.last_name, people.duty_location, people.mobile_number, people.designation, people.email, people.date_of_birth, people.address_1, people.zip, people.gender, people.nationality, people.phone_number, people.bank_name, people.bank_acct, people.commencement, people.left_date, people.emergency_name, people.emergency_relation, people.emergency_address, people.emergency_contact, people.person_id, employees_detail.active
     FROM employees
-    JOIN people ON employees.person_id = people.person_id
+	JOIN people ON employees.person_id = people.person_id
+	JOIN employees_detail ON employees.person_id = employees_detail.person_id
  ) temp
 EOT;
 
@@ -61,7 +62,8 @@ $columns = array(
 	array( 'db' => 'emergency_address', 'dt' => 18 ),
 	array( 'db' => 'emergency_contact', 'dt' => 19 ),
     array( 'db' => 'username', 'dt' => 20 ),
-	array( 'db' => 'person_id', 'dt' => 21 )
+	array( 'db' => 'person_id', 'dt' => 21 ),
+	array( 'db' => 'active', 'dt' => 22 )
 );
 
 // SQL server connection information

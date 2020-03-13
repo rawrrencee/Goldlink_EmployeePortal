@@ -4,7 +4,7 @@ var employeesTable = $('.tableEmployees').DataTable({
   "serverSide": true,
   "processing": true,
   "autoWidth": false,
-  "order": [[1, 'asc']],
+  "order": [[22, 'desc']],
   "fnStateSave": function (oSettings, oData) {
     localStorage.setItem('employeesTable', JSON.stringify(oData));
   },
@@ -33,13 +33,14 @@ var employeesTable = $('.tableEmployees').DataTable({
     { "data": 18 },
     { "data": 19 },
     { "data": 20 },
-    { "data": 21 }
+    { "data": 21 },
+    { "data": 22 }
   ],
   "columnDefs": [{
     "targets": 0,
     "responsivePriority": 1
   }, {
-    "targets": 22,
+    "targets": 23,
     "data": null,
     "render": function (data, type, row) {
       return "<button id='btnEditEmployee' employeeId=" + row[21] + " class='btn btn-warning btn-sm' data-toggle='modal' data-target='#modalEditEmployee'><i class='fa fa-pencil'></i></button>";
@@ -47,7 +48,7 @@ var employeesTable = $('.tableEmployees').DataTable({
     "orderable": false,
     "responsivePriority": 2
   }, {
-    "targets": 23,
+    "targets": 24,
     "data": null,
     "render": function (data, type, row) {
       return "<button id='btnUploadEmployeeDocuments' employeeId=" + row[21] + " class='btn btn-primary btn-sm'><i class='fa fa-upload'></i></button>";
@@ -55,7 +56,7 @@ var employeesTable = $('.tableEmployees').DataTable({
     "orderable": false,
     "responsivePriority": 3
   }, {
-    "targets": 24,
+    "targets": 25,
     "data": null,
     "render": function (data, type, row) {
       return "<button id='btnDeleteEmployee' employeeId=" + row[21] + " class='btn btn-danger btn-sm btnDeleteEmployee' data-toggle='modal' data-target='#modalDeleteEmployee'><i class='fa fa-times'></i></button>";
@@ -149,9 +150,20 @@ $(".tableEmployees tbody").on("click", "button.btnDeleteEmployee", function () {
 
 $('.tableEmployees thead th').each(function (index, element) {
   var title = $(this).text();
-  if (index != 22 && index != 23 && index != 24) {
+  if (index != 23 && index != 24 && index != 25) {
     $(this).append('<input type="text" class="col-search-input" style="width: 100%;" placeholder="Search ' + title + '" />');
   }
+});
+
+//Filter Employees DataTable by Status
+$('#dataTablesFilterEmployeesByStatus').on('change', function () {
+  let active = 0;
+  if (this.value == "Active") {
+    active = 1;
+  } else {
+    active = 0;
+  }
+  employeesTable.column(22).search(active).draw();
 });
 
 $('.tableEmployeesTeamSelection tbody').on('click', '#btnAddEmployeeToTeam', function () {
@@ -350,7 +362,14 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
       $('#editDateOfBirth').val(answer['date_of_birth']);
       $('#editGender').val(answer['gender']);
       $('#editNationality').val(answer['nationality']);
-      $('#editDesignation').val(answer['designation']);
+
+      if ($('#editDesignation').find("option[value='" + answer['designation'] + "']").length) {
+        $('#editDesignation').val(answer['designation']).trigger('change');
+      } else { 
+        var newOption = new Option(answer['designation'], answer['designation'], true, true);
+        $('#editDesignation').append(newOption).trigger('change');
+      }
+
       $('#editEmail').val(answer['email']);
       $('#editMobileNumber').val(answer['mobile_number']);
       $('#editPhoneNumber').val(answer['phone_number']);
@@ -466,11 +485,23 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             dataType: "json",
             success: function (answer) {
               if (answer.length != 0) {
+                console.log(answer);
                 $('#editCompanySelection').val(answer[0]['company_name']);
                 $('#editCompanySelection').select2().trigger('change');
                 $('#editLevyAmount').val(answer[0]['levy_amount']);
                 $('#editRace').val(answer[0]['race']);
                 $('#editRace').select2().trigger('change');
+
+                if (answer[0]['is_sg_pr'] == 1) {
+                  $('#editSGPR').iCheck('check');
+                }
+                if (answer[0]['active'] == 1) {
+                  $('#editActiveInCompany').iCheck('check');
+                }
+
+                if (answer[0]['full_time'] == 1) {
+                  $('#editIsFullTime').iCheck('check');
+                }
               }
 
               $('#editRace').select2({
@@ -534,7 +565,7 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
                 processData: false,
                 dataType: "json",
                 success: function (answer) {
-                  console.log(answer);
+                  //console.log(answer);
 
                   $("#appendCurrentEditEmployeeTeamList").append(
                     `
@@ -619,6 +650,16 @@ $('#newCompanySelection').select2({
 
 $('#editCompanySelection').select2({
   placeholder: "Select a Company"
+});
+
+$('#newDesignation').select2({
+  placeholder: "Select your designation",
+  tags: true
+});
+
+$('#editDesignation').select2({
+  placeholder: "Select your designation",
+  tags: true
 });
 
 $('#newRace').select2({

@@ -304,7 +304,7 @@ session_start();
 
                     <?php
                     if (in_array('employee-salary-voucher-submit', $_SESSION['allowed_modules']) || in_array('employee-salary-voucher-submit-pt', $_SESSION['allowed_modules'])) {
-                        if (strpos($_SESSION['designation'], '(FT)') !== false) {
+                        if ((strpos($_SESSION['designation'], '(FT)') !== false) || $_SESSION['full_time'] == 1) {
                             echo '
                             <li>
                                 <a href="employee-salary-voucher-submit">

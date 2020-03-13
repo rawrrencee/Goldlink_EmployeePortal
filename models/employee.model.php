@@ -94,7 +94,7 @@ class EmployeeModel
         }
     }
 
-    public static function mdlCheckEmployeePayrollExists($conn, $person_id) {
+    public static function mdlCheckEmployeesDetailExists($conn, $person_id) {
         $stmt = $conn->prepare("SELECT * FROM employees_detail WHERE person_id = :person_id");
         
         $stmt->bindParam(":person_id", $person_id, PDO::PARAM_INT);
@@ -162,7 +162,7 @@ class EmployeeModel
         }
     }
 
-    public static function mdlViewEmployeesPayroll($personId)
+    public static function mdlViewEmployeesDetail($personId)
     {
         $conn = new Connection();
         $conn = $conn->connect();
@@ -219,7 +219,7 @@ class EmployeeModel
 
             $stmt->execute();
 
-            self::mdlCreateEmployeePayroll($conn, $personData);
+            self::mdlCreateEmployeesDetail($conn, $personData);
 
             foreach ($personData['employees_stores'] as $index => $storeId) {
                 $employeesStoresData = array(
@@ -260,14 +260,17 @@ class EmployeeModel
         return false;
     }
 
-    public static function mdlCreateEmployeePayroll($conn, $personData)
+    public static function mdlCreateEmployeesDetail($conn, $personData)
     {
-        $stmt = $conn->prepare("INSERT INTO employees_detail(person_id, company_name, levy_amount, race) VALUES (:person_id, :company_name, :levy_amount, :race)");
+        $stmt = $conn->prepare("INSERT INTO employees_detail(person_id, company_name, levy_amount, race, is_sg_pr, active, full_time) VALUES (:person_id, :company_name, :levy_amount, :race, :is_sg_pr, :active, :full_time)");
 
         $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":company_name", $personData["company_name"], PDO::PARAM_STR);
         $stmt->bindParam(":levy_amount", $personData["levy_amount"], PDO::PARAM_STR);
         $stmt->bindParam(":race", $personData["race"], PDO::PARAM_STR);
+        $stmt->bindParam(":is_sg_pr", $personData["is_sg_pr"], PDO::PARAM_INT);
+        $stmt->bindParam(":active", $personData["active"], PDO::PARAM_INT);
+        $stmt->bindParam(":full_time", $personData["full_time"], PDO::PARAM_INT);
 
         $stmt->execute();
     }
@@ -351,12 +354,12 @@ class EmployeeModel
 
             }
 
-            $response = self::mdlCheckEmployeePayrollExists($conn, $personData['person_id']);
+            $response = self::mdlCheckEmployeesDetailExists($conn, $personData['person_id']);
 
             if (!$response) {
-                self::mdlCreateEmployeePayroll($conn, $personData);
+                self::mdlCreateEmployeesDetail($conn, $personData);
             } else {
-                self::mdlUpdateEmployeesPayroll($conn, $personData);
+                self::mdlUpdateEmployeesDetail($conn, $personData);
             }
 
             foreach ($personData['updateStoreActive'] as $index => $active) {
@@ -476,14 +479,17 @@ class EmployeeModel
         $stmt->execute();
     }
 
-    public static function mdlUpdateEmployeesPayroll($conn, $personData)
+    public static function mdlUpdateEmployeesDetail($conn, $personData)
     {
-        $stmt = $conn->prepare("UPDATE employees_detail SET company_name = :company_name, levy_amount = :levy_amount, race = :race WHERE person_id = :person_id");
+        $stmt = $conn->prepare("UPDATE employees_detail SET company_name = :company_name, levy_amount = :levy_amount, race = :race, is_sg_pr = :is_sg_pr, active = :active, full_time = :full_time WHERE person_id = :person_id");
 
         $stmt->bindParam(":person_id", $personData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":company_name", $personData["company_name"], PDO::PARAM_STR);
         $stmt->bindParam(":levy_amount", $personData["levy_amount"], PDO::PARAM_STR);
         $stmt->bindParam(":race", $personData["race"], PDO::PARAM_STR);
+        $stmt->bindParam(":is_sg_pr", $personData["is_sg_pr"], PDO::PARAM_INT);
+        $stmt->bindParam(":active", $personData["active"], PDO::PARAM_INT);
+        $stmt->bindParam(":full_time", $personData["full_time"], PDO::PARAM_INT);
 
         $stmt->execute();
     }

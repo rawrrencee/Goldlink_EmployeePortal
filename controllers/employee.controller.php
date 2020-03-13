@@ -49,7 +49,7 @@ class EmployeeController
 
                 if (strtolower($response['username']) == strtolower($username) && password_verify($password, "$2y$12\$E1a7.ccF/piTHqUbg88lH.1eHR85FumEu8D75z0v5qwXSnegcKOsK")) {
                     $_SESSION["loggedIn"] = true;
-                    $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
+                    $payrollData = self::ctrViewEmployeesDetail($response['person_id']);
                     $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);
                     $teamMembersData = self::ctrViewEmployeesTeam($response['person_id']);
                     self::setSessionVariables($response, $payrollData, $allowedStoresData, $teamMembersData);
@@ -66,7 +66,7 @@ class EmployeeController
                     if ($response['deleted'] == 0 && strtolower($response['username']) == strtolower($username) && password_verify($password, $response['password'])) {
 
                         $_SESSION["loggedIn"] = true;
-                        $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
+                        $payrollData = self::ctrViewEmployeesDetail($response['person_id']);
                         $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);
                         $teamMembersData = self::ctrViewEmployeesTeam($response['person_id']);
                         self::setSessionVariables($response, $payrollData, $allowedStoresData, $teamMembersData);
@@ -98,7 +98,7 @@ class EmployeeController
                             //echo "<script type='text/javascript'> alert('System has migrated your account details successfully.') </script>";
 
                             $_SESSION["loggedIn"] = true;
-                            $payrollData = self::ctrViewEmployeesPayroll($response['person_id']);
+                            $payrollData = self::ctrViewEmployeesDetail($response['person_id']);
                             $allowedStoresData = self::ctrViewEmployeesStores($response['person_id']);
                             $teamMembersData = self::ctrViewEmployeesTeam($response['person_id']);
                             self::setSessionVariables($response, $payrollData, $allowedStoresData, $teamMembersData);
@@ -151,6 +151,7 @@ class EmployeeController
         $_SESSION["company_name"] = $payrollData[0]["company_name"];
         $_SESSION["levy_amount"] = $payrollData[0]["levy_amount"];
         $_SESSION["race"] = $payrollData[0]["race"];
+        $_SESSION["full_time"] = $payrollData[0]["full_time"];
         $_SESSION["allowedStoresData"] = $allowedStoresData;
         $_SESSION["teamMembersData"] = $teamMembersData;
         
@@ -187,9 +188,9 @@ class EmployeeController
         return $response;
     }
 
-    public static function ctrViewEmployeesPayroll($personId)
+    public static function ctrViewEmployeesDetail($personId)
     {
-        $response = EmployeeModel::mdlViewEmployeesPayroll($personId);
+        $response = EmployeeModel::mdlViewEmployeesDetail($personId);
 
         return $response;
     }
@@ -213,7 +214,7 @@ class EmployeeController
         if (isset($_POST["newFirstName"])) {
 
             //Debug with JS Alert
-            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             if (preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newFirstName"]) &&
                 preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newLastName"]) &&
@@ -265,6 +266,9 @@ class EmployeeController
 
                 $submittedForm['race'] = trim(filter_var($_POST['newRace'], FILTER_SANITIZE_STRING));
                 $submittedForm['company_name'] = trim(filter_var($_POST['newCompanyName'], FILTER_SANITIZE_STRING));
+                $submittedForm['is_sg_pr'] = (int) filter_var((int) $_POST['newSGPR'], FILTER_SANITIZE_NUMBER_INT);
+                $submittedForm['active'] = (int) filter_var((int) $_POST['newActiveInCompany'], FILTER_SANITIZE_NUMBER_INT);
+                $submittedForm['full_time'] = (int) filter_var((int) $_POST['newIsFullTime'], FILTER_SANITIZE_NUMBER_INT);
                 $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['newLevyAmount'], FILTER_SANITIZE_STRING), 2, '.', ''));
                 foreach ($_POST['newStoreSelections'] as $index => $storeId) {
                     $submittedForm['employees_stores'][$index] = trim(filter_var($storeId, FILTER_SANITIZE_NUMBER_INT));
@@ -295,6 +299,9 @@ class EmployeeController
                     'company_name' => $submittedForm['company_name'],
                     'levy_amount' => $submittedForm['levy_amount'],
                     'race' => $submittedForm['race'],
+                    'is_sg_pr' => $submittedForm['is_sg_pr'],
+                    'active' => $submittedForm['active'],
+                    'full_time' => $submittedForm['full_time'],
                     'employees_stores' => $submittedForm['employees_stores'],
                     'username' => $newUsername,
                     'password' => $_POST["newPassword"]);
@@ -483,6 +490,9 @@ class EmployeeController
             $submittedForm['race'] = trim(filter_var($_POST['editRace'], FILTER_SANITIZE_STRING));
             $submittedForm['company_name'] = trim(filter_var($_POST['editCompanySelection'], FILTER_SANITIZE_STRING));
             $submittedForm['levy_amount'] = number_format(floatval(filter_var($_POST['editLevyAmount'], FILTER_SANITIZE_STRING)), 2, '.', '');
+            $submittedForm['is_sg_pr'] = (int) filter_var((int) $_POST['editSGPR'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['active'] = (int) filter_var((int) $_POST['editActiveInCompany'], FILTER_SANITIZE_NUMBER_INT);
+            $submittedForm['full_time'] = (int) filter_var((int) $_POST['editIsFullTime'], FILTER_SANITIZE_NUMBER_INT);
 
             foreach ($_POST['updateStoreActive'] as $index => $active) {
                 $submittedForm['updateStoreActive'][$index] = trim(filter_var($active, FILTER_SANITIZE_NUMBER_INT));
@@ -521,6 +531,9 @@ class EmployeeController
                 'company_name' => $submittedForm['company_name'],
                 'levy_amount' => $submittedForm['levy_amount'],
                 'race' => $submittedForm['race'],
+                'is_sg_pr' => $submittedForm['is_sg_pr'],
+                'active' => $submittedForm['active'],
+                'full_time' => $submittedForm['full_time'],
                 'employees_stores' => $submittedForm['employees_stores'],
                 'updateStoreActive' => $submittedForm['updateStoreActive'],
                 'updateStoreSelection' => $submittedForm['updateStoreSelection']

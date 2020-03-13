@@ -32,10 +32,10 @@ class AjaxEmployees
 
     }
 
-    public function getEmployeesPayroll() {
+    public function getEmployeesDetail() {
         $value = $this->employeeId;
 
-        $answer = EmployeeController::ctrViewEmployeesPayroll($value);
+        $answer = EmployeeController::ctrViewEmployeesDetail($value);
 
         echo json_encode($answer);
     }
@@ -74,9 +74,9 @@ if (isset($_POST['get_allowed_modules'])) {
 
 if (isset($_POST['get_employees_detail'])) {
 
-    $getEmployeesPayroll = new AjaxEmployees();
-    $getEmployeesPayroll -> employeeId = $_POST['get_employees_detail'];
-    $getEmployeesPayroll -> getEmployeesPayroll();
+    $getEmployeesDetail = new AjaxEmployees();
+    $getEmployeesDetail -> employeeId = $_POST['get_employees_detail'];
+    $getEmployeesDetail -> getEmployeesDetail();
 }
 
 if (isset($_POST['get_employees_stores'])) {

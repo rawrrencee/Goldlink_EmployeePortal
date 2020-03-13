@@ -23,7 +23,13 @@
                     </button>
                 </div>
                 <div class="col-md-10 col-xs-12">
-                    <div class="box-tools pull-right">
+                    <div class="box-tools pull-right">                            
+                        <span>Filter by status:</span>
+                        <select id="dataTablesFilterEmployeesByStatus" class="select2" style="width: 100%;">
+                            <option></option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
                         <button id="redrawEmployeesTable" class="btn btn-info" style="margin-top: 10px;">Reset</button>
                     </div>
                 </div>
@@ -56,6 +62,7 @@
                                 <th class="none">Emergency Contact Number</th>
                                 <th class="none">Username</th>
                                 <th class="never">Person ID</th>
+                                <th>Active</th>
                                 <th style="width: 40px;"><small>Edit</small></th>
                                 <th style="width: 40px;"><small>Upload</small></th>
                                 <th class="none" style="width: 40px;"><small>Delete</small></th>
@@ -155,23 +162,53 @@
                                             <option value="Female">Female</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="newNationality">Nationality</label>
                                         <input type="text" class="form-control" id="newNationality" name="newNationality"
                                             placeholder="Nationality">
                                     </div>
+                                    <div class="col-md-2 col-sm-12 col-xs-12">
+                                        <label for="newSGPR">Singaporean/PR</label>
+                                    </div>
+                                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                        <input type="hidden" name="newSGPR" value="0">
+                                        <input type="checkbox" class="minimal" style="width: 100%;" id="newSGPR"
+                                        name="newSGPR" value="1">
+                                    </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="newDesignation">Designation</label>
-                                        <input type="text" class="form-control" id="newDesignation" name="newDesignation"
-                                            placeholder="Designation">
-                                    </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="col-md-6">
                                         <label for="newEmail">Email&nbsp;&nbsp;<small
                                                 style="color:red;">*Required</small></label>
                                         <input type="email" class="form-control" id="newEmail" name="newEmail"
                                             placeholder="Email" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="newDesignation">Designation&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
+                                        <select class="form-control select2" style="width: 100%;" id="newDesignation" name="newDesignation" required>
+                                            <option disabled selected value="">Select Designation</option>
+                                            <option value="Director">Director</option>
+                                            <option value="Manager">Manager</option>
+                                            <option value="Manager (Design)">Manager (Design)</option>
+                                            <option value="Assistant Manager">Assistant Manager</option>
+                                            <option value="Assistant Manager (Design)">Assistant Manager (Design)</option>
+                                            <option value="Supervisor">Supervisor</option>
+                                            <option value="Designer">Designer</option>
+                                            <option value="Assistant Designer">Assistant Designer</option>
+                                            <option value="Sales Associate">Sales Associate</option>
+                                            <option value="Retail Management Trainee">Retail Management Trainee</option>
+                                            <option value="Web Technology Assistant">Web Technology Assistant</option>
+                                            <option value="Intern">Intern</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12 col-xs-12">
+                                        <label for="newIsFullTime">Full Time</label>
+                                    </div>
+                                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                        <input type="hidden" name="newIsFullTime" value="0">
+                                        <input type="checkbox" class="minimal" style="width: 100%;" id="newIsFullTime"
+                                        name="newIsFullTime" value="1">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -239,7 +276,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="newRace">Race&nbsp;&nbsp;<small
                                                 style="color:red;">*Required</small></label>
-                                        <select class="form-control select2" id="newRace" name="newRace" required>
+                                        <select class="form-control select2" style="width: 100%;" id="newRace" name="newRace" required>
                                             <option></option>
                                             <option value="Chinese">Chinese</option>
                                             <option value="Malay">Malay</option>
@@ -293,9 +330,10 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="newCompanySelection">Company Selection</label>
+                                        <label for="newCompanySelection">Company Selection&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
                                         <select class="form-control select2" id="newCompanySelection" name="newCompanySelection"
-                                            style="width: 100%;">
+                                            style="width: 100%;" required>
                                             <option></option>
                                             <option>Goldlink Asia Distribution Pte Ltd</option>
                                             <option>Goldlink Technologies Pte Ltd</option>
@@ -309,6 +347,17 @@
                                         <label for="newLevyAmount">Foreign Worker Levy</label>
                                         <input type="number" class="form-control" id="newLevyAmount" min="0.00" step="0.01"
                                             value="0.00" name="newLevyAmount">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label for="newActiveInCompany">Active in Company</label>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <input type="hidden" name="newActiveInCompany" value="0">
+                                        <input type="checkbox" class="minimal" style="width: 100%;" id="newActiveInCompany"
+                                        name="newActiveInCompany" value="1">
                                     </div>
                                 </div>
 
@@ -737,23 +786,53 @@
                                             <option value="Female">Female</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="editNationality">Nationality</label>
                                         <input type="text" class="form-control" id="editNationality"
                                             name="editNationality">
                                     </div>
+                                    <div class="col-md-2 col-sm-12 col-xs-12">
+                                        <label for="editSGPR">Singaporean/PR</label>
+                                    </div>
+                                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                        <input type="hidden" name="editSGPR" value="0">
+                                        <input type="checkbox" class="minimal" style="width: 100%;" id="editSGPR"
+                                        name="editSGPR" value="1">
+                                    </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="editDesignation">Designation</label>
-                                        <input type="text" class="form-control" id="editDesignation"
-                                            name="editDesignation">
-                                    </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="col-md-6">
                                         <label for="editEmail">Email&nbsp;&nbsp;<small
                                                 style="color:red;">*Required</small></label>
                                         <input type="email" class="form-control" id="editEmail" name="editEmail"
                                             required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="editDesignation">Designation&nbsp;&nbsp;<small
+                                                style="color:red;">*Required</small></label>
+                                        <select class="form-control select2 editDesignation" style="width: 100%;" id="editDesignation" name="editDesignation" required>
+                                            <option disabled value="">Select Designation</option>
+                                            <option value="Director">Director</option>
+                                            <option value="Manager">Manager</option>
+                                            <option value="Manager (Design)">Manager (Design)</option>
+                                            <option value="Assistant Manager">Assistant Manager</option>
+                                            <option value="Assistant Manager (Design)">Assistant Manager (Design)</option>
+                                            <option value="Supervisor">Supervisor</option>
+                                            <option value="Designer">Designer</option>
+                                            <option value="Assistant Designer">Assistant Designer</option>
+                                            <option value="Sales Associate">Sales Associate</option>
+                                            <option value="Retail Management Trainee">Retail Management Trainee</option>
+                                            <option value="Web Technology Assistant">Web Technology Assistant</option>
+                                            <option value="Intern">Intern</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12 col-xs-12">
+                                        <label for="editIsFullTime">Full Time</label>
+                                    </div>
+                                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                        <input type="hidden" name="editIsFullTime" value="0">
+                                        <input type="checkbox" class="minimal" style="width: 100%;" id="editIsFullTime"
+                                        name="editIsFullTime" value="1">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -818,7 +897,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="editRace">Race&nbsp;&nbsp;<small
                                                 style="color:red;">*Required</small></label>
-                                        <select class="form-control select2" id="editRace" name="editRace" required>
+                                        <select class="form-control select2" id="editRace" name="editRace" style="width: 100%;" required>
                                             <option></option>
                                             <option value="Chinese">Chinese</option>
                                             <option value="Malay">Malay</option>
@@ -889,6 +968,18 @@
                                             step="0.01" value="0.00" name="editLevyAmount">
                                     </div>
                                 </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label for="editActiveInCompany">Active in Company</label>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <input type="hidden" name="editActiveInCompany" value="0">
+                                        <input type="checkbox" class="minimal" style="width: 100%;" id="editActiveInCompany"
+                                        name="editActiveInCompany" value="1">
+                                    </div>
+                                </div>
+
                                 <div class="form-row">
                                     <div class="form-row">
                                         <div class="col-md-12">
