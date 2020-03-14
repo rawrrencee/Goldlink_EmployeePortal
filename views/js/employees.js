@@ -409,6 +409,7 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
           $('#editSubmitOwnSalaryVoucher').iCheck('uncheck');
           $('#editSubmitOwnSalaryVoucherPT').iCheck('uncheck');
           $('#editSalaryVoucherAnalysis').iCheck('uncheck');
+          $('#editSalaryVoucherAnalysisYearly').iCheck('uncheck');
           $('#editCustomerManagement').iCheck('uncheck');
           $('#editCustomerArchives').iCheck('uncheck');
           $('#editCustomerAnalytics').iCheck('uncheck');
@@ -484,6 +485,10 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             processData: false,
             dataType: "json",
             success: function (answer) {
+              $('#editSGPR').iCheck('uncheck');
+              $('#editActiveInCompany').iCheck('uncheck');
+              $('#editIsFullTime').iCheck('uncheck');
+              
               if (answer.length != 0) {
                 console.log(answer);
                 $('#editCompanySelection').val(answer[0]['company_name']);

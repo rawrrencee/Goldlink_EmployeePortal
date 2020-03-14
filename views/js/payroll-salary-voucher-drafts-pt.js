@@ -146,7 +146,7 @@ $(".tableSalaryVoucherDraftsPT tbody").on("click", "button.btnLoadSalaryVoucherD
       $('#newMonthOfVoucher').val(answer['month_of_voucher']);
       $('#newMonthOfVoucher').select2().trigger('change');
       $('#newPayToPersonName').val(answer['pay_to_name']);
-      $('#newDesignation').val(answer['designation']);
+      $('#newDesignationPayroll').val(answer['designation']);
       $('#newNRIC').val(answer['nric']);
       $('#newDateOfBirth').val(answer['date_of_birth']);
       $('#newBankName').val(answer['bank_name']);

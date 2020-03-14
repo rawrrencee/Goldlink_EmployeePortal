@@ -198,6 +198,7 @@
                                             <option value="Assistant Designer">Assistant Designer</option>
                                             <option value="Sales Associate">Sales Associate</option>
                                             <option value="Retail Management Trainee">Retail Management Trainee</option>
+                                            <option value="Part Time Sales">Part Time Sales</option>
                                             <option value="Web Technology Assistant">Web Technology Assistant</option>
                                             <option value="Intern">Intern</option>
                                         </select>
@@ -822,6 +823,7 @@
                                             <option value="Assistant Designer">Assistant Designer</option>
                                             <option value="Sales Associate">Sales Associate</option>
                                             <option value="Retail Management Trainee">Retail Management Trainee</option>
+                                            <option value="Part Time Sales">Part Time Sales</option>
                                             <option value="Web Technology Assistant">Web Technology Assistant</option>
                                             <option value="Intern">Intern</option>
                                         </select>

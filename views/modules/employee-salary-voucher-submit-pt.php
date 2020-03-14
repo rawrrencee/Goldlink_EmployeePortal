@@ -173,8 +173,8 @@
                                             value="">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <label for="newDesignation">Designation</label>
-                                        <input readonly type="text" class="form-control" id="newDesignation"
+                                        <label for="newDesignationPayroll">Designation</label>
+                                        <input readonly type="text" class="form-control" id="newDesignationPayroll"
                                             name="newDesignation" value="<?php echo $_SESSION['designation'];?>">
                                     </div>
                                 </div>
