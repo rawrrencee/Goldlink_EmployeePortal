@@ -133,7 +133,10 @@ session_start();
                 if (
 
                     $_GET["route"] == "home" ||
-                    $_GET["route"] == "logout"
+                    $_GET["route"] == "logout" ||
+                    //DEV OVERRIDES - For Insights page development
+                    //TODO: Once development completes, shift "Insights" page to allowed modules
+                    strpos($_GET["route"], "insights") !== false
                 ) {
                     include "modules/" . $_GET["route"] . ".php";
 
