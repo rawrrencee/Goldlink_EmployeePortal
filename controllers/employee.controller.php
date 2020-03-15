@@ -214,7 +214,7 @@ class EmployeeController
         if (isset($_POST["newFirstName"])) {
 
             //Debug with JS Alert
-            echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             if (preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newFirstName"]) &&
                 preg_match('/^[0-9A-Za-z@ ]+$/', $_POST["newLastName"]) &&

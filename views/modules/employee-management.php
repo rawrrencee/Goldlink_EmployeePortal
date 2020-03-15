@@ -571,25 +571,25 @@
                                         <h4><strong>Customer Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[13]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[13]" value="0">
                                         <input type="checkbox" class="minimal" id="newCustomerManagement"
-                                            name="newAllowedModulesSelection[13]" value="1">
+                                            name="allowedModulesSelection[13]" value="1">
                                         <input type="hidden" name="allowedModules[13]" value="customer-management">
 
                                         <p style="margin-top: 5px;">View/Update <strong>ALL</strong> Customers</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[14]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[14]" value="0">
                                         <input type="checkbox" class="minimal" id="newViewCustomerArchives"
-                                            name="newAllowedModulesSelection[14]" value="1">
+                                            name="allowedModulesSelection[14]" value="1">
                                         <input type="hidden" name="allowedModules[14]" value="customer-archives">
 
                                         <p style="margin-top: 5px;">View/Update Customer Archives</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[15]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[15]" value="0">
                                         <input type="checkbox" class="minimal" id="newCustomerAnalytics"
-                                            name="newAllowedModulesSelection[15]" value="1">
+                                            name="allowedModulesSelection[15]" value="1">
                                         <input type="hidden" name="allowedModules[15]" value="customer-analytics">
 
                                         <p style="margin-top: 5px;">View Customer Analytics</p>
@@ -601,9 +601,9 @@
                                         <h4><strong>Supplier Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[16]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[16]" value="0">
                                         <input type="checkbox" class="minimal" id="newSupplierManagement"
-                                            name="newAllowedModulesSelection[16]" value="1">
+                                            name="allowedModulesSelection[16]" value="1">
                                         <input type="hidden" name="allowedModules[16]" value="supplier-management">
 
                                         <p style="margin-top: 5px;">View/Edit/Delete Suppliers</p>
@@ -615,18 +615,18 @@
                                         <h4><strong>Item Management</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[17]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[17]" value="0">
                                         <input type="checkbox" class="minimal" id="newItemManagement"
-                                            name="newAllowedModulesSelection[17]" value="1">
+                                            name="allowedModulesSelection[17]" value="1">
                                         <input type="hidden" name="allowedModules[17]" value="item-management">
 
                                         <p style="margin-top: 5px;">View/Edit/Delete Items</p>
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[18]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[18]" value="0">
                                         <input type="checkbox" class="minimal" id="newItemKitManagement"
-                                            name="newAllowedModulesSelection[18]" value="1">
+                                            name="allowedModulesSelection[18]" value="1">
                                         <input type="hidden" name="allowedModules[18]" value="item-kit-management">
 
                                         <p style="margin-top: 5px;">View/Edit/Delete Item Kits</p>
@@ -638,9 +638,9 @@
                                         <h4><strong>Sales</strong></h4>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="newAllowedModulesSelection[19]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[19]" value="0">
                                         <input type="checkbox" class="minimal" id="newItemManagement"
-                                            name="newAllowedModulesSelection[19]" value="1">
+                                            name="allowedModulesSelection[19]" value="1">
                                         <input type="hidden" name="allowedModules[19]" value="sales-terminal">
 
                                         <p style="margin-top: 5px;">Sales Terminal</p>
