@@ -63,6 +63,8 @@ session_start();
     <script src="views/bower_components/jquery/dist/jquery-migrate-3.1.0.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="views/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- ChartJS -->
+    <script src="views/bower_components/chart.js/Chart.js"></script>
     <!-- SlimScroll -->
     <script src="views/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
