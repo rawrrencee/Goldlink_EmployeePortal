@@ -32,6 +32,15 @@ session_start();
 
                 <ul class="treeview-menu menu-open treeview-menu-visible">
                     <li>
+                        <a href="insights-inventory">
+                            <i class="fa fa-circle-o"></i>
+                            <span>Inventory</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="treeview-menu menu-open treeview-menu-visible">
+                    <li>
                         <a href="insights-example">
                             <i class="fa fa-circle-o"></i>
                             <span>Example</span>
