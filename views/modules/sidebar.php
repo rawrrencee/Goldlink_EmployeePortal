@@ -32,12 +32,23 @@ session_start();
 
                 <ul class="treeview-menu menu-open treeview-menu-visible">
                     <li>
+                        <a href="insights-sales">
+                            <i class="fa fa-circle-o"></i>
+                            <span>Sales</span>
+                        </a>
+                    </li>
+                </ul>
+
+
+                <ul class="treeview-menu menu-open treeview-menu-visible">
+                    <li>
                         <a href="insights-inventory">
                             <i class="fa fa-circle-o"></i>
                             <span>Inventory</span>
                         </a>
                     </li>
                 </ul>
+
 
                 <ul class="treeview-menu menu-open treeview-menu-visible">
                     <li>
@@ -309,7 +320,7 @@ session_start();
                     }
                     ?>
 
-                    
+
                     <?php
                     if (in_array('employee-salary-voucher-team', $_SESSION['allowed_modules'])) {
                     echo '
@@ -323,7 +334,7 @@ session_start();
                     }
                     ?>
 
-                    
+
                     <?php
                     if (in_array('employee-salary-voucher-team-pt', $_SESSION['allowed_modules'])) {
                     echo '
