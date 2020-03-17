@@ -10,4 +10,10 @@ class AjaxStocktakes
 {
     public $stocktakesId;
 
+    public function getAllStocktakes(){
+        $answer = StocktakesController::ctrViewAllStocktakes();
+
+        echo json_encode($answer);
+    }
+
 }
