@@ -8,7 +8,7 @@ class StocktakesModel
     {
 
         
-        $stmt = Connection::connect()->prepare("SELECT sum(count_quantity) as stockCount, LEFT(category,3) FROM $table GROUP BY LEFT(category,3)");
+        $stmt = Connection::connect()->prepare("SELECT sum(count_quantity) as stockCount, LEFT(category,3) as productCategory FROM $table GROUP BY LEFT(category,3)");
         $stmt->execute();
         return $stmt->fetchAll();
    
