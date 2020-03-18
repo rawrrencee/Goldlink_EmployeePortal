@@ -47,4 +47,4 @@
 
     </section>
 </div>
-<script src="views/js/insights-overview.js"></script>
+<script src="views/js/insights-inventory.js"></script>

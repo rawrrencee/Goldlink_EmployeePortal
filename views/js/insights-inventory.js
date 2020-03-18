@@ -57,7 +57,7 @@ $(function () {
     }
 
     // Get the context of the canvas element we want to select
-    var ctx = document.getElementById("inventoryBarChart").getContext("2d");
+    var ctx = $('#inventoryBarChart').get(0).getContext('2d');
     tempOptions.datasetFill = false
     // Instantiate a new chart
     var barChart = new Chart(ctx).Bar(tempData, tempOptions);
