@@ -29,9 +29,6 @@ session_start();
     <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="views/bower_components/Ionicons/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
-    <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css">
     <!-- jQuery File Upload Stylesheet -->
     <link rel="stylesheet" href="views/dist/css/jquery.fileupload.css">
     <link rel="stylesheet" href="views/dist/css/jquery.fileupload-ui.css">
@@ -49,7 +46,11 @@ session_start();
     <link rel="stylesheet" href="views/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="views/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-
+    <!-- Theme style -->
+    <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
+    <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css">
+    <!--jqListbox-->
+    <link rel="stylesheet" href="views/plugins/jqListbox/jqListbox.css"></script>
 
     <!--=====================================
   JAVASCRIPT PLUGINS
@@ -84,7 +85,7 @@ session_start();
     <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
     <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
     <!-- Select2 -->
-    <script src="views/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="views/bower_components/select2/dist/js/select2-v4013.min.js"></script>
     <!-- DataTables -->
     <script src="views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -105,6 +106,8 @@ session_start();
     <script src="views/plugins/repeater/repeater.js"></script>
     <!-- date.js -->
     <script type="text/javascript" src="views/plugins/dateJS/date.js"></script>
+    <!-- jqListbox.js -->
+    <script src="views/plugins/jqListbox/jqListbox.plugin-1.3.min.js"></script>
 </head>
 
 <!--=====================================
@@ -198,6 +201,9 @@ session_start();
     <script src="views/js/employee-salary-voucher-analysis-yearly.js"></script>
     <script src="views/js/items.js"></script>
     <script src="views/js/item-kits.js"></script>
+    <script src="views/js/insights-employees.js"></script>
+    <script src="views/js/insights-inventory.js"></script>
+    <script src="views/js/insights-sales.js"></script>
     <script src="views/js/payroll-submit.js"></script>
     <script src="views/js/payroll-functions.js"></script>
     <script src="views/js/payroll-salary-voucher-drafts.js"></script>
@@ -211,7 +217,6 @@ session_start();
     <script src="views/js/people.js"></script>
     <script src="views/js/sales.js"></script>
     <script src="views/js/suppliers.js"></script>
-
 </body>
 
 </html>

@@ -209,6 +209,64 @@ class EmployeeController
         return $response;
     }
 
+    public static function ctrViewActiveEmployees()
+    {
+        $response = EmployeeModel::mdlViewActiveEmployees();
+
+        return $response;
+    }
+
+    public static function ctrViewEmployeesSalesTarget($selectedEmployeeIds, $selectedMonths, $selectedYears)
+    {
+        $salesTarget = -1;
+
+        foreach ($selectedYears as $year) {
+            foreach ($selectedMonths as $month) {
+                foreach ($selectedEmployeeIds as $personId) {
+                    $month = (int) $month;
+                    $year = (int) $year;
+
+                    $retrieveSalesTarget = EmployeeModel::mdlViewEmployeesSalesTarget($personId, $month, $year);
+                    if ($salesTarget === -1) {
+                        $salesTarget = $retrieveSalesTarget;
+                    } else if ($salesTarget[0]['sales_target'] == $retrieveSalesTarget[0]['sales_target']) {
+                        $salesTarget = $retrieveSalesTarget;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        }
+
+        return $salesTarget;
+    }
+
+    public static function ctrUpdateEmployeesSalesTarget($selectedEmployeeIds, $selectedMonths, $selectedYears, $newSalesTarget)
+    {
+        $salesTarget = number_format(floatval(filter_var($newSalesTarget, FILTER_SANITIZE_STRING)), 2, '.', '');;
+
+        foreach ($selectedYears as $year) {
+            foreach ($selectedMonths as $month) {
+                foreach ($selectedEmployeeIds as $personId) {
+                    $month = (int) $month;
+                    $year = (int) $year;
+
+                    $checkEntryExistsQuery = EmployeeModel::mdlViewEmployeesSalesTarget($personId, $month, $year);
+                    if (count($checkEntryExistsQuery) == 0) {
+                        $response = EmployeeModel::mdlCreateEmployeeSalesTarget($personId, $month, $year, $salesTarget);
+                    } else {
+                        $response = EmployeeModel::mdlUpdateEmployeesSalesTarget($checkEntryExistsQuery[0]['record_id'], $personId, $month, $year, $salesTarget);
+                    }
+
+                }
+            }
+        }
+        
+        $salesTarget = self::ctrViewEmployeesSalesTarget($selectedEmployeeIds, $selectedMonths, $selectedYears);
+
+        return $salesTarget;
+    }
+
     public static function ctrCreateEmployee()
     {
         if (isset($_POST["newFirstName"])) {
