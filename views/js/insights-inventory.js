@@ -1,16 +1,22 @@
-$(function () {
+console.log("hi");
 
-/*   var jsonData = $.ajax({
+$("#testButton").click(function () {
+
+var jsonData = $.ajax({
     url: "ajax/stocktakes.ajax.php",
-    dataType: "json"
+    dataType: "json",
+    method: "POST",
+    data: "get_all_stocktakes"
   }).done(function(results) {
     // Split product type and data into separate arrays
     var labels = [], data = [];
     labels = jsonData.productCategory;
     data = jsonData.stockCount;
+    console.log(labels);
+    console.log(data);
   });
- */
-    // Create the chart.js data structure using 'labels' and 'data'
+
+  // Create the chart.js data structure using 'labels' and 'data'
     var tempData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
@@ -63,5 +69,5 @@ $(function () {
     var barChart = new Chart(ctx).Bar(tempData, tempOptions);
 
 
-})
+});
 

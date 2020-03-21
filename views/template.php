@@ -190,7 +190,6 @@ session_start();
     </div>
     <script src="views/js/template.js"></script>
     <script src="views/js/header.js"></script>
-
     <script src="views/js/customers.js"></script>
     <script src="views/js/customer-archives.js"></script>
     <script src="views/js/employees.js"></script>
@@ -198,6 +197,9 @@ session_start();
     <script src="views/js/employee-salary-voucher-analysis-yearly.js"></script>
     <script src="views/js/items.js"></script>
     <script src="views/js/item-kits.js"></script>
+    <script src="views/js/insights-employees.js"></script>
+    <script src="views/js/insights-inventory.js"></script>
+    <script src="views/js/insights-sales.js"></script>
     <script src="views/js/payroll-submit.js"></script>
     <script src="views/js/payroll-functions.js"></script>
     <script src="views/js/payroll-salary-voucher-drafts.js"></script>
@@ -211,7 +213,6 @@ session_start();
     <script src="views/js/people.js"></script>
     <script src="views/js/sales.js"></script>
     <script src="views/js/suppliers.js"></script>
-
 </body>
 
 </html>

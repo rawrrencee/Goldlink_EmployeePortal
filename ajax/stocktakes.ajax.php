@@ -17,3 +17,9 @@ class AjaxStocktakes
     }
 
 }
+
+if (isset($_POST['get_all_stocktakes'])) {
+
+    $getAllStocktakes = new AjaxStocktakes();
+    $getAllStocktakes -> getAllStocktakes();
+}
