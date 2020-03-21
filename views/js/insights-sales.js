@@ -10,7 +10,7 @@
             if(answer!= 1 && answer.length !=0){
                 for (let i=0; i < answer.length; i++){
                     data.push(answer[i]['totalSales']);
-                    labels.push(answer[i]['sale_time']);
+                    labels.push(answer[i]['sales.sale_time']);
                 }
                 console.log(data);
                 console.log(labels);
