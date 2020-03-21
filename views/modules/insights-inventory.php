@@ -34,11 +34,6 @@
                         </div>
                     </div>
                     <div class="box-body">
-                    <!-- a test button here for debugging-->
-                    <div>
-                        <button id="testButton" class="btn btn-sm btn-info"> Debug</button>
-                    </div>
-                    <!-- end of a test button here for debugging-->
                         <div class="chart">
                             <canvas id="inventoryBarChart" style="height:230px"></canvas>
                         </div>
