@@ -4,7 +4,7 @@ class SalesController
 {
     public static function ctrViewAllSales()
     {
-        $response = ItemKitModel::mdlViewAllSales();
+        $response = SalesModel::mdlViewAllSales();
 
         return $response;
     }
