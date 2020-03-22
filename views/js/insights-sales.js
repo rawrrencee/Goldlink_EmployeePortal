@@ -15,7 +15,6 @@ $("#refreshSalesCharts").click(function () {
 
     let labels = [];
     let data = [];
-    let dbData = [];
     $.ajax({
         url: "ajax/sales.ajax.php",
         dataType: "json",
@@ -24,8 +23,8 @@ $("#refreshSalesCharts").click(function () {
         success: function (answer) {
             console.log(answer);
 
-            for (let i = 0; i < 10; i++) {
-                data.push(answer[i]['totalSales']);
+            for (let i = 0; i < answer.length; i++) {
+                data.push(answer[i]['allsales']);
                 labels.push(answer[i]['sales.sale_time']);
             }
 
