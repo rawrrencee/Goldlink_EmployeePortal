@@ -9,9 +9,11 @@ require_once "../models/stocktakes.model.php";
 class AjaxStocktakes
 {
     public $stocktakesId;
+    public $chosenDate;
 
     public function getAllStocktakes(){
-        $answer = StocktakesController::ctrViewAllStocktakes();
+        $value = $this->chosenDate;
+        $answer = StocktakesController::ctrViewAllStocktakes($value);
 
         echo json_encode($answer);
     }
@@ -21,5 +23,6 @@ class AjaxStocktakes
 if (isset($_POST['get_all_stocktakes'])) {
 
     $getAllStocktakes = new AjaxStocktakes();
+    $getAllStocktakes -> chosenDate = $_POST['get_all_stocktakes'];
     $getAllStocktakes -> getAllStocktakes();
 }

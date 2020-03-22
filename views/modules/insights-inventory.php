@@ -15,36 +15,39 @@
     </div>
 
     <section class="content">
-        <div class="box">
-            <div class="box-header with-border">
 
+        <!-- BAR CHART -->
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Stock Count by Product Category</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                            class="fa fa-times"></i></button>
+                </div>
             </div>
             <div class="box-body">
-                <!-- BAR CHART -->
-                <div class="box box-success">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Bar Chart</h3>
+                <!-- Date -->
+                <div class="form-group">
+                    <label>Date:</label>
 
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                    class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                                    class="fa fa-times"></i></button>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
                         </div>
+                        <input type="text" class="form-control pull-right" id="inventoryInsightsDatePicker">
                     </div>
-                    <div class="box-body">
-                        <div class="chart">
-                            <canvas id="inventoryBarChart" style="height:230px"></canvas>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
+                    <!-- /.input group -->
                 </div>
-                <!-- /.box -->
-
+                <!-- /.form group -->
+                <div class="chart">
+                    <canvas id="inventoryBarChart" style="height:500px"></canvas>
+                </div>
             </div>
+            <!-- /.box-body -->
         </div>
-
     </section>
 </div>
 <script src="views/js/insights-inventory.js"></script>

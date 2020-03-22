@@ -197,9 +197,6 @@ session_start();
     <script src="views/js/employee-salary-voucher-analysis-yearly.js"></script>
     <script src="views/js/items.js"></script>
     <script src="views/js/item-kits.js"></script>
-    <script src="views/js/insights-employees.js"></script>
-    <script src="views/js/insights-inventory.js"></script>
-    <script src="views/js/insights-sales.js"></script>
     <script src="views/js/payroll-submit.js"></script>
     <script src="views/js/payroll-functions.js"></script>
     <script src="views/js/payroll-salary-voucher-drafts.js"></script>
