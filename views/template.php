@@ -108,6 +108,8 @@ session_start();
     <script type="text/javascript" src="views/plugins/dateJS/date.js"></script>
     <!-- jqListbox.js -->
     <script src="views/plugins/jqListbox/jqListbox.plugin-1.3.min.js"></script>
+    <!-- jqListbox.js -->
+    <script src="views/plugins/ProgressBar.js/progressbar.min.js"></script>
 </head>
 
 <!--=====================================

@@ -39,6 +39,48 @@
                 </div>
             </div>
             <div class="box-body">
+
+                <div class="col-md-12 col-xs-12">
+                    <div class="col-md-12 col-xs-12">
+                        <button id="filterByDateButtonDown" class="btn btn-default pull-right">Filter by Date <i
+                                class="fa fa-angle-down"></i></button>
+                        <button id="filterByDateButtonUp" class="btn btn-default pull-right">Filter by Date <i
+                                class="fa fa-angle-up"></i></button>
+                    </div>
+                    <div id="filterYearOfSalesTarget" class="col-md-3 col-xs-6 pull-right" style="padding-top: 5px;">
+                        <h5>Year</h5>
+                        <button id="selectAllFilterYearOfSalesTarget" type="button" class="btn btn-sm btn-info"
+                            style="margin-top: 5px; margin-btm: 5px;">Select All</button>
+                        <button id="resetYearOfSalesFilter" type="button" class="btn btn-sm btn-info"
+                            style="margin-top: 5px; margin-btm: 5px;">Reset</button>
+                        <div class="customlist">
+                            <ul id="filterEmployeeSalesPerformanceByYear">
+                            </ul>
+                        </div>
+                        <button id="retrieveSalesPerformanceWithFilters"
+                            class="btn btn-info pull-right">Retrieve</button>
+                    </div>
+                    <div id="filterMonthOfSalesTarget" class="col-md-3 col-xs-6 pull-right" style="padding-top: 5px;">
+                        <h5>Month</h5>
+                        <button id="selectAllFilterMonthOfSalesTarget" type="button" class="btn btn-sm btn-info"
+                            style="margin-top: 5px; margin-btm: 5px;">Select All</button>
+                        <button id="resetMonthOfSalesFilter" type="button" class="btn btn-sm btn-info"
+                            style="margin-top: 5px; margin-btm: 5px;">Reset</button>
+                        <div class="customlist">
+                            <ul id="filterEmployeeSalesPerformanceByMonth">
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="employeeSalesTargetList" class="col-md-12 col-xs-12">
+                    <div id="container" class="col-md-6 col-xs-12" style="margin-top: 20px;">
+                    </div>
+                    <div id="container2" class="col-md-6 col-xs-12" style="margin-top: 20px;">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -70,6 +112,17 @@
                             ?>
                         </select>
                     </div>
+                    <div id="selectStoreOfSalesTarget" class="col-md-12 col-xs-12">
+                        <h5>Store</h5>
+                        <button id="selectAllStoreOfSalesTarget" type="button" class="btn btn-sm btn-info"
+                            style="margin-top: 5px; margin-btm: 5px;">Select All</button>
+                        <button id="resetStoreOfSalesTargetSelection" type="button" class="btn btn-sm btn-info"
+                            style="margin-top: 5px; margin-btm: 5px;">Reset</button>
+                        <div class="customlist">
+                            <ul id="storeOfSalesTargetList">
+                            </ul>
+                        </div>
+                    </div>
                     <div id="selectMonthOfSalesTarget" class="col-md-6 col-xs-6" style="padding-top: 20px;">
                         <h5>Month</h5>
                         <button id="selectAllMonthOfSalesTarget" type="button" class="btn btn-sm btn-info"
@@ -98,10 +151,11 @@
                         <button id="retrieveSalesTarget" type="button" class="btn btn-primary"
                             style="width: 100%; margin-top: 10px; margin-btm: 10px;">Retrieve</button>
                     </div>
-                    <div id="updateSalesTarget" class="col-md-4 col-xs-12 pull-right"
+                    <div id="updateSalesTarget" class="col-md-12 col-xs-12 pull-right"
                         style="padding-top: 20px; padding-btm: 20px;">
                     </div>
-                    <div id="updateSalesTargetButtonDiv" class="col-md-12 col-xs-12" style="padding-top: 20px; padding-btm: 20px;">
+                    <div id="updateSalesTargetButtonDiv" class="col-md-4 col-xs-12 pull-right"
+                        style="padding-top: 20px; padding-btm: 20px;">
                         <button id="updateSalesTargetButton" type="button" class="btn btn-success"
                             style="width: 100%; margin-top: 10px; margin-btm: 10px;">Update</button>
                     </div>

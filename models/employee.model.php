@@ -161,11 +161,24 @@ class EmployeeModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function mdlViewEmployeesSalesTarget($personId, $month, $year)
+    public static function mdlViewEmployeesSalesTarget($personId, $storeId, $month, $year)
     {
-        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.record_id, employees_sales_target.sales_target, employees_sales_target.month, employees_sales_target.year, employees_sales_target.person_id FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id WHERE employees_sales_target.person_id = :person_id AND employees_sales_target.month = :month AND employees_sales_target.year = :year");
+        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.record_id, employees_sales_target.sales_target, employees_sales_target.person_id, employees_sales_target.store_id, employees_sales_target.month, employees_sales_target.year FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id WHERE employees_sales_target.person_id = :person_id AND employees_sales_target.store_id = :store_id AND employees_sales_target.month = :month AND employees_sales_target.year = :year");
 
         $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+        $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+        $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+        $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewEmployeesSalesTargetbyMonthYear($month, $year)
+    {
+        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.sales_target, employees_sales_target.month, employees_sales_target.year, employees_sales_target.person_id, people.first_name, people.last_name FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id WHERE employees_sales_target.month = :month AND employees_sales_target.year = :year");
+
         $stmt->bindParam(":month", $month, PDO::PARAM_INT);
         $stmt->bindParam(":year", $year, PDO::PARAM_INT);
 
@@ -337,7 +350,7 @@ class EmployeeModel
         $stmt->execute();
     }
 
-    public static function mdlCreateEmployeeSalesTarget($personId, $month, $year, $salesTarget)
+    public static function mdlCreateEmployeeSalesTarget($personId, $storeId, $month, $year, $salesTarget)
     {
         $conn = new Connection();
         $conn = $conn->connect();
@@ -345,9 +358,10 @@ class EmployeeModel
         try {
             $conn->beginTransaction();
 
-            $stmt = $conn->prepare("INSERT INTO employees_sales_target(person_id, month, year, sales_target) VALUES (:person_id, :month, :year, :sales_target)");
+            $stmt = $conn->prepare("INSERT INTO employees_sales_target(person_id, store_id, month, year, sales_target) VALUES (:person_id, :store_id, :month, :year, :sales_target)");
 
             $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
             $stmt->bindParam(":month", $month, PDO::PARAM_INT);
             $stmt->bindParam(":year", $year, PDO::PARAM_INT);
             $stmt->bindParam(":sales_target", $salesTarget, PDO::PARAM_STR);
@@ -536,17 +550,18 @@ class EmployeeModel
         $stmt->execute();
     }
 
-    public static function mdlUpdateEmployeesSalesTarget($recordId, $personId, $month, $year, $salesTarget)
+    public static function mdlUpdateEmployeesSalesTarget($recordId, $personId, $storeId, $month, $year, $salesTarget)
     {
         $conn = new Connection();
         $conn = $conn->connect();
 
         try {
             $conn->beginTransaction();
-            $stmt = $conn->prepare("UPDATE employees_sales_target SET month = :month, year = :year, sales_target = :sales_target WHERE person_id = :person_id AND record_id = :record_id");
+            $stmt = $conn->prepare("UPDATE employees_sales_target SET month = :month, year = :year, sales_target = :sales_target WHERE person_id = :person_id AND record_id = :record_id AND store_id = :store_id");
 
             $stmt->bindParam(":record_id", $recordId, PDO::PARAM_INT);
             $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
             $stmt->bindParam(":month", $month, PDO::PARAM_INT);
             $stmt->bindParam(":year", $year, PDO::PARAM_INT);
             $stmt->bindParam(":sales_target", $salesTarget, PDO::PARAM_STR);

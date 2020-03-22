@@ -11,6 +11,7 @@ class AjaxEmployees
     public $employeeId;
 
     public $selectedEmployeeIds;
+    public $selectedStores;
     public $selectedMonths;
     public $selectedYears;
     public $newSalesTarget;
@@ -63,21 +64,32 @@ class AjaxEmployees
 
     public function getEmployeesSalesTarget() {
         $selectedEmployeeIds = $this->selectedEmployeeIds;
+        $selectedStores = $this->selectedStores;
         $selectedMonths = $this->selectedMonths;
         $selectedYears = $this->selectedYears;
 
-        $answer = EmployeeController::ctrViewEmployeesSalesTarget($selectedEmployeeIds, $selectedMonths, $selectedYears);
+        $answer = EmployeeController::ctrViewEmployeesSalesTarget($selectedEmployeeIds, $selectedStores, $selectedMonths, $selectedYears);
+
+        echo json_encode($answer);
+    }
+
+    public function getAllEmployeesSalesTarget() {
+        $selectedMonths = $this->selectedMonths;
+        $selectedYears = $this->selectedYears;
+
+        $answer = EmployeeController::ctrViewAllEmployeesSalesTarget($selectedMonths, $selectedYears);
 
         echo json_encode($answer);
     }
 
     public function postEmployeesSalesTarget() {
         $selectedEmployeeIds = $this->selectedEmployeeIds;
+        $selectedStores = $this->selectedStores;
         $selectedMonths = $this->selectedMonths;
         $selectedYears = $this->selectedYears;
         $newSalesTarget = $this->newSalesTarget;
 
-        $answer = EmployeeController::ctrUpdateEmployeesSalesTarget($selectedEmployeeIds, $selectedMonths, $selectedYears, $newSalesTarget);
+        $answer = EmployeeController::ctrUpdateEmployeesSalesTarget($selectedEmployeeIds, $selectedStores, $selectedMonths, $selectedYears, $newSalesTarget);
 
         echo json_encode($answer);
     }
@@ -124,15 +136,25 @@ if (isset($_POST['get_employees_sales_target'])) {
 
     $getEmployeesSalesTarget = new AjaxEmployees();
     $getEmployeesSalesTarget -> selectedEmployeeIds = $_POST['get_employees_sales_target'];
+    $getEmployeesSalesTarget -> selectedStores = $_POST['get_selected_stores'];
     $getEmployeesSalesTarget -> selectedMonths = $_POST['get_selected_months'];
     $getEmployeesSalesTarget -> selectedYears = $_POST['get_selected_years'];
     $getEmployeesSalesTarget -> getEmployeesSalesTarget();
+}
+
+if (isset($_POST['get_all_employees_sales_target'])) {
+
+    $getAllEmployeesSalesTarget = new AjaxEmployees();
+    $getAllEmployeesSalesTarget -> selectedMonths = $_POST['get_all_employees_sales_target'];
+    $getAllEmployeesSalesTarget -> selectedYears = $_POST['get_selected_years'];
+    $getAllEmployeesSalesTarget -> getAllEmployeesSalesTarget();
 }
 
 if (isset($_POST['post_employees_sales_target'])) {
 
     $postEmployeesSalesTarget = new AjaxEmployees();
     $postEmployeesSalesTarget -> selectedEmployeeIds = $_POST['post_employees_sales_target'];
+    $postEmployeesSalesTarget -> selectedStores = $_POST['get_selected_stores'];
     $postEmployeesSalesTarget -> selectedMonths = $_POST['get_selected_months'];
     $postEmployeesSalesTarget -> selectedYears = $_POST['get_selected_years'];
     $postEmployeesSalesTarget -> newSalesTarget = $_POST['get_new_sales_target'];
