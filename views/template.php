@@ -195,7 +195,6 @@ session_start();
     </div>
     <script src="views/js/template.js"></script>
     <script src="views/js/header.js"></script>
-
     <script src="views/js/customers.js"></script>
     <script src="views/js/customer-archives.js"></script>
     <script src="views/js/employees.js"></script>
