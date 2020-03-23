@@ -244,20 +244,26 @@ class EmployeeController
         return $salesTarget;
     }
 
-    public static function ctrViewAllEmployeesSalesTarget($selectedMonths, $selectedYears)
+    public static function ctrViewAllEmployeesSalesTarget($selectedStores, $selectedMonths, $selectedYears)
     {
         $retrieveSalesTarget = [];
 
-        foreach ($selectedYears as $year) {
-            foreach ($selectedMonths as $month) {
-                $month = (int) $month;
-                $year = (int) $year;
+        foreach ($selectedStores as $storeId) {
+            foreach ($selectedYears as $year) {
+                foreach ($selectedMonths as $month) {
+                    $month = (int) $month;
+                    $year = (int) $year;
+    
+                    $currentSalesTarget = EmployeeModel::mdlViewEmployeesSalesTargetbyMonthYear($storeId, $month, $year);
 
-                $currentSalesTarget = EmployeeModel::mdlViewEmployeesSalesTargetbyMonthYear($month, $year);
-
-                foreach ($currentSalesTarget as $index => $salesTargetRecord) {
-                    $fullName = $salesTargetRecord['first_name'].' '.$salesTargetRecord['last_name'];
-                    $retrieveSalesTarget[$fullName] += $salesTargetRecord['sales_target'];
+                    array_push($retrieveSalesTarget, $currentSalesTarget);
+    
+                    /*
+                    foreach ($currentSalesTarget as $index => $salesTargetRecord) {
+                        $fullName = $salesTargetRecord['first_name'].' '.$salesTargetRecord['last_name'];
+                        $retrieveSalesTarget[$fullName] += $salesTargetRecord['sales_target'];
+                    }
+                    */
                 }
             }
         }

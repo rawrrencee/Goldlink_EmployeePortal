@@ -175,10 +175,11 @@ class EmployeeModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function mdlViewEmployeesSalesTargetbyMonthYear($month, $year)
+    public static function mdlViewEmployeesSalesTargetbyMonthYear($storeId, $month, $year)
     {
-        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.sales_target, employees_sales_target.month, employees_sales_target.year, employees_sales_target.person_id, people.first_name, people.last_name FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id WHERE employees_sales_target.month = :month AND employees_sales_target.year = :year");
+        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.sales_target, employees_sales_target.month, employees_sales_target.year, employees_sales_target.person_id, people.first_name, people.last_name, people.designation, stores.store_id, stores.store_name FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id JOIN stores ON employees_sales_target.store_id = stores.store_id WHERE employees_sales_target.store_id = :store_id AND employees_sales_target.month = :month AND employees_sales_target.year = :year");
 
+        $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
         $stmt->bindParam(":month", $month, PDO::PARAM_INT);
         $stmt->bindParam(":year", $year, PDO::PARAM_INT);
 

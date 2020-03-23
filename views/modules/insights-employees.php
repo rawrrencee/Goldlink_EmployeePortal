@@ -42,10 +42,21 @@
 
                 <div class="col-md-12 col-xs-12">
                     <div class="col-md-12 col-xs-12">
-                        <button id="filterByDateButtonDown" class="btn btn-default pull-right">Filter by Date <i
+                        <button id="filterEmployeeSalesChartsButtonDown" class="btn btn-default pull-right">Filter <i
                                 class="fa fa-angle-down"></i></button>
-                        <button id="filterByDateButtonUp" class="btn btn-default pull-right">Filter by Date <i
+                        <button id="filterEmployeeSalesChartsButtonUp" class="btn btn-default pull-right">Filter <i
                                 class="fa fa-angle-up"></i></button>
+                    </div>
+                    <div id="filterStoreOfSalesTarget" class="col-md-3 col-xs-12 pull-right" style="padding-top: 5px;">
+                        <h5>Store</h5>
+                        <button id="selectAllFilterStoreOfSalesTarget" type="button" class="btn btn-sm btn-info"
+                            style="margin-top: 5px; margin-btm: 5px;">Select All</button>
+                        <button id="resetStoreOfSalesFilter" type="button" class="btn btn-sm btn-info"
+                            style="margin-top: 5px; margin-btm: 5px;">Reset</button>
+                        <div class="customlist" style="height: 300px; overflow-y: scroll;">
+                            <ul id="filterEmployeeSalesPerformanceByStore">
+                            </ul>
+                        </div>
                     </div>
                     <div id="filterYearOfSalesTarget" class="col-md-3 col-xs-6 pull-right" style="padding-top: 5px;">
                         <h5>Year</h5>
@@ -53,12 +64,10 @@
                             style="margin-top: 5px; margin-btm: 5px;">Select All</button>
                         <button id="resetYearOfSalesFilter" type="button" class="btn btn-sm btn-info"
                             style="margin-top: 5px; margin-btm: 5px;">Reset</button>
-                        <div class="customlist">
+                        <div class="customlist" style="height: 300px; overflow-y: scroll;">
                             <ul id="filterEmployeeSalesPerformanceByYear">
                             </ul>
                         </div>
-                        <button id="retrieveSalesPerformanceWithFilters"
-                            class="btn btn-info pull-right">Retrieve</button>
                     </div>
                     <div id="filterMonthOfSalesTarget" class="col-md-3 col-xs-6 pull-right" style="padding-top: 5px;">
                         <h5>Month</h5>
@@ -66,20 +75,19 @@
                             style="margin-top: 5px; margin-btm: 5px;">Select All</button>
                         <button id="resetMonthOfSalesFilter" type="button" class="btn btn-sm btn-info"
                             style="margin-top: 5px; margin-btm: 5px;">Reset</button>
-                        <div class="customlist">
+                        <div class="customlist" style="height: 300px; overflow-y: scroll;">
                             <ul id="filterEmployeeSalesPerformanceByMonth">
                             </ul>
                         </div>
-
+                    </div>
+                    <div id="divRetrieveSalesPerformanceWithFilters" class="col-md-4 col-xs-12 pull-right">
+                        <button id="retrieveSalesPerformanceWithFilters"
+                            class="btn btn-info pull-right">Retrieve</button>
                     </div>
 
                 </div>
 
-                <div id="employeeSalesTargetList" class="col-md-12 col-xs-12">
-                    <div id="container" class="col-md-6 col-xs-12" style="margin-top: 20px;">
-                    </div>
-                    <div id="container2" class="col-md-6 col-xs-12" style="margin-top: 20px;">
-                    </div>
+                <div id="employeeSalesTargetList" class="col-md-12 col-xs-12" style="margin-top: 10px;">
                 </div>
             </div>
         </div>
@@ -101,6 +109,7 @@
                     <div id="selectedEmployeeForSalesTarget" class="col-md-12 col-xs-12">
                     </div>
                     <div class="col-md-12 col-xs-12">
+                        <label for="newEmployeeSalesTargetSelection">Select Employee(s)</label>
                         <select class="form-control input-md select2" id="newEmployeeSalesTargetSelection"
                             name="newEmployeeSalesTargetSelection" multiple style="width: 100%;">
                             <?php
@@ -112,19 +121,25 @@
                             ?>
                         </select>
                     </div>
+                    <div class="col-md-12 col-xs-12" style="margin-top: 10px;">
+                        <button id="selectNewSalesTargetFilterButtonDown" class="btn btn-default">Select
+                            Store/Month/Year <i class="fa fa-angle-down"></i></button>
+                        <button id="selectNewSalesTargetFilterButtonUp" class="btn btn-default">Select Store/Month/Year
+                            <i class="fa fa-angle-up"></i></button>
+                    </div>
                     <div id="selectStoreOfSalesTarget" class="col-md-12 col-xs-12">
-                        <h5>Store</h5>
+                        <h5><b>Store</b></h5>
                         <button id="selectAllStoreOfSalesTarget" type="button" class="btn btn-sm btn-info"
                             style="margin-top: 5px; margin-btm: 5px;">Select All</button>
                         <button id="resetStoreOfSalesTargetSelection" type="button" class="btn btn-sm btn-info"
                             style="margin-top: 5px; margin-btm: 5px;">Reset</button>
-                        <div class="customlist">
+                        <div class="customlist" style="height: 300px; overflow-y: scroll;">
                             <ul id="storeOfSalesTargetList">
                             </ul>
                         </div>
                     </div>
                     <div id="selectMonthOfSalesTarget" class="col-md-6 col-xs-6" style="padding-top: 20px;">
-                        <h5>Month</h5>
+                        <h5><b>Month</b></h5>
                         <button id="selectAllMonthOfSalesTarget" type="button" class="btn btn-sm btn-info"
                             style="margin-top: 5px; margin-btm: 5px;">Select All</button>
                         <button id="resetMonthOfSalesTargetSelection" type="button" class="btn btn-sm btn-info"
@@ -136,7 +151,7 @@
 
                     </div>
                     <div id="selectYearOfSalesTarget" class="col-md-6 col-xs-6" style="padding-top: 20px;">
-                        <h5>Year</h5>
+                        <h5><b>Year</b></h5>
                         <button id="selectAllYearOfSalesTarget" type="button" class="btn btn-sm btn-info"
                             style="margin-top: 5px; margin-btm: 5px;">Select All</button>
                         <button id="resetYearOfSalesTargetSelection" type="button" class="btn btn-sm btn-info"
@@ -167,3 +182,5 @@
         </div>
     </div>
 </div>
+
+<script src="views/js/insights-employees.js"></script>

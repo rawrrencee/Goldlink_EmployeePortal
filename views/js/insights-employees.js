@@ -1,4 +1,5 @@
 /* CONFIGURATION */
+
 $(document).ready(function () {
     $("#selectMonthOfSalesTarget").hide();
     $("#selectYearOfSalesTarget").hide();
@@ -7,10 +8,16 @@ $(document).ready(function () {
     $("#updateSalesTarget").hide();
     $("#updateSalesTargetButtonDiv").hide();
 
-    $("#filterByDateButtonUp").hide();
-    $("#filterByDateButtonDown").show();
+    $("#selectNewSalesTargetFilterButtonUp").hide();
+
+    $("#filterEmployeeSalesChartsButtonUp").hide();
+    $("#filterEmployeeSalesChartsButtonDown").show();
     $("#filterYearOfSalesTarget").hide();
     $("#filterMonthOfSalesTarget").hide();
+    $("#filterStoreOfSalesTarget").hide();
+    $("#divRetrieveSalesPerformanceWithFilters").hide();
+
+    initEmployeeSalesPerformanceOverview();
 });
 
 $('#newEmployeeSalesTargetSelection').on('select2:select', function (e) {
@@ -28,6 +35,9 @@ $('#newEmployeeSalesTargetSelection').on('select2:select', function (e) {
     $("#selectMonthOfSalesTarget").show();
     $("#selectYearOfSalesTarget").show();
     $("#selectStoreOfSalesTarget").show();
+
+    $("#selectNewSalesTargetFilterButtonUp").show();
+    $("#selectNewSalesTargetFilterButtonDown").hide();
 
     $("#updateSalesTarget").hide();
     $("#updateSalesTargetButtonDiv").hide();
@@ -108,6 +118,30 @@ $("#resetStoreOfSalesTargetSelection").click(function () {
 
 });
 
+$("#selectAllFilterStoreOfSalesTarget").click(function () {
+    $('#filterEmployeeSalesPerformanceByStore').jqListbox('selectAll');
+});
+
+$("#resetStoreOfSalesFilter").click(function () {
+    $('#filterEmployeeSalesPerformanceByStore').jqListbox('reset');
+
+    $.ajax({
+        url: "ajax/stores.ajax.php",
+        method: "POST",
+        data: { get_all_stores: 0 },
+        dataType: "json",
+        success: function (answer) {
+            for (let i = 0; i < answer.length; i++) {
+                let item = [];
+                item['title'] = answer[i]['store_name'];
+                item['value'] = answer[i]['store_id'];
+                $('#filterEmployeeSalesPerformanceByStore').jqListbox('insert', item);
+            }
+        }
+    });
+
+});
+
 $("#retrieveSalesTarget").click(function () {
     let selectedEmployeeIdArray = [];
     let selectedStoreArray = [];
@@ -118,7 +152,13 @@ $("#retrieveSalesTarget").click(function () {
     selectedStores = $('#storeOfSalesTargetList').jqListbox('getSelectedItems');
     selectedMonths = $('#monthOfSalesTargetList').jqListbox('getSelectedItems');
     selectedYears = $('#yearOfSalesTargetList').jqListbox('getSelectedItems');
-    
+
+    $("#selectNewSalesTargetFilterButtonUp").hide();
+    $("#selectNewSalesTargetFilterButtonDown").show();
+
+    $("#selectMonthOfSalesTarget").hide();
+    $("#selectYearOfSalesTarget").hide();
+    $("#selectStoreOfSalesTarget").hide();
 
     for (let i = 0; i < selectedEmployees.length; i++) {
         selectedEmployeeIdArray.push(selectedEmployees[i]['id']);
@@ -183,6 +223,7 @@ $("#retrieveSalesTarget").click(function () {
             }
         }
     })
+
 });
 
 $("#updateSalesTargetButton").click(function () {
@@ -195,7 +236,7 @@ $("#updateSalesTargetButton").click(function () {
     selectedStores = $('#storeOfSalesTargetList').jqListbox('getSelectedItems');
     selectedMonths = $('#monthOfSalesTargetList').jqListbox('getSelectedItems');
     selectedYears = $('#yearOfSalesTargetList').jqListbox('getSelectedItems');
-    
+
 
     for (let i = 0; i < selectedEmployees.length; i++) {
         selectedEmployeeIdArray.push(selectedEmployees[i]['id']);
@@ -255,33 +296,81 @@ $("#updateSalesTargetButton").click(function () {
     });
 });
 
-$("#filterByDateButtonDown").click(function () {
-    $("#filterByDateButtonDown").hide();
-    $("#filterByDateButtonUp").show();
+$("#selectNewSalesTargetFilterButtonDown").click(function () {
+    $("#selectNewSalesTargetFilterButtonDown").hide();
+    $("#selectNewSalesTargetFilterButtonUp").show();
+
+    $("#selectStoreOfSalesTarget").show();
+    $("#selectMonthOfSalesTarget").show();
+    $("#selectYearOfSalesTarget").show();
+
+});
+
+$("#selectNewSalesTargetFilterButtonUp").click(function () {
+    $("#selectNewSalesTargetFilterButtonUp").hide();
+    $("#selectNewSalesTargetFilterButtonDown").show();
+
+    $("#selectStoreOfSalesTarget").hide();
+    $("#selectMonthOfSalesTarget").hide();
+    $("#selectYearOfSalesTarget").hide();
+});
+
+
+$("#filterEmployeeSalesChartsButtonDown").click(function () {
+    $("#filterEmployeeSalesChartsButtonDown").hide();
+    $("#filterEmployeeSalesChartsButtonUp").show();
 
     $("#filterYearOfSalesTarget").show();
     $("#filterMonthOfSalesTarget").show();
+    $("#filterStoreOfSalesTarget").show();
+    $("#divRetrieveSalesPerformanceWithFilters").show();
+
+    $('#filterEmployeeSalesPerformanceByStore').jqListbox('reset');
+    $.ajax({
+        url: "ajax/stores.ajax.php",
+        method: "POST",
+        data: { get_all_stores: 0 },
+        dataType: "json",
+        success: function (answer) {
+            for (let i = 0; i < answer.length; i++) {
+                let item = [];
+                item['title'] = answer[i]['store_name'];
+                item['value'] = answer[i]['store_id'];
+                $('#filterEmployeeSalesPerformanceByStore').jqListbox('insert', item);
+            }
+        }
+    });
 });
 
-$("#filterByDateButtonUp").click(function () {
-    $("#filterByDateButtonUp").hide();
-    $("#filterByDateButtonDown").show();
+$("#filterEmployeeSalesChartsButtonUp").click(function () {
+    $("#filterEmployeeSalesChartsButtonUp").hide();
+    $("#filterEmployeeSalesChartsButtonDown").show();
 
     $("#filterYearOfSalesTarget").hide();
     $("#filterMonthOfSalesTarget").hide();
+    $("#filterStoreOfSalesTarget").hide();
+    $("#divRetrieveSalesPerformanceWithFilters").hide();
 });
 
 $("#retrieveSalesPerformanceWithFilters").click(function () {
     let selectedMonthArray = [];
     let selectedYearArray = [];
+    let selectedStoreArray = [];
 
     $("#filterYearOfSalesTarget").hide();
     $("#filterMonthOfSalesTarget").hide();
-    $("#filterByDateButtonUp").hide();
-    $("#filterByDateButtonDown").show();
+    $("#filterStoreOfSalesTarget").hide();
+    $("#divRetrieveSalesPerformanceWithFilters").hide();
+    $("#filterEmployeeSalesChartsButtonUp").hide();
+    $("#filterEmployeeSalesChartsButtonDown").show();
 
+    selectedStores = $('#filterEmployeeSalesPerformanceByStore').jqListbox('getSelectedItems');
     selectedMonths = $('#filterEmployeeSalesPerformanceByMonth').jqListbox('getSelectedItems');
     selectedYears = $('#filterEmployeeSalesPerformanceByYear').jqListbox('getSelectedItems');
+
+    for (let i = 0; i < selectedStores.length; i++) {
+        selectedStoreArray.push(selectedStores[i]['value']);
+    }
 
     for (let i = 0; i < selectedMonths.length; i++) {
         selectedMonthArray.push(selectedMonths[i]['value']);
@@ -294,16 +383,200 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
     $.ajax({
         url: "ajax/employees.ajax.php",
         method: "POST",
-        data: { get_all_employees_sales_target: selectedMonthArray, get_selected_years: selectedYearArray },
+        data: { get_all_employees_sales_target: selectedStoreArray, get_selected_months: selectedMonthArray, get_selected_years: selectedYearArray },
         dataType: "json",
         success: function (answer) {
-            //console.log(answer);
+            console.log(answer);
+            console.log(Object.keys(answer).length);
+
+            $("#employeeSalesTargetList").html("");
+
+            if (Object.keys(answer).length > 0) {
+                for (let i = 0; i < Object.keys(answer).length; i++) {
+
+                    let storeName = "employeeSalesTargetList_" + replaceSymbolsAndRemoveSpaces(answer[i][0].store_name);
+
+                    $("#employeeSalesTargetList").append(
+                        `
+                        <div class="col-md-12 col-xs-12">
+                            <div style="box-shadow: 1px 1px 4px 0px #dfdfdf; margin-top: 10px;">
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">` + answer[i][0].store_name + `</h3>
+
+                                    </div>
+                                    <div id="` + storeName + `" class="box-body">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    );
+
+                    for (let j = 0; j < answer[i].length; j++) {
+
+                        salesTargetData = answer[i][j];
+                        salesTargetData['full_name'] = salesTargetData['first_name'] + " " + salesTargetData['last_name'];
+                        let containerName = "#" + storeName + "_container" + j;
+                        console.log(salesTargetData);
+
+                        $("#" + storeName).append(
+                            `
+                            <div id="` + storeName + `_container` + j + `" class="col-md-6 col-xs-12">
+                                <h4 class="widget-user-username">` + salesTargetData['full_name'] + `</h4>
+                            </div>
+                            `
+                        );
+
+                        initSalesTargetBarForEmployee(salesTargetData, containerName);
+
+                        
+                    }
+
+                }
+            }
+
         }
     });
 
 });
 
+function initEmployeeSalesPerformanceOverview() {
+
+    $.ajax({
+        url: "ajax/stores.ajax.php",
+        method: "POST",
+        data: { get_all_stores: 0 },
+        dataType: "json",
+        success: function (answer) {
+            let selectedMonthArray = [];
+            let selectedYearArray = [];
+            let selectedStoreArray = [];
+
+            for (let i = 0; i < answer.length; i++) {
+                selectedStoreArray.push(answer[i]['store_id']);
+            }
+            
+            selectedMonthArray.push("3");
+        
+            selectedYearArray.push("2020");
+        
+            $.ajax({
+                url: "ajax/employees.ajax.php",
+                method: "POST",
+                data: { get_all_employees_sales_target: selectedStoreArray, get_selected_months: selectedMonthArray, get_selected_years: selectedYearArray },
+                dataType: "json",
+                success: function (answer) {
+                    console.log(answer);
+                    console.log(Object.keys(answer).length);
+        
+                    $("#employeeSalesTargetList").html("");
+        
+                    if (Object.keys(answer).length > 0) {
+                        for (let i = 0; i < Object.keys(answer).length; i++) {
+        
+                            let cleanStoreName = replaceSymbolsAndRemoveSpaces(answer[i][0].store_name);
+                            let storeName = "employeeSalesTargetList_" + cleanStoreName;
+        
+                            $("#employeeSalesTargetList").append(
+                                `
+                                <div class="col-md-12 col-xs-12">
+                                    <div style="box-shadow: 0.5px 0.5px 4px 0px #dfdfdf; margin-top: 10px;">
+                                        <div class="panel box box-solid">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">
+                                                    <a class="" data-toggle="collapse" data-parent="#accordian" href="#collapse`+ cleanStoreName +`" aria-expanded="true">
+                                                    ` + answer[i][0].store_name + `</a>
+                                                </h3>
+        
+                                            </div>
+                                            
+                                            <div id="collapse`+ cleanStoreName +`" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                                <div id="` + storeName + `" class="box-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                `
+                            );
+        
+                            for (let j = 0; j < answer[i].length; j++) {
+        
+                                salesTargetData = answer[i][j];
+                                salesTargetData['full_name'] = salesTargetData['first_name'] + " " + salesTargetData['last_name'];
+                                let containerName = "#" + storeName + "_container" + j;
+                                console.log(salesTargetData);
+        
+                                $("#" + storeName).append(
+                                    `
+                                    <div id="` + storeName + `_container` + j + `" class="col-md-6 col-xs-12">
+                                        <h4>` + salesTargetData['full_name'] + `</h4>
+                                    </div>
+                                    `
+                                );
+        
+                                initSalesTargetBarForEmployee(salesTargetData, containerName);
+        
+                                
+                            }
+        
+                        }
+                    }
+        
+                }
+            });
+        }
+    });
+
+}
+
+function initSalesTargetBarForEmployee(salesTargetData, containerName) {
+
+    let percentageCompletion = 1000/salesTargetData['sales_target'];
+    let percentageCompletionStr = "";
+    if (percentageCompletion === 1) {
+        percentageCompletionStr = (percentageCompletion * 100) - 10 + "%";
+    } else {
+        percentageCompletionStr = percentageCompletion * 100 - 5 + "%";
+    }
+
+    var bar = new ProgressBar.Line(containerName, {
+        strokeWidth: 4,
+        easing: 'easeInOut',
+        duration: 1400,
+        color: '#0275d8',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: { width: '100%', height: '100%', padding: '10px' },
+        text: {
+            style: {
+                // Text color.
+                // Default: same as stroke color (options.color)
+                color: '#999',
+                right: '0',
+                top: '30px',
+                padding: 0,
+                marginLeft: percentageCompletionStr,
+                transform: null
+            },
+            autoStyleContainer: false
+        },
+        step: (state, bar) => {
+            bar.setText(salesTargetData['sales_target']);
+        }
+    });
+
+    bar.animate(1000/salesTargetData['sales_target']);
+}
+
 /* INIT jqListbox */
+
+$('#filterEmployeeSalesPerformanceByStore').jqListbox({
+    itemRenderer: function (item) {
+        return '<li>' + item.title + '</li>';
+    }
+});
 
 $('#storeOfSalesTargetList').jqListbox({
     itemRenderer: function (item) {
@@ -406,7 +679,7 @@ $('#modalAddEmployeeSalesTarget').on('hidden.bs.modal', function () {
 });
 
 $('#modalAddEmployeeSalesTarget').on('shown.bs.modal', function () {
-    
+
     $('#storeOfSalesTargetList').jqListbox('reset');
     $.ajax({
         url: "ajax/stores.ajax.php",
@@ -439,40 +712,6 @@ function combineSelectionAsString(selectedItems) {
     return combinedString;
 }
 
-function initSalesTargetBars() {
-    let containerName = '#container';
-    for (let i = 0; i < 100; i++) {
-        if (i % 2 == 0) {
-            containerName = '#container';
-        } else {
-            containerName = '#container2';
-        }
-        var bar = new ProgressBar.Line(containerName, {
-            strokeWidth: 4,
-            easing: 'easeInOut',
-            duration: 1400,
-            color: '#0275d8',
-            trailColor: '#eee',
-            trailWidth: 1,
-            svgStyle: { width: '100%', height: '100%', padding: '10px' },
-            text: {
-                style: {
-                    // Text color.
-                    // Default: same as stroke color (options.color)
-                    color: '#999',
-                    right: '0',
-                    top: '30px',
-                    padding: 0,
-                    margin: 0,
-                    transform: null
-                },
-                autoStyleContainer: false
-            },
-            step: (state, bar) => {
-                bar.setText(Math.round(bar.value() * 100) + ' %');
-            }
-        });
-
-        bar.animate(i / 100);
-    }
+function replaceSymbolsAndRemoveSpaces(str) {
+    return str.replace(/[^A-Z0-9]+/ig, "_");
 }
