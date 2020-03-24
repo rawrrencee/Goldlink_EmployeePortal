@@ -175,9 +175,61 @@ class EmployeeModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year)
+    {
+        try {
+            $stmt = Connection::connect()->prepare("SELECT SUM(totalsales) as totalsales
+            FROM(
+            (
+            SELECT SUM( CAST( quantity_purchased * item_unit_price * 
+            ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ) ) AS totalsales, employee_id
+            FROM sales s 
+            INNER JOIN sales_items ON s.sale_id = sales_items.sale_id 
+            INNER JOIN stores ON s.store_id = stores.store_id 
+            INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id 
+            INNER JOIN items ON sales_items.item_id = items.item_id  
+            WHERE YEAR(sale_time) = :year AND MONTH(sale_time) = :month AND s.store_id = :store_id AND s.employee_id = :person_id AND payment_amount != '0' AND discount_percent != '100'
+            GROUP BY employee_id
+            )
+            UNION ALL
+            (
+            SELECT SUM( CAST( quantity_purchased * item_kit_unit_price * 
+            ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ) ) AS totalsales, employee_id
+            FROM sales s 
+            INNER JOIN stores ON s.store_id = stores.store_id 
+            INNER JOIN sales_item_kits ON s.sale_id = sales_item_kits.sale_id
+            INNER JOIN item_kits ON sales_item_kits.item_kit_id = item_kits.item_kit_id
+            INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id  
+            WHERE YEAR(sale_time) = :year_temp AND MONTH(sale_time) = :month_temp AND s.store_id = :store_id_temp AND s.employee_id = :person_id_temp AND payment_amount != '0' AND discount_percent != '100' 
+            GROUP BY employee_id
+            ) 
+            ) AS temp
+            GROUP BY temp.employee_id"
+            );
+    
+            $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+            $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+
+            $stmt->bindParam(":person_id_temp", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id_temp", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":month_temp", $month, PDO::PARAM_INT);
+            $stmt->bindParam(":year_temp", $year, PDO::PARAM_INT);
+    
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+
+            return "Exception: " . $e->getMessage();
+        }
+
+    }
+
     public static function mdlViewEmployeesSalesTargetbyMonthYear($storeId, $month, $year)
     {
-        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.sales_target, employees_sales_target.month, employees_sales_target.year, employees_sales_target.person_id, people.first_name, people.last_name, people.designation, stores.store_id, stores.store_name FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id JOIN stores ON employees_sales_target.store_id = stores.store_id WHERE employees_sales_target.store_id = :store_id AND employees_sales_target.month = :month AND employees_sales_target.year = :year");
+        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.sales_target, employees_sales_target.month, employees_sales_target.year, employees_sales_target.person_id, people.first_name, people.last_name, people.designation, stores.store_id, stores.store_name FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id JOIN stores ON employees_sales_target.store_id = stores.store_id WHERE employees_sales_target.store_id = :store_id AND employees_sales_target.month = :month AND employees_sales_target.year = :year AND employees_sales_target.sales_target != 0");
 
         $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
         $stmt->bindParam(":month", $month, PDO::PARAM_INT);

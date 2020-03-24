@@ -255,7 +255,7 @@ $("#updateSalesTargetButton").click(function () {
     }
 
     newSalesTarget = $('#newSalesTarget').val();
-
+    
     $.ajax({
         url: "ajax/employees.ajax.php",
         method: "POST",
@@ -386,25 +386,41 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
         data: { get_all_employees_sales_target: selectedStoreArray, get_selected_months: selectedMonthArray, get_selected_years: selectedYearArray },
         dataType: "json",
         success: function (answer) {
+
             console.log(answer);
-            console.log(Object.keys(answer).length);
 
             $("#employeeSalesTargetList").html("");
 
-            if (Object.keys(answer).length > 0) {
-                for (let i = 0; i < Object.keys(answer).length; i++) {
+            let responseLength = Object.keys(answer).length;
+            let checkEmpty = true;
+            let filteredResponse = [];
 
-                    let storeName = "employeeSalesTargetList_" + replaceSymbolsAndRemoveSpaces(answer[i][0].store_name);
+            for (let index = 0; index < responseLength; index++) {
+                if (answer[index].length > 0) {
+                    checkEmpty = false;
+                    filteredResponse.push(answer[index]);
+                }
+            }
+
+            if (!checkEmpty) {
+                for (let i = 0; i < filteredResponse.length; i++) {
+
+                    let cleanStoreName = replaceSymbolsAndRemoveSpaces(filteredResponse[i][0].store_name);
+                    let storeName = "employeeSalesTargetList_" + cleanStoreName;
 
                     $("#employeeSalesTargetList").append(
                         `
-                        <div class="col-md-12 col-xs-12">
-                            <div style="box-shadow: 1px 1px 4px 0px #dfdfdf; margin-top: 10px;">
-                                <div class="box box-solid">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">` + answer[i][0].store_name + `</h3>
+                        <div class="" style="margin-top: 10px;">
+                            <div class="panel box box-solid">
+                                <div class="bg-light-blue-active box-header with-border">
+                                    <h4 class="">
+                                        <a class="" style="color: #fff" data-toggle="collapse" data-parent="#accordian" href="#collapse`+ cleanStoreName +`" aria-expanded="true">
+                                        ` + filteredResponse[i][0].store_name + `</a>
+                                    </h4>
 
-                                    </div>
+                                </div>
+                                
+                                <div id="collapse`+ cleanStoreName +`" class="panel-collapse collapse in" aria-expanded="true" style="">
                                     <div id="` + storeName + `" class="box-body">
                                     </div>
                                 </div>
@@ -413,17 +429,28 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
                         `
                     );
 
-                    for (let j = 0; j < answer[i].length; j++) {
+                    for (let j = 0; j < filteredResponse[i].length; j++) {
 
-                        salesTargetData = answer[i][j];
+                        salesTargetData = filteredResponse[i][j];
                         salesTargetData['full_name'] = salesTargetData['first_name'] + " " + salesTargetData['last_name'];
                         let containerName = "#" + storeName + "_container" + j;
-                        console.log(salesTargetData);
 
                         $("#" + storeName).append(
                             `
-                            <div id="` + storeName + `_container` + j + `" class="col-md-6 col-xs-12">
-                                <h4 class="widget-user-username">` + salesTargetData['full_name'] + `</h4>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="box box-widget widget-user-2" style="box-shadow: 0.5px 0.5px 4px 0px #dfdfdf; margin-top: 10px;"> 
+                                    <div class="widget-user-header">
+                                        <h4 class="">` + salesTargetData['full_name'] + `</h4>
+                                        <h5 class="">` + salesTargetData['designation'] + `</h5>
+                                        <h6 style="text-align: right; width: 100%;">ROI: 10%</h5>
+                                        
+                                        <div class="pull-right">
+                                            <h5 style="color: #999;">Target: $` + salesTargetData['sales_target'] + `</h5>
+                                        </div>
+                                        <div id="` + storeName + `_container` + j + `" class="">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             `
                         );
@@ -434,11 +461,17 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
                     }
 
                 }
+            } else {
+                if (document.getElementById("noSalesTargetOverviewDataLabel") == null) {
+                    $("#employeeSalesTargetList").append(
+                        `
+                        <h4 id="noSalesTargetOverviewDataLabel">No data. Please add a sales target.</h4>
+                        `
+                    );
+                }
             }
-
         }
     });
-
 });
 
 function initEmployeeSalesPerformanceOverview() {
@@ -452,14 +485,15 @@ function initEmployeeSalesPerformanceOverview() {
             let selectedMonthArray = [];
             let selectedYearArray = [];
             let selectedStoreArray = [];
+            let currentDate = new Date();
 
             for (let i = 0; i < answer.length; i++) {
                 selectedStoreArray.push(answer[i]['store_id']);
             }
             
-            selectedMonthArray.push("3");
+            selectedMonthArray.push((currentDate.getMonth() + 1).toString());
         
-            selectedYearArray.push("2020");
+            selectedYearArray.push(currentDate.getFullYear().toString());
         
             $.ajax({
                 url: "ajax/employees.ajax.php",
@@ -467,33 +501,42 @@ function initEmployeeSalesPerformanceOverview() {
                 data: { get_all_employees_sales_target: selectedStoreArray, get_selected_months: selectedMonthArray, get_selected_years: selectedYearArray },
                 dataType: "json",
                 success: function (answer) {
+
                     console.log(answer);
-                    console.log(Object.keys(answer).length);
-        
+
                     $("#employeeSalesTargetList").html("");
+    
+                    let responseLength = Object.keys(answer).length;
+                    let checkEmpty = true;
+                    let filteredResponse = [];
+
+                    for (let index = 0; index < responseLength; index++) {
+                        if (answer[index].length > 0) {
+                            checkEmpty = false;
+                            filteredResponse.push(answer[index]);
+                        }
+                    }
+
+                    if (!checkEmpty) {
+                        for (let i = 0; i < filteredResponse.length; i++) {
         
-                    if (Object.keys(answer).length > 0) {
-                        for (let i = 0; i < Object.keys(answer).length; i++) {
-        
-                            let cleanStoreName = replaceSymbolsAndRemoveSpaces(answer[i][0].store_name);
+                            let cleanStoreName = replaceSymbolsAndRemoveSpaces(filteredResponse[i][0].store_name);
                             let storeName = "employeeSalesTargetList_" + cleanStoreName;
         
                             $("#employeeSalesTargetList").append(
                                 `
-                                <div class="col-md-12 col-xs-12">
-                                    <div style="box-shadow: 0.5px 0.5px 4px 0px #dfdfdf; margin-top: 10px;">
-                                        <div class="panel box box-solid">
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">
-                                                    <a class="" data-toggle="collapse" data-parent="#accordian" href="#collapse`+ cleanStoreName +`" aria-expanded="true">
-                                                    ` + answer[i][0].store_name + `</a>
-                                                </h3>
-        
-                                            </div>
-                                            
-                                            <div id="collapse`+ cleanStoreName +`" class="panel-collapse collapse in" aria-expanded="true" style="">
-                                                <div id="` + storeName + `" class="box-body">
-                                                </div>
+                                <div class="" style="margin-top: 10px;">
+                                    <div class="panel box box-solid">
+                                        <div class="bg-light-blue-active box-header with-border">
+                                            <h4 class="">
+                                                <a class="" style="color: #fff" data-toggle="collapse" data-parent="#accordian" href="#collapse`+ cleanStoreName +`" aria-expanded="true">
+                                                ` + filteredResponse[i][0].store_name + `</a>
+                                            </h4>
+    
+                                        </div>
+                                        
+                                        <div id="collapse`+ cleanStoreName +`" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                            <div id="` + storeName + `" class="box-body">
                                             </div>
                                         </div>
                                     </div>
@@ -501,17 +544,28 @@ function initEmployeeSalesPerformanceOverview() {
                                 `
                             );
         
-                            for (let j = 0; j < answer[i].length; j++) {
+                            for (let j = 0; j < filteredResponse[i].length; j++) {
         
-                                salesTargetData = answer[i][j];
+                                salesTargetData = filteredResponse[i][j];
                                 salesTargetData['full_name'] = salesTargetData['first_name'] + " " + salesTargetData['last_name'];
                                 let containerName = "#" + storeName + "_container" + j;
-                                console.log(salesTargetData);
         
                                 $("#" + storeName).append(
                                     `
-                                    <div id="` + storeName + `_container` + j + `" class="col-md-6 col-xs-12">
-                                        <h4>` + salesTargetData['full_name'] + `</h4>
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <div class="box box-widget widget-user-2" style="box-shadow: 0.5px 0.5px 4px 0px #dfdfdf; margin-top: 10px;"> 
+                                            <div class="widget-user-header">
+                                                <h4 class="">` + salesTargetData['full_name'] + `</h4>
+                                                <h5 class="">` + salesTargetData['designation'] + `</h5>
+                                                <h6 style="text-align: right; width: 100%;">ROI: 10%</h5>
+                                                
+                                                <div class="pull-right">
+                                                    <h5 style="color: #999;">Target: $` + salesTargetData['sales_target'] + `</h5>
+                                                </div>
+                                                <div id="` + storeName + `_container` + j + `" class="">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     `
                                 );
@@ -522,8 +576,15 @@ function initEmployeeSalesPerformanceOverview() {
                             }
         
                         }
+                    } else {
+                        if (document.getElementById("noSalesTargetOverviewDataLabel") == null) {
+                            $("#employeeSalesTargetList").append(
+                                `
+                                <h4 id="noSalesTargetOverviewDataLabel">No data. Please add a sales target.</h4>
+                                `
+                            );
+                        }
                     }
-        
                 }
             });
         }
@@ -533,19 +594,35 @@ function initEmployeeSalesPerformanceOverview() {
 
 function initSalesTargetBarForEmployee(salesTargetData, containerName) {
 
-    let percentageCompletion = 1000/salesTargetData['sales_target'];
+    let percentageCompletion = salesTargetData['current_sales_amount']/salesTargetData['sales_target'];
+    let textAlign = "left";
+    let color = "#f0ad4e";
     let percentageCompletionStr = "";
-    if (percentageCompletion === 1) {
-        percentageCompletionStr = (percentageCompletion * 100) - 10 + "%";
+    if (percentageCompletion >= 1) {
+        percentageCompletion = 1;
+        textAlign = "right";
+        color = "#5cb85c";
+        percentageCompletionStr = "0%";
+    } else if (percentageCompletion === 0) {
+        textAlign = "left";
+        percentageCompletionStr = "0%";
     } else {
-        percentageCompletionStr = percentageCompletion * 100 - 5 + "%";
+        if (percentageCompletion > 0.7) {
+            textAlign = "right";
+            percentageCompletionStr = "0%";
+        } else {
+            percentageCompletionStr = percentageCompletion * 100 - 5 + "%";
+        }
+    }
+    if (percentageCompletion < 0.5) {
+        color = "#d9534f";
     }
 
     var bar = new ProgressBar.Line(containerName, {
         strokeWidth: 4,
         easing: 'easeInOut',
         duration: 1400,
-        color: '#0275d8',
+        color: color,
         trailColor: '#eee',
         trailWidth: 1,
         svgStyle: { width: '100%', height: '100%', padding: '10px' },
@@ -553,7 +630,9 @@ function initSalesTargetBarForEmployee(salesTargetData, containerName) {
             style: {
                 // Text color.
                 // Default: same as stroke color (options.color)
+                textAlign: textAlign,
                 color: '#999',
+                width: '100%',
                 right: '0',
                 top: '30px',
                 padding: 0,
@@ -563,11 +642,11 @@ function initSalesTargetBarForEmployee(salesTargetData, containerName) {
             autoStyleContainer: false
         },
         step: (state, bar) => {
-            bar.setText(salesTargetData['sales_target']);
+            bar.setText("$" + salesTargetData['current_sales_amount']);
         }
     });
 
-    bar.animate(1000/salesTargetData['sales_target']);
+    bar.animate(percentageCompletion);
 }
 
 /* INIT jqListbox */

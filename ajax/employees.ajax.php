@@ -6,9 +6,16 @@ if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) die("Invalid Authen
 require_once "../controllers/employee.controller.php";
 require_once "../models/employee.model.php";
 
+require_once "../controllers/sales.controller.php";
+require_once "../models/sales.model.php";
+
 class AjaxEmployees
 {
     public $employeeId;
+
+    public $storeId;
+    public $month;
+    public $year;
 
     public $selectedEmployeeIds;
     public $selectedStores;
@@ -83,15 +90,6 @@ class AjaxEmployees
         echo json_encode($answer);
     }
 
-    public function getAllEmployeesSalesTarget() {
-        $selectedMonths = $this->selectedMonths;
-        $selectedYears = $this->selectedYears;
-
-        $answer = EmployeeController::ctrViewAllEmployeesSalesTarget($selectedMonths, $selectedYears);
-
-        echo json_encode($answer);
-    }
-
     public function postEmployeesSalesTarget() {
         $selectedEmployeeIds = $this->selectedEmployeeIds;
         $selectedStores = $this->selectedStores;
@@ -104,6 +102,17 @@ class AjaxEmployees
         echo json_encode($answer);
     }
 
+    public function getEmployeeCurrentSales()
+    {
+        $employeeId = $this->employeeId;
+        $storeId = $this->storeId;
+        $month = $this->month;
+        $year = $this->year;
+
+        $answer = SalesController::ctrViewEmployeeCurrentSales($employeeId, $storeId, $month, $year);
+
+        echo json_encode($answer);
+    }
 
 }
 
@@ -150,6 +159,16 @@ if (isset($_POST['get_employees_sales_target'])) {
     $getEmployeesSalesTarget -> selectedMonths = $_POST['get_selected_months'];
     $getEmployeesSalesTarget -> selectedYears = $_POST['get_selected_years'];
     $getEmployeesSalesTarget -> getEmployeesSalesTarget();
+}
+
+if (isset($_POST['get_employee_current_sales'])) {
+
+    $getEmployeeCurrentSales = new AjaxEmployees();
+    $getEmployeeCurrentSales -> employeeId = $_POST['get_employee_current_sales'];
+    $getEmployeeCurrentSales -> storeId = $_POST['storeId'];
+    $getEmployeeCurrentSales -> month = $_POST['month'];
+    $getEmployeeCurrentSales -> year = $_POST['year'];
+    $getEmployeeCurrentSales -> getEmployeeCurrentSales();
 }
 
 if (isset($_POST['get_all_employees_sales_target'])) {

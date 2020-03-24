@@ -256,6 +256,17 @@ class EmployeeController
     
                     $currentSalesTarget = EmployeeModel::mdlViewEmployeesSalesTargetbyMonthYear($storeId, $month, $year);
 
+                    for ($index = 0; $index < sizeof($currentSalesTarget); $index++) {
+                        $personId = (int) $currentSalesTarget[$index]['person_id'];
+
+                        $currentSalesAmount = EmployeeModel::mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year);
+
+                        if (is_null($currentSalesAmount[0]['totalsales'])) {
+                            $currentSalesAmount[0]['totalsales'] = 0;
+                        }
+                        $currentSalesTarget[$index]['current_sales_amount'] = $currentSalesAmount[0]['totalsales'];
+                    }
+
                     array_push($retrieveSalesTarget, $currentSalesTarget);
     
                     /*

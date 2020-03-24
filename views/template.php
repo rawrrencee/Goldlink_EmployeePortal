@@ -51,6 +51,8 @@ session_start();
     <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css">
     <!--jqListbox-->
     <link rel="stylesheet" href="views/plugins/jqListbox/jqListbox.css"></script>
+    <!--pace-->
+    <link rel="stylesheet" href="views/plugins/pace/pace.css"></script>
 
     <!--=====================================
   JAVASCRIPT PLUGINS
@@ -110,6 +112,8 @@ session_start();
     <script src="views/plugins/jqListbox/jqListbox.plugin-1.3.min.js"></script>
     <!-- jqListbox.js -->
     <script src="views/plugins/ProgressBar.js/progressbar.min.js"></script>
+    <!-- pace.js -->
+    <script src="views/plugins/pace/pace.js"></script>
 </head>
 
 <!--=====================================
