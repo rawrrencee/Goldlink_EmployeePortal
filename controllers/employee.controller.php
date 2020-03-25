@@ -260,21 +260,20 @@ class EmployeeController
                         $personId = (int) $currentSalesTarget[$index]['person_id'];
 
                         $currentSalesAmount = EmployeeModel::mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year);
+                        $latestSalary = EmployeeModel::mdlViewLatestIndivSalaryVouchers($personId);
 
                         if (is_null($currentSalesAmount[0]['totalsales'])) {
                             $currentSalesAmount[0]['totalsales'] = 0;
                         }
+                        if (is_null($latestSalary[0]['gross_pay'])) {
+                            $latestSalary[0]['gross_pay'] = 0;
+                        }
                         $currentSalesTarget[$index]['current_sales_amount'] = $currentSalesAmount[0]['totalsales'];
+                        $currentSalesTarget[$index]['gross_pay'] = $latestSalary[0]['gross_pay'];
+                        
                     }
-
                     array_push($retrieveSalesTarget, $currentSalesTarget);
-    
-                    /*
-                    foreach ($currentSalesTarget as $index => $salesTargetRecord) {
-                        $fullName = $salesTargetRecord['first_name'].' '.$salesTargetRecord['last_name'];
-                        $retrieveSalesTarget[$fullName] += $salesTargetRecord['sales_target'];
-                    }
-                    */
+                    
                 }
             }
         }

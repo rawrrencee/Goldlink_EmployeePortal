@@ -240,6 +240,15 @@ class EmployeeModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function mdlViewLatestIndivSalaryVouchers($personId) {
+        $table = 'payroll_salary_vouchers';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE person_id = :person_id AND is_draft = 0 AND status = 'Approved' ORDER BY voucher_id DESC LIMIT 1");
+        $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function updateMD5PasswordHash($passwordData)
     {
 

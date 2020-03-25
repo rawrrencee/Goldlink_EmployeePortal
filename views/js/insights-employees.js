@@ -380,6 +380,38 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
         selectedYearArray.push(selectedYears[i]['title']);
     }
 
+    ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray, selectedYearArray);
+});
+
+function initEmployeeSalesPerformanceOverview() {
+
+    $.ajax({
+        url: "ajax/stores.ajax.php",
+        method: "POST",
+        data: { get_all_stores: 0 },
+        dataType: "json",
+        success: function (answer) {
+            let selectedMonthArray = [];
+            let selectedYearArray = [];
+            let selectedStoreArray = [];
+            let currentDate = new Date();
+
+            for (let i = 0; i < answer.length; i++) {
+                if (answer[i]['store_id'] === 4 || answer[i]['store_id'] === 10 || answer[i]['store_id'] === 15 || answer[i]['store_id'] === 16)
+                selectedStoreArray.push(answer[i]['store_id']);
+            }
+            
+            selectedMonthArray.push((currentDate.getMonth() + 1).toString());
+        
+            selectedYearArray.push(currentDate.getFullYear().toString());
+        
+            ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray, selectedYearArray);
+        }
+    });
+
+}
+
+function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray, selectedYearArray) {
     $.ajax({
         url: "ajax/employees.ajax.php",
         method: "POST",
@@ -387,9 +419,33 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
         dataType: "json",
         success: function (answer) {
 
-            console.log(answer);
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            let monthString = "";
+            let yearString = "";
 
             $("#employeeSalesTargetList").html("");
+
+            for (let i = 0; i < selectedMonthArray.length; i++) {
+                if (i + 1 === selectedMonthArray.length) {
+                    monthString += monthNames[selectedMonthArray[i] - 1];
+                } else {
+                    monthString += monthNames[selectedMonthArray[i] - 1] + ", ";
+                }
+            }
+
+            for (let i = 0; i < selectedYearArray.length; i++) {
+                if (i + 1 === selectedYearArray.length) {
+                    yearString += selectedYearArray[i];
+                } else {
+                    yearString += selectedYearArray[i] + ", ";
+                }
+            }
+
+            $("#employeeSalesTargetList").append(
+                `
+                <h4 style="text-align: center; margin-bottom: 10px;">Showing sales performance for `+ monthString + ` ` + yearString + `
+                </h4>`
+            );
 
             let responseLength = Object.keys(answer).length;
             let checkEmpty = true;
@@ -403,6 +459,18 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
             }
 
             if (!checkEmpty) {
+                for (let i = 0; i < filteredResponse.length; i++) {
+                    for (let j = 0; j < filteredResponse[i].length; j++) {
+                        (filteredResponse[i]).sort(function(a, b){
+                            var percentageCompletionA = a.current_sales_amount / a.sales_target;
+                            var percentageCompletionB = b.current_sales_amount / b.sales_target;
+                            if (percentageCompletionA > percentageCompletionB) return -1;
+                            if (percentageCompletionA < percentageCompletionB) return 1;
+                            return 0;
+                        });
+                    }
+                }
+
                 for (let i = 0; i < filteredResponse.length; i++) {
 
                     let cleanStoreName = replaceSymbolsAndRemoveSpaces(filteredResponse[i][0].store_name);
@@ -433,7 +501,12 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
 
                         salesTargetData = filteredResponse[i][j];
                         salesTargetData['full_name'] = salesTargetData['first_name'] + " " + salesTargetData['last_name'];
+                        
                         let containerName = "#" + storeName + "_container" + j;
+                        let returnOnInvestment = (salesTargetData['current_sales_amount'] - salesTargetData['gross_pay'])/salesTargetData['gross_pay'];
+                        if (!isFinite(returnOnInvestment)) {
+                            returnOnInvestment = 0;
+                        }
 
                         $("#" + storeName).append(
                             `
@@ -442,7 +515,7 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
                                     <div class="widget-user-header">
                                         <h4 class="">` + salesTargetData['full_name'] + `</h4>
                                         <h5 class="">` + salesTargetData['designation'] + `</h5>
-                                        <h6 style="text-align: right; width: 100%;">ROI: 10%</h5>
+                                        <h6 style="text-align: right; width: 100%;">ROI: ` + Math.round(returnOnInvestment * 100) + `%</h5>
                                         
                                         <div class="pull-right">
                                             <h5 style="color: #999;">Target: $` + salesTargetData['sales_target'] + `</h5>
@@ -472,124 +545,6 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
             }
         }
     });
-});
-
-function initEmployeeSalesPerformanceOverview() {
-
-    $.ajax({
-        url: "ajax/stores.ajax.php",
-        method: "POST",
-        data: { get_all_stores: 0 },
-        dataType: "json",
-        success: function (answer) {
-            let selectedMonthArray = [];
-            let selectedYearArray = [];
-            let selectedStoreArray = [];
-            let currentDate = new Date();
-
-            for (let i = 0; i < answer.length; i++) {
-                selectedStoreArray.push(answer[i]['store_id']);
-            }
-            
-            selectedMonthArray.push((currentDate.getMonth() + 1).toString());
-        
-            selectedYearArray.push(currentDate.getFullYear().toString());
-        
-            $.ajax({
-                url: "ajax/employees.ajax.php",
-                method: "POST",
-                data: { get_all_employees_sales_target: selectedStoreArray, get_selected_months: selectedMonthArray, get_selected_years: selectedYearArray },
-                dataType: "json",
-                success: function (answer) {
-
-                    console.log(answer);
-
-                    $("#employeeSalesTargetList").html("");
-    
-                    let responseLength = Object.keys(answer).length;
-                    let checkEmpty = true;
-                    let filteredResponse = [];
-
-                    for (let index = 0; index < responseLength; index++) {
-                        if (answer[index].length > 0) {
-                            checkEmpty = false;
-                            filteredResponse.push(answer[index]);
-                        }
-                    }
-
-                    if (!checkEmpty) {
-                        for (let i = 0; i < filteredResponse.length; i++) {
-        
-                            let cleanStoreName = replaceSymbolsAndRemoveSpaces(filteredResponse[i][0].store_name);
-                            let storeName = "employeeSalesTargetList_" + cleanStoreName;
-        
-                            $("#employeeSalesTargetList").append(
-                                `
-                                <div class="" style="margin-top: 10px;">
-                                    <div class="panel box box-solid">
-                                        <div class="bg-light-blue-active box-header with-border">
-                                            <h4 class="">
-                                                <a class="" style="color: #fff" data-toggle="collapse" data-parent="#accordian" href="#collapse`+ cleanStoreName +`" aria-expanded="true">
-                                                ` + filteredResponse[i][0].store_name + `</a>
-                                            </h4>
-    
-                                        </div>
-                                        
-                                        <div id="collapse`+ cleanStoreName +`" class="panel-collapse collapse in" aria-expanded="true" style="">
-                                            <div id="` + storeName + `" class="box-body">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                `
-                            );
-        
-                            for (let j = 0; j < filteredResponse[i].length; j++) {
-        
-                                salesTargetData = filteredResponse[i][j];
-                                salesTargetData['full_name'] = salesTargetData['first_name'] + " " + salesTargetData['last_name'];
-                                let containerName = "#" + storeName + "_container" + j;
-        
-                                $("#" + storeName).append(
-                                    `
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                        <div class="box box-widget widget-user-2" style="box-shadow: 0.5px 0.5px 4px 0px #dfdfdf; margin-top: 10px;"> 
-                                            <div class="widget-user-header">
-                                                <h4 class="">` + salesTargetData['full_name'] + `</h4>
-                                                <h5 class="">` + salesTargetData['designation'] + `</h5>
-                                                <h6 style="text-align: right; width: 100%;">ROI: 10%</h5>
-                                                
-                                                <div class="pull-right">
-                                                    <h5 style="color: #999;">Target: $` + salesTargetData['sales_target'] + `</h5>
-                                                </div>
-                                                <div id="` + storeName + `_container` + j + `" class="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    `
-                                );
-        
-                                initSalesTargetBarForEmployee(salesTargetData, containerName);
-        
-                                
-                            }
-        
-                        }
-                    } else {
-                        if (document.getElementById("noSalesTargetOverviewDataLabel") == null) {
-                            $("#employeeSalesTargetList").append(
-                                `
-                                <h4 id="noSalesTargetOverviewDataLabel">No data. Please add a sales target.</h4>
-                                `
-                            );
-                        }
-                    }
-                }
-            });
-        }
-    });
-
 }
 
 function initSalesTargetBarForEmployee(salesTargetData, containerName) {
@@ -647,6 +602,24 @@ function initSalesTargetBarForEmployee(salesTargetData, containerName) {
     });
 
     bar.animate(percentageCompletion);
+}
+
+function combineSelectionAsString(selectedItems) {
+    let combinedString = "";
+
+    for (let i = 0; i < selectedItems.length; i++) {
+        if (i + 1 === selectedItems.length) {
+            combinedString += selectedItems[i]['text'];
+            break;
+        }
+        combinedString += selectedItems[i]['text'] + ", "
+    }
+
+    return combinedString;
+}
+
+function replaceSymbolsAndRemoveSpaces(str) {
+    return str.replace(/[^A-Z0-9]+/ig, "_");
 }
 
 /* INIT jqListbox */
@@ -721,6 +694,7 @@ $('#filterEmployeeSalesPerformanceByMonth').jqListbox({
     itemRenderer: function (item) {
         return '<li>' + item.title + '</li>';
     },
+    multiselect: false
 });
 
 $('#filterEmployeeSalesPerformanceByYear').jqListbox({
@@ -741,6 +715,7 @@ $('#filterEmployeeSalesPerformanceByYear').jqListbox({
     itemRenderer: function (item) {
         return '<li>' + item.title + '</li>';
     },
+    multiselect: false
 });
 
 $('#modalAddEmployeeSalesTarget').on('hidden.bs.modal', function () {
@@ -776,21 +751,3 @@ $('#modalAddEmployeeSalesTarget').on('shown.bs.modal', function () {
     });
 
 });
-
-function combineSelectionAsString(selectedItems) {
-    let combinedString = "";
-
-    for (let i = 0; i < selectedItems.length; i++) {
-        if (i + 1 === selectedItems.length) {
-            combinedString += selectedItems[i]['text'];
-            break;
-        }
-        combinedString += selectedItems[i]['text'] + ", "
-    }
-
-    return combinedString;
-}
-
-function replaceSymbolsAndRemoveSpaces(str) {
-    return str.replace(/[^A-Z0-9]+/ig, "_");
-}
