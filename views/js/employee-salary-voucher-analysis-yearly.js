@@ -17,6 +17,8 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
     var payToName = "";
     var deduction_SHG = 0.00;
 
+    var finalAmount_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
+    var totalFinalAmount_GAD = 0.00;
     var grossPay_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalGrossPay_GAD = 0.00;
     var cpfEmployee_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
@@ -24,14 +26,18 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
     var selfHelpGroups_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalSelfHelpGroups_GAD = 0.00;
 
+    var totalFA_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var total_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalCPFEE_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalSHG_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
 
+    var grandTotalFA_GAD = 0.00;
     var grandTotal_GAD = 0.00;
     var grandTotalCPFEmployee_GAD = 0.00;
     var grandTotalSHG_GAD = 0.00;
 
+    var finalAmount_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
+    var totalFinalAmount_Doro = 0.00;
     var grossPay_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalGrossPay_Doro = 0.00;
     var cpfEmployee_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
@@ -39,14 +45,18 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
     var selfHelpGroups_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalSelfHelpGroups_Doro = 0.00;
 
+    var totalFA_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var total_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalCPFEE_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalSHG_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
 
+    var grandTotalFA_Doro = 0.00;
     var grandTotal_Doro = 0.00;
     var grandTotalCPFEmployee_Doro = 0.00;
     var grandTotalSHG_Doro = 0.00;
 
+    var finalAmount_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
+    var totalFinalAmount_Goldtech = 0.00;
     var grossPay_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalGrossPay_Goldtech = 0.00;
     var cpfEmployee_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
@@ -54,10 +64,12 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
     var selfHelpGroups_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalSelfHelpGroups_Goldtech = 0.00;
 
+    var totalFA_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var total_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalCPFEE_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
     var totalSHG_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
 
+    var grandTotalFA_Goldtech = 0.00;
     var grandTotal_Goldtech = 0.00;
     var grandTotalCPFEmployee_Goldtech = 0.00;
     var grandTotalSHG_Goldtech = 0.00;
@@ -84,14 +96,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
             var submittedPersonIds_Goldtech = [];
             var submittedPersonNames_Goldtech = [];
 
+            $("#appendFinalAmountContent_yearly_GAD").html("");
             $("#appendAnalysisContent_yearly_GAD").html("");
             $("#appendCPFEmployeeContent_yearly_GAD").html("");
             $("#appendDeductionsSHGContent_yearly_GAD").html("");
 
+            $("#appendFinalAmountContent_yearly_Doro").html("");
             $("#appendAnalysisContent_yearly_Doro").html("");
             $("#appendCPFEmployeeContent_yearly_Doro").html("");
             $("#appendDeductionsSHGContent_yearly_Doro").html("");
 
+            $("#appendFinalAmountContent_yearly_Goldtech").html("");
             $("#appendAnalysisContent_yearly_Goldtech").html("");
             $("#appendCPFEmployeeContent_yearly_Goldtech").html("");
             $("#appendDeductionsSHGContent_yearly_Goldtech").html("");
@@ -126,10 +141,12 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
 
                 deduction_SHG = 0.00;
 
+                finalAmount_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 grossPay_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 cpfEmployee_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 selfHelpGroups_GAD = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
 
+                totalFinalAmount_GAD = 0.00;
                 totalGrossPay_GAD = 0.00;
                 totalCPFEmployee_GAD = 0.00;
                 totalSelfHelpGroups_GAD = 0.00;
@@ -178,14 +195,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                         switch (data[k]['month_of_voucher']) {
                             case 1:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[0] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[0] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[0] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[0] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[0] += parseFloat(data[k]['final_amount']);
                                     total_GAD[0] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[0] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[0] += parseFloat(deduction_SHG);
@@ -193,14 +213,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 2:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[1] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[1] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[1] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[1] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[1] += parseFloat(data[k]['final_amount']);
                                     total_GAD[1] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[1] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[1] += parseFloat(deduction_SHG);
@@ -208,14 +231,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 3:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[2] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[2] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[2] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[2] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[2] += parseFloat(data[k]['final_amount']);
                                     total_GAD[2] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[2] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[2] += parseFloat(deduction_SHG);
@@ -223,14 +249,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 4:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[3] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[3] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[3] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[3] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[3] += parseFloat(data[k]['final_amount']);
                                     total_GAD[3] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[3] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[3] += parseFloat(deduction_SHG);
@@ -238,14 +267,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 5:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[4] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[4] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[4] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[4] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[4] += parseFloat(data[k]['final_amount']);
                                     total_GAD[4] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[4] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[4] += parseFloat(deduction_SHG);
@@ -253,14 +285,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 6:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[5] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[5] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[5] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[5] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[5] += parseFloat(data[k]['final_amount']);
                                     total_GAD[5] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[5] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[5] += parseFloat(deduction_SHG);
@@ -268,14 +303,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 7:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[6] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[6] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[6] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[6] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[6] += parseFloat(data[k]['final_amount']);
                                     total_GAD[6] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[6] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[6] += parseFloat(deduction_SHG);
@@ -283,14 +321,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 8:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[7] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[7] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[7] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[7] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[7] += parseFloat(data[k]['final_amount']);
                                     total_GAD[7] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[7] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[7] += parseFloat(deduction_SHG);
@@ -298,14 +339,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 9:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[8] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[8] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[8] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[8] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[8] += parseFloat(data[k]['final_amount']);
                                     total_GAD[8] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[8] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[8] += parseFloat(deduction_SHG);
@@ -313,14 +357,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 10:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[9] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[9] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[9] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[9] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[9] += parseFloat(data[k]['final_amount']);
                                     total_GAD[9] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[9] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[9] += parseFloat(deduction_SHG);
@@ -328,14 +375,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 11:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[10] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[10] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[10] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[10] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[10] += parseFloat(data[k]['final_amount']);
                                     total_GAD[10] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[10] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[10] += parseFloat(deduction_SHG);
@@ -343,14 +393,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 12:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_GAD[11] += parseFloat(data[k]['final_amount']);
                                     grossPay_GAD[11] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_GAD[11] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_GAD[11] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_GAD += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_GAD += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_GAD += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_GAD += parseFloat(deduction_SHG);
 
+                                    totalFA_GAD[11] += parseFloat(data[k]['final_amount']);
                                     total_GAD[11] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_GAD[11] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_GAD[11] += parseFloat(deduction_SHG);
@@ -363,7 +416,7 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                     }
                 }
 
-                printTable_GAD(personId, payToName, grossPay_GAD, totalGrossPay_GAD, cpfEmployee_GAD, totalCPFEmployee_GAD, selfHelpGroups_GAD, totalSelfHelpGroups_GAD);
+                printTable_GAD(personId, payToName, finalAmount_GAD, totalFinalAmount_GAD, grossPay_GAD, totalGrossPay_GAD, cpfEmployee_GAD, totalCPFEmployee_GAD, selfHelpGroups_GAD, totalSelfHelpGroups_GAD);
             }
 
             for (var j = 0; j < submittedPersonIds_Doro.length; j++) {
@@ -373,10 +426,12 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
 
                 deduction_SHG = 0.00;
 
+                finalAmount_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 grossPay_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 cpfEmployee_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 selfHelpGroups_Doro = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
 
+                totalFinalAmount_Doro = 0.00;
                 totalGrossPay_Doro = 0.00;
                 totalCPFEmployee_Doro = 0.00;
                 totalSelfHelpGroups_Doro = 0.00;
@@ -425,14 +480,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                         switch (data[k]['month_of_voucher']) {
                             case 1:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[0] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[0] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[0] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[0] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[0] += parseFloat(data[k]['final_amount']);
                                     total_Doro[0] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[0] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[0] += parseFloat(deduction_SHG);
@@ -440,14 +498,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 2:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[1] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[1] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[1] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[1] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[1] += parseFloat(data[k]['final_amount']);
                                     total_Doro[1] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[1] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[1] += parseFloat(deduction_SHG);
@@ -455,14 +516,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 3:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[2] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[2] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[2] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[2] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[2] += parseFloat(data[k]['final_amount']);
                                     total_Doro[2] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[2] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[2] += parseFloat(deduction_SHG);
@@ -470,14 +534,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 4:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[3] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[3] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[3] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[3] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[3] += parseFloat(data[k]['final_amount']);
                                     total_Doro[3] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[3] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[3] += parseFloat(deduction_SHG);
@@ -485,14 +552,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 5:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[4] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[4] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[4] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[4] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[4] += parseFloat(data[k]['final_amount']);
                                     total_Doro[4] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[4] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[4] += parseFloat(deduction_SHG);
@@ -500,14 +570,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 6:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[5] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[5] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[5] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[5] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[5] += parseFloat(data[k]['final_amount']);
                                     total_Doro[5] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[5] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[5] += parseFloat(deduction_SHG);
@@ -515,14 +588,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 7:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[6] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[6] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[6] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[6] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[6] += parseFloat(data[k]['final_amount']);
                                     total_Doro[6] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[6] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[6] += parseFloat(deduction_SHG);
@@ -530,14 +606,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 8:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[7] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[7] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[7] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[7] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[7] += parseFloat(data[k]['final_amount']);
                                     total_Doro[7] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[7] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[7] += parseFloat(deduction_SHG);
@@ -545,14 +624,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 9:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[8] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[8] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[8] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[8] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[8] += parseFloat(data[k]['final_amount']);
                                     total_Doro[8] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[8] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[8] += parseFloat(deduction_SHG);
@@ -560,14 +642,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 10:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[9] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[9] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[9] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[9] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[9] += parseFloat(data[k]['final_amount']);
                                     total_Doro[9] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[9] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[9] += parseFloat(deduction_SHG);
@@ -575,14 +660,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 11:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[10] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[10] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[10] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[10] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[10] += parseFloat(data[k]['final_amount']);
                                     total_Doro[10] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[10] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[10] += parseFloat(deduction_SHG);
@@ -590,14 +678,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 12:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Doro[11] += parseFloat(data[k]['final_amount']);
                                     grossPay_Doro[11] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Doro[11] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Doro[11] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Doro += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Doro += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Doro += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Doro += parseFloat(deduction_SHG);
 
+                                    totalFA_Doro[11] += parseFloat(data[k]['final_amount']);
                                     total_Doro[11] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Doro[11] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Doro[11] += parseFloat(deduction_SHG);
@@ -610,7 +701,7 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                     }
                 }
 
-                printTable_Doro(personId, payToName, grossPay_Doro, totalGrossPay_Doro, cpfEmployee_Doro, totalCPFEmployee_Doro, selfHelpGroups_Doro, totalSelfHelpGroups_Doro);
+                printTable_Doro(personId, payToName, finalAmount_Doro, totalFinalAmount_Doro, grossPay_Doro, totalGrossPay_Doro, cpfEmployee_Doro, totalCPFEmployee_Doro, selfHelpGroups_Doro, totalSelfHelpGroups_Doro);
             }
 
             for (var j = 0; j < submittedPersonIds_Goldtech.length; j++) {
@@ -620,10 +711,12 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
 
                 deduction_SHG = 0.00;
 
+                finalAmount_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 grossPay_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 cpfEmployee_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
                 selfHelpGroups_Goldtech = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00];
 
+                totalFinalAmount_Goldtech = 0.00;
                 totalGrossPay_Goldtech = 0.00;
                 totalCPFEmployee_Goldtech = 0.00;
                 totalSelfHelpGroups_Goldtech = 0.00;
@@ -672,14 +765,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                         switch (data[k]['month_of_voucher']) {
                             case 1:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[0] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[0] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[0] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[0] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[0] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[0] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[0] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[0] += parseFloat(deduction_SHG);
@@ -687,14 +783,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 2:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[1] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[1] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[1] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[1] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[1] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[1] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[1] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[1] += parseFloat(deduction_SHG);
@@ -702,14 +801,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 3:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[2] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[2] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[2] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[2] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[2] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[2] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[2] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[2] += parseFloat(deduction_SHG);
@@ -717,14 +819,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 4:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[3] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[3] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[3] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[3] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[3] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[3] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[3] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[3] += parseFloat(deduction_SHG);
@@ -732,14 +837,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 5:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[4] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[4] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[4] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[4] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[4] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[4] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[4] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[4] += parseFloat(deduction_SHG);
@@ -747,14 +855,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 6:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[5] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[5] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[5] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[5] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[5] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[5] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[5] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[5] += parseFloat(deduction_SHG);
@@ -762,14 +873,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 7:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[6] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[6] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[6] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[6] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[6] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[6] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[6] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[6] += parseFloat(deduction_SHG);
@@ -777,14 +891,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 8:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[7] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[7] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[7] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[7] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[7] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[7] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[7] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[7] += parseFloat(deduction_SHG);
@@ -792,14 +909,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 9:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[8] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[8] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[8] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[8] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[8] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[8] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[8] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[8] += parseFloat(deduction_SHG);
@@ -807,14 +927,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 10:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[9] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[9] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[9] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[9] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[9] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[9] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[9] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[9] += parseFloat(deduction_SHG);
@@ -822,14 +945,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 11:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[10] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[10] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[10] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[10] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[10] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[10] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[10] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[10] += parseFloat(deduction_SHG);
@@ -837,14 +963,17 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                                 break;
                             case 12:
                                 if (!isNaN(data[k]['gross_pay'])) {
+                                    finalAmount_Goldtech[11] += parseFloat(data[k]['final_amount']);
                                     grossPay_Goldtech[11] += parseFloat(data[k]['gross_pay']);
                                     cpfEmployee_Goldtech[11] += parseFloat(data[k]['cpf_employee']);
                                     selfHelpGroups_Goldtech[11] += parseFloat(deduction_SHG);
 
+                                    totalFinalAmount_Goldtech += parseFloat(data[k]['final_amount']);
                                     totalGrossPay_Goldtech += parseFloat(data[k]['gross_pay']);
                                     totalCPFEmployee_Goldtech += parseFloat(data[k]['cpf_employee']);
                                     totalSelfHelpGroups_Goldtech += parseFloat(deduction_SHG);
 
+                                    totalFA_Goldtech[11] += parseFloat(data[k]['final_amount']);
                                     total_Goldtech[11] += parseFloat(data[k]['gross_pay']);
                                     totalCPFEE_Goldtech[11] += parseFloat(data[k]['cpf_employee']);
                                     totalSHG_Goldtech[11] += parseFloat(deduction_SHG);
@@ -857,23 +986,44 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                     }
                 }
 
-                printTable_Goldtech(personId, payToName, grossPay_Goldtech, totalGrossPay_Goldtech, cpfEmployee_Goldtech, totalCPFEmployee_Goldtech, selfHelpGroups_Goldtech, totalSelfHelpGroups_Goldtech);
+                printTable_Goldtech(personId, payToName, finalAmount_Goldtech, totalFinalAmount_Goldtech, grossPay_Goldtech, totalGrossPay_Goldtech, cpfEmployee_Goldtech, totalCPFEmployee_Goldtech, selfHelpGroups_Goldtech, totalSelfHelpGroups_Goldtech);
             }
 
             for (var i = 0; i < 12; i++) {
+                grandTotalFA_GAD += totalFA_GAD[i];
                 grandTotal_GAD += total_GAD[i];
                 grandTotalCPFEmployee_GAD += totalCPFEE_GAD[i];
                 grandTotalSHG_GAD += totalSHG_GAD[i];
 
+                grandTotalFA_Doro += totalFA_Doro[i];
                 grandTotal_Doro += total_Doro[i];
                 grandTotalCPFEmployee_Doro += totalCPFEE_Doro[i];
                 grandTotalSHG_Doro += totalSHG_Doro[i];
 
+                grandTotalFA_Goldtech += totalFA_Goldtech[i];
                 grandTotal_Goldtech += total_Goldtech[i];
                 grandTotalCPFEmployee_Goldtech += totalCPFEE_Goldtech[i];
                 grandTotalSHG_Goldtech += totalSHG_Goldtech[i];
             }
 
+            $('#appendFinalAmountContent_yearly_GAD').append(`
+            <tr>
+            <td colspan="2"><strong>Subtotal</strong></td>
+            <td align="right">` + Number(totalFA_GAD[0]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[1]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[2]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[3]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[4]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[5]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[6]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[7]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[8]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[9]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[10]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_GAD[11]).toFixed(2) + `</td>
+            <td align="right">` + Number(grandTotalFA_GAD).toFixed(2) + `</td>
+            </tr>
+            `);
 
             $('#appendAnalysisContent_yearly_GAD').append(`
             <tr>
@@ -932,6 +1082,25 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
             </tr>
             `);
 
+            $('#appendFinalAmountContent_yearly_Doro').append(`
+            <tr>
+            <td colspan="2"><strong>Subtotal</strong></td>
+            <td align="right">` + Number(totalFA_Doro[0]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[1]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[2]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[3]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[4]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[5]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[6]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[7]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[8]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[9]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[10]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Doro[11]).toFixed(2) + `</td>
+            <td align="right">` + Number(grandTotalFA_Doro).toFixed(2) + `</td>
+            </tr>
+            `);
+
             $('#appendAnalysisContent_yearly_Doro').append(`
             <tr>
             <td colspan="2"><strong>Subtotal</strong></td>
@@ -986,6 +1155,25 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
             <td align="right">` + Number(totalSHG_Doro[10]).toFixed(2) + `</td>
             <td align="right">` + Number(totalSHG_Doro[11]).toFixed(2) + `</td>
             <td align="right">` + Number(grandTotalSHG_Doro).toFixed(2) + `</td>
+            </tr>
+            `);
+
+            $('#appendFinalAmountContent_yearly_Goldtech').append(`
+            <tr>
+            <td colspan="2"><strong>Subtotal</strong></td>
+            <td align="right">` + Number(totalFA_Goldtech[0]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[1]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[2]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[3]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[4]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[5]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[6]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[7]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[8]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[9]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[10]).toFixed(2) + `</td>
+            <td align="right">` + Number(totalFA_Goldtech[11]).toFixed(2) + `</td>
+            <td align="right">` + Number(grandTotalFA_Goldtech).toFixed(2) + `</td>
             </tr>
             `);
 
@@ -1049,7 +1237,27 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
     });
 });
 
-function printTable_GAD(personId, payToName, grossPay, totalGrossPay, cpfEmployee_GAD, totalCPFEmployee_GAD, selfHelpGroups_GAD, totalSelfHelpGroups_GAD) {
+function printTable_GAD(personId, payToName, finalAmount, totalFinalAmount, grossPay, totalGrossPay, cpfEmployee_GAD, totalCPFEmployee_GAD, selfHelpGroups_GAD, totalSelfHelpGroups_GAD) {
+    $('#appendFinalAmountContent_yearly_GAD').append(`
+        <tr>
+        <td>` + personId + `</td>
+        <td>` + payToName + `</td>
+        <td align="right">` + Number(finalAmount[0]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[1]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[2]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[3]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[4]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[5]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[6]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[7]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[8]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[9]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[10]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[11]).toFixed(2) + `</td>
+        <td align="right">` + Number(totalFinalAmount).toFixed(2) + `</td>
+        </tr>
+    `);
+
     $('#appendAnalysisContent_yearly_GAD').append(`
         <tr>
         <td>` + personId + `</td>
@@ -1111,7 +1319,27 @@ function printTable_GAD(personId, payToName, grossPay, totalGrossPay, cpfEmploye
     `);
 }
 
-function printTable_Doro(personId, payToName, grossPay, totalGrossPay, cpfEmployee_Doro, totalCPFEmployee_Doro, selfHelpGroups_Doro, totalSelfHelpGroups_Doro) {
+function printTable_Doro(personId, payToName, finalAmount, totalFinalAmount, grossPay,  totalGrossPay, cpfEmployee_Doro, totalCPFEmployee_Doro, selfHelpGroups_Doro, totalSelfHelpGroups_Doro) {
+    $('#appendFinalAmountContent_yearly_Doro').append(`
+        <tr>
+        <td>` + personId + `</td>
+        <td>` + payToName + `</td>
+        <td align="right">` + Number(finalAmount[0]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[1]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[2]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[3]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[4]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[5]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[6]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[7]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[8]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[9]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[10]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[11]).toFixed(2) + `</td>
+        <td align="right">` + Number(totalFinalAmount).toFixed(2) + `</td>
+        </tr>
+    `);
+
     $('#appendAnalysisContent_yearly_Doro').append(`
         <tr>
         <td>` + personId + `</td>
@@ -1173,7 +1401,27 @@ function printTable_Doro(personId, payToName, grossPay, totalGrossPay, cpfEmploy
     `);
 }
 
-function printTable_Goldtech(personId, payToName, grossPay, totalGrossPay, cpfEmployee_Goldtech, totalCPFEmployee_Goldtech, selfHelpGroups_Goldtech, totalSelfHelpGroups_Goldtech) {
+function printTable_Goldtech(personId, payToName, finalAmount, totalFinalAmount, grossPay, totalGrossPay, cpfEmployee_Goldtech, totalCPFEmployee_Goldtech, selfHelpGroups_Goldtech, totalSelfHelpGroups_Goldtech) {
+    $('#appendAnalysisContent_yearly_Goldtech').append(`
+        <tr>
+        <td>` + personId + `</td>
+        <td>` + payToName + `</td>
+        <td align="right">` + Number(finalAmount[0]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[1]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[2]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[3]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[4]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[5]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[6]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[7]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[8]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[9]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[10]).toFixed(2) + `</td>
+        <td align="right">` + Number(finalAmount[11]).toFixed(2) + `</td>
+        <td align="right">` + Number(totalFinalAmount).toFixed(2) + `</td>
+        </tr>
+    `);
+
     $('#appendAnalysisContent_yearly_Goldtech').append(`
         <tr>
         <td>` + personId + `</td>
