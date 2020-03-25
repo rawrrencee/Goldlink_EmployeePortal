@@ -45,6 +45,7 @@
                 <div class="chart">
                     <canvas id="inventoryBarChart" style="height:500px"></canvas>
                 </div>
+                <div id="chartdiv"></div>
             </div>
             <!-- /.box-body -->
         </div>

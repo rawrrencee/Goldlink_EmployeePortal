@@ -114,6 +114,10 @@ session_start();
     <script src="views/plugins/ProgressBar.js/progressbar.min.js"></script>
     <!-- pace.js -->
     <script src="views/plugins/pace/pace.js"></script>
+    <!--amCharts 4.9.11-->
+    <script src="views/plugins/amcharts4/core.js"></script>
+    <script src="views/plugins/amcharts4/charts.js"></script>
+    <script src="views/plugins/amcharts4/themes/animated.js"></script>
 </head>
 
 <!--=====================================
@@ -206,7 +210,6 @@ session_start();
     <script src="views/js/employee-salary-voucher-analysis-yearly.js"></script>
     <script src="views/js/items.js"></script>
     <script src="views/js/item-kits.js"></script>
-    <script src="views/js/insights-inventory.js"></script>
     <script src="views/js/payroll-submit.js"></script>
     <script src="views/js/payroll-functions.js"></script>
     <script src="views/js/payroll-salary-voucher-drafts.js"></script>
