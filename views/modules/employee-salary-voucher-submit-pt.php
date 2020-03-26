@@ -304,8 +304,13 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <input type="hidden" name='newIsSGPR' value="0" />
-                                        <input type="checkbox" class="minimal" id="newIsSGPR" name="newIsSGPR"
-                                            value="1">&nbsp;&nbsp;Yes
+                                        <input <?php
+                                        if ($_SESSION['is_sg_pr'] == 1) {
+                                            echo "checked";
+                                        }
+                                        ?>
+                                        type="checkbox" class="minimal" id="newIsSGPR" name="newIsSGPR"
+                                        value="1">&nbsp;&nbsp;Yes
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                         <input type="hidden" id="newDeductionCPF" value="CPF-EE"
@@ -340,7 +345,29 @@
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <input type="hidden" name='newCSMSelection' value="0" />
-                                    <input checked type="checkbox" class="minimal" id="newCSMSelection"
+                                    <input 
+                                        <?php
+                                        switch($_SESSION['race']) {
+                                                case "Chinese":
+                                                    if ($_SESSION['is_sg_pr'] == 1){
+                                                        echo "checked";
+                                                    }
+                                                    break;
+                                                case "Malay":
+                                                    echo "checked";
+                                                    break;
+                                                case "Indian":
+                                                    echo "checked";
+                                                    break;
+                                                case "Eurasian":
+                                                    if ($_SESSION['is_sg_pr'] == 1){
+                                                        echo "checked";
+                                                    }
+                                                    break;
+                                                default:
+                                                    break;}
+                                        ?> 
+                                        type="checkbox" class="minimal" id="newCSMSelection"
                                         name="newCSMSelection" value="1">&nbsp;&nbsp;Yes
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">

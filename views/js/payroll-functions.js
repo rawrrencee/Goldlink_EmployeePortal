@@ -398,11 +398,6 @@ function setCPF() {
   var monthOfVoucher = parseFloat(document.getElementById("newMonthOfVoucher").value);
   var yearOfVoucher = parseFloat(document.getElementById("newYearOfVoucher").value);
 
-  if (isNaN(monthOfVoucher) || isNaN(yearOfVoucher)) {
-    alert("Please select a month & year for your salary voucher.");
-    return;
-  }
-
   //Voucher CPF is calculated based on the 1st of the month/year of the voucher
   var dateOfVoucher = new Date(yearOfVoucher, monthOfVoucher - 1, 1);
 
