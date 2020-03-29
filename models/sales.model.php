@@ -4,7 +4,7 @@ require_once "connection.php";
 
 class SalesModel
 {
-    public static function mdlViewAllSales()
+    public static function mdlViewTotalSalesForCurrentMonth()
     {
         $stmt = Connection::connect()->prepare("SELECT SUM(allsales) as allsales
         FROM    
@@ -27,14 +27,95 @@ class SalesModel
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
 
-        $stmt->close();
-        $stmt = null;
+    public static function mdlViewStoresWithSalesByTime($startDate, $endDate)
+    {
+
+        $stmt = Connection::connect()->prepare("SELECT stores.store_id, stores.store_name FROM
+        (SELECT store_id
+        FROM    
+        ((SELECT s.store_id
+        FROM sales AS s 
+        INNER JOIN sales_items ON s.sale_id = sales_items.sale_id 
+        INNER JOIN stores ON s.store_id = stores.store_id 
+        INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id 
+        INNER JOIN items ON sales_items.item_id = items.item_id 
+        WHERE DATE(sale_time) >= :startDate AND DATE(sale_time) <= :endDate AND payment_amount != '0' AND discount_percent != '100' GROUP BY s.store_id)
+        UNION ALL
+        (SELECT s.store_id
+        FROM sales AS s 
+        INNER JOIN stores ON s.store_id = stores.store_id 
+        INNER JOIN sales_item_kits ON s.sale_id = sales_item_kits.sale_id
+        INNER JOIN item_kits ON sales_item_kits.item_kit_id = item_kits.item_kit_id
+        INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id 
+        WHERE DATE(sale_time) >= :startDate2 AND DATE(sale_time) <= :endDate2 AND payment_amount != '0' AND discount_percent != '100' GROUP BY s.store_id))
+        AS temp
+        GROUP BY store_id) AS getStores
+        JOIN stores ON getStores.store_id = stores.store_id");
+
+        try {
+
+            $stmt->bindParam(":startDate", $startDate, PDO::PARAM_STR);
+            $stmt->bindParam(":endDate", $endDate, PDO::PARAM_STR);
+            $stmt->bindParam(":startDate2", $startDate, PDO::PARAM_STR);
+            $stmt->bindParam(":endDate2", $endDate, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+
+            $error = print_r($e->getMessage(), true);
+            return $error;
+        }
+    }
+
+    public static function mdlViewTotalSalesForStoreByTime($storeId, $startDate, $endDate)
+    {
+
+        $stmt = Connection::connect()->prepare("SELECT SUM(allsales) as allsales
+        FROM    
+        ((SELECT SUM(CAST( quantity_purchased * item_unit_price * ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) )) AS allsales 
+        FROM sales AS s 
+        INNER JOIN sales_items ON s.sale_id = sales_items.sale_id 
+        INNER JOIN stores ON s.store_id = stores.store_id 
+        INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id 
+        INNER JOIN items ON sales_items.item_id = items.item_id 
+        WHERE s.store_id = :store_id AND DATE(sale_time) >= :startDate AND DATE(sale_time) <= :endDate AND payment_amount != '0' AND discount_percent != '100')
+        UNION ALL
+        (SELECT SUM(CAST( quantity_purchased * item_kit_unit_price * ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) )) AS allsales 
+        FROM sales AS s 
+        INNER JOIN stores ON s.store_id = stores.store_id 
+        INNER JOIN sales_item_kits ON s.sale_id = sales_item_kits.sale_id
+        INNER JOIN item_kits ON sales_item_kits.item_kit_id = item_kits.item_kit_id
+        INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id 
+        WHERE s.store_id = :store_id2 AND DATE(sale_time) >= :startDate2 AND DATE(sale_time) <= :endDate2 AND payment_amount != '0' AND discount_percent != '100'))
+        AS temp");
+
+        try {
+
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id2", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":startDate", $startDate, PDO::PARAM_STR);
+            $stmt->bindParam(":endDate", $endDate, PDO::PARAM_STR);
+            $stmt->bindParam(":startDate2", $startDate, PDO::PARAM_STR);
+            $stmt->bindParam(":endDate2", $endDate, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetchColumn();
+        } catch (Exception $e) {
+
+            $error = print_r($e->getMessage(), true);
+            return $error;
+        }
     }
 
     public static function mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year)
     {
-        $stmt = Connection::connect()->prepare("SELECT SUM(totalsales) as totalsales
+        $stmt = Connection::connect()->prepare(
+            "SELECT SUM(totalsales) as totalsales
         FROM(
         (
         SELECT SUM( CAST( quantity_purchased * item_unit_price * 
@@ -72,6 +153,4 @@ class SalesModel
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    
 }

@@ -118,9 +118,6 @@ class EmployeeModel
         $stmt->execute();
 
         return $stmt->fetch();
-
-        $stmt->close();
-        $stmt = null;
     }
 
     public static function mdlViewEmployeePermissions($personId)
@@ -442,7 +439,7 @@ class EmployeeModel
         return false;
     }
 
-    public static function mdlDeleteAllEmployeePermissions($employeeData)
+    public static function mdlDeleteAllEmployeePermissions($conn, $employeeData)
     {
         $table = 'employees_modules';
         $person_id = $employeeData['person_id'];

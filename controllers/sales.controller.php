@@ -2,11 +2,23 @@
 
 class SalesController
 {
-    public static function ctrViewAllSales()
+    public static function ctrViewTotalSalesForCurrentMonth()
     {
-        $response = SalesModel::mdlViewAllSales();
+        $response = SalesModel::mdlViewTotalSalesForCurrentMonth();
 
         return $response;
+    }
+
+    public static function ctrViewTotalSalesForAllStoresByTime($startDate, $endDate)
+    {
+        $allStores = SalesModel::mdlViewStoresWithSalesByTime($startDate, $endDate);
+
+        for ($index = 0; $index < count($allStores); $index++) {
+            $totalSales = SalesModel::mdlViewTotalSalesForStoreByTime($allStores[$index]['store_id'], $startDate, $endDate);
+            $allStores[$index]['total_sales'] = $totalSales;
+        }
+
+        return $allStores;
     }
 
     public static function ctrViewEmployeeCurrentSales($employeeId, $storeId, $month, $year)
@@ -16,6 +28,4 @@ class SalesController
 
         return $response;
     }
-
-
 }

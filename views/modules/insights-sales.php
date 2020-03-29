@@ -16,26 +16,21 @@
 
     <section class="content">
 
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">Product Sales</h3>
-                <button id="refreshSalesCharts" type="button" class="btn btn-sm btn-info"
-                    style="margin-top: 5px; margin-btm: 5px;">Refresh</button>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                            class="fa fa-times"></i></button>
+        <div class="row">
+            <section class="col-lg-3 col-md-6 col-xs-12 connectedSortable">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Total Sales by Store</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="">
+                            <canvas id="totalSalesByStorePie" height="400"></canvas>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="box-body">
-                <div class="chart">
-                    <canvas id="salesBarChart" style="height:230px"></canvas>
-                </div>
-            </div>
+            </section>
         </div>
 
-    </section>
 </div>
 
 <script src="views/js/insights-sales.js"></script>

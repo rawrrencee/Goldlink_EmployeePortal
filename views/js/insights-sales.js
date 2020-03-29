@@ -1,86 +1,114 @@
-$("#refreshSalesCharts").click(function () {
-    $.ajax({
-        url: "ajax/sales.ajax.php",
-        dataType: "json",
-        method: "POST",
-        data: { get_sales: 0 },
-        success: function (answer) {
-            console.log(answer);
-        }
-    })
+$(document).ready(function () {
+    getCurrentMonthTotalSales();
+    getTotalSalesByTime_DEFAULT();
 });
 
-
-(function () {
-
-    let labels = [];
-    let data = [];
+function getCurrentMonthTotalSales() {
     $.ajax({
         url: "ajax/sales.ajax.php",
         dataType: "json",
         method: "POST",
-        data: { get_sales: 0 },
+        data: {
+            get_total_sales_for_current_month: 0
+        },
         success: function (answer) {
             console.log(answer);
+        }
+    });
+}
+
+function getTotalSalesByTime_DEFAULT() {
+    startDate = '2020-03-01';
+    endDate = '2020-03-29';
+
+    $.ajax({
+        url: "ajax/sales.ajax.php",
+        dataType: "json",
+        method: "POST",
+        data: {
+            get_total_sales_by_start_date: startDate,
+            get_total_sales_by_end_date: endDate
+        },
+        success: function (answer) {
+
+            let labels = [];
+            let data = [];
+            let sum_total_sales = 0;
+
+            console.log(answer);
+            (answer).sort(function(a, b){
+                if (parseFloat(a['total_sales']) > parseFloat(b['total_sales'])) return -1;
+                if (parseFloat(a['total_sales']) < parseFloat(b['total_sales'])) return 1;
+                return 0;
+            });
 
             for (let i = 0; i < answer.length; i++) {
-                data.push(answer[i]['allsales']);
-                labels.push(answer[i]['sales.sale_time']);
+                if (answer[i]['total_sales'] == 0) {
+                    continue;
+                }
+                labels.push(answer[i]['store_name']);
+                data.push(answer[i]['total_sales']);
+                sum_total_sales += parseFloat(answer[i]['total_sales']);
             }
 
-            // Create the chart.js data structure using 'labels' and 'data'
-            var tempData = {
-                labels: labels,
-                datasets: [
-                    {
-                        fillColor: "rgba(151,187,205,0.2)",
-                        strokeColor: "rgba(151,187,205,1)",
-                        pointColor: "rgba(151,187,205,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: data
+            /* Create color array */
+            const dataLength = data.length;
+            const colorScale = d3.interpolateRdYlBu;
+
+            const colorRangeInfo = {
+                colorStart: 0.2,
+                colorEnd: 1,
+                useEndAsStart: false,
+            };
+            var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
+
+            var ctx = document.getElementById('totalSalesByStorePie').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Store',
+                        data: data,
+                        backgroundColor: COLORS,
+                        hoverBackgroundColor: COLORS,
+                        borderColor: COLORS,
+                        borderWidth: 1
+                    }],
+                },
+                options: {
+                    title: {
+                      display: true,
+                      text: 'Total sales (month to date): $' + Number(sum_total_sales).toFixed(2),
+                      position: 'top',
+                      fontSize: 14
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
                     }
-                ]
-            }
-
-            // create options variable
-            var tempOptions = {
-                //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-                scaleBeginAtZero: true,
-                //Boolean - Whether grid lines are shown across the chart
-                scaleShowGridLines: true,
-                //String - Colour of the grid lines
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                //Number - Width of the grid lines
-                scaleGridLineWidth: 1,
-                //Boolean - Whether to show horizontal lines (except X axis)
-                scaleShowHorizontalLines: true,
-                //Boolean - Whether to show vertical lines (except Y axis)
-                scaleShowVerticalLines: true,
-                //Boolean - If there is a stroke on each bar
-                barShowStroke: true,
-                //Number - Pixel width of the bar stroke
-                barStrokeWidth: 2,
-                //Number - Spacing between each of the X value sets
-                barValueSpacing: 5,
-                //Number - Spacing between data sets within X values
-                barDatasetSpacing: 1,
-                //String - A legend template
-                legendTemplate:
-                    '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-                //Boolean - whether to make the chart responsive
-                responsive: true,
-                maintainAspectRatio: true
-            }
-
-            // Get the context of the canvas element we want to select
-            var ctx = $('#salesBarChart').get(0).getContext('2d');
-            tempOptions.datasetFill = false
-            // Instantiate a new chart
-            var barChart = new Chart(ctx).Bar(tempData, tempOptions);
+                },
+            });
 
         }
-    })
+    });
+}
 
-})();
+function getTotalSalesByTime() {
+    startDate = '2020-03-01';
+    endDate = '2020-03-14';
+
+    $.ajax({
+        url: "ajax/sales.ajax.php",
+        dataType: "json",
+        method: "POST",
+        data: {
+            get_total_sales_by_start_date: startDate,
+            get_total_sales_by_end_date: endDate
+        },
+        success: function (answer) {
+            console.log(answer);
+        }
+    });
+}

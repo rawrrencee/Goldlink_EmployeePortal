@@ -672,7 +672,7 @@ class EmployeeController
 
             //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
-            if (!response) {
+            if (!$response) {
                 echo '<script>
                 swal({
 
