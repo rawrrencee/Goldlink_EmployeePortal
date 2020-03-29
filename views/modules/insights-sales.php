@@ -17,19 +17,159 @@
     <section class="content">
 
         <div class="row">
-            <section class="col-lg-3 col-md-6 col-xs-12 connectedSortable">
+            <section class="col-lg-12 col-md-12 col-xs-12 connectedSortable">
+
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Total Sales by Product</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-xs-12 pull-right">
+                                <button id="filterTotalProductSalesByDateButtonDown" class="btn btn-default pull-right" style="width: 100%;">Filter <i class="fa fa-angle-down"></i></button>
+                                <button id="filterTotalProductSalesByDateButtonUp" class="btn btn-default pull-right" style="width: 100%;">Filter <i class="fa fa-angle-up"></i></button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-lg-6 col-md-6 col-xs-12 pull-right">
+                                <div id="currentFilterTotalSalesByProductDatePeriodMsg"></div>
+                            </div>
+                        </div>
+                        <div id="filterTotalProductSalesByDate" style="margin-top: 10px; margin-left: 20px; margin-right: 20px;">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <label for="totalProductSalesByEndDate">End Date:</label>
+                                    <input type="text" id="totalProductSalesByEndDate" class="form-control datepicker" style="background-color: white;">
+                                </div>
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <label for="totalProductSalesByStartDate">Start Date:</label>
+                                    <input type="text" id="totalProductSalesByStartDate" class="form-control datepicker" style="background-color: white;">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12 pull-right">
+                                    <div id="filterTotalProductSalesByDateMsg"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <button id="totalProductSalesByDateFilterApply" type="button" class="btn btn-info pull-right" style="margin-top: 10px;">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12" style="margin-top: 20px; margin-left: 20px;">
+                                <h3 class="text-center"><b>Items</b></h3>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-lg-6">
+                                <canvas id="totalItemSalesByDateBar" height="400"></canvas>
+                            </div>
+                            <div class="col-lg-6">
+
+                                <table id="totalItemSalesByDateTable" class="table table-hover table-bordered table-striped dt-responsive" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Item Category</th>
+                                            <th>Unit Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total Sales</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="totalItemSalesByDateTableBody">
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12" style="margin-top: 20px; margin-left: 20px;">
+                                <h3 class="text-center"><b>Item Kits</b></h3>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-lg-6">
+                                <canvas id="totalItemKitSalesByDateBar" height="400"></canvas>
+                            </div>
+                            <div class="col-lg-6">
+
+                                <table id="totalItemKitSalesByDateTable" class="table table-hover table-bordered table-striped dt-responsive" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Kit Name</th>
+                                            <th>Item Kit Category</th>
+                                            <th>Unit Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total Sales</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="totalItemKitSalesByDateTableBody">
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">Total Sales by Store</h3>
                     </div>
                     <div class="box-body">
-                        <div class="">
-                            <canvas id="totalSalesByStorePie" height="400"></canvas>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-xs-12 pull-right">
+                                <button id="filterTotalSalesByDateButtonDown" class="btn btn-default pull-right" style="width: 100%;">Filter <i class="fa fa-angle-down"></i></button>
+                                <button id="filterTotalSalesByDateButtonUp" class="btn btn-default pull-right" style="width: 100%;">Filter <i class="fa fa-angle-up"></i></button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-lg-6 col-md-6 col-xs-12 pull-right">
+                                <div id="currentFilterTotalSalesByStoreDatePeriodMsg"></div>
+                            </div>
+                        </div>
+                        <div id="filterTotalSalesByStoreByDate" style="margin-top: 10px; margin-left: 20px; margin-right: 20px;">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <label for="totalSalesByStoreEndDate">End Date:</label>
+                                    <input type="text" id="totalSalesByStoreEndDate" class="form-control datepicker" style="background-color: white;">
+                                </div>
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <label for="totalSalesByStoreStartDate">Start Date:</label>
+                                    <input type="text" id="totalSalesByStoreStartDate" class="form-control datepicker" style="background-color: white;">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12 pull-right">
+                                    <div id="filterTotalSalesByStoreByDateMsg"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <button id="totalSalesByStoreFilterApply" type="button" class="btn btn-info pull-right" style="margin-top: 10px;">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-lg-12">
+                                <canvas id="totalSalesByStoreBar" height="400"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </section>
         </div>
+</div>
 
 </div>
 
