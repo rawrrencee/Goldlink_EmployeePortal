@@ -91,6 +91,28 @@ class AjaxSales
         echo json_encode($answer);
     }
 
+    public function getTotalItemSalesByStoreCodeAndTime() {
+
+        $startDate = $this->startDate;
+        $endDate = $this->endDate;
+        $storeCode = $this->storeCode;
+
+        $answer = SalesController::ctrViewTotalItemSalesByStoreCodeAndTime($startDate, $endDate, $storeCode);
+
+        echo json_encode($answer);
+    }
+
+    public function getTotalItemKitSalesByStoreCodeAndTime() {
+
+        $startDate = $this->startDate;
+        $endDate = $this->endDate;
+        $storeCode = $this->storeCode;
+
+        $answer = SalesController::ctrViewTotalItemKitSalesByStoreCodeAndTime($startDate, $endDate, $storeCode);
+
+        echo json_encode($answer);
+    }
+
 }
 
 if (isset($_POST['get_total_sales_for_current_month'])) {
@@ -144,4 +166,24 @@ if (isset($_POST['get_total_item_kit_sales_by_start_date']) && isset($_POST['get
     $getTotalItemKitSalesByTime -> endDate = $_POST['get_total_item_kit_sales_by_end_date'];
 
     $getTotalItemKitSalesByTime -> getTotalItemKitSalesByTime();
+}
+
+if (isset($_POST['get_total_item_sales_by_storecode_start_date']) && isset($_POST['get_total_item_sales_by_storecode_end_date']) && isset($_POST['get_total_item_sales_by_storecode'])) {
+
+    $getTotalItemSalesByStoreCodeAndTime = new AjaxSales();
+    $getTotalItemSalesByStoreCodeAndTime -> startDate = $_POST['get_total_item_sales_by_storecode_start_date'];
+    $getTotalItemSalesByStoreCodeAndTime -> endDate = $_POST['get_total_item_sales_by_storecode_end_date'];
+    $getTotalItemSalesByStoreCodeAndTime -> storeCode = $_POST['get_total_item_sales_by_storecode'];
+
+    $getTotalItemSalesByStoreCodeAndTime -> getTotalItemSalesByStoreCodeAndTime();
+}
+
+if (isset($_POST['get_total_item_kit_sales_by_storecode_start_date']) && isset($_POST['get_total_item_kit_sales_by_storecode_end_date']) && isset($_POST['get_total_item_sales_by_storecode'])) {
+
+    $getTotalItemKitSalesByStoreCodeAndTime = new AjaxSales();
+    $getTotalItemKitSalesByStoreCodeAndTime -> startDate = $_POST['get_total_item_kit_sales_by_storecode_start_date'];
+    $getTotalItemKitSalesByStoreCodeAndTime -> endDate = $_POST['get_total_item_kit_sales_by_storecode_end_date'];
+    $getTotalItemKitSalesByStoreCodeAndTime -> storeCode = $_POST['get_total_item_sales_by_storecode'];
+
+    $getTotalItemKitSalesByStoreCodeAndTime -> getTotalItemKitSalesByStoreCodeAndTime();
 }

@@ -63,11 +63,40 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 10px;">
-                            <div class="col-lg-12">
-                                <canvas id="totalSalesByStoreBar" height="400"></canvas>
+                        <div class="row">
+                            <div class="col-lg-12" style="margin-top: 20px;">
+                                <h3 class="text-center"><b>Sales by Store</b></h3>
+                            </div>
+                            <div id="displayTotalSalesByStoreDataMsg" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="text-center text-info">Displaying sales for <b>all stores</b>
+                                </h5>
                             </div>
                         </div>
+                        <hr/>
+
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-lg-6">
+                                <canvas id="totalSalesByStoreBar" height="400"></canvas>
+                            </div>
+                            <div class="col-lg-6">
+                                <table id="totalSalesByStoreTable"
+                                    class="table table-hover table-bordered table-striped dt-responsive" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Item/Item Kit Name</th>
+                                            <th>Category</th>
+                                            <th>Unit Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total Sales</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="totalSalesByStoreTableBody">
+                                        <td colspan="5" class="text-center">Select a store on the chart to view items sold.</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -118,7 +147,7 @@
                         <hr />
 
                         <div class="row">
-                            <div class="col-lg-12" style="margin-top: 20px; margin-left: 20px;">
+                            <div class="col-lg-12" style="margin-top: 20px;">
                                 <h3 class="text-center"><b>Items</b></h3>
                             </div>
                         </div>
@@ -150,7 +179,7 @@
                         <hr />
 
                         <div class="row">
-                            <div class="col-lg-12" style="margin-top: 20px; margin-left: 20px;">
+                            <div class="col-lg-12" style="margin-top: 20px;">
                                 <h3 class="text-center"><b>Item Kits</b></h3>
                             </div>
                         </div>
@@ -182,7 +211,7 @@
                         <hr />
 
                         <div class="row">
-                            <div class="col-lg-12" style="margin-top: 20px; margin-left: 20px;">
+                            <div class="col-lg-12" style="margin-top: 20px;">
                                 <h3 class="text-center"><b>Categories</b></h3>
                             </div>
                         </div>

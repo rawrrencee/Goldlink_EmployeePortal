@@ -57,6 +57,20 @@ class SalesController
         return $totalItemKitSales;
     }
 
+    public static function ctrViewTotalItemSalesByStoreCodeAndTime($startDate, $endDate, $storeCode)
+    {
+        $totalItemSales = SalesModel::mdlViewTotalItemSalesByStoreCodeAndDate($startDate, $endDate, $storeCode);
+
+        return $totalItemSales;
+    }
+
+    public static function ctrViewTotalItemKitSalesByByStoreCodeAndTime($startDate, $endDate, $storeCode)
+    {
+        $totalItemKitSales = SalesModel::mdlViewTotalItemKitSalesByByStoreCodeAndDate($startDate, $endDate, $storeCode);
+
+        return $totalItemKitSales;
+    }
+
     public static function ctrViewEmployeeCurrentSales($employeeId, $storeId, $month, $year)
     {
 

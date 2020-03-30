@@ -93,8 +93,8 @@
 
                         <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
                             <div id="displayCategoryInventoryDataMsg" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <h4 class="text-center text-info">Select a category from above to view inventory level.
-                                </h4>
+                                <h5 class="text-center text-info">Select a category from above to view inventory level.
+                                </h5>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 40px;">
                                 <canvas id="categoryInventoryItemsByDateChart" height="450"></canvas>

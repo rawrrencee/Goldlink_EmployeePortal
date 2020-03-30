@@ -440,6 +440,7 @@ function initCategoryInventoryItemsByDateTable(ajaxResponse) {
         $("#categoryInventoryItemsByDateTable").DataTable().destroy();
     }
     if (ajaxResponse.length === 0) {
+        $("#categoryInventoryItemsByDateTableBody").html("");
         $("#categoryInventoryItemsByDateTableBody").append(
             `
           <tr>
@@ -489,6 +490,7 @@ function initPdtCatSalesInventoryTable(ajaxResponse) {
         $("#pdtCatSalesInventoryByDateTable").DataTable().destroy();
     }
     if (ajaxResponse.length === 0) {
+        $("#pdtCatSalesInventoryByDateTableBody").html("");
         $("#pdtCatSalesInventoryByDateTableBody").append(
             `
           <tr>
@@ -497,6 +499,7 @@ function initPdtCatSalesInventoryTable(ajaxResponse) {
           `
         );
     } else {
+        $("#pdtCatSalesInventoryByDateTableBody").html("");
         for (let i = 0; i < ajaxResponse.length; i++) {
             $("#pdtCatSalesInventoryByDateTableBody").append(
                 `

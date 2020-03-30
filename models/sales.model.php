@@ -269,6 +269,66 @@ class SalesModel
         }
     }
 
+    public static function mdlViewTotalItemSalesByStoreCodeAndDate($startDate, $endDate, $storeCode)
+    {
+        $stmt = Connection::connect()->prepare(
+            "SELECT sales_items.item_id, items.name, items.category, items.item_number, items.unit_price, SUM(quantity_purchased) AS totalQty, SUM(CAST( quantity_purchased * item_unit_price * ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ))  AS totalDiscSales, SUM(CAST( quantity_purchased * item_unit_price AS DECIMAL( 6, 2 ) ))  AS totalNonDiscSales
+            FROM sales AS s
+            INNER JOIN sales_items ON s.sale_id = sales_items.sale_id
+            INNER JOIN stores ON s.store_id = stores.store_id
+            INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id
+            INNER JOIN items ON sales_items.item_id = items.item_id
+            WHERE DATE(sale_time) >= :startDate AND DATE(sale_time) <= :endDate AND payment_amount != '0'
+            AND discount_percent != '100' AND stores.store_code = :storeCode
+            GROUP BY sales_items.item_id"
+        );
+
+        try {
+
+            $stmt->bindParam(":startDate", $startDate, PDO::PARAM_STR);
+            $stmt->bindParam(":endDate", $endDate, PDO::PARAM_STR);
+            $stmt->bindParam(":storeCode", $storeCode, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+
+            $error = print_r($e->getMessage(), true);
+            return $error;
+        }
+    }
+
+    public static function mdlViewTotalItemKitSalesByStoreCodeAndDate($startDate, $endDate, $storeCode)
+    {
+        $stmt = Connection::connect()->prepare(
+            "SELECT sales_item_kits.item_kit_id, item_kits.name, item_kits.category, item_kits.item_kit_number, item_kits.unit_price, SUM(quantity_purchased) AS totalQty, SUM(CAST( quantity_purchased * item_kit_unit_price * ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ))  AS totalDiscSales, SUM(CAST( quantity_purchased * item_kit_unit_price AS DECIMAL( 6, 2 ) ))  AS totalNonDiscSales
+            FROM sales AS s
+            INNER JOIN stores ON s.store_id = stores.store_id
+            INNER JOIN sales_item_kits ON s.sale_id = sales_item_kits.sale_id
+            INNER JOIN item_kits ON sales_item_kits.item_kit_id = item_kits.item_kit_id
+            INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id
+            WHERE DATE(sale_time) >= :startDate AND DATE(sale_time) <= :endDate AND payment_amount != '0'
+            AND discount_percent != '100' AND stores.store_code = :storeCode
+            GROUP BY sales_item_kits.item_kit_id"
+        );
+
+        try {
+
+            $stmt->bindParam(":startDate", $startDate, PDO::PARAM_STR);
+            $stmt->bindParam(":endDate", $endDate, PDO::PARAM_STR);
+            $stmt->bindParam(":storeCode", $storeCode, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+
+            $error = print_r($e->getMessage(), true);
+            return $error;
+        }
+    }
+
     public static function mdlViewTotalItemSalesByDate($startDate, $endDate)
     {
         $stmt = Connection::connect()->prepare(

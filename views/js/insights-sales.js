@@ -197,7 +197,7 @@ function getTotalItemSalesByTime_DEFAULT() {
         },
         success: function (answer) {
             initTotalItemSalesByStoreChart(answer);
-            initTotalItemSalesByStoreTable(answer);
+            initTotalItemSalesByDateTable(answer);
         }
     });
 
@@ -211,7 +211,7 @@ function getTotalItemSalesByTime_DEFAULT() {
         },
         success: function (answer) {
             initTotalItemKitSalesByDateChart(answer);
-            initTotalItemKitSalesByStoreTable(answer);
+            initTotalItemKitSalesByDateTable(answer);
             initDisplayFilterTotalSalesByProductDateMsg(startDate, endDate);
         }
     });
@@ -229,7 +229,7 @@ function getTotalItemSalesByTime(startDate, endDate) {
         },
         success: function (answer) {
             initTotalItemSalesByStoreChart(answer);
-            initTotalItemSalesByStoreTable(answer);
+            initTotalItemSalesByDateTable(answer);
         }
     });
 
@@ -243,7 +243,7 @@ function getTotalItemSalesByTime(startDate, endDate) {
         },
         success: function (answer) {
             initTotalItemKitSalesByDateChart(answer);
-            initTotalItemKitSalesByStoreTable(answer);
+            initTotalItemKitSalesByDateTable(answer);
             initDisplayFilterTotalSalesByProductDateMsg(startDate, endDate);
         }
     });
@@ -285,8 +285,6 @@ function getTotalSalesByTime_DEFAULT() {
     });
 }
 
-
-
 function getTotalSalesByTime(startDate, endDate) {
     $.ajax({
         url: "ajax/sales.ajax.php",
@@ -297,7 +295,14 @@ function getTotalSalesByTime(startDate, endDate) {
             get_total_sales_by_end_date: endDate
         },
         success: function (answer) {
+            let initEmptyTable = [];
+            if (answer.length === 0) {
+                displayTotalSalesByStoreDataMsg("Some data was not available for the store requested.");
+            } else {
+                displayTotalSalesByStoreDataMsg("Displaying results for <b>all stores</b>");
+            }
             initTotalSalesByStoreChart(answer);
+            initTotalSalesByStoreAndDateTable(initEmptyTable);
             initDisplayFilterTotalSalesByStoreDateMsg(startDate, endDate);
         }
     });
@@ -340,7 +345,7 @@ function initTotalCategorySalesByStoreTable(ajaxResponse) {
 
 }
 
-function initTotalItemSalesByStoreTable(ajaxResponse) {
+function initTotalItemSalesByDateTable(ajaxResponse) {
     $("#totalItemSalesByDateTableBody").html("");
 
     if ($.fn.DataTable.isDataTable('#totalItemSalesByDateTable')) {
@@ -356,6 +361,7 @@ function initTotalItemSalesByStoreTable(ajaxResponse) {
             `
         );
     } else {
+        $("#totalItemSalesByDateTableBody").html("");
         for (let i = 0; i < ajaxResponse.length; i++) {
             $("#totalItemSalesByDateTableBody").append(
                 `
@@ -379,7 +385,7 @@ function initTotalItemSalesByStoreTable(ajaxResponse) {
 
 }
 
-function initTotalItemKitSalesByStoreTable(ajaxResponse) {
+function initTotalItemKitSalesByDateTable(ajaxResponse) {
     $("#totalItemKitSalesByDateTableBody").html("");
 
     if ($.fn.DataTable.isDataTable('#totalItemKitSalesByDateTable')) {
@@ -396,6 +402,7 @@ function initTotalItemKitSalesByStoreTable(ajaxResponse) {
             `
         );
     } else {
+        $("#totalItemKitSalesByDateTableBody").html("");
         for (let i = 0; i < ajaxResponse.length; i++) {
             $("#totalItemKitSalesByDateTableBody").append(
                 `
@@ -417,6 +424,102 @@ function initTotalItemKitSalesByStoreTable(ajaxResponse) {
         }
     }
 
+}
+
+function initTotalSalesByStoreAndDateTable(ajaxResponse) {
+    $("#totalSalesByStoreTableBody").html("");
+
+    if ($.fn.DataTable.isDataTable('#totalSalesByStoreTable')) {
+        $("#totalSalesByStoreTable").DataTable().destroy();
+    }
+    if (ajaxResponse.length === 0) {
+        $("#totalSalesByStoreTableBody").html("");
+        $("#totalSalesByStoreTableBody").append(
+            `
+            <tr>
+                <td class="text-center" colspan="5">Select a store on the chart to view items sold.</td>
+            </tr>
+            `
+        );
+    } else {
+        $("#totalSalesByStoreTableBody").html("");
+        for (let i = 0; i < ajaxResponse.length; i++) {
+            $("#totalSalesByStoreTableBody").append(
+                `
+                <tr>
+                    <td>` + ajaxResponse[i]['name'] + `</td>
+                    <td>` + ajaxResponse[i]['category'] + `</td>
+                    <td>` + ajaxResponse[i]['unit_price'] + `</td>
+                    <td>` + ajaxResponse[i]['totalQty'] + `</td>
+                    <td>` + ajaxResponse[i]['totalDiscSales'] + `</td>
+                </tr>
+                `
+            );
+        }
+        if (!$.fn.DataTable.isDataTable('#totalSalesByStoreTable')) {
+            $("#totalSalesByStoreTable").DataTable({
+                "lengthMenu": [5, 10, 15, 20, 50, 100],
+                "order": [4, 'desc']
+            });
+        }
+    }
+
+}
+
+
+function totalSalesByStoreBarOnClick(event, array){
+    if (array[0] == undefined) {
+        return;
+    }
+    let storeCode = array[0]._chart.config.data.labels[array[0]._index];
+
+    let startDate = $("#totalSalesByStoreStartDate").val();
+    let endDate = $("#totalSalesByStoreEndDate").val();
+
+    if (startDate === "" || endDate === "") {
+        swal({
+
+            type: "info",
+            title: "Missing data",
+            text: "Please set start and end date in the filter above, or press confirm to check for the current month.",
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Use current month"
+        }).then((result) => {
+            if (result.value) {
+                let date = new Date();
+                let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                startDate = moment(firstDay).format('YYYY-MM-DD');
+                endDate = moment(date).format('YYYY-MM-DD');
+                getTotalSalesByStore(startDate, endDate, storeCode);
+            }
+        });
+    } else {
+        getTotalSalesByStore(startDate, endDate, storeCode);
+    }
+
+
+}
+
+function getTotalSalesByStore(startDate, endDate, storeCode) {
+    $.ajax({
+        url: "ajax/sales.ajax.php",
+        dataType: "json",
+        method: "POST",
+        data: {
+            get_total_item_sales_by_storecode_start_date: startDate,
+            get_total_item_sales_by_storecode_end_date: endDate,
+            get_total_item_sales_by_storecode: storeCode
+        },
+        success: function (answer) {
+            if (answer.length === 0) {
+                displayTotalSalesByStoreDataMsg("Some data was not available for the store requested.");
+            } else {
+                displayTotalSalesByStoreDataMsg("Displaying results for <b>" + storeCode + "</b>");
+            }
+            initTotalSalesByStoreAndDateTable(answer);
+        }
+    });
 }
 
 function initTotalSalesByStoreChart(ajaxResponse) {
@@ -471,6 +574,7 @@ function initTotalSalesByStoreChart(ajaxResponse) {
             }],
         },
         options: {
+            onClick: totalSalesByStoreBarOnClick,
             plugins: {
                 datalabels: {
                     align: 'end',
@@ -848,4 +952,18 @@ function initDisplayFilterTotalSalesByStoreDateMsg(startDate, endDate) {
         <p class="text-info">Displaying results for <b>` + startDate + ` - ` + endDate + `</b></p>
         `
     );
+}
+
+function displayTotalSalesByStoreDataMsg(message) {
+    if (message.length > 0) {
+        $("#displayTotalSalesByStoreDataMsg").html("");
+        $("#displayTotalSalesByStoreDataMsg").append(
+            `
+            <h5 class="text-center text-info" style="margin-top: 20px;">` + message + `
+            </h5>
+            `
+        );
+    } else {
+        $("#displayTotalSalesByStoreDataMsg").html("");
+    }
 }
