@@ -104,7 +104,9 @@ $("#resetStoreOfSalesTargetSelection").click(function () {
     $.ajax({
         url: "ajax/stores.ajax.php",
         method: "POST",
-        data: { get_all_stores: 0 },
+        data: {
+            get_all_stores: 0
+        },
         dataType: "json",
         success: function (answer) {
             for (let i = 0; i < answer.length; i++) {
@@ -128,7 +130,9 @@ $("#resetStoreOfSalesFilter").click(function () {
     $.ajax({
         url: "ajax/stores.ajax.php",
         method: "POST",
-        data: { get_all_stores: 0 },
+        data: {
+            get_all_stores: 0
+        },
         dataType: "json",
         success: function (answer) {
             for (let i = 0; i < answer.length; i++) {
@@ -195,7 +199,12 @@ $("#retrieveSalesTarget").click(function () {
     $.ajax({
         url: "ajax/employees.ajax.php",
         method: "POST",
-        data: { get_employees_sales_target: selectedEmployeeIdArray, get_selected_stores: selectedStoreArray, get_selected_months: selectedMonthArray, get_selected_years: selectedYearArray },
+        data: {
+            get_employees_sales_target: selectedEmployeeIdArray,
+            get_selected_stores: selectedStoreArray,
+            get_selected_months: selectedMonthArray,
+            get_selected_years: selectedYearArray
+        },
         dataType: "json",
         success: function (answer) {
             $('#updateSalesTarget').html("");
@@ -222,7 +231,7 @@ $("#retrieveSalesTarget").click(function () {
                 $("#currentSalesTarget").val("Mixed");
             }
         }
-    })
+    });
 
 });
 
@@ -255,11 +264,17 @@ $("#updateSalesTargetButton").click(function () {
     }
 
     newSalesTarget = $('#newSalesTarget').val();
-    
+
     $.ajax({
         url: "ajax/employees.ajax.php",
         method: "POST",
-        data: { post_employees_sales_target: selectedEmployeeIdArray, get_selected_stores: selectedStoreArray, get_selected_months: selectedMonthArray, get_selected_years: selectedYearArray, get_new_sales_target: newSalesTarget },
+        data: {
+            post_employees_sales_target: selectedEmployeeIdArray,
+            get_selected_stores: selectedStoreArray,
+            get_selected_months: selectedMonthArray,
+            get_selected_years: selectedYearArray,
+            get_new_sales_target: newSalesTarget
+        },
         dataType: "json",
         success: function (answer) {
 
@@ -329,7 +344,9 @@ $("#filterEmployeeSalesChartsButtonDown").click(function () {
     $.ajax({
         url: "ajax/stores.ajax.php",
         method: "POST",
-        data: { get_all_stores: 0 },
+        data: {
+            get_all_stores: 0
+        },
         dataType: "json",
         success: function (answer) {
             for (let i = 0; i < answer.length; i++) {
@@ -388,7 +405,9 @@ function initEmployeeSalesPerformanceOverview() {
     $.ajax({
         url: "ajax/stores.ajax.php",
         method: "POST",
-        data: { get_all_stores: 0 },
+        data: {
+            get_all_stores: 0
+        },
         dataType: "json",
         success: function (answer) {
             let selectedMonthArray = [];
@@ -397,27 +416,53 @@ function initEmployeeSalesPerformanceOverview() {
             let currentDate = new Date();
 
             for (let i = 0; i < answer.length; i++) {
-                if (answer[i]['store_id'] === 4 || answer[i]['store_id'] === 10 || answer[i]['store_id'] === 15 || answer[i]['store_id'] === 16)
-                selectedStoreArray.push(answer[i]['store_id']);
+                if (answer[i]['store_id'] === 4 || answer[i]['store_id'] === 10 || answer[i]['store_id'] === 12 || answer[i]['store_id'] === 15 || answer[i]['store_id'] === 16) {
+                    selectedStoreArray.push(answer[i]['store_id']);
+                }
             }
-            
+
             selectedMonthArray.push((currentDate.getMonth() + 1).toString());
-        
+
             selectedYearArray.push(currentDate.getFullYear().toString());
-        
+
             ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray, selectedYearArray);
+
         }
     });
 
 }
 
 function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray, selectedYearArray) {
+
+    let date = new Date();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+
+    if (typeof selectedMonthArray[0] !== 'undefined' && typeof selectedYearArray[0] !== 'undefined') {
+        month = selectedMonthArray[0] - 1;
+        year = selectedYearArray[0];
+    }
+
+    var firstDay = new Date(year, month, 1);
+    var lastDay = new Date((new Date(year, month + 1, 1)) - 1);
+
+    startDate = moment(firstDay).format('YYYY-MM-DD');
+    endDate = moment(lastDay).format('YYYY-MM-DD');
+
     $.ajax({
         url: "ajax/employees.ajax.php",
         method: "POST",
-        data: { get_all_employees_sales_target: selectedStoreArray, get_selected_months: selectedMonthArray, get_selected_years: selectedYearArray },
+        data: {
+            get_all_employees_sales_target: selectedStoreArray,
+            get_selected_months: selectedMonthArray,
+            get_selected_years: selectedYearArray
+        },
         dataType: "json",
         success: function (answer) {
+
+            console.log(answer);
+
+            initSalesCompositionByStore();
 
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             let monthString = "";
@@ -443,8 +488,8 @@ function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray,
 
             $("#employeeSalesTargetList").append(
                 `
-                <h4 style="text-align: center; margin-bottom: 10px;">Showing sales performance for `+ monthString + ` ` + yearString + `
-                </h4>`
+                <h4 class="text-info" style="text-align: center; margin-bottom: 20px;">Showing sales performance for <b>` + monthString + ` ` + yearString + `</b></h4>
+                `
             );
 
             let responseLength = Object.keys(answer).length;
@@ -461,7 +506,7 @@ function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray,
             if (!checkEmpty) {
                 for (let i = 0; i < filteredResponse.length; i++) {
                     for (let j = 0; j < filteredResponse[i].length; j++) {
-                        (filteredResponse[i]).sort(function(a, b){
+                        (filteredResponse[i]).sort(function (a, b) {
                             var percentageCompletionA = a.current_sales_amount / a.sales_target;
                             var percentageCompletionB = b.current_sales_amount / b.sales_target;
                             if (percentageCompletionA > percentageCompletionB) return -1;
@@ -473,23 +518,21 @@ function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray,
 
                 for (let i = 0; i < filteredResponse.length; i++) {
 
-                    let cleanStoreName = replaceSymbolsAndRemoveSpaces(filteredResponse[i][0].store_name);
-                    let storeName = "employeeSalesTargetList_" + cleanStoreName;
+                    //let storeId = replaceSymbolsAndRemoveSpaces(filteredResponse[i][0].store_id.toString());
+                    let storeId = filteredResponse[i][0].store_id;
+                    let storeIdElement = "employeeSalesTargetList_" + storeId;
 
                     $("#employeeSalesTargetList").append(
                         `
                         <div class="" style="margin-top: 10px;">
                             <div class="panel box box-solid">
                                 <div class="bg-light-blue-active box-header with-border">
-                                    <h4 class="">
-                                        <a class="" style="color: #fff" data-toggle="collapse" data-parent="#accordian" href="#collapse`+ cleanStoreName +`" aria-expanded="true">
-                                        ` + filteredResponse[i][0].store_name + `</a>
-                                    </h4>
-
+                                    <a class="" style="color: #fff" data-toggle="collapse" data-parent="#accordian" href="#collapse_store_` + storeId + `" aria-expanded="true">
+                                    <u>Expand/Collapse</u><h4>` + filteredResponse[i][0].store_name + `</h4></a>
                                 </div>
                                 
-                                <div id="collapse`+ cleanStoreName +`" class="panel-collapse collapse in" aria-expanded="true" style="">
-                                    <div id="` + storeName + `" class="box-body">
+                                <div id="collapse_store_` + storeId + `" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                    <div id="` + storeIdElement + `" class="box-body">
                                     </div>
                                 </div>
                             </div>
@@ -501,26 +544,25 @@ function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray,
 
                         salesTargetData = filteredResponse[i][j];
                         salesTargetData['full_name'] = salesTargetData['first_name'] + " " + salesTargetData['last_name'];
-                        
-                        let containerName = "#" + storeName + "_container" + j;
-                        let returnOnInvestment = (salesTargetData['current_sales_amount'] - salesTargetData['gross_pay'])/salesTargetData['gross_pay'];
+
+                        let containerName = "#" + storeIdElement + "_container" + j;
+                        let returnOnInvestment = (salesTargetData['current_sales_amount'] - salesTargetData['gross_pay']) / salesTargetData['gross_pay'];
                         if (!isFinite(returnOnInvestment)) {
                             returnOnInvestment = 0;
                         }
 
-                        $("#" + storeName).append(
+                        $("#" + storeIdElement).append(
                             `
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
                                 <div class="box box-widget widget-user-2" style="box-shadow: 0.5px 0.5px 4px 0px #dfdfdf; margin-top: 10px;"> 
                                     <div class="widget-user-header">
                                         <h4 class="">` + salesTargetData['full_name'] + `</h4>
-                                        <h5 class="">` + salesTargetData['designation'] + `</h5>
                                         <h6 style="text-align: right; width: 100%;">ROI: ` + Math.round(returnOnInvestment * 100) + `%</h5>
                                         
                                         <div class="pull-right">
                                             <h5 style="color: #999;">Target: $` + salesTargetData['sales_target'] + `</h5>
                                         </div>
-                                        <div id="` + storeName + `_container` + j + `" class="">
+                                        <div id="` + storeIdElement + `_container` + j + `" class="">
                                         </div>
                                     </div>
                                 </div>
@@ -530,10 +572,11 @@ function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray,
 
                         initSalesTargetBarForEmployee(salesTargetData, containerName);
 
-                        
+
                     }
 
                 }
+
             } else {
                 if (document.getElementById("noSalesTargetOverviewDataLabel") == null) {
                     $("#employeeSalesTargetList").append(
@@ -543,13 +586,136 @@ function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray,
                     );
                 }
             }
+
         }
+    });
+
+}
+
+function initSalesCompositionByStore() {
+    $.ajax({
+        url: "ajax/sales.ajax.php",
+        dataType: "json",
+        method: "POST",
+        data: {
+            get_total_sales_by_start_date: startDate,
+            get_total_sales_by_end_date: endDate
+        },
+        success: function (answer) {
+            for (let i = 0; i < answer.length; i++) {
+                let storeIdElement = "employeeSalesTargetList_" + answer[i]['store_id'];
+                let canvasElement = "salesCompositionByStore_" + answer[i]['store_id'];
+
+                if ($("#" + storeIdElement).length) {
+                    $("#" + storeIdElement).prepend(
+                        `
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 10px; margin-bottom: 10px;">
+                                <canvas id="` + canvasElement + `" height="300"></canvas>
+                            </div>
+                        </div>
+                        `
+                    );
+                    initSalesCompositionByStoreChart(answer[i]['sales_composition'], canvasElement);
+                }
+
+            }
+
+        }
+    });
+}
+
+function initSalesCompositionByStoreChart(ajaxResponse, canvasElement) {
+
+    let labels = [];
+    let data = [];
+    let sum_total_sales = 0;
+
+    (ajaxResponse).sort(function (a, b) {
+        if (parseFloat(a['total_sales']) > parseFloat(b['total_sales'])) return -1;
+        if (parseFloat(a['total_sales']) < parseFloat(b['total_sales'])) return 1;
+        return 0;
+    });
+
+    for (let i = 0; i < ajaxResponse.length; i++) {
+        if (ajaxResponse[i]['total_sales'] == 0) {
+            continue;
+        }
+        labels.push(ajaxResponse[i]['first_name'] + " " + ajaxResponse[i]['last_name']);
+        data.push(ajaxResponse[i]['total_sales']);
+        sum_total_sales += parseFloat(ajaxResponse[i]['total_sales']);
+    }
+
+    /* Create color array */
+    const dataLength = data.length;
+    const colorScale = d3.interpolateRdYlBu;
+
+    const colorRangeInfo = {
+        colorStart: 0.7,
+        colorEnd: 1,
+        useEndAsStart: false,
+    };
+    var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
+
+    var ctx = document.getElementById(canvasElement).getContext('2d');
+
+    var chartElementObject = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Sales',
+                data: data,
+                backgroundColor: COLORS,
+                hoverBackgroundColor: COLORS,
+                borderColor: COLORS,
+                borderWidth: 1
+            }],
+        },
+        options: {
+            plugins: {
+                labels: [{
+                        render: function (args) {
+                            return '$' + args.value;
+                        },
+                        fontColor: '#000',
+                        position: 'outside',
+                        textMargin: 10,
+                    }
+                ],
+            },
+            tooltips: {
+                enabled: true,
+                mode: 'label',
+                callbacks: {
+                    title: function (tooltipItems, data) {
+                        var idx = tooltipItems[0].index;
+                        return data.labels[idx]; //do something with title
+                    },
+                    label: function (tooltipItems, data) {
+                        var idx = tooltipItems.index;
+                        return "Total Sales: $" + data.datasets[0].data[idx];
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: 'Total sales: $' + Number(sum_total_sales).toFixed(2),
+                position: 'top',
+                fontSize: 14
+            },
+
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            }
+        },
     });
 }
 
 function initSalesTargetBarForEmployee(salesTargetData, containerName) {
 
-    let percentageCompletion = salesTargetData['current_sales_amount']/salesTargetData['sales_target'];
+    let percentageCompletion = salesTargetData['current_sales_amount'] / salesTargetData['sales_target'];
     let textAlign = "left";
     let color = "#f0ad4e";
     let percentageCompletionStr = "";
@@ -580,7 +746,11 @@ function initSalesTargetBarForEmployee(salesTargetData, containerName) {
         color: color,
         trailColor: '#eee',
         trailWidth: 1,
-        svgStyle: { width: '100%', height: '100%', padding: '10px' },
+        svgStyle: {
+            width: '100%',
+            height: '100%',
+            padding: '10px'
+        },
         text: {
             style: {
                 // Text color.
@@ -637,19 +807,54 @@ $('#storeOfSalesTargetList').jqListbox({
 });
 
 $('#monthOfSalesTargetList').jqListbox({
-    initialValues: [
-        { 'title': 'Jan', value: '1' },
-        { 'title': 'Feb', value: '2' },
-        { 'title': 'Mar', value: '3' },
-        { 'title': 'Apr', value: '4' },
-        { 'title': 'May', value: '5' },
-        { 'title': 'Jun', value: '6' },
-        { 'title': 'Jul', value: '7' },
-        { 'title': 'Aug', value: '8' },
-        { 'title': 'Sep', value: '9' },
-        { 'title': 'Oct', value: '10' },
-        { 'title': 'Nov', value: '11' },
-        { 'title': 'Dec', value: '12' }
+    initialValues: [{
+            'title': 'Jan',
+            value: '1'
+        },
+        {
+            'title': 'Feb',
+            value: '2'
+        },
+        {
+            'title': 'Mar',
+            value: '3'
+        },
+        {
+            'title': 'Apr',
+            value: '4'
+        },
+        {
+            'title': 'May',
+            value: '5'
+        },
+        {
+            'title': 'Jun',
+            value: '6'
+        },
+        {
+            'title': 'Jul',
+            value: '7'
+        },
+        {
+            'title': 'Aug',
+            value: '8'
+        },
+        {
+            'title': 'Sep',
+            value: '9'
+        },
+        {
+            'title': 'Oct',
+            value: '10'
+        },
+        {
+            'title': 'Nov',
+            value: '11'
+        },
+        {
+            'title': 'Dec',
+            value: '12'
+        }
     ],
     itemRenderer: function (item) {
         return '<li>' + item.title + '</li>';
@@ -657,19 +862,42 @@ $('#monthOfSalesTargetList').jqListbox({
 });
 
 $('#yearOfSalesTargetList').jqListbox({
-    initialValues: [
-        { 'title': '2019' },
-        { 'title': '2020' },
-        { 'title': '2021' },
-        { 'title': '2022' },
-        { 'title': '2023' },
-        { 'title': '2024' },
-        { 'title': '2025' },
-        { 'title': '2026' },
-        { 'title': '2027' },
-        { 'title': '2028' },
-        { 'title': '2029' },
-        { 'title': '2030' }
+    initialValues: [{
+            'title': '2019'
+        },
+        {
+            'title': '2020'
+        },
+        {
+            'title': '2021'
+        },
+        {
+            'title': '2022'
+        },
+        {
+            'title': '2023'
+        },
+        {
+            'title': '2024'
+        },
+        {
+            'title': '2025'
+        },
+        {
+            'title': '2026'
+        },
+        {
+            'title': '2027'
+        },
+        {
+            'title': '2028'
+        },
+        {
+            'title': '2029'
+        },
+        {
+            'title': '2030'
+        }
     ],
     itemRenderer: function (item) {
         return '<li>' + item.title + '</li>';
@@ -677,19 +905,54 @@ $('#yearOfSalesTargetList').jqListbox({
 });
 
 $('#filterEmployeeSalesPerformanceByMonth').jqListbox({
-    initialValues: [
-        { 'title': 'Jan', value: '1' },
-        { 'title': 'Feb', value: '2' },
-        { 'title': 'Mar', value: '3' },
-        { 'title': 'Apr', value: '4' },
-        { 'title': 'May', value: '5' },
-        { 'title': 'Jun', value: '6' },
-        { 'title': 'Jul', value: '7' },
-        { 'title': 'Aug', value: '8' },
-        { 'title': 'Sep', value: '9' },
-        { 'title': 'Oct', value: '10' },
-        { 'title': 'Nov', value: '11' },
-        { 'title': 'Dec', value: '12' }
+    initialValues: [{
+            'title': 'Jan',
+            value: '1'
+        },
+        {
+            'title': 'Feb',
+            value: '2'
+        },
+        {
+            'title': 'Mar',
+            value: '3'
+        },
+        {
+            'title': 'Apr',
+            value: '4'
+        },
+        {
+            'title': 'May',
+            value: '5'
+        },
+        {
+            'title': 'Jun',
+            value: '6'
+        },
+        {
+            'title': 'Jul',
+            value: '7'
+        },
+        {
+            'title': 'Aug',
+            value: '8'
+        },
+        {
+            'title': 'Sep',
+            value: '9'
+        },
+        {
+            'title': 'Oct',
+            value: '10'
+        },
+        {
+            'title': 'Nov',
+            value: '11'
+        },
+        {
+            'title': 'Dec',
+            value: '12'
+        }
     ],
     itemRenderer: function (item) {
         return '<li>' + item.title + '</li>';
@@ -698,19 +961,42 @@ $('#filterEmployeeSalesPerformanceByMonth').jqListbox({
 });
 
 $('#filterEmployeeSalesPerformanceByYear').jqListbox({
-    initialValues: [
-        { 'title': '2019' },
-        { 'title': '2020' },
-        { 'title': '2021' },
-        { 'title': '2022' },
-        { 'title': '2023' },
-        { 'title': '2024' },
-        { 'title': '2025' },
-        { 'title': '2026' },
-        { 'title': '2027' },
-        { 'title': '2028' },
-        { 'title': '2029' },
-        { 'title': '2030' }
+    initialValues: [{
+            'title': '2019'
+        },
+        {
+            'title': '2020'
+        },
+        {
+            'title': '2021'
+        },
+        {
+            'title': '2022'
+        },
+        {
+            'title': '2023'
+        },
+        {
+            'title': '2024'
+        },
+        {
+            'title': '2025'
+        },
+        {
+            'title': '2026'
+        },
+        {
+            'title': '2027'
+        },
+        {
+            'title': '2028'
+        },
+        {
+            'title': '2029'
+        },
+        {
+            'title': '2030'
+        }
     ],
     itemRenderer: function (item) {
         return '<li>' + item.title + '</li>';
@@ -738,7 +1024,9 @@ $('#modalAddEmployeeSalesTarget').on('shown.bs.modal', function () {
     $.ajax({
         url: "ajax/stores.ajax.php",
         method: "POST",
-        data: { get_all_stores: 0 },
+        data: {
+            get_all_stores: 0
+        },
         dataType: "json",
         success: function (answer) {
             for (let i = 0; i < answer.length; i++) {

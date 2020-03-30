@@ -80,6 +80,17 @@ class AjaxEmployees
         echo json_encode($answer);
     }
 
+    public function getAllEmployeeStoreTargets(){
+        $selectedEmployeeIds = $this->selectedEmployeeIds;
+        $selectedStores = $this->selectedStores;
+        $selectedMonths = $this->selectedMonths;
+        $selectedYears = $this->selectedYears;
+
+        $answer = EmployeeController::ctrViewAllEmployeeStoreTargets($selectedEmployeeIds, $selectedStores, $selectedMonths, $selectedYears);
+
+        echo json_encode($answer);
+    }
+
     public function getAllEmployeesSalesTargetByStore() {
         $selectedStores = $this->selectedStores;
         $selectedMonths = $this->selectedMonths;
@@ -159,6 +170,15 @@ if (isset($_POST['get_employees_sales_target'])) {
     $getEmployeesSalesTarget -> selectedMonths = $_POST['get_selected_months'];
     $getEmployeesSalesTarget -> selectedYears = $_POST['get_selected_years'];
     $getEmployeesSalesTarget -> getEmployeesSalesTarget();
+}
+
+if (isset($_POST['get_all_employee_store_targets'])) {
+    $getAllEmployeeStoreTargets = new AjaxEmployees();
+    $getAllEmployeeStoreTargets -> selectedEmployeeIds = filter_var_array($_POST['get_all_employee_store_targets'], FILTER_SANITIZE_STRING);
+    $getAllEmployeeStoreTargets -> selectedStores = $_POST['get_selected_stores'];
+    $getAllEmployeeStoreTargets -> selectedMonths = $_POST['get_selected_months'];
+    $getAllEmployeeStoreTargets -> selectedYears = $_POST['get_selected_years'];
+    $getAllEmployeeStoreTargets -> getAllEmployeeStoreTargets();
 }
 
 if (isset($_POST['get_employee_current_sales'])) {

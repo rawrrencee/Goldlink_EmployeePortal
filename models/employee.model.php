@@ -160,7 +160,18 @@ class EmployeeModel
 
     public static function mdlViewEmployeesSalesTarget($personId, $storeId, $month, $year)
     {
-        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.record_id, employees_sales_target.sales_target, employees_sales_target.person_id, employees_sales_target.store_id, employees_sales_target.month, employees_sales_target.year FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id WHERE employees_sales_target.person_id = :person_id AND employees_sales_target.store_id = :store_id AND employees_sales_target.month = :month AND employees_sales_target.year = :year");
+        $stmt = Connection::connect()->prepare("SELECT 
+        employees_sales_target.record_id, employees_sales_target.sales_target, employees_sales_target.person_id, employees_sales_target.store_id, employees_sales_target.month, employees_sales_target.year,
+        people.first_name, people.last_name, people.designation, stores.store_id, stores.store_name
+        FROM employees_sales_target 
+        JOIN people 
+        ON employees_sales_target.person_id = people.person_id 
+        JOIN stores 
+        ON employees_sales_target.store_id = stores.store_id 
+        WHERE employees_sales_target.person_id = :person_id 
+        AND employees_sales_target.store_id = :store_id 
+        AND employees_sales_target.month = :month 
+        AND employees_sales_target.year = :year");
 
         $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
         $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
@@ -175,11 +186,11 @@ class EmployeeModel
     public static function mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year)
     {
         try {
-            $stmt = Connection::connect()->prepare("SELECT SUM(totalsales) as totalsales
+            $stmt = Connection::connect()->prepare("SELECT SUM(total_sales) as total_sales
             FROM(
             (
             SELECT SUM( CAST( quantity_purchased * item_unit_price * 
-            ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ) ) AS totalsales, employee_id
+            ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ) ) AS total_sales, employee_id
             FROM sales s 
             INNER JOIN sales_items ON s.sale_id = sales_items.sale_id 
             INNER JOIN stores ON s.store_id = stores.store_id 
@@ -191,7 +202,7 @@ class EmployeeModel
             UNION ALL
             (
             SELECT SUM( CAST( quantity_purchased * item_kit_unit_price * 
-            ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ) ) AS totalsales, employee_id
+            ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ) ) AS total_sales, employee_id
             FROM sales s 
             INNER JOIN stores ON s.store_id = stores.store_id 
             INNER JOIN sales_item_kits ON s.sale_id = sales_item_kits.sale_id

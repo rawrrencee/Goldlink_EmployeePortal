@@ -34,8 +34,7 @@ class EmployeeController
 
             if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['inUsername'])) {
 
-                
-            //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
+                //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
                 $table = 'employees';
                 $item = 'username';
@@ -133,7 +132,7 @@ class EmployeeController
                 echo '<br><div class="alert alert-danger"> Error logging you in. Please try again.</div>';
 
                 return;
-                
+
             }
         }
     }
@@ -154,7 +153,7 @@ class EmployeeController
         $_SESSION["full_time"] = $payrollData[0]["full_time"];
         $_SESSION["allowedStoresData"] = $allowedStoresData;
         $_SESSION["teamMembersData"] = $teamMembersData;
-        
+
         $response = EmployeeModel::mdlViewEmployeePermissions($response['person_id']);
         $_SESSION["allowed_modules"] = array();
         foreach ($response as $i => $array) {
@@ -244,6 +243,38 @@ class EmployeeController
         return $salesTarget;
     }
 
+    public static function ctrViewAllEmployeeStoreTargets($selectedEmployeeIds, $selectedStores, $selectedMonths, $selectedYears)
+    {
+        $salesTarget = [];
+
+        foreach ($selectedStores as $storeId) {
+            foreach ($selectedYears as $year) {
+                foreach ($selectedMonths as $month) {
+                    foreach ($selectedEmployeeIds as $personId) {
+                        $storeId = (int) $storeId;
+                        $month = (int) $month;
+                        $year = (int) $year;
+
+                        $retrieveSalesTarget = EmployeeModel::mdlViewEmployeesSalesTarget($personId, $storeId, $month, $year);
+                        $totalSales = EmployeeModel::mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year);
+
+                        if ($retrieveSalesTarget[0]['sales_target'] != 0.00) {
+                            if (count($totalSales) == 0) {
+                                $retrieveSalesTarget['current_sales_amount'] = 0.00;
+                            } else {
+                                $retrieveSalesTarget['current_sales_amount'] = $totalSales[0]['total_sales'];
+                            }
+                            array_push($salesTarget, $retrieveSalesTarget);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return $salesTarget;
+    }
+
     public static function ctrViewAllEmployeesSalesTarget($selectedStores, $selectedMonths, $selectedYears)
     {
         $retrieveSalesTarget = [];
@@ -253,7 +284,7 @@ class EmployeeController
                 foreach ($selectedMonths as $month) {
                     $month = (int) $month;
                     $year = (int) $year;
-    
+
                     $currentSalesTarget = EmployeeModel::mdlViewEmployeesSalesTargetbyMonthYear($storeId, $month, $year);
 
                     for ($index = 0; $index < sizeof($currentSalesTarget); $index++) {
@@ -262,18 +293,18 @@ class EmployeeController
                         $currentSalesAmount = EmployeeModel::mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year);
                         $latestSalary = EmployeeModel::mdlViewLatestIndivSalaryVouchers($personId);
 
-                        if (is_null($currentSalesAmount[0]['totalsales'])) {
-                            $currentSalesAmount[0]['totalsales'] = 0;
+                        if (is_null($currentSalesAmount[0]['total_sales'])) {
+                            $currentSalesAmount[0]['total_sales'] = 0;
                         }
                         if (is_null($latestSalary[0]['gross_pay'])) {
                             $latestSalary[0]['gross_pay'] = 0;
                         }
-                        $currentSalesTarget[$index]['current_sales_amount'] = $currentSalesAmount[0]['totalsales'];
+                        $currentSalesTarget[$index]['current_sales_amount'] = $currentSalesAmount[0]['total_sales'];
                         $currentSalesTarget[$index]['gross_pay'] = $latestSalary[0]['gross_pay'];
-                        
+
                     }
                     array_push($retrieveSalesTarget, $currentSalesTarget);
-                    
+
                 }
             }
         }
@@ -283,7 +314,7 @@ class EmployeeController
 
     public static function ctrUpdateEmployeesSalesTarget($selectedEmployeeIds, $selectedStores, $selectedMonths, $selectedYears, $newSalesTarget)
     {
-        $salesTarget = number_format(floatval(filter_var($newSalesTarget, FILTER_SANITIZE_STRING)), 2, '.', '');;
+        $salesTarget = number_format(floatval(filter_var($newSalesTarget, FILTER_SANITIZE_STRING)), 2, '.', '');
 
         foreach ($selectedStores as $storeId) {
             foreach ($selectedYears as $year) {
@@ -302,8 +333,8 @@ class EmployeeController
                     }
                 }
             }
-        } 
-        
+        }
+
         $salesTarget = self::ctrViewEmployeesSalesTarget($selectedEmployeeIds, $selectedStores, $selectedMonths, $selectedYears);
 
         return $salesTarget;
@@ -411,7 +442,7 @@ class EmployeeController
                 foreach ($_POST['allowedModulesSelection'] as $index => $active) {
                     $permissionsData[$_POST['allowedModules'][$index]] = (int) $active;
                 }
-                
+
                 foreach ($_POST['newEmployeeTeamIds'] as $index => $employeeId) {
                     $teamMembersData['employees_team'][$index] = filter_var($employeeId, FILTER_SANITIZE_NUMBER_INT);
                 }
@@ -636,7 +667,7 @@ class EmployeeController
                 'full_time' => $submittedForm['full_time'],
                 'employees_stores' => $submittedForm['employees_stores'],
                 'updateStoreActive' => $submittedForm['updateStoreActive'],
-                'updateStoreSelection' => $submittedForm['updateStoreSelection']
+                'updateStoreSelection' => $submittedForm['updateStoreSelection'],
             );
 
             $editUsername = filter_var($_POST['editUsername'], FILTER_SANITIZE_STRING);

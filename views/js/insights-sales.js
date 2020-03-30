@@ -375,7 +375,7 @@ function initTotalSalesByStoreChart(ajaxResponse) {
     const colorRangeInfo = {
         colorStart: 0.7,
         colorEnd: 1,
-        useEndAsStart: false,
+        useEndAsStart: false
     };
     var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
 
@@ -395,6 +395,17 @@ function initTotalSalesByStoreChart(ajaxResponse) {
             }],
         },
         options: {
+            plugins: {
+                labels: [{
+                        render: function (args) {
+                            return '$' + args.value;
+                        },
+                        fontColor: '#000',
+                        position: 'outside',
+                        textMargin: 10
+                    }
+                ],
+            },
             scales: {
                 xAxes: [{
                     gridLines: {
@@ -466,7 +477,7 @@ function initTotalItemSalesByStoreChart(ajaxResponse) {
     const colorRangeInfo = {
         colorStart: 0.7,
         colorEnd: 1,
-        useEndAsStart: false,
+        useEndAsStart: false
     };
     var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
 
@@ -486,6 +497,17 @@ function initTotalItemSalesByStoreChart(ajaxResponse) {
             }],
         },
         options: {
+            plugins: {
+                labels: [{
+                        render: function (args) {
+                            return '$' + args.value;
+                        },
+                        fontColor: '#000',
+                        position: 'outside',
+                        textMargin: 10
+                    }
+                ],
+            },
             scales: {
                 xAxes: [{
                     gridLines: {
@@ -562,7 +584,7 @@ function initTotalItemKitSalesByStoreChart(ajaxResponse) {
     const colorRangeInfo = {
         colorStart: 0.7,
         colorEnd: 1,
-        useEndAsStart: false,
+        useEndAsStart: false
     };
     var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
 
@@ -582,6 +604,17 @@ function initTotalItemKitSalesByStoreChart(ajaxResponse) {
             }],
         },
         options: {
+            plugins: {
+                labels: [{
+                        render: function (args) {
+                            return '$' + args.value;
+                        },
+                        fontColor: '#000',
+                        position: 'outside',
+                        textMargin: 10
+                    }
+                ],
+            },
             scales: {
                 xAxes: [{
                     gridLines: {
