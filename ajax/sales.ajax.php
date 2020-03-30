@@ -4,13 +4,16 @@ session_start();
 if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) die("Invalid Authentication");
 
 require_once "../controllers/sales.controller.php";
+require_once "../controllers/stocktakes.controller.php";
 require_once "../models/sales.model.php";
+require_once "../models/stocktakes.model.php";
 
 class AjaxSales
 {
     public $salesId;
     public $startDate;
     public $endDate;
+    public $stocktakeDate;
 
     public function getTotalSalesForCurrentMonth()
     {
@@ -26,6 +29,34 @@ class AjaxSales
         $endDate = $this->endDate;
 
         $answer = SalesController::ctrViewTotalSalesForAllStoresByTime($startDate, $endDate);
+
+        echo json_encode($answer);
+    }
+
+    public function getPdtCatSalesInventoryByTime() {
+
+        $startDate = $this->startDate;
+        $endDate = $this->endDate;
+        $stocktakeDate = $this->stocktakeDate;
+
+        $answer = SalesController::ctrViewPdtCatSalesInventoryByTime($startDate, $endDate, $stocktakeDate);
+        $latestStocktakeDate = StocktakesController::ctrViewLatestStocktakeDate($stocktakeDate);
+        
+        $latestStocktakeQty = StocktakesController::ctrViewAllCategoryStocktakesByDate($latestStocktakeDate);
+
+        for ($index = 0; $index < count($answer); $index++) {
+            for ($j = 0; $j < count($latestStocktakeQty); $j++) {
+                $key = array_search($answer[$index]['category'], $latestStocktakeQty[$j]);
+                if ($key != false) {
+                    $answer[$index]['stockCount'] = $latestStocktakeQty[$j]['stockCount'];
+                    $answer[$index]['latestStocktakeDate'] = $latestStocktakeDate;
+                    break;
+                } else {
+                    $answer[$index]['stockCount'] = 0;
+                    $answer[$index]['latestStocktakeDate'] = $latestStocktakeDate;
+                }
+            }
+        }
 
         echo json_encode($answer);
     }
@@ -78,13 +109,23 @@ if (isset($_POST['get_total_sales_by_start_date']) && isset($_POST['get_total_sa
     $getTotalSalesByTime -> getTotalSalesByTime();
 }
 
-if (isset($_POST['get_total_category_sales_by_start_date']) && isset($_POST['get_total_category_sales_by_end_date'])) {
+if (isset($_POST['get_total_category_sales_by_start_date']) && isset($_POST['get_total_category_sales_by_end_date']) && !isset($_POST['get_total_category_stocktake_by_date'])) {
 
     $getTotalCategorySalesByTime = new AjaxSales();
     $getTotalCategorySalesByTime -> startDate = $_POST['get_total_category_sales_by_start_date'];
     $getTotalCategorySalesByTime -> endDate = $_POST['get_total_category_sales_by_end_date'];
 
     $getTotalCategorySalesByTime -> getTotalCategorySalesByTime();
+}
+
+if (isset($_POST['get_total_category_sales_by_start_date']) && isset($_POST['get_total_category_sales_by_end_date']) && isset($_POST['get_total_category_stocktake_by_date'])) {
+
+    $getPdtCatSalesInventoryByTime = new AjaxSales();
+    $getPdtCatSalesInventoryByTime -> startDate = $_POST['get_total_category_sales_by_start_date'];
+    $getPdtCatSalesInventoryByTime -> endDate = $_POST['get_total_category_sales_by_end_date'];
+    $getPdtCatSalesInventoryByTime -> stocktakeDate = $_POST['get_total_category_stocktake_by_date'];
+
+    $getPdtCatSalesInventoryByTime -> getPdtCatSalesInventoryByTime();
 }
 
 if (isset($_POST['get_total_item_sales_by_start_date']) && isset($_POST['get_total_item_sales_by_end_date'])) {

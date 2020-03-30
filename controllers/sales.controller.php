@@ -29,6 +29,13 @@ class SalesController
         return $response;
     }
 
+    public static function ctrViewPdtCatSalesInventoryByTime($startDate, $endDate, $stocktakeDate)
+    {
+        $totalCategorySales = SalesModel::mdlViewPdtCatSalesInventoryByTime($startDate, $endDate);
+
+        return $totalCategorySales;
+    }
+
     public static function ctrViewTotalCategorySalesByTime($startDate, $endDate)
     {
         $totalCategorySales = SalesModel::mdlViewTotalCategorySalesByDate($startDate, $endDate);

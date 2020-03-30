@@ -200,7 +200,7 @@
                                         <tr>
                                             <th>Category</th>
                                             <th>Quantity</th>
-                                            <th>Total Disc. Sales</th>
+                                            <th>Total Sales</th>
                                         </tr>
                                     </thead>
                                     <tbody id="totalCategorySalesByDateTableBody">

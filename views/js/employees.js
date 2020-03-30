@@ -406,6 +406,8 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
           $('#editViewOwnSalaryVoucher').iCheck('uncheck');
           $('#editViewOwnSalaryVoucherPT').iCheck('uncheck');
           $('#editDownloadOwnSalaryVoucher').iCheck('uncheck');
+          $('#editViewTeamSalaryVoucher').iCheck('uncheck');
+          $('#editViewTeamSalaryVoucherPT').iCheck('uncheck');
           $('#editSubmitOwnSalaryVoucher').iCheck('uncheck');
           $('#editSubmitOwnSalaryVoucherPT').iCheck('uncheck');
           $('#editSalaryVoucherAnalysis').iCheck('uncheck');
@@ -413,6 +415,13 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
           $('#editCustomerManagement').iCheck('uncheck');
           $('#editCustomerArchives').iCheck('uncheck');
           $('#editCustomerAnalytics').iCheck('uncheck');
+          $('#editSupplierManagement').iCheck('uncheck');
+          $('#editItemManagement').iCheck('uncheck');
+          $('#editItemKitManagement').iCheck('uncheck');
+          $('#editSalesTerminal').iCheck('uncheck');
+          $('#editInsightsSales').iCheck('uncheck');
+          $('#editInsightsInventory').iCheck('uncheck');
+          $('#editInsightsEmployees').iCheck('uncheck');
 
           for (var i = 0; i < answer.length; i++) {
             if (answer[i]['module_title'] == "employee-management" && answer[i]['active'] == 1) {
@@ -470,6 +479,18 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             }
             else if (answer[i]['module_title'] == "item-kit-management" && answer[i]['active'] == 1) {
               $('#editItemKitManagement').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "sales-terminal" && answer[i]['active'] == 1) {
+              $('#editSalesTerminal').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "insights-sales" && answer[i]['active'] == 1) {
+              $('#editInsightsSales').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "insights-inventory" && answer[i]['active'] == 1) {
+              $('#editInsightsInventory').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "insights-employees" && answer[i]['active'] == 1) {
+              $('#editInsightsEmployees').iCheck('check');
             }
           }
 

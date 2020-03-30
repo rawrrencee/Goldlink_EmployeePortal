@@ -69,8 +69,9 @@ session_start();
     <!-- Bootstrap 3.3.7 -->
     <script src="views/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- ChartJS -->
+    <script src="views/bower_components/moment/min/moment.min.js"></script>
     <script src="views/bower_components/chart.js/Chart-2.9.3.min.js"></script>
-    <script src="views/plugins/chartjs-plugin-labels/chartjs-plugin-labels.min.js"></script>
+    <script src="views/plugins/chartjs-plugin-datalabels/chartjs-plugin-datalabels.min.js"></script>
     <!-- SlimScroll -->
     <script src="views/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -103,7 +104,6 @@ session_start();
     <!-- iCheck 1.0.1 -->
     <script src="views/plugins/iCheck/icheck.min.js"></script>
     <!-- date-range-picker -->
-    <script src="views/bower_components/moment/min/moment.min.js"></script>
     <script src="views/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap datepicker -->
     <script src="views/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>

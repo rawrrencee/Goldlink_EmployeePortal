@@ -646,7 +646,39 @@
                                         <p style="margin-top: 5px;">Sales Terminal</p>
                                     </div>
                                 </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Insights</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[20]" value="0">
+                                        <input type="checkbox" class="minimal" id="newInsightsSales"
+                                            name="allowedModulesSelection[20]" value="1">
+                                        <input type="hidden" name="allowedModules[20]" value="insights-sales">
+
+                                        <p style="margin-top: 5px;">Sales Insights</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[21]" value="0">
+                                        <input type="checkbox" class="minimal" id="newInsightsInventory"
+                                            name="allowedModulesSelection[21]" value="1">
+                                        <input type="hidden" name="allowedModules[21]" value="insights-inventory">
+
+                                        <p style="margin-top: 5px;">Inventory Insights</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[22]" value="0">
+                                        <input type="checkbox" class="minimal" id="newInsightsEmployees"
+                                            name="allowedModulesSelection[22]" value="1">
+                                        <input type="hidden" name="allowedModules[22]" value="insights-employees">
+
+                                        <p style="margin-top: 5px;">Employee Insights</p>
+                                    </div>
+                                </div>
+
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -1282,11 +1314,41 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="hidden" name="editAllowedModulesSelection[19]" value="0">
-                                        <input type="checkbox" class="minimal" id="editItemManagement"
+                                        <input type="checkbox" class="minimal" id="editSalesTerminal"
                                             name="editAllowedModulesSelection[19]" value="1">
                                         <input type="hidden" name="allowedModules[19]" value="sales-terminal">
 
                                         <p style="margin-top: 5px;">Sales Terminal</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <h4><strong>Insights</strong></h4>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[20]" value="0">
+                                        <input type="checkbox" class="minimal" id="editInsightsSales"
+                                            name="editAllowedModulesSelection[20]" value="1">
+                                        <input type="hidden" name="allowedModules[20]" value="insights-sales">
+
+                                        <p style="margin-top: 5px;">Sales Insights</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[21]" value="0">
+                                        <input type="checkbox" class="minimal" id="editInsightsInventory"
+                                            name="editAllowedModulesSelection[21]" value="1">
+                                        <input type="hidden" name="allowedModules[21]" value="insights-inventory">
+
+                                        <p style="margin-top: 5px;">Inventory Insights</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[22]" value="0">
+                                        <input type="checkbox" class="minimal" id="editInsightsEmployees"
+                                            name="editAllowedModulesSelection[22]" value="1">
+                                        <input type="hidden" name="allowedModules[22]" value="insights-employees">
+
+                                        <p style="margin-top: 5px;">Employee Insights</p>
                                     </div>
                                 </div>
 

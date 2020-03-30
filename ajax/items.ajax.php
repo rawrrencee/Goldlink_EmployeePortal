@@ -1,7 +1,9 @@
 <?php
 
 session_start();
-if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) die("Invalid Authentication");
+if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) {
+    die("Invalid Authentication");
+}
 
 require_once "../controllers/item.controller.php";
 require_once "../models/item.model.php";
@@ -9,6 +11,7 @@ require_once "../models/item.model.php";
 class AjaxItems
 {
     public $itemId;
+    public $category;
 
     public function getItemDetails()
     {
@@ -32,7 +35,8 @@ class AjaxItems
 
     }
 
-    public function checkItemImageExists() {
+    public function checkItemImageExists()
+    {
 
         $value = $this->itemId;
         $routeImg = "../uploads/items/" . $value . "/item.jpg";
@@ -45,28 +49,47 @@ class AjaxItems
 
     }
 
+    public function getItemsInCategory()
+    {
+
+        $category = $this->category;
+
+        $answer = ItemController::ctrViewItemsInCategory($category);
+
+        echo json_encode($answer);
+
+    }
+
 }
 
 if (isset($_POST['item_id'])) {
 
     $getItemDetails = new AjaxItems();
-    $getItemDetails -> itemId = $_POST['item_id'];
-    $getItemDetails -> getItemDetails();
+    $getItemDetails->itemId = $_POST['item_id'];
+    $getItemDetails->getItemDetails();
 
 }
 
 if (isset($_POST['getStoresWithItem_item_id'])) {
 
     $getStoresWithItem = new AjaxItems();
-    $getStoresWithItem -> itemId = $_POST['getStoresWithItem_item_id'];
-    $getStoresWithItem -> getStoresWithItem();
+    $getStoresWithItem->itemId = $_POST['getStoresWithItem_item_id'];
+    $getStoresWithItem->getStoresWithItem();
 
 }
 
 if (isset($_POST['checkItemImageExists'])) {
 
     $checkItemImageExists = new AjaxItems();
-    $checkItemImageExists -> itemId = $_POST['checkItemImageExists'];
-    $checkItemImageExists -> checkItemImageExists();
+    $checkItemImageExists->itemId = $_POST['checkItemImageExists'];
+    $checkItemImageExists->checkItemImageExists();
+
+}
+
+if (isset($_POST['get_items_in_category'])) {
+
+    $getItemsInCategory = new AjaxItems();
+    $getItemsInCategory->category = $_POST['get_items_in_category'];
+    $getItemsInCategory->getItemsInCategory();
 
 }

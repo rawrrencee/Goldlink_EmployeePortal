@@ -174,7 +174,6 @@ function getTotalCategorySalesByTime_DEFAULT() {
             get_total_category_sales_by_end_date: endDate
         },
         success: function (answer) {
-            console.log(answer);
             initTotalCategorySalesByStoreTable(answer);
             initTotalCategorySalesByStoreChart(answer);
         }
@@ -211,7 +210,7 @@ function getTotalItemSalesByTime_DEFAULT() {
             get_total_item_kit_sales_by_end_date: endDate
         },
         success: function (answer) {
-            initTotalItemKitSalesByStoreChart(answer);
+            initTotalItemKitSalesByDateChart(answer);
             initTotalItemKitSalesByStoreTable(answer);
             initDisplayFilterTotalSalesByProductDateMsg(startDate, endDate);
         }
@@ -243,9 +242,23 @@ function getTotalItemSalesByTime(startDate, endDate) {
             get_total_item_kit_sales_by_end_date: endDate
         },
         success: function (answer) {
-            initTotalItemKitSalesByStoreChart(answer);
+            initTotalItemKitSalesByDateChart(answer);
             initTotalItemKitSalesByStoreTable(answer);
             initDisplayFilterTotalSalesByProductDateMsg(startDate, endDate);
+        }
+    });
+
+    $.ajax({
+        url: "ajax/sales.ajax.php",
+        dataType: "json",
+        method: "POST",
+        data: {
+            get_total_category_sales_by_start_date: startDate,
+            get_total_category_sales_by_end_date: endDate
+        },
+        success: function (answer) {
+            initTotalCategorySalesByStoreTable(answer);
+            initTotalCategorySalesByStoreChart(answer);
         }
     });
 }
@@ -291,15 +304,17 @@ function getTotalSalesByTime(startDate, endDate) {
 }
 
 function initTotalCategorySalesByStoreTable(ajaxResponse) {
+    $("#totalCategorySalesByDateTableBody").html("");
+
     if ($.fn.DataTable.isDataTable('#totalCategorySalesByDateTable')) {
         $("#totalCategorySalesByDateTable").DataTable().destroy();
-        $("#totalCategorySalesByDateTableBody").html("");
     }
     if (ajaxResponse.length === 0) {
+        $("#totalCategorySalesByDateTableBody").html("");
         $("#totalCategorySalesByDateTableBody").append(
             `
             <tr>
-                <td class="text-center" colspan="5">No data available.</td>
+                <td class="text-center" colspan="3">No data available.</td>
             </tr>
             `
         );
@@ -326,11 +341,13 @@ function initTotalCategorySalesByStoreTable(ajaxResponse) {
 }
 
 function initTotalItemSalesByStoreTable(ajaxResponse) {
+    $("#totalItemSalesByDateTableBody").html("");
+
     if ($.fn.DataTable.isDataTable('#totalItemSalesByDateTable')) {
         $("#totalItemSalesByDateTable").DataTable().destroy();
-        $("#totalItemSalesByDateTableBody").html("");
     }
     if (ajaxResponse.length === 0) {
+        $("#totalItemSalesByDateTableBody").html("");
         $("#totalItemSalesByDateTableBody").append(
             `
             <tr>
@@ -363,12 +380,14 @@ function initTotalItemSalesByStoreTable(ajaxResponse) {
 }
 
 function initTotalItemKitSalesByStoreTable(ajaxResponse) {
+    $("#totalItemKitSalesByDateTableBody").html("");
+
     if ($.fn.DataTable.isDataTable('#totalItemKitSalesByDateTable')) {
         $("#totalItemKitSalesByDateTable").DataTable().destroy();
-        $("#totalItemKitSalesByDateTableBody").html("");
     }
 
     if (ajaxResponse.length === 0) {
+        $("#totalItemKitSalesByDateTableBody").html("");
         $("#totalItemKitSalesByDateTableBody").append(
             `
             <tr>
@@ -427,12 +446,12 @@ function initTotalSalesByStoreChart(ajaxResponse) {
 
     /* Create color array */
     const dataLength = data.length;
-    const colorScale = d3.interpolatePRGn;
+    const colorScale = d3.interpolatePurples;
 
     const colorRangeInfo = {
-        colorStart: 0.1,
-        colorEnd: 0.4,
-        useEndAsStart: true
+        colorStart: 0.2,
+        colorEnd: 0.8,
+        useEndAsStart: false
     };
     var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
 
@@ -453,15 +472,13 @@ function initTotalSalesByStoreChart(ajaxResponse) {
         },
         options: {
             plugins: {
-                labels: [{
-                        render: function (args) {
-                            return '$' + args.value;
-                        },
-                        fontColor: '#000',
-                        position: 'outside',
-                        textMargin: 10
+                datalabels: {
+                    align: 'end',
+                    anchor: 'end',
+                    formatter: function (value, context) {
+                        return "$" + value;
                     }
-                ],
+                }
             },
             scales: {
                 xAxes: [{
@@ -529,12 +546,12 @@ function initTotalCategorySalesByStoreChart(ajaxResponse) {
 
     /* Create color array */
     const dataLength = data.length;
-    const colorScale = d3.interpolateBrBG;
+    const colorScale = d3.interpolateReds;
 
     const colorRangeInfo = {
-        colorStart: 0.1,
-        colorEnd: 0.4,
-        useEndAsStart: true
+        colorStart: 0.2,
+        colorEnd: 0.6,
+        useEndAsStart: false
     };
     var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
 
@@ -555,15 +572,13 @@ function initTotalCategorySalesByStoreChart(ajaxResponse) {
         },
         options: {
             plugins: {
-                labels: [{
-                        render: function (args) {
-                            return '$' + args.value;
-                        },
-                        fontColor: '#000',
-                        position: 'outside',
-                        textMargin: 10
+                datalabels: {
+                    align: 'end',
+                    anchor: 'end',
+                    formatter: function (value, context) {
+                        return "$" + value;
                     }
-                ],
+                }
             },
             scales: {
                 xAxes: [{
@@ -636,11 +651,11 @@ function initTotalItemSalesByStoreChart(ajaxResponse) {
 
     /* Create color array */
     const dataLength = data.length;
-    const colorScale = d3.interpolateRdYlBu;
+    const colorScale = d3.interpolateBlues;
 
     const colorRangeInfo = {
-        colorStart: 0.7,
-        colorEnd: 1,
+        colorStart: 0.2,
+        colorEnd: 0.8,
         useEndAsStart: false
     };
     var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
@@ -662,15 +677,13 @@ function initTotalItemSalesByStoreChart(ajaxResponse) {
         },
         options: {
             plugins: {
-                labels: [{
-                        render: function (args) {
-                            return '$' + args.value;
-                        },
-                        fontColor: '#000',
-                        position: 'outside',
-                        textMargin: 10
+                datalabels: {
+                    align: 'end',
+                    anchor: 'end',
+                    formatter: function (value, context) {
+                        return "$" + value;
                     }
-                ],
+                }
             },
             scales: {
                 xAxes: [{
@@ -714,7 +727,7 @@ function initTotalItemSalesByStoreChart(ajaxResponse) {
     });
 }
 
-function initTotalItemKitSalesByStoreChart(ajaxResponse) {
+function initTotalItemKitSalesByDateChart(ajaxResponse) {
 
     if (window.totalItemKitSalesByDateBarChart != undefined) {
         window.totalItemKitSalesByDateBarChart.destroy();
@@ -769,15 +782,13 @@ function initTotalItemKitSalesByStoreChart(ajaxResponse) {
         },
         options: {
             plugins: {
-                labels: [{
-                        render: function (args) {
-                            return '$' + args.value;
-                        },
-                        fontColor: '#000',
-                        position: 'outside',
-                        textMargin: 10
+                datalabels: {
+                    align: 'end',
+                    anchor: 'end',
+                    formatter: function (value, context) {
+                        return "$" + value;
                     }
-                ],
+                }
             },
             scales: {
                 xAxes: [{

@@ -674,15 +674,13 @@ function initSalesCompositionByStoreChart(ajaxResponse, canvasElement) {
         },
         options: {
             plugins: {
-                labels: [{
-                        render: function (args) {
-                            return '$' + args.value;
-                        },
-                        fontColor: '#000',
-                        position: 'outside',
-                        textMargin: 10,
+                datalabels: {
+                    align: 'end',
+                    anchor: 'end',
+                    formatter: function(value, context) {
+                        return "$" + value;
                     }
-                ],
+                }
             },
             tooltips: {
                 enabled: true,

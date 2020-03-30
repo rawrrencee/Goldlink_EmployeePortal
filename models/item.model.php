@@ -146,6 +146,16 @@ class ItemModel
         $stmt = null;
     }
 
+    public static function mdlViewItemsInCategory($category) {
+        
+        $stmt = Connection::connect()->prepare("SELECT * FROM items WHERE category = :category");
+        
+        $stmt->bindParam(":category", $category, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     public static function mdlViewItemByItemNumber($value)
     {
         $conn = new Connection();
