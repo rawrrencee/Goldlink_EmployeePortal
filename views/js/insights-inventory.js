@@ -1,105 +1,307 @@
-$(document).ready(function() {
-  currentDate = new Date();
-  //Date picker
-  $("#inventoryInsightsDatePicker")
-    .datepicker()
-    .datepicker("setDate", currentDate);
-
-  //initInventoryBarGraph();
+$(document).ready(function () {
+  getTotalCategorySalesByTime_DEFAULT();
+  documentTogglePdtCatInventoryFilter();
 });
 
-$("#inventoryInsightsDatePicker").datepicker({
+$("#pdtCatSalesInventoryStartDate").datepicker({
+  orientation: "bottom",
   autoclose: true,
-  format: "dd/mm/yyyy"
+  format: "yyyy-mm-dd"
 });
 
-$("#inventoryInsightsDatePicker")
-  .datepicker()
-  .on("changeDate", function(e) {
-    //a string is in the format dd/mm/yyyy is returned
-    chosenDate = $("#inventoryInsightsDatePicker").val();
+$("#pdtCatSalesInventoryEndDate").datepicker({
+  orientation: "bottom",
+  autoclose: true,
+  format: "yyyy-mm-dd"
+});
 
-    $.ajax({
-      url: "ajax/stocktakes.ajax.php",
+$("#filterPdtCatSalesInventoryByDateButtonDown").click(function () {
+  $("#filterPdtCatSalesInventoryByDateButtonDown").hide();
+  $("#filterPdtCatSalesInventoryByDateButtonUp").show();
+
+  $("#filterPdtCatSalesInventoryByDate").show();
+});
+
+$("#filterPdtCatSalesInventoryByDateButtonUp").click(function () {
+  $("#filterPdtCatSalesInventoryByDateButtonUp").hide();
+  $("#filterPdtCatSalesInventoryByDateButtonDown").show();
+
+  $("#filterPdtCatSalesInventoryByDate").hide();
+});
+
+function getTotalCategorySalesByTime_DEFAULT() {
+  var date = new Date();
+  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+
+  startDate = moment(firstDay).format('YYYY-MM-DD');
+  endDate = moment(date).format('YYYY-MM-DD');
+
+  $.ajax({
+      url: "ajax/sales.ajax.php",
       dataType: "json",
       method: "POST",
-      data: { get_all_stocktakes: chosenDate },
-      success: function(answer) {
-        let data = [];
-        let labels = [];
-        if (answer != -1 && answer.length != 0) {
-          for (let i = 0; i < answer.length; i++) {
-            stockCount = answer[i]["stockCount"];
-            if (stockCount != 0) {
-              data.push(stockCount);
-              productCategory = answer[i]["productCategory"];
-              if (productCategory.includes("-")) {
-                productCategory = productCategory.substr(0, 2);
-              }
-              labels.push(productCategory);
-            }
-          }
-          showInventoryBarGraph(data, labels);
-        }
+      data: {
+          get_total_category_sales_by_start_date: startDate,
+          get_total_category_sales_by_end_date: endDate
+      },
+      success: function (answer) {
+          console.log(answer);
+          initPdtCatSalesInventoryTable(answer);
+          initTop10PdtCatSalesInventoryChart(answer);
+          initTop100PdtCatSalesInventoryChart(answer);
+          initDisplayFilterPdtCatSalesInventoryByDatePeriodMsg(startDate, endDate)
       }
-    });
+  });
+}
+
+function initPdtCatSalesInventoryTable(ajaxResponse) {
+  if ($.fn.DataTable.isDataTable('#pdtCatSalesInventoryByDateTable')) {
+      $("#pdtCatSalesInventoryByDateTable").DataTable().destroy();
+      $("#pdtCatSalesInventoryByDateTableBody").html("");
+  }
+  if (ajaxResponse.length === 0) {
+      $("#pdtCatSalesInventoryByDateTableBody").append(
+          `
+          <tr>
+              <td class="text-center" colspan="5">No data available.</td>
+          </tr>
+          `
+      );
+  } else {
+      for (let i = 0; i < ajaxResponse.length; i++) {
+          $("#pdtCatSalesInventoryByDateTableBody").append(
+              `
+              <tr>
+                  <td>` + ajaxResponse[i]['category'] + `</td>
+                  <td>` + ajaxResponse[i]['totalQty'] + `</td>
+                  <td>` + ajaxResponse[i]['totalDiscSales'] + `</td>
+              </tr>
+              `
+          );
+      }
+      if (!$.fn.DataTable.isDataTable('#pdtCatSalesInventoryByDateTable')) {
+          $("#pdtCatSalesInventoryByDateTable").DataTable({
+              "lengthMenu": [5, 10, 15, 20, 50, 100],
+              "order": [2, 'desc']
+          });
+      }
+  }
+}
+
+function initTop10PdtCatSalesInventoryChart(ajaxResponse) {
+
+  if (window.top10CategorySalesByDateBarChart != undefined) {
+      window.top10CategorySalesByDateBarChart.destroy();
+  }
+
+  let labels = [];
+  let data = [];
+  let sum_total_sales = 0;
+
+  (ajaxResponse).sort(function (a, b) {
+      if (parseFloat(a['totalDiscSales']) > parseFloat(b['totalDiscSales'])) return -1;
+      if (parseFloat(a['totalDiscSales']) < parseFloat(b['totalDiscSales'])) return 1;
+      return 0;
   });
 
-function showInventoryBarGraph(data, labels) {
-  // Create the chart.js data structure using 'labels' and 'data'
-  chartData = {
-    labels: labels,
-    datasets: [
-      {
-        fillColor: "rgba(151,187,205,0.2)",
-        strokeColor: "rgba(151,187,205,1)",
-        pointColor: "rgba(151,187,205,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(151,187,205,1)",
-        data: data
+  for (let i = 0; i < ajaxResponse.length; i++) {
+    let limit = 10;
+      if (ajaxResponse[i]['totalDiscSales'] == 0) {
+          continue;
       }
-    ]
-  };
-
-  // create options variable
-  chartOptions = {
-    //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-    scaleBeginAtZero: true,
-    //Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines: true,
-    //String - Colour of the grid lines
-    scaleGridLineColor: "rgba(0,0,0,.05)",
-    //Number - Width of the grid lines
-    scaleGridLineWidth: 1,
-    //Boolean - Whether to show horizontal lines (except X axis)
-    scaleShowHorizontalLines: true,
-    //Boolean - Whether to show vertical lines (except Y axis)
-    scaleShowVerticalLines: true,
-    //Boolean - If there is a stroke on each bar
-    barShowStroke: true,
-    //Number - Pixel width of the bar stroke
-    barStrokeWidth: 2,
-    //Number - Spacing between each of the X value sets
-    barValueSpacing: 5,
-    //Number - Spacing between data sets within X values
-    barDatasetSpacing: 1,
-    //String - A legend template
-    legendTemplate:
-      '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-    //Boolean - whether to make the chart responsive
-    responsive: true,
-    maintainAspectRatio: true
-  };
-
-  // Get the context of the canvas element we want to select
-  var ctx = $("#inventoryBarChart")
-    .get(0)
-    .getContext("2d");
-
-  if (window.barChart != undefined) {
-    window.barChart.destroy();
+      if (i < limit) {
+          labels.push(ajaxResponse[i]['category']);
+          data.push(ajaxResponse[i]['totalDiscSales']);
+      }
+      sum_total_sales += parseFloat(ajaxResponse[i]['totalDiscSales']);
   }
-  // Instantiate a new chart
-  window.barChart = new Chart(ctx).Bar(chartData, chartOptions);
+
+  /* Create color array */
+  const dataLength = data.length;
+  const colorScale = d3.interpolateBrBG;
+
+  const colorRangeInfo = {
+      colorStart: 0.1,
+      colorEnd: 0.4,
+      useEndAsStart: true
+  };
+  var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
+
+  var ctx = document.getElementById('pdtCatSalesInventoryChartTop10').getContext('2d');
+
+  window.top10CategorySalesByDateBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Store',
+              data: data,
+              backgroundColor: COLORS,
+              hoverBackgroundColor: COLORS,
+              borderColor: COLORS,
+              borderWidth: 1
+          }],
+      },
+      options: {
+          plugins: {
+              labels: [
+              ],
+          },
+          scales: {
+              xAxes: [{
+                  gridLines: {
+                      drawOnChartArea: false
+                  },
+                  ticks: {
+                      callback: function (value) {
+                          return value.substr(0, 11); //truncate
+                      },
+                  }
+              }]
+          },
+          tooltips: {
+              enabled: true,
+              mode: 'label',
+              callbacks: {
+                  title: function (tooltipItems, data) {
+                      var idx = tooltipItems[0].index;
+                      return data.labels[idx]; //do something with title
+                  },
+                  label: function (tooltipItems, data) {
+                      //var idx = tooltipItems.index;
+                      //return data.labels[idx] + ' €';
+                      return "Total Sales: $" + tooltipItems.yLabel;
+                  }
+              }
+          },
+          title: {
+              display: true,
+              text: 'Total sales: $' + Number(sum_total_sales).toFixed(2),
+              position: 'top',
+              fontSize: 14
+          },
+
+          maintainAspectRatio: false,
+          legend: {
+              display: false
+          }
+      },
+  });
+}
+
+function initTop100PdtCatSalesInventoryChart(ajaxResponse) {
+
+  if (window.top100CategorySalesByDateBarChart != undefined) {
+      window.top100CategorySalesByDateBarChart.destroy();
+  }
+
+  let labels = [];
+  let data = [];
+  let sum_total_sales = 0;
+
+  (ajaxResponse).sort(function (a, b) {
+      if (parseFloat(a['totalDiscSales']) > parseFloat(b['totalDiscSales'])) return -1;
+      if (parseFloat(a['totalDiscSales']) < parseFloat(b['totalDiscSales'])) return 1;
+      return 0;
+  });
+
+  for (let i = 0; i < ajaxResponse.length; i++) {
+    let limit = 100;
+      if (ajaxResponse[i]['totalDiscSales'] == 0) {
+          continue;
+      }
+      if (i < limit) {
+          labels.push(ajaxResponse[i]['category']);
+          data.push(ajaxResponse[i]['totalDiscSales']);
+      }
+      sum_total_sales += parseFloat(ajaxResponse[i]['totalDiscSales']);
+  }
+
+  /* Create color array */
+  const dataLength = data.length;
+  const colorScale = d3.interpolateBrBG;
+
+  const colorRangeInfo = {
+      colorStart: 0.1,
+      colorEnd: 0.4,
+      useEndAsStart: true
+  };
+  var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
+
+  var ctx = document.getElementById('pdtCatSalesInventoryChartTop100').getContext('2d');
+
+  window.top100CategorySalesByDateBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Store',
+              data: data,
+              backgroundColor: COLORS,
+              hoverBackgroundColor: COLORS,
+              borderColor: COLORS,
+              borderWidth: 1
+          }],
+      },
+      options: {
+          plugins: {
+              labels: [
+              ],
+          },
+          scales: {
+              xAxes: [{
+                  gridLines: {
+                      drawOnChartArea: false
+                  },
+                  ticks: {
+                      callback: function (value) {
+                          return value.substr(0, 11); //truncate
+                      },
+                  }
+              }]
+          },
+          tooltips: {
+              enabled: true,
+              mode: 'label',
+              callbacks: {
+                  title: function (tooltipItems, data) {
+                      var idx = tooltipItems[0].index;
+                      return data.labels[idx]; //do something with title
+                  },
+                  label: function (tooltipItems, data) {
+                      //var idx = tooltipItems.index;
+                      //return data.labels[idx] + ' €';
+                      return "Total Sales: $" + tooltipItems.yLabel;
+                  }
+              }
+          },
+          title: {
+              display: true,
+              text: 'Total sales: $' + Number(sum_total_sales).toFixed(2),
+              position: 'top',
+              fontSize: 14
+          },
+
+          maintainAspectRatio: false,
+          legend: {
+              display: false
+          }
+      },
+  });
+}
+
+function initDisplayFilterPdtCatSalesInventoryByDatePeriodMsg(startDate, endDate) {
+  $("#currentFilterPdtCatSalesInventoryByDatePeriodMsg").html("");
+  $("#currentFilterPdtCatSalesInventoryByDatePeriodMsg").append(
+      `
+      <p class="text-info">Displaying results for <b>` + startDate + ` - ` + endDate + `</b></p>
+      `
+  );
+}
+
+function documentTogglePdtCatInventoryFilter() {
+  $("#filterPdtCatSalesInventoryByDateButtonUp").hide();
+  $("#filterPdtCatSalesInventoryByDateButtonDown").show();
+
+  $("#filterPdtCatSalesInventoryByDate").hide();
 }

@@ -29,12 +29,12 @@ var currentPersonId = <?php echo $_SESSION['person_id']; ?>
 
         <div class="row">
             <div class="text-center">
-                <canvas id="globalClock" height="200" style="margin-top: 20px;"></canvas>
+                <canvas id="globalClock" height="200" style="margin-top: 40px;"></canvas>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 10px;">
                 <div class="text-center">
                     <h1>
                         Welcome,

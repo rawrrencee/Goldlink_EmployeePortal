@@ -1,6 +1,7 @@
 $(document).ready(function () {
     getTotalSalesByTime_DEFAULT();
     getTotalItemSalesByTime_DEFAULT();
+    getTotalCategorySalesByTime_DEFAULT();
     documentToggleSalesByProductFilter();
     documentToggleSalesByStoreFilter();
 });
@@ -157,6 +158,29 @@ function getCurrentMonthTotalSales() {
     });
 }
 
+function getTotalCategorySalesByTime_DEFAULT() {
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+
+    startDate = moment(firstDay).format('YYYY-MM-DD');
+    endDate = moment(date).format('YYYY-MM-DD');
+
+    $.ajax({
+        url: "ajax/sales.ajax.php",
+        dataType: "json",
+        method: "POST",
+        data: {
+            get_total_category_sales_by_start_date: startDate,
+            get_total_category_sales_by_end_date: endDate
+        },
+        success: function (answer) {
+            console.log(answer);
+            initTotalCategorySalesByStoreTable(answer);
+            initTotalCategorySalesByStoreChart(answer);
+        }
+    });
+}
+
 function getTotalItemSalesByTime_DEFAULT() {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -266,6 +290,41 @@ function getTotalSalesByTime(startDate, endDate) {
     });
 }
 
+function initTotalCategorySalesByStoreTable(ajaxResponse) {
+    if ($.fn.DataTable.isDataTable('#totalCategorySalesByDateTable')) {
+        $("#totalCategorySalesByDateTable").DataTable().destroy();
+        $("#totalCategorySalesByDateTableBody").html("");
+    }
+    if (ajaxResponse.length === 0) {
+        $("#totalCategorySalesByDateTableBody").append(
+            `
+            <tr>
+                <td class="text-center" colspan="5">No data available.</td>
+            </tr>
+            `
+        );
+    } else {
+        for (let i = 0; i < ajaxResponse.length; i++) {
+            $("#totalCategorySalesByDateTableBody").append(
+                `
+                <tr>
+                    <td>` + ajaxResponse[i]['category'] + `</td>
+                    <td>` + ajaxResponse[i]['totalQty'] + `</td>
+                    <td>` + ajaxResponse[i]['totalDiscSales'] + `</td>
+                </tr>
+                `
+            );
+        }
+        if (!$.fn.DataTable.isDataTable('#totalCategorySalesByDateTable')) {
+            $("#totalCategorySalesByDateTable").DataTable({
+                "lengthMenu": [5, 10, 15, 20, 50, 100],
+                "order": [2, 'desc']
+            });
+        }
+    }
+
+}
+
 function initTotalItemSalesByStoreTable(ajaxResponse) {
     if ($.fn.DataTable.isDataTable('#totalItemSalesByDateTable')) {
         $("#totalItemSalesByDateTable").DataTable().destroy();
@@ -300,8 +359,6 @@ function initTotalItemSalesByStoreTable(ajaxResponse) {
             });
         }
     }
-
-
 
 }
 
@@ -363,19 +420,19 @@ function initTotalSalesByStoreChart(ajaxResponse) {
         if (ajaxResponse[i]['total_sales'] == 0) {
             continue;
         }
-        labels.push(ajaxResponse[i]['store_name']);
+        labels.push(ajaxResponse[i]['store_code']);
         data.push(ajaxResponse[i]['total_sales']);
         sum_total_sales += parseFloat(ajaxResponse[i]['total_sales']);
     }
 
     /* Create color array */
     const dataLength = data.length;
-    const colorScale = d3.interpolateRdYlBu;
+    const colorScale = d3.interpolatePRGn;
 
     const colorRangeInfo = {
-        colorStart: 0.7,
-        colorEnd: 1,
-        useEndAsStart: false
+        colorStart: 0.1,
+        colorEnd: 0.4,
+        useEndAsStart: true
     };
     var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
 
@@ -410,6 +467,113 @@ function initTotalSalesByStoreChart(ajaxResponse) {
                 xAxes: [{
                     gridLines: {
                         drawOnChartArea: false
+                    }
+                }]
+            },
+            tooltips: {
+                enabled: true,
+                mode: 'label',
+                callbacks: {
+                    title: function (tooltipItems, data) {
+                        var idx = tooltipItems[0].index;
+                        return data.labels[idx]; //do something with title
+                    },
+                    label: function (tooltipItems, data) {
+                        //var idx = tooltipItems.index;
+                        //return data.labels[idx] + ' €';
+                        return "Total Sales: $" + tooltipItems.yLabel;
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: 'Total sales: $' + Number(sum_total_sales).toFixed(2),
+                position: 'top',
+                fontSize: 14
+            },
+
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            }
+        },
+    });
+}
+
+function initTotalCategorySalesByStoreChart(ajaxResponse) {
+
+    if (window.totalCategorySalesByDateBarChart != undefined) {
+        window.totalCategorySalesByDateBarChart.destroy();
+    }
+
+    let labels = [];
+    let data = [];
+    let sum_total_sales = 0;
+
+    (ajaxResponse).sort(function (a, b) {
+        if (parseFloat(a['totalDiscSales']) > parseFloat(b['totalDiscSales'])) return -1;
+        if (parseFloat(a['totalDiscSales']) < parseFloat(b['totalDiscSales'])) return 1;
+        return 0;
+    });
+
+    for (let i = 0; i < ajaxResponse.length; i++) {
+        if (ajaxResponse[i]['totalDiscSales'] == 0) {
+            continue;
+        }
+        if (i < 10) {
+            labels.push(ajaxResponse[i]['category']);
+            data.push(ajaxResponse[i]['totalDiscSales']);
+        }
+        sum_total_sales += parseFloat(ajaxResponse[i]['totalDiscSales']);
+    }
+
+    /* Create color array */
+    const dataLength = data.length;
+    const colorScale = d3.interpolateBrBG;
+
+    const colorRangeInfo = {
+        colorStart: 0.1,
+        colorEnd: 0.4,
+        useEndAsStart: true
+    };
+    var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
+
+    var ctx = document.getElementById('totalCategorySalesByDateBar').getContext('2d');
+
+    window.totalCategorySalesByDateBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Store',
+                data: data,
+                backgroundColor: COLORS,
+                hoverBackgroundColor: COLORS,
+                borderColor: COLORS,
+                borderWidth: 1
+            }],
+        },
+        options: {
+            plugins: {
+                labels: [{
+                        render: function (args) {
+                            return '$' + args.value;
+                        },
+                        fontColor: '#000',
+                        position: 'outside',
+                        textMargin: 10
+                    }
+                ],
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        drawOnChartArea: false
+                    },
+                    ticks: {
+                        callback: function (value) {
+                            return value.substr(0, 11); //truncate
+                        },
                     }
                 }]
             },
@@ -579,11 +743,11 @@ function initTotalItemKitSalesByStoreChart(ajaxResponse) {
 
     /* Create color array */
     const dataLength = data.length;
-    const colorScale = d3.interpolateRdYlBu;
+    const colorScale = d3.interpolateRdYlGn;
 
     const colorRangeInfo = {
-        colorStart: 0.7,
-        colorEnd: 1,
+        colorStart: 0.6,
+        colorEnd: 0.8,
         useEndAsStart: false
     };
     var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);

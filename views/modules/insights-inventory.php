@@ -16,38 +16,103 @@
 
     <section class="content">
 
-        <!-- BAR CHART -->
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">Stock Count by Product Category</h3>
+        <div class="row">
+            <section class="col-lg-12 col-md-12 col-xs-12">
 
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                            class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body">
-                <!-- Date -->
-                <div class="form-group">
-                    <label>Date:</label>
-
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
+                <div class="nav-tabs-custom">
+                    <!-- Tabs within a box -->
+                    <ul class="nav nav-tabs pull-right">
+                        <li><a href="#top100pdtCatSalesInventory" data-toggle="tab">Top 100</a></li>
+                        <li class="active"><a href="#top10pdtCatSalesInventory" data-toggle="tab">Top 10</a></li>
+                        <li class="pull-left header"><i class="fa fa-inbox"></i>&nbsp;Product Category (Sales &
+                            Inventory)</li>
+                    </ul>
+                    <div class="tab-content no-padding">
+                        <div class="row" style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">
+                            <div class="col-lg-6 col-md-6 col-xs-12 pull-right">
+                                <button id="filterPdtCatSalesInventoryByDateButtonDown"
+                                    class="btn btn-default pull-right" style="width: 100%;">Filter <i
+                                        class="fa fa-angle-down"></i></button>
+                                <button id="filterPdtCatSalesInventoryByDateButtonUp" class="btn btn-default pull-right"
+                                    style="width: 100%;">Filter <i class="fa fa-angle-up"></i></button>
+                            </div>
                         </div>
-                        <input type="text" class="form-control pull-right" id="inventoryInsightsDatePicker">
+                        <div class="row" style="margin-top: 10px; margin-left: 10px;">
+                            <div class="col-lg-6 col-md-6 col-xs-12 pull-right">
+                                <div id="currentFilterPdtCatSalesInventoryByDatePeriodMsg"></div>
+                            </div>
+                        </div>
+                        <div id="filterPdtCatSalesInventoryByDate"
+                            style="margin-top: 10px; margin-left: 20px; margin-right: 20px;">
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <label for="pdtCatSalesInventoryEndDate">End Date:</label>
+                                    <input type="text" id="pdtCatSalesInventoryEndDate" class="form-control datepicker"
+                                        style="background-color: white;">
+                                </div>
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <label for="pdtCatSalesInventoryStartDate">Start Date:</label>
+                                    <input type="text" id="pdtCatSalesInventoryStartDate"
+                                        class="form-control datepicker" style="background-color: white;">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12 pull-right">
+                                    <div id="filterPdtCatSalesInventoryByDateMsg"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-6 pull-right">
+                                    <button id="pdtCatSalesInventoryFilterApply" type="button"
+                                        class="btn btn-info pull-right" style="margin-top: 10px;">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane active" id="top10pdtCatSalesInventory">
+                            <div class="box-body">
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-lg-12">
+                                        <canvas id="pdtCatSalesInventoryChartTop10" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="top100pdtCatSalesInventory">
+                            <div class="box-body">
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-lg-12">
+                                        <div class="chart-container" style="height:40vh; width:100%">
+                                            <canvas id="pdtCatSalesInventoryChartTop100" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-lg-12">
+                                    <table id="pdtCatSalesInventoryByDateTable"
+                                        class="table table-hover table-bordered table-striped dt-responsive"
+                                        width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Category</th>
+                                                <th>Quantity</th>
+                                                <th>Total Sales</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pdtCatSalesInventoryByDateTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <!-- /.input group -->
                 </div>
-                <!-- /.form group -->
-                <div class="chart">
-                    <canvas id="inventoryBarChart" style="height:500px"></canvas>
-                </div>
-                <div id="chartdiv"></div>
-            </div>
-            <!-- /.box-body -->
+
+            </section>
         </div>
     </section>
 </div>
