@@ -29,9 +29,6 @@ session_start();
     <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="views/bower_components/Ionicons/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
-    <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css">
     <!-- jQuery File Upload Stylesheet -->
     <link rel="stylesheet" href="views/dist/css/jquery.fileupload.css">
     <link rel="stylesheet" href="views/dist/css/jquery.fileupload-ui.css">
@@ -49,7 +46,15 @@ session_start();
     <link rel="stylesheet" href="views/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="views/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-
+    <!-- Theme style -->
+    <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
+    <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css">
+    <!--jqListbox-->
+    <link rel="stylesheet" href="views/plugins/jqListbox/jqListbox.css">
+    </script>
+    <!--pace-->
+    <link rel="stylesheet" href="views/plugins/pace/pace.css">
+    </script>
 
     <!--=====================================
   JAVASCRIPT PLUGINS
@@ -64,7 +69,9 @@ session_start();
     <!-- Bootstrap 3.3.7 -->
     <script src="views/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- ChartJS -->
-    <script src="views/bower_components/chart.js/Chart.js"></script>
+    <script src="views/bower_components/moment/min/moment.min.js"></script>
+    <script src="views/bower_components/chart.js/Chart-2.9.3.min.js"></script>
+    <script src="views/plugins/chartjs-plugin-datalabels/chartjs-plugin-datalabels.min.js"></script>
     <!-- SlimScroll -->
     <script src="views/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -84,7 +91,7 @@ session_start();
     <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
     <script src="views/bower_components/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
     <!-- Select2 -->
-    <script src="views/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="views/bower_components/select2/dist/js/select2-v4013.min.js"></script>
     <!-- DataTables -->
     <script src="views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -97,7 +104,6 @@ session_start();
     <!-- iCheck 1.0.1 -->
     <script src="views/plugins/iCheck/icheck.min.js"></script>
     <!-- date-range-picker -->
-    <script src="views/bower_components/moment/min/moment.min.js"></script>
     <script src="views/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap datepicker -->
     <script src="views/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
@@ -105,6 +111,18 @@ session_start();
     <script src="views/plugins/repeater/repeater.js"></script>
     <!-- date.js -->
     <script type="text/javascript" src="views/plugins/dateJS/date.js"></script>
+    <!-- jqListbox.js -->
+    <script src="views/plugins/jqListbox/jqListbox.plugin-1.3.min.js"></script>
+    <!-- jqListbox.js -->
+    <script src="views/plugins/ProgressBar.js/progressbar.min.js"></script>
+    <!-- pace.js -->
+    <script src="views/plugins/pace/pace.js"></script>
+    <!-- Import D3 Scale Chromatic via CDN -->
+    <script src="views/plugins/d3js/d3-color.v1.min.js"></script>
+    <script src="views/plugins/d3js/d3-interpolate.v1.min.js"></script>
+    <script src="views/plugins/d3js/d3-scale-chromatic.v1.min.js"></script>
+    <!-- jQuery Analog Clock -->
+    <script src="views/plugins/jQuery-Analog-Clock/jquery.ht-analog-clock.min.js"></script>
 </head>
 
 <!--=====================================
@@ -116,86 +134,81 @@ session_start();
 
     <?php
 
-    $maintenance_mode = 0;
+$maintenance_mode = 0;
 
-    if ($maintenance_mode == 1) {
-        echo '<p style="color: white; padding: 10%">Website under maintenance.</p>';
-        return;
+if ($maintenance_mode == 1) {
+    echo '<p style="color: white; padding: 10%">Website under maintenance.</p>';
+    return;
+}
+
+if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+
+    echo '<div class="wrapper">';
+
+    include "modules/header.php";
+
+    include "modules/sidebar.php";
+
+    if (isset($_GET["route"])) {
+        if (
+
+            $_GET["route"] == "home" ||
+            $_GET["route"] == "logout" ||
+            //DEV OVERRIDES - For Insights page development
+            //TODO: Once development completes, shift "Insights" page to allowed modules
+            strpos($_GET["route"], "insights") !== false
+        ) {
+            include "modules/" . $_GET["route"] . ".php";
+        } else if (
+
+            ($_GET["route"] == "customer-archives" ||
+                $_GET["route"] == "customer-management" ||
+                $_GET["route"] == "employee-management" ||
+                $_GET["route"] == "employee-upload-files" ||
+                $_GET["route"] == "employee-salary-voucher-management" ||
+                $_GET["route"] == "employee-salary-voucher-management-pt" ||
+                $_GET["route"] == "employee-salary-voucher-team" ||
+                $_GET["route"] == "employee-salary-voucher-team-pt" ||
+                $_GET["route"] == "employee-salary-voucher-my" ||
+                $_GET["route"] == "employee-salary-voucher-my-pt" ||
+                $_GET["route"] == "employee-salary-voucher-submit" ||
+                $_GET["route"] == "employee-salary-voucher-submit-pt" ||
+                $_GET["route"] == "employee-salary-voucher-analysis" ||
+                $_GET["route"] == "employee-salary-voucher-analysis-yearly" ||
+                $_GET["route"] == "item-management" ||
+                $_GET["route"] == "item-kit-management" ||
+                $_GET["route"] == "sales-terminal" ||
+                $_GET["route"] == "supplier-management")
+            && in_array($_GET["route"], $_SESSION['allowed_modules'])
+        ) {
+
+            include "modules/" . $_GET["route"] . ".php";
+        } else {
+            include "modules/404.php";
+        }
+    } else {
+        include "modules/home.php";
     }
 
-    if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
+    include "modules/footer.php";
 
-            echo '<div class="wrapper">';
+    echo '</div>';
+} else {
 
-            include "modules/header.php";
+    include "modules/login.php";
+}
 
-            include "modules/sidebar.php";
-
-            if (isset($_GET["route"])) {
-                if (
-
-                    $_GET["route"] == "home" ||
-                    $_GET["route"] == "logout" ||
-                    //DEV OVERRIDES - For Insights page development
-                    //TODO: Once development completes, shift "Insights" page to allowed modules
-                    strpos($_GET["route"], "insights") !== false
-                ) {
-                    include "modules/" . $_GET["route"] . ".php";
-
-                } else if (
-
-                    (
-                        $_GET["route"] == "customer-archives" ||
-                        $_GET["route"] == "customer-management" ||
-                        $_GET["route"] == "employee-management" ||
-                        $_GET["route"] == "employee-upload-files" ||
-                        $_GET["route"] == "employee-salary-voucher-management" ||
-                        $_GET["route"] == "employee-salary-voucher-management-pt" ||
-                        $_GET["route"] == "employee-salary-voucher-team" ||
-                        $_GET["route"] == "employee-salary-voucher-team-pt" ||
-                        $_GET["route"] == "employee-salary-voucher-my" ||
-                        $_GET["route"] == "employee-salary-voucher-my-pt" ||
-                        $_GET["route"] == "employee-salary-voucher-submit" ||
-                        $_GET["route"] == "employee-salary-voucher-submit-pt" ||
-                        $_GET["route"] == "employee-salary-voucher-analysis" ||
-                        $_GET["route"] == "employee-salary-voucher-analysis-yearly" ||
-                        $_GET["route"] == "item-management" ||
-                        $_GET["route"] == "item-kit-management" ||
-                        $_GET["route"] == "sales-terminal" ||
-                        $_GET["route"] == "supplier-management"
-                    )
-                    && in_array($_GET["route"], $_SESSION['allowed_modules'])) {
-
-                    include "modules/" . $_GET["route"] . ".php";
-
-                } else {
-                    include "modules/404.php";
-                }
-            } else {
-                include "modules/home.php";
-            }
-
-            include "modules/footer.php";
-
-            echo '</div>';
-
-        } else {
-
-            include "modules/login.php";
-
-        }
-
-    ?>
+?>
 
     </div>
     <script src="views/js/template.js"></script>
     <script src="views/js/header.js"></script>
-
     <script src="views/js/customers.js"></script>
     <script src="views/js/customer-archives.js"></script>
     <script src="views/js/employees.js"></script>
     <script src="views/js/employee-salary-voucher-analysis.js"></script>
     <script src="views/js/employee-salary-voucher-analysis-yearly.js"></script>
+    <script src="views/js/insights-functions.js"></script>
     <script src="views/js/items.js"></script>
     <script src="views/js/item-kits.js"></script>
     <script src="views/js/payroll-submit.js"></script>
@@ -211,7 +224,6 @@ session_start();
     <script src="views/js/people.js"></script>
     <script src="views/js/sales.js"></script>
     <script src="views/js/suppliers.js"></script>
-
 </body>
 
 </html>

@@ -316,6 +316,13 @@ class ItemController
         return $response;
     }
 
+    public static function ctrViewItemsInCategory($category) {
+        
+        $response = ItemModel::mdlViewItemsInCategory($category);
+
+        return $response;
+    }
+
     public static function ctrViewStoresWithItem($value)
     {
         $table = 'stores_items';

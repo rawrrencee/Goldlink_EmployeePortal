@@ -13,51 +13,62 @@ session_start();
             </li>
 
             <li class="treeview menu-open">
-                <a href="#">
-                    <i class="fa fa-bar-chart"></i>
-                    <span>Insights</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-
-                <ul class="treeview-menu menu-open treeview-menu-visible">
-                    <li>
-                        <a href="insights-overview">
-                            <i class="fa fa-circle-o"></i>
-                            <span>Overview</span>
+                <?php
+                    if (in_array('insights-sales', $_SESSION['allowed_modules']) || in_array('insights-inventory', $_SESSION['allowed_modules']) || in_array('insights-employees', $_SESSION['allowed_modules'])) {
+                        echo '
+                        <a href="#">
+                            <i class="fa fa-bar-chart"></i>
+                            <span>Insights</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
-                    </li>
-                </ul>
+                        ';
+                    };
+                    
+                    if (in_array('insights-sales', $_SESSION['allowed_modules'])) {
+                        echo '
+                        <ul class="treeview-menu menu-open treeview-menu-visible">
+                            <li>
+                                <a href="insights-sales">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>Sales</span>
+                                </a>
+                            </li>
+                        </ul>
+                        ';
+                        
+                    };
 
-                <ul class="treeview-menu menu-open treeview-menu-visible">
-                    <li>
-                        <a href="insights-sales">
-                            <i class="fa fa-circle-o"></i>
-                            <span>Sales</span>
-                        </a>
-                    </li>
-                </ul>
+                    if (in_array('insights-inventory', $_SESSION['allowed_modules'])) {
+                        echo '
+                        <ul class="treeview-menu menu-open treeview-menu-visible">
+                            <li>
+                                <a href="insights-inventory">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>Inventory</span>
+                                </a>
+                            </li>
+                        </ul>
+                        ';
+                        
+                    };
 
-
-                <ul class="treeview-menu menu-open treeview-menu-visible">
-                    <li>
-                        <a href="insights-inventory">
-                            <i class="fa fa-circle-o"></i>
-                            <span>Inventory</span>
-                        </a>
-                    </li>
-                </ul>
-
-
-                <ul class="treeview-menu menu-open treeview-menu-visible">
-                    <li>
-                        <a href="insights-example">
-                            <i class="fa fa-circle-o"></i>
-                            <span>Example</span>
-                        </a>
-                    </li>
-                </ul>
+                    if (in_array('insights-employees', $_SESSION['allowed_modules'])) {
+                        echo '
+                        <ul class="treeview-menu menu-open treeview-menu-visible">
+                            <li>
+                                <a href="insights-employees">
+                                    <i class="fa fa-circle-o"></i>
+                                    <span>Employees</span>
+                                </a>
+                            </li>
+                        </ul>
+                        ';
+                        
+                    };
+                ?>
+                
             </li>
 
             <?php 

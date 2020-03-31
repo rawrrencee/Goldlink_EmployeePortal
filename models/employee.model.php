@@ -64,9 +64,10 @@ class EmployeeModel
         }
     }
 
-    public static function mdlCheckEmployeeStoreExists($conn, $employeesStoresData) {
+    public static function mdlCheckEmployeeStoreExists($conn, $employeesStoresData)
+    {
         $stmt = $conn->prepare("SELECT * FROM employees_stores WHERE person_id = :person_id AND store_id = :store_id");
-        
+
         $stmt->bindParam(":person_id", $employeesStoresData["person_id"], PDO::PARAM_INT);
         $stmt->bindParam(":store_id", $employeesStoresData["store_id"], PDO::PARAM_STR);
 
@@ -79,9 +80,10 @@ class EmployeeModel
         }
     }
 
-    public static function mdlCheckEmployeesTeamMemberExists($conn, $newEmployeesTeamData) {
+    public static function mdlCheckEmployeesTeamMemberExists($conn, $newEmployeesTeamData)
+    {
         $stmt = $conn->prepare("SELECT * FROM employees_team WHERE leader_id = :leader_id AND member_id = :member_id");
-        
+
         $stmt->bindParam(":leader_id", $newEmployeesTeamData["leader_id"], PDO::PARAM_INT);
         $stmt->bindParam(":member_id", $newEmployeesTeamData["member_id"], PDO::PARAM_INT);
 
@@ -94,9 +96,10 @@ class EmployeeModel
         }
     }
 
-    public static function mdlCheckEmployeesDetailExists($conn, $person_id) {
+    public static function mdlCheckEmployeesDetailExists($conn, $person_id)
+    {
         $stmt = $conn->prepare("SELECT * FROM employees_detail WHERE person_id = :person_id");
-        
+
         $stmt->bindParam(":person_id", $person_id, PDO::PARAM_INT);
 
         $stmt->execute();
@@ -115,9 +118,6 @@ class EmployeeModel
         $stmt->execute();
 
         return $stmt->fetch();
-
-        $stmt->close();
-        $stmt = null;
     }
 
     public static function mdlViewEmployeePermissions($personId)
@@ -143,6 +143,117 @@ class EmployeeModel
 
         $stmt->execute();
 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewActiveEmployees()
+    {
+        $stmt = Connection::connect()->prepare("SELECT * FROM employees_detail JOIN people ON employees_detail.person_id = people.person_id WHERE employees_detail.active = :active");
+
+        $active = 1;
+        $stmt->bindParam(":active", $active, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewEmployeesSalesTarget($personId, $storeId, $month, $year)
+    {
+        $stmt = Connection::connect()->prepare("SELECT 
+        employees_sales_target.record_id, employees_sales_target.sales_target, employees_sales_target.person_id, employees_sales_target.store_id, employees_sales_target.month, employees_sales_target.year,
+        people.first_name, people.last_name, people.designation, stores.store_id, stores.store_name
+        FROM employees_sales_target 
+        JOIN people 
+        ON employees_sales_target.person_id = people.person_id 
+        JOIN stores 
+        ON employees_sales_target.store_id = stores.store_id 
+        WHERE employees_sales_target.person_id = :person_id 
+        AND employees_sales_target.store_id = :store_id 
+        AND employees_sales_target.month = :month 
+        AND employees_sales_target.year = :year");
+
+        $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+        $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+        $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+        $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year)
+    {
+        try {
+            $stmt = Connection::connect()->prepare("SELECT SUM(total_sales) as total_sales
+            FROM(
+            (
+            SELECT SUM( CAST( quantity_purchased * item_unit_price * 
+            ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ) ) AS total_sales, employee_id
+            FROM sales s 
+            INNER JOIN sales_items ON s.sale_id = sales_items.sale_id 
+            INNER JOIN stores ON s.store_id = stores.store_id 
+            INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id 
+            INNER JOIN items ON sales_items.item_id = items.item_id  
+            WHERE YEAR(sale_time) = :year AND MONTH(sale_time) = :month AND s.store_id = :store_id AND s.employee_id = :person_id AND payment_amount != '0' AND discount_percent != '100'
+            GROUP BY employee_id
+            )
+            UNION ALL
+            (
+            SELECT SUM( CAST( quantity_purchased * item_kit_unit_price * 
+            ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) ) ) AS total_sales, employee_id
+            FROM sales s 
+            INNER JOIN stores ON s.store_id = stores.store_id 
+            INNER JOIN sales_item_kits ON s.sale_id = sales_item_kits.sale_id
+            INNER JOIN item_kits ON sales_item_kits.item_kit_id = item_kits.item_kit_id
+            INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id  
+            WHERE YEAR(sale_time) = :year_temp AND MONTH(sale_time) = :month_temp AND s.store_id = :store_id_temp AND s.employee_id = :person_id_temp AND payment_amount != '0' AND discount_percent != '100' 
+            GROUP BY employee_id
+            ) 
+            ) AS temp
+            GROUP BY temp.employee_id"
+            );
+    
+            $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+            $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+
+            $stmt->bindParam(":person_id_temp", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id_temp", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":month_temp", $month, PDO::PARAM_INT);
+            $stmt->bindParam(":year_temp", $year, PDO::PARAM_INT);
+    
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+
+            return "Exception: " . $e->getMessage();
+        }
+
+    }
+
+    public static function mdlViewEmployeesSalesTargetbyMonthYear($storeId, $month, $year)
+    {
+        $stmt = Connection::connect()->prepare("SELECT employees_sales_target.sales_target, employees_sales_target.month, employees_sales_target.year, employees_sales_target.person_id, people.first_name, people.last_name, people.designation, stores.store_id, stores.store_name FROM employees_sales_target JOIN people ON employees_sales_target.person_id = people.person_id JOIN stores ON employees_sales_target.store_id = stores.store_id WHERE employees_sales_target.store_id = :store_id AND employees_sales_target.month = :month AND employees_sales_target.year = :year AND employees_sales_target.sales_target != 0");
+
+        $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+        $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+        $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function mdlViewLatestIndivSalaryVouchers($personId) {
+        $table = 'payroll_salary_vouchers';
+        $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE person_id = :person_id AND is_draft = 0 AND status = 'Approved' ORDER BY voucher_id DESC LIMIT 1");
+        $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -309,7 +420,37 @@ class EmployeeModel
         $stmt->execute();
     }
 
-    public static function mdlDeleteAllEmployeePermissions($employeeData)
+    public static function mdlCreateEmployeeSalesTarget($personId, $storeId, $month, $year, $salesTarget)
+    {
+        $conn = new Connection();
+        $conn = $conn->connect();
+
+        try {
+            $conn->beginTransaction();
+
+            $stmt = $conn->prepare("INSERT INTO employees_sales_target(person_id, store_id, month, year, sales_target) VALUES (:person_id, :store_id, :month, :year, :sales_target)");
+
+            $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+            $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+            $stmt->bindParam(":sales_target", $salesTarget, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            $conn->commit();
+
+            return true;
+
+        } catch (Exception $e) {
+
+            $conn->rollBack();
+            return "Exception: " . $e->getMessage();
+        }
+        return false;
+    }
+
+    public static function mdlDeleteAllEmployeePermissions($conn, $employeeData)
     {
         $table = 'employees_modules';
         $person_id = $employeeData['person_id'];
@@ -373,11 +514,11 @@ class EmployeeModel
             }
 
             foreach ($personData['employees_stores'] as $index => $storeId) {
-                
+
                 $employeesStoresData = array(
                     'person_id' => $personData['person_id'],
                     'store_id' => $storeId,
-                    'active' => 1
+                    'active' => 1,
                 );
                 $response = self::mdlCheckEmployeeStoreExists($conn, $employeesStoresData);
 
@@ -407,11 +548,11 @@ class EmployeeModel
             }
 
             foreach ($teamMembersData['employees_team'] as $index => $memberId) {
-                
+
                 $newEmployeesTeamData = array(
                     'leader_id' => $employeeData["person_id"],
                     'member_id' => $memberId,
-                    'active' => 1
+                    'active' => 1,
                 );
                 $response = self::mdlCheckEmployeesTeamMemberExists($conn, $newEmployeesTeamData);
 
@@ -477,6 +618,33 @@ class EmployeeModel
         $stmt->bindParam(":member_id", $employeesTeamData["member_id"], PDO::PARAM_INT);
 
         $stmt->execute();
+    }
+
+    public static function mdlUpdateEmployeesSalesTarget($recordId, $personId, $storeId, $month, $year, $salesTarget)
+    {
+        $conn = new Connection();
+        $conn = $conn->connect();
+
+        try {
+            $conn->beginTransaction();
+            $stmt = $conn->prepare("UPDATE employees_sales_target SET month = :month, year = :year, sales_target = :sales_target WHERE person_id = :person_id AND record_id = :record_id AND store_id = :store_id");
+
+            $stmt->bindParam(":record_id", $recordId, PDO::PARAM_INT);
+            $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+            $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+            $stmt->bindParam(":sales_target", $salesTarget, PDO::PARAM_STR);
+
+            $stmt->execute();
+            $conn->commit();
+
+            return true;
+
+        } catch (PDOException $e) {
+            $conn->rollBack();
+            return false;
+        }
     }
 
     public static function mdlUpdateEmployeesDetail($conn, $personData)

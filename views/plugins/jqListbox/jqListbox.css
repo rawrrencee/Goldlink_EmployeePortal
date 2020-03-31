@@ -1,0 +1,82 @@
+
+.customlist {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #999;
+    overflow: auto;
+}
+
+.customlist .tile {
+    padding: 5px;
+    margin: 5px 0;
+    opacity: 0.75;
+    border: 2px solid transparent;
+    text-align: center;
+    cursor: pointer;
+}
+
+.customlist .tile.selected {
+    opacity: 1;
+    border: 2px solid #337ab7;
+}
+
+.customlist table {
+    width: 100%;
+}
+
+.customlist table td {
+    padding: 5px;
+}
+
+.customlist table tr {
+    cursor: pointer;
+}
+
+.customlist table tr:hover {
+    background-color: #eee;
+}
+
+.customlist table tr.selected .glyphicon-check {
+    color: #337ab7;
+}
+
+.customlist ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.customlist ul li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.customlist ul li .glyphicon {
+    /*padding-right: 10px;*/
+    float: right;
+    color: #000;
+}
+
+.customlist ul li.selected .glyphicon {
+    color: #fff;
+}
+
+.customlist ul li .glyphicon-ok {
+    color: #fff;
+    float: none;
+    padding-right: 10px;
+}
+
+.customlist ul li small {
+    display: block;
+}
+
+.customlist ul li:hover {
+    background-color: #eee;
+}
+
+.customlist ul li.selected {
+    background-color: #337ab7;
+    font-weight: bold;
+    color: #fff;
+}
