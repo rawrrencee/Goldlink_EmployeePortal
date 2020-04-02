@@ -151,6 +151,7 @@ class EmployeeController
         $_SESSION["levy_amount"] = $payrollData[0]["levy_amount"];
         $_SESSION["race"] = $payrollData[0]["race"];
         $_SESSION["full_time"] = $payrollData[0]["full_time"];
+        $_SESSION["is_sg_pr"] = $payrollData[0]["is_sg_pr"];
         $_SESSION["allowedStoresData"] = $allowedStoresData;
         $_SESSION["teamMembersData"] = $teamMembersData;
 
