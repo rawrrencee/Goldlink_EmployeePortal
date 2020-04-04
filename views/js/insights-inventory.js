@@ -444,7 +444,7 @@ function initCategoryInventoryItemsByDateTable(ajaxResponse) {
         $("#categoryInventoryItemsByDateTableBody").append(
             `
           <tr>
-              <td class="text-center" colspan="2">No data available.</td>
+              <td class="text-center" colspan="5">No data available.</td>
           </tr>
           `
         );
