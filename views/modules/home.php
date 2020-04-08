@@ -168,4 +168,6 @@ var currentPersonId = <?php echo $_SESSION['person_id']; ?>
     </section>
 </div>
 
+<script src="views/js/template.js"></script>
+<script src="views/js/header.js"></script>
 <script src="views/js/home.js"></script>

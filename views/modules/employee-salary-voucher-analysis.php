@@ -478,3 +478,7 @@ session_start();
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script src="views/js/template.js"></script>
+<script src="views/js/header.js"></script>
+<script src="views/js/employee-salary-voucher-analysis.js"></script>

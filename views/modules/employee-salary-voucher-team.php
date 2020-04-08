@@ -748,3 +748,8 @@ session_start();
         </div>
     </div>
 </div>
+
+<script src="views/js/template.js"></script>
+<script src="views/js/header.js"></script>
+<script src="views/js/payroll-functions.js"></script>
+<script src="views/js/payroll-salary-voucher-team.js"></script>
