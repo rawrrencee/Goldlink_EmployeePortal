@@ -744,3 +744,9 @@
     $createSalaryVoucher = new PayrollController();
     $createSalaryVoucher->ctrDeleteSalaryVoucher();
 ?>
+
+<script src="views/js/template.js"></script>
+<script src="views/js/header.js"></script>
+<script src="views/js/payroll-functions.js"></script>
+<script src="views/js/payroll-submit.js"></script>
+<script src="views/js/payroll-salary-voucher-drafts-pt.js"></script>

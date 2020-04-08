@@ -281,3 +281,7 @@
         </div>
     </div>
 </div>
+
+<script src="views/js/template.js"></script>
+<script src="views/js/header.js"></script>
+<script src="views/js/customer-archives.js"></script>
