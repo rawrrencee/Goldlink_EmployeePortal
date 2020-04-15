@@ -20,6 +20,11 @@ class AjaxSales
     public $storeId;
     public $personId;
 
+    public $thisMonthStartDate;
+    public $thisMonthEndDate;
+    public $prevMonthStartDate;
+    public $prevMonthEndDate;
+
     public function getTotalSalesForCurrentMonth()
     {
 
@@ -142,6 +147,68 @@ class AjaxSales
         echo json_encode($answer);
     }
 
+    public function getHighestStoreSalesOverview() {
+
+        $storeSalesOverviewData = [];
+
+        $thisMonthStartDate = $this->thisMonthStartDate;
+        $thisMonthEndDate = $this->thisMonthEndDate;
+
+        $thisMonthData = SalesController::ctrViewTotalSalesForAllStoresByTime($thisMonthStartDate, $thisMonthEndDate);
+
+        $prevMonthStartDate = $this->prevMonthStartDate;
+        $prevMonthEndDate = $this->prevMonthEndDate;
+
+        $prevMonthData = SalesController::ctrViewTotalSalesForAllStoresByTime($prevMonthStartDate, $prevMonthEndDate);
+
+        $totalSales = 0.00;
+        $bestStore = [];
+        foreach ($thisMonthData as $store) {
+            if (floatval($store['total_sales']) > $totalSales) {
+                $totalSales = floatval($store['total_sales']);
+                $bestStore = $store;
+            }
+        }
+
+        $prevTotalSales = 0.00;
+        $prevBestStore = [];
+        foreach ($prevMonthData as $store) {
+            if (floatval($store['total_sales']) > $prevTotalSales) {
+                $prevTotalSales = floatval($store['total_sales']);
+                $prevBestStore = $store;
+            }
+        }
+
+        $itemSalesData = SalesController::ctrViewTotalItemSalesByStoreCodeAndTime($thisMonthStartDate, $thisMonthEndDate, $bestStore['store_code']);
+
+        $totalItemDiscSales = 0.00;
+        $lowestItemDiscSales = 0.00;
+        $bestItem = [];
+        $worstItem = [];
+        for ($index = 0; $index < count($itemSalesData); $index++) {
+            if ($index === 0) {
+                $lowestItemDiscSales = floatval($itemSalesData[$index]['totalDiscSales']);
+            }
+            if (floatval($itemSalesData[$index]['totalDiscSales']) > $totalItemDiscSales) {
+                $totalItemDiscSales = floatval($itemSalesData[$index]['totalDiscSales']);
+                $bestItem = $itemSalesData[$index];
+            }
+            if (floatval($itemSalesData[$index]['totalDiscSales']) < $lowestItemDiscSales) {
+                $lowestItemDiscSales = floatval($itemSalesData[$index]['totalDiscSales']);
+                $worstItem = $itemSalesData[$index];
+            }
+        } 
+
+        $storeSalesOverviewData['thisMonthData'] = $thisMonthData;
+        $storeSalesOverviewData['prevMonthData'] = $prevMonthData;
+        $storeSalesOverviewData['bestStore'] = $bestStore;
+        $storeSalesOverviewData['prevBestStore'] = $prevBestStore;
+        $storeSalesOverviewData['bestItem'] = $bestItem;
+        $storeSalesOverviewData['worstItem'] = $worstItem;
+
+        echo json_encode($storeSalesOverviewData);
+    }
+
 }
 
 if (isset($_POST['get_total_sales_for_current_month'])) {
@@ -158,6 +225,17 @@ if (isset($_POST['get_total_sales_by_start_date']) && isset($_POST['get_total_sa
     $getTotalSalesByTime -> endDate = $_POST['get_total_sales_by_end_date'];
 
     $getTotalSalesByTime -> getTotalSalesByTime();
+}
+
+if (isset($_POST['highest_store_sales_this_start_date']) && isset($_POST['highest_store_sales_this_end_date']) && isset($_POST['highest_store_sales_prev_start_date']) && isset($_POST['highest_store_sales_prev_end_date'])) {
+
+    $getHighestStoreSalesOverview = new AjaxSales();
+    $getHighestStoreSalesOverview -> thisMonthStartDate = $_POST['highest_store_sales_this_start_date'];
+    $getHighestStoreSalesOverview -> thisMonthEndDate = $_POST['highest_store_sales_this_end_date'];
+    $getHighestStoreSalesOverview -> prevMonthStartDate = $_POST['highest_store_sales_prev_start_date'];
+    $getHighestStoreSalesOverview -> prevMonthEndDate = $_POST['highest_store_sales_prev_end_date'];
+
+    $getHighestStoreSalesOverview -> getHighestStoreSalesOverview();
 }
 
 if (isset($_POST['get_total_category_sales_by_start_date']) && isset($_POST['get_total_category_sales_by_end_date']) && !isset($_POST['get_total_category_stocktake_by_date'])) {

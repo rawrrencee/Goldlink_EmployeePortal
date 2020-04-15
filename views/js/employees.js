@@ -419,6 +419,7 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
           $('#editItemManagement').iCheck('uncheck');
           $('#editItemKitManagement').iCheck('uncheck');
           $('#editSalesTerminal').iCheck('uncheck');
+          $('#editInsightsOverview').iCheck('uncheck');
           $('#editInsightsSales').iCheck('uncheck');
           $('#editInsightsInventory').iCheck('uncheck');
           $('#editInsightsEmployees').iCheck('uncheck');
@@ -482,6 +483,9 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
             }
             else if (answer[i]['module_title'] == "sales-terminal" && answer[i]['active'] == 1) {
               $('#editSalesTerminal').iCheck('check');
+            }
+            else if (answer[i]['module_title'] == "insights-overview" && answer[i]['active'] == 1) {
+              $('#editInsightsOverview').iCheck('check');
             }
             else if (answer[i]['module_title'] == "insights-sales" && answer[i]['active'] == 1) {
               $('#editInsightsSales').iCheck('check');
