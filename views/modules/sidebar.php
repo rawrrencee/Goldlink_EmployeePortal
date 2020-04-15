@@ -12,65 +12,66 @@ session_start();
                 </a>
             </li>
 
-            <li class="treeview menu-open">
+            
                 <?php
                     if (in_array('insights-sales', $_SESSION['allowed_modules']) || in_array('insights-inventory', $_SESSION['allowed_modules']) || in_array('insights-employees', $_SESSION['allowed_modules'])) {
                         echo '
-                        <a href="#">
-                            <i class="fa fa-bar-chart"></i>
-                            <span>Insights</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
+                        <li class="treeview menu-open">
+                            <a href="#">
+                                <i class="fa fa-bar-chart"></i>
+                                <span>Insights</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu menu-open treeview-menu-visible">
                         ';
                     };
                     
                     if (in_array('insights-sales', $_SESSION['allowed_modules'])) {
                         echo '
-                        <ul class="treeview-menu menu-open treeview-menu-visible">
-                            <li>
-                                <a href="insights-sales">
-                                    <i class="fa fa-circle-o"></i>
-                                    <span>Sales</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <li>
+                            <a href="insights-sales">
+                                <i class="fa fa-circle-o"></i>
+                                <span>Sales</span>
+                            </a>
+                        </li>
                         ';
                         
                     };
 
                     if (in_array('insights-inventory', $_SESSION['allowed_modules'])) {
                         echo '
-                        <ul class="treeview-menu menu-open treeview-menu-visible">
-                            <li>
-                                <a href="insights-inventory">
-                                    <i class="fa fa-circle-o"></i>
-                                    <span>Inventory</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <li>
+                            <a href="insights-inventory">
+                                <i class="fa fa-circle-o"></i>
+                                <span>Inventory</span>
+                            </a>
+                        </li>
                         ';
                         
                     };
 
                     if (in_array('insights-employees', $_SESSION['allowed_modules'])) {
                         echo '
-                        <ul class="treeview-menu menu-open treeview-menu-visible">
-                            <li>
-                                <a href="insights-employees">
-                                    <i class="fa fa-circle-o"></i>
-                                    <span>Employees</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <li>
+                            <a href="insights-employees">
+                                <i class="fa fa-circle-o"></i>
+                                <span>Employees</span>
+                            </a>
+                        </li>
                         ';
                         
                     };
+
+                    if (in_array('insights-sales', $_SESSION['allowed_modules']) || in_array('insights-inventory', $_SESSION['allowed_modules']) || in_array('insights-employees', $_SESSION['allowed_modules'])) {
+                        echo '
+                            </ul>
+                        </li>
+                        ';
+                    };
                 ?>
                 
-            </li>
-
             <?php 
             if (in_array('employee-management', $_SESSION['allowed_modules'])) {
                 echo'
@@ -165,23 +166,25 @@ session_start();
                                     <span>Item Management</span>
                                 </a>
                             </li>
-                        </ul>
                     ';
             }
             if (in_array('item-kit-management', $_SESSION['allowed_modules'])) {
                 echo'
-                        <ul class="treeview-menu menu-open treeview-menu-visible">
-                            <li>
-                                <a href="item-kit-management">
-                                    <i class="fa fa-circle-o"></i>
-                                    <span>Item Kits Management</span>
-                                </a>
-                            </li>
+                        <li>
+                            <a href="item-kit-management">
+                                <i class="fa fa-circle-o"></i>
+                                <span>Item Kits Management</span>
+                            </a>
+                        </li>
+                    ';
+            }
+            if (in_array('item-management', $_SESSION['allowed_modules'])) {
+                echo'
                         </ul>
+                    </li>
                     ';
             }
             ?>
-            </li>
 
             <li class="treeview menu-open">
                 <?php

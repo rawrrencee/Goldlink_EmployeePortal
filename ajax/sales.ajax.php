@@ -15,6 +15,11 @@ class AjaxSales
     public $endDate;
     public $stocktakeDate;
 
+    public $month;
+    public $year;
+    public $storeId;
+    public $personId;
+
     public function getTotalSalesForCurrentMonth()
     {
 
@@ -113,6 +118,30 @@ class AjaxSales
         echo json_encode($answer);
     }
 
+    public function getEmployeeItemSalesByStoreAndTime() {
+        
+        $personId = $this->personId;
+        $storeId = $this->storeId;
+        $month = $this->month;
+        $year = $this->year;
+
+        $answer = SalesController::ctrViewEmployeeItemSalesByStoreAndTime($personId, $storeId, $month, $year);
+
+        echo json_encode($answer);
+    }
+
+    public function getEmployeeItemKitSalesByStoreAndTime() {
+        
+        $personId = $this->personId;
+        $storeId = $this->storeId;
+        $month = $this->month;
+        $year = $this->year;
+
+        $answer = SalesController::ctrViewEmployeeItemKitSalesByStoreAndTime($personId, $storeId, $month, $year);
+
+        echo json_encode($answer);
+    }
+
 }
 
 if (isset($_POST['get_total_sales_for_current_month'])) {
@@ -186,4 +215,26 @@ if (isset($_POST['get_total_item_kit_sales_by_storecode_start_date']) && isset($
     $getTotalItemKitSalesByStoreCodeAndTime -> storeCode = $_POST['get_total_item_sales_by_storecode'];
 
     $getTotalItemKitSalesByStoreCodeAndTime -> getTotalItemKitSalesByStoreCodeAndTime();
+}
+
+if (isset($_POST['getEmployeeItemSales_month']) && isset($_POST['getEmployeeItemSales_year']) && isset($_POST['getEmployeeItemSales_storeId']) && isset($_POST['getEmployeeItemSales_personId'])) {
+
+    $getEmployeeItemSalesByStoreAndTime = new AjaxSales();
+    $getEmployeeItemSalesByStoreAndTime -> month = $_POST['getEmployeeItemSales_month'];
+    $getEmployeeItemSalesByStoreAndTime -> year = $_POST['getEmployeeItemSales_year'];
+    $getEmployeeItemSalesByStoreAndTime -> storeId = $_POST['getEmployeeItemSales_storeId'];
+    $getEmployeeItemSalesByStoreAndTime -> personId = $_POST['getEmployeeItemSales_personId'];
+
+    $getEmployeeItemSalesByStoreAndTime -> getEmployeeItemSalesByStoreAndTime();
+}
+
+if (isset($_POST['getEmployeeItemKitSales_month']) && isset($_POST['getEmployeeItemKitSales_year']) && isset($_POST['getEmployeeItemKitSales_storeId']) && isset($_POST['getEmployeeItemKitSales_personId'])) {
+
+    $getEmployeeItemKitSalesByStoreAndTime = new AjaxSales();
+    $getEmployeeItemKitSalesByStoreAndTime -> month = $_POST['getEmployeeItemKitSales_month'];
+    $getEmployeeItemKitSalesByStoreAndTime -> year = $_POST['getEmployeeItemKitSales_year'];
+    $getEmployeeItemKitSalesByStoreAndTime -> storeId = $_POST['getEmployeeItemKitSales_storeId'];
+    $getEmployeeItemKitSalesByStoreAndTime -> personId = $_POST['getEmployeeItemKitSales_personId'];
+
+    $getEmployeeItemKitSalesByStoreAndTime -> getEmployeeItemKitSalesByStoreAndTime();
 }

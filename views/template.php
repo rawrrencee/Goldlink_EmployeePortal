@@ -37,6 +37,7 @@ session_start();
     <!-- DataTables -->
     <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/rowGroup.bootstrap.min.css">
     <!-- Google Font
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
@@ -97,6 +98,7 @@ session_start();
     <script src="views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="views/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
     <script src="views/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
+    <script src="views/bower_components/datatables.net-bs/js/dataTables.rowGroup.min.js"></script>
     <!-- SweetAlert2 -->
     <script src="views/plugins/sweetalert2/sweetalert2.all.js"></script>
     <!-- By default SweetAlert2 doesn't support IE. To enable IE 11 support, include Promise polyfill -->

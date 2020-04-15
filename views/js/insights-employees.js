@@ -400,6 +400,171 @@ $("#retrieveSalesPerformanceWithFilters").click(function () {
     ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray, selectedYearArray);
 });
 
+$(document).on("click", ".getEmployeeSalesByStoreDetails", function(){
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let currentEmployee_month = this.getAttribute('data-month');
+    let currentEmployee_year = this.getAttribute('data-year');
+    let currentEmployee_storeId = this.getAttribute('data-storeId');
+    let currentEmployee_personId = this.getAttribute('data-personId');
+    let currentEmployee_fullName = this.getAttribute('data-fullName');
+    let currentEmployee_storeName = this.getAttribute('data-storeName');
+
+    $("#modalViewEmployeeSales").modal('show');
+
+    $.ajax({
+        url: "ajax/sales.ajax.php",
+        method: "POST",
+        data: {
+            getEmployeeItemSales_month: currentEmployee_month,
+            getEmployeeItemSales_year: currentEmployee_year,
+            getEmployeeItemSales_storeId: currentEmployee_storeId,
+            getEmployeeItemSales_personId: currentEmployee_personId
+        },
+        dataType: "json",
+        success: function (answer) {
+            initEmployeeItemSalesTable(answer);
+        }
+    });
+
+    $.ajax({
+        url: "ajax/sales.ajax.php",
+        method: "POST",
+        data: {
+            getEmployeeItemKitSales_month: currentEmployee_month,
+            getEmployeeItemKitSales_year: currentEmployee_year,
+            getEmployeeItemKitSales_storeId: currentEmployee_storeId,
+            getEmployeeItemKitSales_personId: currentEmployee_personId
+        },
+        dataType: "json",
+        success: function (answer) {
+            initEmployeeItemKitSalesTable(answer);
+        }
+    });
+
+    let message = "Displaying sales for <b>" + currentEmployee_fullName + "</b> for <b>" + monthNames[parseInt(currentEmployee_month) - 1] + " "+ currentEmployee_year + "</b> at <b>" + currentEmployee_storeName + "</b>";
+
+    displayEmployeeSalesModalDataMsg(message);
+});
+
+function initEmployeeItemSalesTable(ajaxResponse) {
+    $("#employeeItemSalesTableBody").html("");
+
+    if ($.fn.DataTable.isDataTable('#employeeItemSalesTable')) {
+        $("#employeeItemSalesTable").DataTable().destroy();
+    }
+    if (ajaxResponse.length === 0) {
+        $("#employeeItemSalesTableBody").html("");
+        $("#employeeItemSalesTableBody").append(
+            `
+            <tr>
+                <td class="text-center" colspan="7">No data available.</td>
+            </tr>
+            `
+        );
+    } else {
+        $("#employeeItemSalesTableBody").html("");
+        for (let i = 0; i < ajaxResponse.length; i++) {
+            $("#employeeItemSalesTableBody").append(
+                `
+                <tr>
+                    <td>` + ajaxResponse[i]['sale_time'] + `</td>
+                    <td>` + ajaxResponse[i]['name'] + `</td>
+                    <td>` + ajaxResponse[i]['item_number'] + `</td>
+                    <td>` + ajaxResponse[i]['category'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['unit_price'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalQty'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalDiscSales'] + `</td>
+                </tr>
+                `
+            );
+        }
+        if (!$.fn.DataTable.isDataTable('#employeeItemSalesTable')) {
+            $("#employeeItemSalesTable").DataTable({
+                "lengthMenu": [5, 10, 15, 20, 50, 100],
+                "order": [0, 'asc'],
+                "columnDefs": [
+                    { responsivePriority: 10002, targets: 2 },
+                    { responsivePriority: 10001, targets: 3 }
+                ],
+                "rowGroup": {
+                    dataSrc: function (row) {
+                        return moment(row[0]).format("DD MMMM YYYY, dddd");
+                    }
+                }
+            });
+        }
+    }
+
+}
+
+function displayEmployeeSalesModalDataMsg(message) {
+    if (message.length > 0) {
+        $("#displayEmployeeSalesModalDataMsg").html("");
+        $("#displayEmployeeSalesModalDataMsg").append(
+            `
+            <h5 class="text-center text-info" style="margin-top: 20px;">` + message + `
+            </h5>
+            `
+        );
+    } else {
+        $("#displayEmployeeSalesModalDataMsg").html("");
+    }
+}
+
+function initEmployeeItemKitSalesTable(ajaxResponse) {
+    $("#employeeItemKitSalesTableBody").html("");
+
+    if ($.fn.DataTable.isDataTable('#employeeItemKitSalesTable')) {
+        $("#employeeItemKitSalesTable").DataTable().destroy();
+    }
+
+    if (ajaxResponse.length === 0) {
+        $("#employeeItemKitSalesTableBody").html("");
+        $("#employeeItemKitSalesTableBody").append(
+            `
+            <tr>
+                <td class="text-center" colspan="7">No data available.</td>
+            </tr>
+            `
+        );
+    } else {
+        $("#employeeItemKitSalesTableBody").html("");
+        for (let i = 0; i < ajaxResponse.length; i++) {
+            $("#employeeItemKitSalesTableBody").append(
+                `
+                <tr>
+                    <td>` + ajaxResponse[i]['sale_time'] + `</td>
+                    <td>` + ajaxResponse[i]['name'] + `</td>
+                    <td>` + ajaxResponse[i]['item_kit_number'] + `</td>
+                    <td>` + ajaxResponse[i]['category'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['unit_price'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalQty'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalDiscSales'] + `</td>
+                </tr>
+                `
+            );
+        }
+        if (!$.fn.DataTable.isDataTable('#employeeItemKitSalesTable')) {
+            $("#employeeItemKitSalesTable").DataTable({
+                "lengthMenu": [5, 10, 15, 20, 50, 100],
+                "order": [0, 'asc'],
+                "columnDefs": [
+                    { responsivePriority: 10002, targets: 2 },
+                    { responsivePriority: 10001, targets: 3 }
+                ],
+                "rowGroup": {
+                    dataSrc: function (row) {
+                        return moment(row[0]).format("DD MMMM YYYY, dddd");
+                    }
+                }
+            });
+        }
+
+    }
+
+}
+
 function initEmployeeSalesPerformanceOverview() {
 
     $.ajax({
@@ -459,8 +624,6 @@ function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray,
         },
         dataType: "json",
         success: function (answer) {
-
-            console.log(answer);
 
             initSalesCompositionByStore();
 
@@ -544,20 +707,29 @@ function ajaxGetEmployeeSalesPerformance(selectedStoreArray, selectedMonthArray,
 
                         salesTargetData = filteredResponse[i][j];
                         salesTargetData['full_name'] = salesTargetData['first_name'] + " " + salesTargetData['last_name'];
+                        if (salesTargetData['full_name'].length > 18) {
+                            salesTargetData['truncated'] = salesTargetData['full_name'].substring(0,18) + '...';
+                        } else {
+                            salesTargetData['truncated'] = salesTargetData['full_name']
+                        }
 
                         let containerName = "#" + storeIdElement + "_container" + j;
-                        let returnOnInvestment = (salesTargetData['current_sales_amount'] - salesTargetData['gross_pay']) / salesTargetData['gross_pay'];
+                        let returnOnInvestment = salesTargetData['current_sales_amount'] / salesTargetData['gross_pay'];
                         if (!isFinite(returnOnInvestment)) {
                             returnOnInvestment = 0;
                         }
 
                         $("#" + storeIdElement).append(
                             `
-                            <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <div class="box box-widget widget-user-2" style="box-shadow: 0.5px 0.5px 4px 0px #dfdfdf; margin-top: 10px;"> 
                                     <div class="widget-user-header">
-                                        <h4 class="">` + salesTargetData['full_name'] + `</h4>
-                                        <h6 style="text-align: right; width: 100%;">ROI: ` + Math.round(returnOnInvestment * 100) + `%</h5>
+                                        <div class="pull-right">
+                                            <button id="` + storeIdElement + `_details` + j + `" class="btn btn-default getEmployeeSalesByStoreDetails" data-fullName="` + salesTargetData['full_name'] + `" data-month="` + salesTargetData['month'] + `" data-year="` + salesTargetData['year'] + `" data-storeId="` + salesTargetData['store_id'] + `" data-storeName="` + salesTargetData['store_name'] + `" data-personId="` + salesTargetData['person_id'] + `"><i class="fa fa-search"></i></button>
+                                        </div>
+                                        <h4 class="">` + salesTargetData['truncated'] + `</h4>
+
+                                        <h6 style="text-align: right; width: 100%; margin-top: 20px;">% of salary: ` + Math.round(returnOnInvestment * 100) + `%</h5>
                                         
                                         <div class="pull-right">
                                             <h5 style="color: #999;">Target: $` + salesTargetData['sales_target'] + `</h5>
@@ -1035,5 +1207,21 @@ $('#modalAddEmployeeSalesTarget').on('shown.bs.modal', function () {
             }
         }
     });
+
+});
+
+$('#modalViewEmployeeSales').on('shown.bs.modal', function () {
+
+    if ($.fn.DataTable.isDataTable('#employeeItemSalesTable')) {
+        $("#employeeItemSalesTable").DataTable()
+        .columns.adjust()
+        .responsive.recalc();
+    }
+
+    if ($.fn.DataTable.isDataTable('#employeeItemKitSalesTable')) {
+        $("#employeeItemKitSalesTable").DataTable()
+        .columns.adjust()
+        .responsive.recalc();
+    }
 
 });

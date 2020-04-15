@@ -428,4 +428,62 @@ class SalesModel
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function mdlViewEmployeeItemSalesByStoreAndTime($personId, $storeId, $month, $year) {
+        $stmt = Connection::connect()->prepare(
+            "SELECT s.sale_time, sales_items.item_id, items.name, items.category, items.item_number, items.unit_price, quantity_purchased AS totalQty, CAST( quantity_purchased * item_unit_price * ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) )  AS totalDiscSales
+            FROM sales AS s
+            INNER JOIN sales_items ON s.sale_id = sales_items.sale_id
+            INNER JOIN stores ON s.store_id = stores.store_id
+            INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id
+            INNER JOIN items ON sales_items.item_id = items.item_id
+            WHERE YEAR(sale_time) = :year AND MONTH(sale_time) = :month AND s.store_id = :store_id AND s.employee_id = :person_id AND payment_amount != '0' AND discount_percent != '100'
+            AND discount_percent != '100'"
+        );
+
+        try {
+
+            $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+            $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+
+            $error = print_r($e->getMessage(), true);
+            return $error;
+        }
+    }
+
+    public static function mdlViewEmployeeItemKitSalesByStoreAndTime($personId, $storeId, $month, $year) {
+        $stmt = Connection::connect()->prepare(
+            "SELECT s.sale_time, sales_item_kits.item_kit_id, item_kits.name, item_kits.category, item_kits.item_kit_number, item_kits.unit_price, quantity_purchased AS totalQty, CAST( quantity_purchased * item_kit_unit_price * ( ( 100 - discount_percent ) /100 ) AS DECIMAL( 6, 2 ) )  AS totalDiscSales
+            FROM sales AS s
+            INNER JOIN stores ON s.store_id = stores.store_id
+            INNER JOIN sales_item_kits ON s.sale_id = sales_item_kits.sale_id
+            INNER JOIN item_kits ON sales_item_kits.item_kit_id = item_kits.item_kit_id
+            INNER JOIN sales_payments ON s.sale_id = sales_payments.sale_id
+            WHERE YEAR(sale_time) = :year AND MONTH(sale_time) = :month AND s.store_id = :store_id AND s.employee_id = :person_id AND payment_amount != '0' AND discount_percent != '100'
+            AND discount_percent != '100'"
+        );
+
+        try {
+
+            $stmt->bindParam(":person_id", $personId, PDO::PARAM_INT);
+            $stmt->bindParam(":store_id", $storeId, PDO::PARAM_INT);
+            $stmt->bindParam(":month", $month, PDO::PARAM_INT);
+            $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+
+            $error = print_r($e->getMessage(), true);
+            return $error;
+        }
+    }
 }

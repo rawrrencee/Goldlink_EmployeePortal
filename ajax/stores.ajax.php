@@ -14,8 +14,21 @@ class AjaxStores
     {
 
         $answer = StoreController::ctrViewAllStores($item, $value);
+        
+        $reorderedList = [];
+        $delayedPush = [];
+        foreach($answer as $store) {
+            if ($store['store_id'] === 3 || $store['store_id'] === 6 || $store['store_id'] === 7 || $store['store_id'] === 8 || $store['store_id'] === 9) {
+                array_push($delayedPush, $store);
+            } else {
+                array_push($reorderedList, $store);
+            }
+        }
+        foreach ($delayedPush as $store) {
+            array_push($reorderedList, $store);
+        }
 
-        echo json_encode($answer);
+        echo json_encode($reorderedList);
 
     }
 

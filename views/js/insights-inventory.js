@@ -141,7 +141,7 @@ $('#categoryInventoryItemsByDateTable tbody').on('click', 'tr', function () {
 
             type: "info",
             title: "Missing data",
-            text: "Please set start and end date in the filter above, or press confirm to check for the current month.",
+            text: "Please set start and end date in the filter above, or press 'Use current month' to check for the current month.",
             showConfirmButton: true,
             showCancelButton: true,
             confirmButtonText: "Use current month"
