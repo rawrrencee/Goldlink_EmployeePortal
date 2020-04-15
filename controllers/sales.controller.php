@@ -78,4 +78,20 @@ class SalesController
 
         return $response;
     }
+
+    public static function ctrViewEmployeeItemSalesByStoreAndTime($personId, $storeId, $month, $year)
+    {
+
+        $response = SalesModel::mdlViewEmployeeItemSalesByStoreAndTime($personId, $storeId, $month, $year);
+
+        return $response;
+    }
+
+    public static function ctrViewEmployeeItemKitSalesByStoreAndTime($personId, $storeId, $month, $year)
+    {
+
+        $response = SalesModel::mdlViewEmployeeItemKitSalesByStoreAndTime($personId, $storeId, $month, $year);
+
+        return $response;
+    }
 }

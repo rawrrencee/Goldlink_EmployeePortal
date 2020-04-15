@@ -84,14 +84,15 @@
                                     <thead>
                                         <tr>
                                             <th>Item/Item Kit Name</th>
+                                            <th>Item/Item Kit Number</th>
                                             <th>Category</th>
-                                            <th>Unit Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total Sales</th>
+                                            <th style="text-align: right;">Unit Price</th>
+                                            <th style="text-align: right;">Quantity</th>
+                                            <th style="text-align: right;">Total Sales</th>
                                         </tr>
                                     </thead>
                                     <tbody id="totalSalesByStoreTableBody">
-                                        <td colspan="5" class="text-center">Select a store on the chart to view items sold.</td>
+                                        <td colspan="6" class="text-center">Select a store on the chart to view items sold.</td>
                                     </tbody>
                                 </table>
                             </div>
@@ -164,10 +165,11 @@
                                     <thead>
                                         <tr>
                                             <th>Item Name</th>
+                                            <th>Item Number</th>
                                             <th>Item Category</th>
-                                            <th>Unit Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total Sales</th>
+                                            <th style="text-align: right;">Unit Price</th>
+                                            <th style="text-align: right;">Quantity</th>
+                                            <th style="text-align: right;">Total Sales</th>
                                         </tr>
                                     </thead>
                                     <tbody id="totalItemSalesByDateTableBody">
@@ -196,10 +198,11 @@
                                     <thead>
                                         <tr>
                                             <th>Item Kit Name</th>
+                                            <th>Item Kit Number</th>
                                             <th>Item Kit Category</th>
-                                            <th>Unit Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total Sales</th>
+                                            <th style="text-align: right;">Unit Price</th>
+                                            <th style="text-align: right;">Quantity</th>
+                                            <th style="text-align: right;">Total Sales</th>
                                         </tr>
                                     </thead>
                                     <tbody id="totalItemKitSalesByDateTableBody">
@@ -229,7 +232,7 @@
                                         <tr>
                                             <th>Category</th>
                                             <th>Quantity</th>
-                                            <th>Total Sales</th>
+                                            <th style="text-align: right;">Total Sales</th>
                                         </tr>
                                     </thead>
                                     <tbody id="totalCategorySalesByDateTableBody">

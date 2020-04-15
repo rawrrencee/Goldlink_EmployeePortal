@@ -329,8 +329,8 @@ function initTotalCategorySalesByStoreTable(ajaxResponse) {
                 `
                 <tr>
                     <td>` + ajaxResponse[i]['category'] + `</td>
-                    <td>` + ajaxResponse[i]['totalQty'] + `</td>
-                    <td>` + ajaxResponse[i]['totalDiscSales'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalQty'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalDiscSales'] + `</td>
                 </tr>
                 `
             );
@@ -356,7 +356,7 @@ function initTotalItemSalesByDateTable(ajaxResponse) {
         $("#totalItemSalesByDateTableBody").append(
             `
             <tr>
-                <td class="text-center" colspan="5">No data available.</td>
+                <td class="text-center" colspan="6">No data available.</td>
             </tr>
             `
         );
@@ -367,10 +367,11 @@ function initTotalItemSalesByDateTable(ajaxResponse) {
                 `
                 <tr>
                     <td>` + ajaxResponse[i]['name'] + `</td>
+                    <td>` + ajaxResponse[i]['item_number'] + `</td>
                     <td>` + ajaxResponse[i]['category'] + `</td>
-                    <td>` + ajaxResponse[i]['unit_price'] + `</td>
-                    <td>` + ajaxResponse[i]['totalQty'] + `</td>
-                    <td>` + ajaxResponse[i]['totalDiscSales'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['unit_price'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalQty'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalDiscSales'] + `</td>
                 </tr>
                 `
             );
@@ -397,7 +398,7 @@ function initTotalItemKitSalesByDateTable(ajaxResponse) {
         $("#totalItemKitSalesByDateTableBody").append(
             `
             <tr>
-                <td class="text-center" colspan="5">No data available.</td>
+                <td class="text-center" colspan="6">No data available.</td>
             </tr>
             `
         );
@@ -408,10 +409,11 @@ function initTotalItemKitSalesByDateTable(ajaxResponse) {
                 `
                 <tr>
                     <td>` + ajaxResponse[i]['name'] + `</td>
+                    <td>` + ajaxResponse[i]['item_kit_number'] + `</td>
                     <td>` + ajaxResponse[i]['category'] + `</td>
-                    <td>` + ajaxResponse[i]['unit_price'] + `</td>
-                    <td>` + ajaxResponse[i]['totalQty'] + `</td>
-                    <td>` + ajaxResponse[i]['totalDiscSales'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['unit_price'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalQty'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalDiscSales'] + `</td>
                 </tr>
                 `
             );
@@ -427,6 +429,7 @@ function initTotalItemKitSalesByDateTable(ajaxResponse) {
 }
 
 function initTotalSalesByStoreAndDateTable(ajaxResponse) {
+    console.log(ajaxResponse);
     $("#totalSalesByStoreTableBody").html("");
 
     if ($.fn.DataTable.isDataTable('#totalSalesByStoreTable')) {
@@ -437,7 +440,7 @@ function initTotalSalesByStoreAndDateTable(ajaxResponse) {
         $("#totalSalesByStoreTableBody").append(
             `
             <tr>
-                <td class="text-center" colspan="5">Select a store on the chart to view items sold.</td>
+                <td class="text-center" colspan="6">Select a store on the chart to view items sold.</td>
             </tr>
             `
         );
@@ -448,10 +451,11 @@ function initTotalSalesByStoreAndDateTable(ajaxResponse) {
                 `
                 <tr>
                     <td>` + ajaxResponse[i]['name'] + `</td>
+                    <td>` + ajaxResponse[i]['item_number'] + `</td>
                     <td>` + ajaxResponse[i]['category'] + `</td>
-                    <td>` + ajaxResponse[i]['unit_price'] + `</td>
-                    <td>` + ajaxResponse[i]['totalQty'] + `</td>
-                    <td>` + ajaxResponse[i]['totalDiscSales'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['unit_price'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalQty'] + `</td>
+                    <td style="text-align: right;">` + ajaxResponse[i]['totalDiscSales'] + `</td>
                 </tr>
                 `
             );
@@ -481,7 +485,7 @@ function totalSalesByStoreBarOnClick(event, array){
 
             type: "info",
             title: "Missing data",
-            text: "Please set start and end date in the filter above, or press confirm to check for the current month.",
+            text: "Please set start and end date in the filter above, or press 'Use current month' to check for the current month.",
             showConfirmButton: true,
             showCancelButton: true,
             confirmButtonText: "Use current month"

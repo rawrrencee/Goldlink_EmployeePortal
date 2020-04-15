@@ -13,7 +13,7 @@ class StoreModel
 
             return $stmt->fetch();
         } else {
-            $stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY store_id ASC");
+            $stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY store_id DESC");
 
             $stmt->execute();
 

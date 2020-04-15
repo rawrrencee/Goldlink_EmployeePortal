@@ -183,6 +183,95 @@
     </div>
 </div>
 
+<div id="modalViewEmployeeSales" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background: #3c8dbc; color: #fff">
+                <button type="button" class="close" data-dismiss="modal"
+                    style="color: #ffffff; opacity: 1;">&times;</button>
+                <h4 class="modal-title">View Employee Sales</h4>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="box-body">
+
+                    <div class="row">
+                        <div id="displayEmployeeSalesModalDataMsg" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h5 class="text-center text-info">Displaying sales for: Employee
+                            </h5>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-12" style="margin-top: 20px;">
+                            <h3 class="text-center"><b>Items</b></h3>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table id="employeeItemSalesTable"
+                                class="table table-hover table-bordered table-striped dt-responsive" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="15%;">Date</th>
+                                        <th width="25%;">Item Name</th>
+                                        <th width="20%;">Item Number</th>
+                                        <th width="10%;">Item Category</th>
+                                        <th width="10%;">Unit Price</th>
+                                        <th width="10%;">Quantity</th>
+                                        <th width="10%;">Total Sales</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeItemSalesTableBody">
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12" style="margin-top: 20px;">
+                            <h3 class="text-center"><b>Item Kits</b></h3>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table id="employeeItemKitSalesTable"
+                                class="table table-hover table-bordered table-striped dt-responsive" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="15%;">Date</th>
+                                        <th width="25%;">Item Kit Name</th>
+                                        <th width="20%;">Item Kit Number</th>
+                                        <th width="10%;">Item Kit Category</th>
+                                        <th width="10%;">Unit Price</th>
+                                        <th width="10%;">Quantity</th>
+                                        <th width="10%;">Total Sales</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeItemKitSalesTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <script src="views/js/template.js"></script>
 <script src="views/js/header.js"></script>
 <script src="views/js/insights-functions.js"></script>
