@@ -515,7 +515,6 @@ $('.tableEmployees tbody').on('click', '#btnEditEmployee', function () {
               $('#editIsFullTime').iCheck('uncheck');
               
               if (answer.length != 0) {
-                console.log(answer);
                 $('#editCompanySelection').val(answer[0]['company_name']);
                 $('#editCompanySelection').select2().trigger('change');
                 $('#editLevyAmount').val(answer[0]['levy_amount']);
