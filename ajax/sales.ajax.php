@@ -20,6 +20,11 @@ class AjaxSales
     public $storeId;
     public $personId;
 
+    public $thisMonthStartDate;
+    public $thisMonthEndDate;
+    public $prevMonthStartDate;
+    public $prevMonthEndDate;
+
     public function getTotalSalesForCurrentMonth()
     {
 
@@ -142,6 +147,168 @@ class AjaxSales
         echo json_encode($answer);
     }
 
+    public function getHighestStoreSalesOverview() {
+
+        $storeSalesOverviewData = [];
+
+        $thisMonthStartDate = $this->thisMonthStartDate;
+        $thisMonthEndDate = $this->thisMonthEndDate;
+
+        $thisMonthData = SalesController::ctrViewTotalSalesForAllStoresByTime($thisMonthStartDate, $thisMonthEndDate);
+
+        $prevMonthStartDate = $this->prevMonthStartDate;
+        $prevMonthEndDate = $this->prevMonthEndDate;
+
+        $prevMonthData = SalesController::ctrViewTotalSalesForAllStoresByTime($prevMonthStartDate, $prevMonthEndDate);
+
+        $totalSales = 0.00;
+        $bestStore = [];
+        foreach ($thisMonthData as $store) {
+            if (floatval($store['total_sales']) > $totalSales) {
+                $totalSales = floatval($store['total_sales']);
+                $bestStore = $store;
+            }
+        }
+
+        $prevTotalSales = 0.00;
+        $prevBestStore = [];
+        foreach ($prevMonthData as $store) {
+            if (floatval($store['total_sales']) > $prevTotalSales) {
+                $prevTotalSales = floatval($store['total_sales']);
+                $prevBestStore = $store;
+            }
+        }
+
+        $worstStoreTotalSales = 0.00;
+        $worstStore = [];
+        for ($index = 0; $index < count($thisMonthData); $index++) {
+            if ($index === 0) {
+                $worstStoreTotalSales = floatval($thisMonthData[$index]['total_sales']);
+                $worstStore = $thisMonthData[$index];
+            }
+            if (floatval($thisMonthData[$index]['total_sales']) < $worstStoreTotalSales) {
+                $worstStoreTotalSales = floatval($thisMonthData[$index]['total_sales']);
+                $worstStore = $thisMonthData[$index];
+            }
+        }
+
+        $prevWorstStoreTotalSales = 0.00;
+        $prevWorstStore = [];
+        for ($index = 0; $index < count($prevMonthData); $index++) {
+            if ($index === 0) {
+                $prevWorstStoreTotalSales = floatval($prevMonthData[$index]['total_sales']);
+                $prevWorstStore = $prevMonthData[$index];
+            }
+            if (floatval($prevMonthData[$index]['total_sales']) < $prevWorstStoreTotalSales) {
+                $prevWorstStoreTotalSales = floatval($prevMonthData[$index]['total_sales']);
+                $prevWorstStore = $prevMonthData[$index];
+            }
+        }
+
+        $itemSalesData = SalesController::ctrViewTotalItemSalesByStoreCodeAndTime($thisMonthStartDate, $thisMonthEndDate, $bestStore['store_code']);
+
+        $bestOverallItemSalesValue = 0.00;
+        $bestOverallItemByValue = [];
+
+        $worstOverallItemSalesValue = 0.00;
+        $worstOverallItemByValue = [];
+
+        $bestOverallItemQuantity = 0;
+        $bestOverallItemByQuantity = [];
+
+        $worstOverallItemQuantity = 0;
+        $worstOverallItemByQuantity = [];
+
+        for ($index = 0; $index < count($itemSalesData); $index++) {
+            if ($index === 0) {
+                $worstOverallItemSalesValue = $itemSalesData[$index]['totalDiscSales'];
+                $worstOverallItemByValue = $itemSalesData[$index];
+
+                $worstOverallItemQuantity = $itemSalesData[$index]['totalQty'];
+                $worstOverallItemByQuantity = $itemSalesData[$index];
+            }
+            if (floatval($itemSalesData[$index]['totalDiscSales']) > $bestOverallItemSalesValue) {
+                $bestOverallItemSalesValue = floatval($itemSalesData[$index]['totalDiscSales']);
+                $bestOverallItemByValue = $itemSalesData[$index];
+            }
+            if (intval($itemSalesData[$index]['totalQty']) > $bestOverallItemQuantity) {
+                $bestOverallItemQuantity = floatval($itemSalesData[$index]['totalQty']);
+                $bestOverallItemByQuantity = $itemSalesData[$index];
+            }
+
+            if (floatval($itemSalesData[$index]['totalDiscSales']) < $worstOverallItemSalesValue) {
+                $worstOverallItemSalesValue = floatval($itemSalesData[$index]['totalDiscSales']);
+                $worstOverallItemByValue = $itemSalesData[$index];
+            }
+            if (intval($itemSalesData[$index]['totalQty']) < $worstOverallItemQuantity) {
+                $worstOverallItemQuantity = floatval($itemSalesData[$index]['totalQty']);
+                $worstOverallItemByQuantity = $itemSalesData[$index];
+            }
+        }
+
+        $totalItemDiscSales = 0.00;
+        $lowestItemDiscSales = 0.00;
+        $bestItem = [];
+        $worstItem = [];
+        for ($index = 0; $index < count($itemSalesData); $index++) {
+            if ($index === 0) {
+                $lowestItemDiscSales = floatval($itemSalesData[$index]['totalDiscSales']);
+                $worstItem = $itemSalesData[$index];
+            }
+            if (floatval($itemSalesData[$index]['totalDiscSales']) > $totalItemDiscSales) {
+                $totalItemDiscSales = floatval($itemSalesData[$index]['totalDiscSales']);
+                $bestItem = $itemSalesData[$index];
+            }
+            if (floatval($itemSalesData[$index]['totalDiscSales']) < $lowestItemDiscSales) {
+                $lowestItemDiscSales = floatval($itemSalesData[$index]['totalDiscSales']);
+                $worstItem = $itemSalesData[$index];
+            }
+        } 
+
+        $worstStoreItemSalesData = SalesController::ctrViewTotalItemSalesByStoreCodeAndTime($thisMonthStartDate, $thisMonthEndDate, $worstStore['store_code']);
+
+        $worstStoreTotalItemDiscSales = 0.00;
+        $worstStoreLowestItemDiscSales = 0.00;
+        $worstStoreBestItem = [];
+        $worstStoreWorstItem = [];
+        for ($index = 0; $index < count($worstStoreItemSalesData); $index++) {
+            if ($index === 0) {
+                $worstStoreLowestItemDiscSales = floatval($worstStoreItemSalesData[$index]['totalDiscSales']);
+                $worstStoreWorstItem = $worstStoreItemSalesData[$index];
+            }
+            if (floatval($worstStoreItemSalesData[$index]['totalDiscSales']) > $worstStoreTotalItemDiscSales) {
+                $worstStoreTotalItemDiscSales = floatval($worstStoreItemSalesData[$index]['totalDiscSales']);
+                $worstStoreBestItem = $worstStoreItemSalesData[$index];
+            }
+            if (floatval($worstStoreItemSalesData[$index]['totalDiscSales']) < $worstStoreLowestItemDiscSales) {
+                $worstStoreLowestItemDiscSales = floatval($worstStoreItemSalesData[$index]['totalDiscSales']);
+                $worstStoreWorstItem = $worstStoreItemSalesData[$index];
+            }
+        }
+
+        $storeSalesOverviewData['thisMonthData'] = $thisMonthData;
+        $storeSalesOverviewData['prevMonthData'] = $prevMonthData;
+        
+        $storeSalesOverviewData['bestStore'] = $bestStore;
+        $storeSalesOverviewData['prevBestStore'] = $prevBestStore;
+        $storeSalesOverviewData['worstStore'] = $worstStore;
+        $storeSalesOverviewData['prevWorstStore'] = $prevWorstStore;
+
+        $storeSalesOverviewData['bestStoreBestItem'] = $bestItem;
+        $storeSalesOverviewData['bestStoreWorstItem'] = $worstItem;
+        $storeSalesOverviewData['worstStoreBestItem'] = $worstStoreBestItem;
+        $storeSalesOverviewData['worstStoreWorstItem'] = $worstStoreWorstItem;
+
+        $storeSalesOverviewData['bestOverallItemByValue'] = $bestOverallItemByValue;
+        $storeSalesOverviewData['bestOverallItemByQuantity'] = $bestOverallItemByQuantity;
+
+        $storeSalesOverviewData['worstOverallItemByValue'] = $worstOverallItemByValue;
+        $storeSalesOverviewData['worstOverallItemByQuantity'] = $worstOverallItemByQuantity;
+
+
+        echo json_encode($storeSalesOverviewData);
+    }
+
 }
 
 if (isset($_POST['get_total_sales_for_current_month'])) {
@@ -158,6 +325,17 @@ if (isset($_POST['get_total_sales_by_start_date']) && isset($_POST['get_total_sa
     $getTotalSalesByTime -> endDate = $_POST['get_total_sales_by_end_date'];
 
     $getTotalSalesByTime -> getTotalSalesByTime();
+}
+
+if (isset($_POST['highest_store_sales_this_start_date']) && isset($_POST['highest_store_sales_this_end_date']) && isset($_POST['highest_store_sales_prev_start_date']) && isset($_POST['highest_store_sales_prev_end_date'])) {
+
+    $getHighestStoreSalesOverview = new AjaxSales();
+    $getHighestStoreSalesOverview -> thisMonthStartDate = $_POST['highest_store_sales_this_start_date'];
+    $getHighestStoreSalesOverview -> thisMonthEndDate = $_POST['highest_store_sales_this_end_date'];
+    $getHighestStoreSalesOverview -> prevMonthStartDate = $_POST['highest_store_sales_prev_start_date'];
+    $getHighestStoreSalesOverview -> prevMonthEndDate = $_POST['highest_store_sales_prev_end_date'];
+
+    $getHighestStoreSalesOverview -> getHighestStoreSalesOverview();
 }
 
 if (isset($_POST['get_total_category_sales_by_start_date']) && isset($_POST['get_total_category_sales_by_end_date']) && !isset($_POST['get_total_category_stocktake_by_date'])) {

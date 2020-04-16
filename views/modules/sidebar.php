@@ -27,6 +27,18 @@ session_start();
                             <ul class="treeview-menu menu-open treeview-menu-visible">
                         ';
                     };
+
+                    if (in_array('insights-overview', $_SESSION['allowed_modules'])) {
+                        echo '
+                        <li>
+                            <a href="insights-overview">
+                                <i class="fa fa-circle-o"></i>
+                                <span>Overview</span>
+                            </a>
+                        </li>
+                        ';
+                        
+                    };
                     
                     if (in_array('insights-sales', $_SESSION['allowed_modules'])) {
                         echo '

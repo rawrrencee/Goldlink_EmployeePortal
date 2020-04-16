@@ -171,7 +171,6 @@ $('.fetchSalaryVoucherAnalysis').click(function () {
         cache: false,
         dataType: "json",
         success: function (answer) {
-            console.log(answer);
 
             $("#appendAnalysisContent_GAD").html("");
             $("#appendAnalysisContent_Goldtech").html("");

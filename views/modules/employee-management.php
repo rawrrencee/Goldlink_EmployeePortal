@@ -653,25 +653,33 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="hidden" name="allowedModulesSelection[20]" value="0">
-                                        <input type="checkbox" class="minimal" id="newInsightsSales"
+                                        <input type="checkbox" class="minimal" id="newInsightsOverview"
                                             name="allowedModulesSelection[20]" value="1">
-                                        <input type="hidden" name="allowedModules[20]" value="insights-sales">
+                                        <input type="hidden" name="allowedModules[20]" value="insights-overview">
 
                                         <p style="margin-top: 5px;">Sales Insights</p>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="hidden" name="allowedModulesSelection[21]" value="0">
-                                        <input type="checkbox" class="minimal" id="newInsightsInventory"
+                                        <input type="checkbox" class="minimal" id="newInsightsSales"
                                             name="allowedModulesSelection[21]" value="1">
-                                        <input type="hidden" name="allowedModules[21]" value="insights-inventory">
+                                        <input type="hidden" name="allowedModules[21]" value="insights-sales">
+
+                                        <p style="margin-top: 5px;">Sales Insights</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="allowedModulesSelection[22]" value="0">
+                                        <input type="checkbox" class="minimal" id="newInsightsInventory"
+                                            name="allowedModulesSelection[22]" value="1">
+                                        <input type="hidden" name="allowedModules[22]" value="insights-inventory">
 
                                         <p style="margin-top: 5px;">Inventory Insights</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="allowedModulesSelection[22]" value="0">
+                                        <input type="hidden" name="allowedModulesSelection[23]" value="0">
                                         <input type="checkbox" class="minimal" id="newInsightsEmployees"
-                                            name="allowedModulesSelection[22]" value="1">
-                                        <input type="hidden" name="allowedModules[22]" value="insights-employees">
+                                            name="allowedModulesSelection[23]" value="1">
+                                        <input type="hidden" name="allowedModules[23]" value="insights-employees">
 
                                         <p style="margin-top: 5px;">Employee Insights</p>
                                     </div>
@@ -1328,25 +1336,33 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="hidden" name="editAllowedModulesSelection[20]" value="0">
-                                        <input type="checkbox" class="minimal" id="editInsightsSales"
+                                        <input type="checkbox" class="minimal" id="editInsightsOverview"
                                             name="editAllowedModulesSelection[20]" value="1">
-                                        <input type="hidden" name="allowedModules[20]" value="insights-sales">
+                                        <input type="hidden" name="allowedModules[20]" value="insights-overview">
+
+                                        <p style="margin-top: 5px;">Insights Overview</p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="hidden" name="editAllowedModulesSelection[21]" value="0">
+                                        <input type="checkbox" class="minimal" id="editInsightsSales"
+                                            name="editAllowedModulesSelection[21]" value="1">
+                                        <input type="hidden" name="allowedModules[21]" value="insights-sales">
 
                                         <p style="margin-top: 5px;">Sales Insights</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[21]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[22]" value="0">
                                         <input type="checkbox" class="minimal" id="editInsightsInventory"
-                                            name="editAllowedModulesSelection[21]" value="1">
-                                        <input type="hidden" name="allowedModules[21]" value="insights-inventory">
+                                            name="editAllowedModulesSelection[22]" value="1">
+                                        <input type="hidden" name="allowedModules[22]" value="insights-inventory">
 
                                         <p style="margin-top: 5px;">Inventory Insights</p>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" name="editAllowedModulesSelection[22]" value="0">
+                                        <input type="hidden" name="editAllowedModulesSelection[23]" value="0">
                                         <input type="checkbox" class="minimal" id="editInsightsEmployees"
-                                            name="editAllowedModulesSelection[22]" value="1">
-                                        <input type="hidden" name="allowedModules[22]" value="insights-employees">
+                                            name="editAllowedModulesSelection[23]" value="1">
+                                        <input type="hidden" name="allowedModules[23]" value="insights-employees">
 
                                         <p style="margin-top: 5px;">Employee Insights</p>
                                     </div>

@@ -937,7 +937,7 @@ function initSalesTargetBarForEmployee(salesTargetData, containerName) {
             autoStyleContainer: false
         },
         step: (state, bar) => {
-            bar.setText("$" + salesTargetData['current_sales_amount']);
+            bar.setText("$" + Number(salesTargetData['current_sales_amount']).toFixed(2));
         }
     });
 
