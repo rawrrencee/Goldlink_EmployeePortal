@@ -1,6 +1,8 @@
 <?php
 require 'fpdf.php';
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION["loggedIn"]) || !isset($_GET['voucherId'])) {
     if (!isset($_SESSION["loggedIn"])) {
         echo '<script>

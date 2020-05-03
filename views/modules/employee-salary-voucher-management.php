@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 ?>
 <div class="content-wrapper">
@@ -772,3 +774,4 @@ session_start();
 <script src="views/js/header.js"></script>
 <script src="views/js/payroll-functions.js"></script>
 <script src="views/js/payroll-salary-voucher-management.js"></script>
+<script src="views/js/payroll-submit.js"></script>
