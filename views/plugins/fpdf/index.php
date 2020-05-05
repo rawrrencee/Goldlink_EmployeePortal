@@ -605,7 +605,7 @@ if (isset($_GET['voucherId'])) {
     $pdf->SetFont('', '', 10);
     $pdf->Cell(0, 4, 'Personal Sales: S$' . $salaryVoucherData['personal_sales'], 0, 1, 'L', false);
 
-    if (is_infinite($totalPayout / $salaryVoucherData['personal_sales']) || is_nan($totalPayout / $salaryVoucherData['personal_sales'])) {
+    if ($salaryVoucherData['personal_sales'] == 0.00 || is_infinite($totalPayout / $salaryVoucherData['personal_sales']) || is_nan($totalPayout / $salaryVoucherData['personal_sales'])) {
         $percentage = "N/A";
     } else {
         $percentage = round(($totalPayout / $salaryVoucherData['personal_sales']) * 100, 2);

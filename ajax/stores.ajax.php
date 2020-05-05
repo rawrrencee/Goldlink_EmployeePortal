@@ -15,6 +15,8 @@ class AjaxStores
     public function getAllStores()
     {
 
+        $item = null;
+        $value = null;
         $answer = StoreController::ctrViewAllStores($item, $value);
         
         $reorderedList = [];
