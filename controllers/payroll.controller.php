@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 class PayrollController
 {
@@ -109,7 +111,7 @@ class PayrollController
 
     public static function ctrCreateNewSalaryVoucher()
     {
-        if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] == null) {
+        if (isset($_POST['newIsDraft']) && !isset($_POST['currentVoucherId'])) {
             //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
@@ -429,7 +431,7 @@ class PayrollController
 
     public static function ctrEditSalaryVoucher()
     {
-        if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null) {
+        if (isset($_POST['newIsDraft']) && !isset($_POST['currentVoucherId'])) {
             //echo "<script type='text/javascript'> alert('EDITING DRAFT: " . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
@@ -760,7 +762,7 @@ class PayrollController
 
     public static function ctrOverwriteSalaryVoucher()
     {
-        if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null && $_POST['currentPersonId'] != null) {
+        if (isset($_POST['newIsDraft']) && isset($_POST['currentVoucherId']) && isset($_POST['currentPersonId'])) {
             //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
             //return;
 
@@ -1238,7 +1240,7 @@ class PayrollController
     public static function ctrUpdateSalaryVoucherStatus()
     {
 
-        if ($_POST['voucherIdToUpdate'] != null && ($_POST['voucherStatusToUpdate'] == "Approved" || $_POST['voucherStatusToUpdate'] == "Rejected" || $_POST['voucherStatusToUpdate'] == "Pending")) {
+        if (isset($_POST['voucherIdToUpdate']) && ($_POST['voucherStatusToUpdate'] == "Approved" || $_POST['voucherStatusToUpdate'] == "Rejected" || $_POST['voucherStatusToUpdate'] == "Pending")) {
 
             //echo "<script type='text/javascript'> alert('UPDATE: " . json_encode($_POST) . "') </script>";
 

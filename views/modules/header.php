@@ -36,7 +36,7 @@ NAVBAR
                 <li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-map-marker"></i><small>&nbsp;
                         <?php
-                        if ($_SESSION['store_name'] != "") {
+                        if (isset($_SESSION['store_name'])) {
                             echo ''.$_SESSION['store_name'].'';
                         } else {
                             echo 'Not Available';
@@ -109,7 +109,7 @@ NAVBAR
         <h3 class="control-sidebar-heading"><strong>Current Store</strong></h3>
         <h4 class="control-sidebar-subheading">
             <?php
-                if ($_SESSION['store_name'] != "") {
+                if (isset($_SESSION['store_name'])) {
                 echo ''.$_SESSION['store_name'].'';
                 } else {
                 echo 'Not Available';

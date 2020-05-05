@@ -294,10 +294,10 @@ class EmployeeController
                         $currentSalesAmount = EmployeeModel::mdlViewEmployeeCurrentSales($personId, $storeId, $month, $year);
                         $latestSalary = EmployeeModel::mdlViewLatestIndivSalaryVouchers($personId);
 
-                        if (is_null($currentSalesAmount[0]['total_sales'])) {
+                        if (!isset($currentSalesAmount[0]['total_sales'])) {
                             $currentSalesAmount[0]['total_sales'] = 0;
                         }
-                        if (is_null($latestSalary[0]['gross_pay'])) {
+                        if (!isset($latestSalary[0]['gross_pay'])) {
                             $latestSalary[0]['gross_pay'] = 0;
                         }
                         $currentSalesTarget[$index]['current_sales_amount'] = $currentSalesAmount[0]['total_sales'];
