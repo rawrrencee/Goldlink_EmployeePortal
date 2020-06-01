@@ -111,7 +111,7 @@ class PayrollController
 
     public static function ctrCreateNewSalaryVoucher()
     {
-        if (isset($_POST['newIsDraft']) && !isset($_POST['currentVoucherId'])) {
+        if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] == null) {
             //echo "<script type='text/javascript'> alert('" . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
@@ -431,7 +431,7 @@ class PayrollController
 
     public static function ctrEditSalaryVoucher()
     {
-        if (isset($_POST['newIsDraft']) && !isset($_POST['currentVoucherId'])) {
+        if (isset($_POST['newIsDraft']) != null && $_POST['currentVoucherId'] != null) {
             //echo "<script type='text/javascript'> alert('EDITING DRAFT: " . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS
@@ -762,7 +762,7 @@ class PayrollController
 
     public static function ctrOverwriteSalaryVoucher()
     {
-        if (isset($_POST['newIsDraft']) && isset($_POST['currentVoucherId']) && isset($_POST['currentPersonId'])) {
+        if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null && $_POST['currentPersonId'] != null) {
             //echo "<script type='text/javascript'> alert('EDITING: " . json_encode($_POST) . "') </script>";
             //return;
 
@@ -1240,7 +1240,7 @@ class PayrollController
     public static function ctrUpdateSalaryVoucherStatus()
     {
 
-        if (isset($_POST['voucherIdToUpdate']) && ($_POST['voucherStatusToUpdate'] == "Approved" || $_POST['voucherStatusToUpdate'] == "Rejected" || $_POST['voucherStatusToUpdate'] == "Pending")) {
+        if ($_POST['voucherIdToUpdate'] != null && ($_POST['voucherStatusToUpdate'] == "Approved" || $_POST['voucherStatusToUpdate'] == "Rejected" || $_POST['voucherStatusToUpdate'] == "Pending")) {
 
             //echo "<script type='text/javascript'> alert('UPDATE: " . json_encode($_POST) . "') </script>";
 
