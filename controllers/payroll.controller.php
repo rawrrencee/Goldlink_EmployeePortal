@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 class PayrollController
 {
@@ -429,7 +431,7 @@ class PayrollController
 
     public static function ctrEditSalaryVoucher()
     {
-        if ($_POST['newIsDraft'] != null && $_POST['currentVoucherId'] != null) {
+        if (isset($_POST['newIsDraft']) != null && $_POST['currentVoucherId'] != null) {
             //echo "<script type='text/javascript'> alert('EDITING DRAFT: " . json_encode($_POST) . "') </script>";
 
             //PARSE & SANITIZE ALL NON-ARRAY BASED INPUTS

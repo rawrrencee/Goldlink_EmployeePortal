@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION["loggedIn"]) || !$_SESSION["loggedIn"]) die("Invalid Authentication");
 
 require_once "../controllers/store.controller.php";
@@ -13,6 +15,8 @@ class AjaxStores
     public function getAllStores()
     {
 
+        $item = null;
+        $value = null;
         $answer = StoreController::ctrViewAllStores($item, $value);
         
         $reorderedList = [];
