@@ -627,9 +627,15 @@ if (isset($_GET['voucherId'])) {
     $pdf->Cell(0, 4, 'Number of reports handed up: ' . $salaryVoucherData['num_reports_submitted'], 0, 1, 'L', false);
 
     /* --- Cell --- */
-    $pdf->SetXY(10, $finalHeight + 28);
+    $pdf->SetXY(10, $finalHeight + 34);
     $pdf->SetFont('', 'BU', 12);
-    $pdf->Cell(0, 4, 'You will receive: S$' . $salaryVoucherData['final_amount'], 0, 1, 'L', false);
+    $payoutDateString = 'N.A. (Pending Approval)';
+    if ($salaryVoucherData['status'] == 'Approved') {
+        $payoutDate = date_create($salaryVoucherData['modified_on']);
+        $payoutDate->modify('+1 day');
+        $payoutDateString = date_format($payoutDate, 'd M Y');
+    }
+    $pdf->Cell(0, 4, 'You will receive: SGD ' . $salaryVoucherData['final_amount'] . ' by ' . $payoutDateString, 0, 1, 'L', false);
 
     /* --- Cell --- */
     $pdf->SetXY(13.5, $finalHeight + 45);
