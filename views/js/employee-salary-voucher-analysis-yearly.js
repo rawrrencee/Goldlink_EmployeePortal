@@ -85,15 +85,19 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
         success: function (answer) {
 
             var submittedPersonIds = [];
+            var submittedPersonNRICs = [];
             var submittedPersonNames = [];
 
             var submittedPersonIds_GAD = [];
+            var submittedPersonNRICs_GAD = [];
             var submittedPersonNames_GAD = [];
 
             var submittedPersonIds_Doro = [];
+            var submittedPersonNRICs_Doro = [];
             var submittedPersonNames_Doro = [];
 
             var submittedPersonIds_Goldtech = [];
+            var submittedPersonNRICs_Goldtech = [];
             var submittedPersonNames_Goldtech = [];
 
             $("#appendFinalAmountContent_yearly_GAD").html("");
@@ -120,16 +124,20 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
             for (var i = 0; i < answer.length; i++) {
                 if (!submittedPersonIds.includes(answer[i]['person_id'])) {
                     submittedPersonIds.push(answer[i]['person_id']);
+                    submittedPersonNRICs.push(answer[i]['nric']);
                     submittedPersonNames.push(answer[i]['pay_to_name']);
                 }
                 if (answer[i]['company_name'] == "Goldlink Asia Distribution Pte Ltd" && !submittedPersonIds_GAD.includes(answer[i]['person_id'])) {
                     submittedPersonIds_GAD.push(answer[i]['person_id']);
+                    submittedPersonNRICs_GAD.push(answer[i]['nric']);
                     submittedPersonNames_GAD.push(answer[i]['pay_to_name']);
                 } else if (answer[i]['company_name'] == "Doro International Pte Ltd" && !submittedPersonIds_Doro.includes(answer[i]['person_id'])) {
                     submittedPersonIds_Doro.push(answer[i]['person_id']);
+                    submittedPersonNRICs_Doro.push(answer[i]['nric']);
                     submittedPersonNames_Doro.push(answer[i]['pay_to_name']);
                 } else if (answer[i]['company_name'] == "Goldlink Technologies Pte Ltd" && !submittedPersonIds_Goldtech.includes(answer[i]['person_id'])) {
                     submittedPersonIds_Goldtech.push(answer[i]['person_id']);
+                    submittedPersonNRICs_Goldtech.push(answer[i]['nric']);
                     submittedPersonNames_Goldtech.push(answer[i]['pay_to_name']);
                 }
             }
@@ -137,6 +145,7 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
             for (var j = 0; j < submittedPersonIds_GAD.length; j++) {
 
                 var personId = submittedPersonIds_GAD[j];
+                var nric = submittedPersonNRICs_GAD[j];
                 var payToName = submittedPersonNames_GAD[j];
 
                 deduction_SHG = 0.00;
@@ -416,12 +425,13 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                     }
                 }
 
-                printTable_GAD(personId, payToName, finalAmount_GAD, totalFinalAmount_GAD, grossPay_GAD, totalGrossPay_GAD, cpfEmployee_GAD, totalCPFEmployee_GAD, selfHelpGroups_GAD, totalSelfHelpGroups_GAD);
+                printTable_GAD(personId, nric, payToName, finalAmount_GAD, totalFinalAmount_GAD, grossPay_GAD, totalGrossPay_GAD, cpfEmployee_GAD, totalCPFEmployee_GAD, selfHelpGroups_GAD, totalSelfHelpGroups_GAD);
             }
 
             for (var j = 0; j < submittedPersonIds_Doro.length; j++) {
 
                 var personId = submittedPersonIds_Doro[j];
+                var nric = submittedPersonNRICs_Doro[j];
                 var payToName = submittedPersonNames_Doro[j];
 
                 deduction_SHG = 0.00;
@@ -701,12 +711,13 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                     }
                 }
 
-                printTable_Doro(personId, payToName, finalAmount_Doro, totalFinalAmount_Doro, grossPay_Doro, totalGrossPay_Doro, cpfEmployee_Doro, totalCPFEmployee_Doro, selfHelpGroups_Doro, totalSelfHelpGroups_Doro);
+                printTable_Doro(personId, nric, payToName, finalAmount_Doro, totalFinalAmount_Doro, grossPay_Doro, totalGrossPay_Doro, cpfEmployee_Doro, totalCPFEmployee_Doro, selfHelpGroups_Doro, totalSelfHelpGroups_Doro);
             }
 
             for (var j = 0; j < submittedPersonIds_Goldtech.length; j++) {
 
                 var personId = submittedPersonIds_Goldtech[j];
+                var nric = submittedPersonNRICs_Goldtech[j];
                 var payToName = submittedPersonNames_Goldtech[j];
 
                 deduction_SHG = 0.00;
@@ -986,7 +997,7 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
                     }
                 }
 
-                printTable_Goldtech(personId, payToName, finalAmount_Goldtech, totalFinalAmount_Goldtech, grossPay_Goldtech, totalGrossPay_Goldtech, cpfEmployee_Goldtech, totalCPFEmployee_Goldtech, selfHelpGroups_Goldtech, totalSelfHelpGroups_Goldtech);
+                printTable_Goldtech(personId, nric, payToName, finalAmount_Goldtech, totalFinalAmount_Goldtech, grossPay_Goldtech, totalGrossPay_Goldtech, cpfEmployee_Goldtech, totalCPFEmployee_Goldtech, selfHelpGroups_Goldtech, totalSelfHelpGroups_Goldtech);
             }
 
             for (var i = 0; i < 12; i++) {
@@ -1237,10 +1248,10 @@ $('.fetchSalaryVoucherAnalysisYearly').click(function () {
     });
 });
 
-function printTable_GAD(personId, payToName, finalAmount, totalFinalAmount, grossPay, totalGrossPay, cpfEmployee_GAD, totalCPFEmployee_GAD, selfHelpGroups_GAD, totalSelfHelpGroups_GAD) {
+function printTable_GAD(personId, nric, payToName, finalAmount, totalFinalAmount, grossPay, totalGrossPay, cpfEmployee_GAD, totalCPFEmployee_GAD, selfHelpGroups_GAD, totalSelfHelpGroups_GAD) {
     $('#appendFinalAmountContent_yearly_GAD').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(finalAmount[0]).toFixed(2) + `</td>
         <td align="right">` + Number(finalAmount[1]).toFixed(2) + `</td>
@@ -1260,7 +1271,7 @@ function printTable_GAD(personId, payToName, finalAmount, totalFinalAmount, gros
 
     $('#appendAnalysisContent_yearly_GAD').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(grossPay[0]).toFixed(2) + `</td>
         <td align="right">` + Number(grossPay[1]).toFixed(2) + `</td>
@@ -1280,7 +1291,7 @@ function printTable_GAD(personId, payToName, finalAmount, totalFinalAmount, gros
 
     $('#appendCPFEmployeeContent_yearly_GAD').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(cpfEmployee_GAD[0]).toFixed(2) + `</td>
         <td align="right">` + Number(cpfEmployee_GAD[1]).toFixed(2) + `</td>
@@ -1300,7 +1311,7 @@ function printTable_GAD(personId, payToName, finalAmount, totalFinalAmount, gros
 
     $('#appendDeductionsSHGContent_yearly_GAD').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(selfHelpGroups_GAD[0]).toFixed(2) + `</td>
         <td align="right">` + Number(selfHelpGroups_GAD[1]).toFixed(2) + `</td>
@@ -1319,10 +1330,10 @@ function printTable_GAD(personId, payToName, finalAmount, totalFinalAmount, gros
     `);
 }
 
-function printTable_Doro(personId, payToName, finalAmount, totalFinalAmount, grossPay,  totalGrossPay, cpfEmployee_Doro, totalCPFEmployee_Doro, selfHelpGroups_Doro, totalSelfHelpGroups_Doro) {
+function printTable_Doro(personId, nric, payToName, finalAmount, totalFinalAmount, grossPay,  totalGrossPay, cpfEmployee_Doro, totalCPFEmployee_Doro, selfHelpGroups_Doro, totalSelfHelpGroups_Doro) {
     $('#appendFinalAmountContent_yearly_Doro').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(finalAmount[0]).toFixed(2) + `</td>
         <td align="right">` + Number(finalAmount[1]).toFixed(2) + `</td>
@@ -1342,7 +1353,7 @@ function printTable_Doro(personId, payToName, finalAmount, totalFinalAmount, gro
 
     $('#appendAnalysisContent_yearly_Doro').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(grossPay[0]).toFixed(2) + `</td>
         <td align="right">` + Number(grossPay[1]).toFixed(2) + `</td>
@@ -1362,7 +1373,7 @@ function printTable_Doro(personId, payToName, finalAmount, totalFinalAmount, gro
 
     $('#appendCPFEmployeeContent_yearly_Doro').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(cpfEmployee_Doro[0]).toFixed(2) + `</td>
         <td align="right">` + Number(cpfEmployee_Doro[1]).toFixed(2) + `</td>
@@ -1382,7 +1393,7 @@ function printTable_Doro(personId, payToName, finalAmount, totalFinalAmount, gro
 
     $('#appendDeductionsSHGContent_yearly_Doro').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(selfHelpGroups_Doro[0]).toFixed(2) + `</td>
         <td align="right">` + Number(selfHelpGroups_Doro[1]).toFixed(2) + `</td>
@@ -1401,10 +1412,10 @@ function printTable_Doro(personId, payToName, finalAmount, totalFinalAmount, gro
     `);
 }
 
-function printTable_Goldtech(personId, payToName, finalAmount, totalFinalAmount, grossPay, totalGrossPay, cpfEmployee_Goldtech, totalCPFEmployee_Goldtech, selfHelpGroups_Goldtech, totalSelfHelpGroups_Goldtech) {
+function printTable_Goldtech(personId, nric, payToName, finalAmount, totalFinalAmount, grossPay, totalGrossPay, cpfEmployee_Goldtech, totalCPFEmployee_Goldtech, selfHelpGroups_Goldtech, totalSelfHelpGroups_Goldtech) {
     $('#appendAnalysisContent_yearly_Goldtech').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(finalAmount[0]).toFixed(2) + `</td>
         <td align="right">` + Number(finalAmount[1]).toFixed(2) + `</td>
@@ -1424,7 +1435,7 @@ function printTable_Goldtech(personId, payToName, finalAmount, totalFinalAmount,
 
     $('#appendAnalysisContent_yearly_Goldtech').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(grossPay[0]).toFixed(2) + `</td>
         <td align="right">` + Number(grossPay[1]).toFixed(2) + `</td>
@@ -1444,7 +1455,7 @@ function printTable_Goldtech(personId, payToName, finalAmount, totalFinalAmount,
 
     $('#appendCPFEmployeeContent_yearly_Goldtech').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(cpfEmployee_Goldtech[0]).toFixed(2) + `</td>
         <td align="right">` + Number(cpfEmployee_Goldtech[1]).toFixed(2) + `</td>
@@ -1464,7 +1475,7 @@ function printTable_Goldtech(personId, payToName, finalAmount, totalFinalAmount,
 
     $('#appendDeductionsSHGContent_yearly_Goldtech').append(`
         <tr>
-        <td>` + personId + `</td>
+        <td>` + nric + `</td>
         <td>` + payToName + `</td>
         <td align="right">` + Number(selfHelpGroups_Goldtech[0]).toFixed(2) + `</td>
         <td align="right">` + Number(selfHelpGroups_Goldtech[1]).toFixed(2) + `</td>
@@ -1482,4 +1493,3 @@ function printTable_Goldtech(personId, payToName, finalAmount, totalFinalAmount,
         </tr>
     `);
 }
-
